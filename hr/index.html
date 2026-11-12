@@ -1032,7 +1032,7 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .st-hero>*{position:relative}
 .st-hero-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .st-eyebrow{font:600 11px/1 Montserrat,Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C9C3F5}
-.st-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:7px 12px;font:600 12px/1 inherit;font-family:inherit;cursor:pointer;backdrop-filter:blur(6px)}
+.st-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:7px 12px;font-family:inherit;font-weight:600;font-size:12px;line-height:1;cursor:pointer;backdrop-filter:blur(6px)}
 .st-btn svg{width:14px;height:14px}
 .st-big{display:flex;align-items:flex-end;flex-wrap:wrap;gap:6px 12px;margin:14px 0 14px}
 .st-big>b{font:700 40px/0.95 Montserrat,Inter,sans-serif;letter-spacing:-.02em}
@@ -1084,6 +1084,111 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .sess-note{display:flex;gap:10px;align-items:flex-start;margin-top:4px;padding:12px;border-radius:14px;background:var(--paper);font-size:12.5px;line-height:1.45;color:var(--ink-2)}
 .sess-note svg{width:18px;height:18px;flex:0 0 auto;color:var(--ember);margin-top:1px}
 .sess-note b{color:var(--ink);font-weight:600}
+
+/* HR actions: ringkas & tajam */
+.hra{gap:10px}
+.hra-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.hra-s{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1px solid transparent;background:var(--paper);border-radius:14px;padding:9px 10px;font-family:inherit;text-align:left;cursor:pointer;color:var(--ink);transition:border-color .15s,background-color .15s}
+.hra-s b{font:700 20px/1 Montserrat,Inter,sans-serif}
+.hra-s span{font-size:11px;line-height:1.2;color:var(--haze);font-weight:500}
+.hra-s.con b{color:var(--error)}.hra-s.pro b{color:var(--ember-ink)}.hra-s.soon b{color:#9A4B00}
+.hra-s.on{border-color:var(--slate);box-shadow:inset 0 0 0 1px var(--slate)}
+.hra-s[disabled]{opacity:.45;cursor:default}.hra-s[disabled] b{color:var(--haze)}
+.hra-list{display:flex;flex-direction:column}
+.hra-r{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:9px 0;border-top:1px solid var(--line);font-family:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.hra-r:first-child{border-top:0}
+.hra-r .grow{min-width:0}
+.hra-r b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hra-r small{display:block;font-size:11.5px;color:var(--haze);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hra-dot{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;flex:0 0 auto;font-style:normal}
+.hra-dot svg{width:16px;height:16px}
+.hra-dot.con{background:var(--error-soft);color:var(--error)}.hra-dot.pro{background:var(--ember-soft);color:var(--ember-ink)}.hra-dot.stale{background:var(--mist-2);color:var(--haze)}
+.hra-w{font-style:normal;font-size:12px;font-weight:600;color:var(--ink-2);white-space:nowrap;flex:0 0 auto}
+.hra-w.red{color:var(--error)}.hra-w.orange{color:#9A4B00}
+.hra-more{align-self:center;border:0;background:none;color:var(--ember-ink);font-family:inherit;font-weight:600;font-size:13px;line-height:1;padding:6px 10px;cursor:pointer}
+.hra-ok{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-2)}
+.hra-ok svg{width:22px;height:22px;color:var(--mint);flex:0 0 auto}
+.hra-m{display:flex;flex-direction:column;gap:10px}
+.hra-ml{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;border-bottom:1px solid var(--line);padding-bottom:9px}
+.hra-ml span{color:var(--haze)}.hra-ml b{font-weight:600;text-align:right}
+.hra-ml .hra-w{margin-left:6px}
+.hra-step{display:flex;gap:10px;align-items:flex-start;background:var(--mist);border-radius:14px;padding:12px;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.hra-step svg{width:18px;height:18px;flex:0 0 auto;color:var(--ember);margin-top:2px}
+.hra-step small{display:block;color:var(--haze);font-size:11.5px;margin-top:4px}
+
+/* Coverage: simulasi lantai (gaya NARA slate) + barisan syif */
+.cv-hero{position:relative;overflow:hidden;border-radius:var(--r-xl,24px);padding:16px 14px 14px;color:#fff;background:linear-gradient(150deg,#262B66 0%,var(--slate) 48%,#2A1C6B 100%);display:flex;flex-direction:column;gap:10px}
+.cv-hero::before{content:"";position:absolute;left:0;right:0;top:0;height:150px;background-image:var(--corak);background-size:84px 219px;background-position:right -18px top -64px;opacity:.45;-webkit-mask-image:radial-gradient(70% 90% at 100% 0%,#000 0%,transparent 75%);mask-image:radial-gradient(70% 90% at 100% 0%,#000 0%,transparent 75%);pointer-events:none}
+.cv-hero>*{position:relative}
+.cv-top{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:0 4px}
+.cv-eb{display:block;font:600 10.5px/1 Montserrat,Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C9C3F5}
+.cv-time{display:block;font:700 38px/1 Montserrat,Inter,sans-serif;letter-spacing:-.02em;margin-top:6px;font-variant-numeric:tabular-nums}
+.cv-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.cv-cnt{display:flex;align-items:center;gap:6px}
+.cv-cnt b{font:700 26px/1 Montserrat,Inter,sans-serif;font-variant-numeric:tabular-nums}
+.cv-cnt span{font-size:11px;line-height:1.2;color:rgba(255,255,255,.7)}
+.cv-pill{font-style:normal;font-size:11.5px;font-weight:600;border-radius:999px;padding:4px 10px;background:rgba(255,255,255,.12);color:#fff}
+.cv-pill.green{background:rgba(51,214,198,.2);color:#7FF0E3}.cv-pill.orange{background:rgba(245,183,107,.22);color:#FFD49A}.cv-pill.red{background:rgba(255,107,107,.22);color:#FFB3B3}
+.cv-svg{width:100%;height:auto;display:block}
+.cv-fl{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.1)}
+.cv-kz{fill:rgba(140,123,255,.13)}.cv-cz{fill:rgba(45,156,255,.1)}.cv-dz{fill:rgba(51,214,198,.08)}
+.cv-zl{font:700 7.5px Montserrat,Inter,sans-serif;letter-spacing:.16em;fill:rgba(255,255,255,.42)}
+.cv-sl{font:600 6.4px Inter,sans-serif;letter-spacing:.1em;fill:rgba(255,255,255,.62)}
+.cv-ct{fill:rgba(255,255,255,.12);stroke:rgba(255,255,255,.16);stroke-width:.6}
+.cv-tb{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.16);stroke-width:.8}
+.cv-ch{fill:rgba(255,255,255,.12)}
+.cv-door{stroke:#33D6C6;stroke-width:2.4;stroke-linecap:round;opacity:.8}
+.cv-a{transform-box:fill-box;transform-origin:center;transition:opacity .35s ease,transform .35s cubic-bezier(.2,.8,.2,1.2);opacity:.16;transform:scale(.78)}
+.cv-p.on .cv-a{opacity:1;transform:none}
+.cv-a .cv-ring{fill:none;stroke:transparent;stroke-width:2.4}
+.cv-p.on .cv-ring{stroke:rgba(255,255,255,.55)}
+.cv-p.st-in .cv-ring{stroke:#33D6C6}.cv-p.st-late .cv-ring{stroke:#FF7A7A;stroke-dasharray:3 2.4}.cv-p.st-done .cv-ring{stroke:rgba(255,255,255,.25)}
+.cv-in{font:700 8.4px Inter,sans-serif;fill:#fff;text-anchor:middle}
+.cv-nm{font:600 7px Inter,sans-serif;fill:rgba(255,255,255,.9);text-anchor:middle}
+.cv-p:not(.on) .cv-nm{fill:rgba(255,255,255,.55)}
+.cv-tlw{position:relative;height:66px;margin:0 2px}
+.cv-tl{width:100%;height:66px;display:block}
+.cv-tlw input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:ew-resize;min-height:0;padding:0}
+.cv-area{fill:rgba(51,214,198,.24);stroke:#33D6C6;stroke-width:1.2;vector-effect:non-scaling-stroke}
+.cv-need{fill:none;stroke:#B48CFF;stroke-width:1.4;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+.cv-cur{stroke:#fff;stroke-width:1.4;vector-effect:non-scaling-stroke}
+.cv-nowl{stroke:rgba(255,255,255,.3);stroke-width:1;stroke-dasharray:2 2;vector-effect:non-scaling-stroke}
+.cv-dot{fill:#fff;stroke:#33D6C6;stroke-width:2}
+.cv-tk{font:500 7px Inter,sans-serif;fill:rgba(255,255,255,.5)}
+.cv-ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cv-btn{display:inline-flex;align-items:center;gap:6px;border:0;background:#fff;color:var(--slate);border-radius:999px;padding:9px 14px;font-family:inherit;font-weight:600;font-size:13px;line-height:1;cursor:pointer}
+.cv-btn svg{width:15px;height:15px}
+.cv-live,.cv-pk{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:8px 12px;font-family:inherit;font-weight:600;font-size:12px;line-height:1;cursor:pointer}
+.cv-live.on{border-color:rgba(51,214,198,.5);color:#7FF0E3}
+.cv-pk{margin-left:auto}
+.cv-ctl .cv-btn{padding:8px 13px}
+.cv-leg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:10.5px;color:rgba(255,255,255,.62);padding:0 4px}
+.cv-leg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.lg-on{background:#7A3EFF;box-shadow:0 0 0 1.5px rgba(255,255,255,.55)}.lg-off{background:rgba(255,255,255,.18)}.lg-in{border:2px solid #33D6C6}.lg-late{border:2px dashed #FF7A7A}
+.cv-leg .lg-need{width:14px;height:0;border-radius:0;border-top:2px dashed #B48CFF;vertical-align:3px}
+.cv-empty{gap:6px;padding:20px 18px}.cv-empty b{font:700 20px/1.2 Montserrat,Inter,sans-serif;margin-top:6px}.cv-empty p{margin:0 0 8px;font-size:13px;color:rgba(255,255,255,.72)}.cv-empty .cv-btn{align-self:flex-start}
+.cv-line{gap:12px}
+.cv-g{display:flex;flex-direction:column;gap:8px}
+.cv-g+.cv-g{border-top:1px solid var(--line);padding-top:12px}
+.cv-gh{display:flex;align-items:baseline;gap:8px}
+.cv-gh b{font-size:14px;font-weight:700}
+.cv-gh small{font-size:12px;color:var(--haze);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cv-gh i{font-style:normal;font-size:12px;font-weight:700;color:var(--slate);background:var(--paper);border-radius:999px;padding:2px 8px}
+.cv-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cv-c{position:relative;display:inline-flex;align-items:center;gap:6px;border:0;background:var(--paper);border-radius:999px;padding:3px 10px 3px 3px;font-family:inherit;cursor:pointer;color:var(--ink);text-align:left}
+.cv-c .av{width:26px;height:26px;font-size:10px}
+.cv-c span{font-size:12.5px;font-weight:600;line-height:1.1}
+.cv-c small{display:block;font-size:10px;font-weight:500;color:var(--haze)}
+.cv-st{position:absolute;left:21px;top:2px;width:9px;height:9px;border-radius:50%;border:2px solid var(--paper)}
+.cv-st.in{background:var(--mint-2)}.cv-st.late{background:var(--error)}.cv-st.done{background:var(--haze)}
+.cv-g.off .cv-c{opacity:.8}
+.cv-nb{display:flex;align-items:center;gap:10px;background:var(--paper);border-radius:16px;padding:10px 12px}
+.cv-nb b{display:block;font-size:13.5px}.cv-nb small{display:block;font-size:11.5px;color:var(--haze);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cv-nb .grow{min-width:0}
+.cv-stack{display:flex;flex:0 0 auto}
+.cv-stack .av{width:26px;height:26px;font-size:9.5px;box-shadow:0 0 0 2px var(--paper)}
+.cv-stack .av+.av{margin-left:-8px}
+.cv-more{--c:var(--mist-2);color:var(--slate)!important}
 </style>
 
 </head>
@@ -2888,6 +2993,41 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
   }
   function urusErr(e) { urusBody(errBox(e)); }
 
+  /* ---------- HR actions: ringkas — 3 kumpulan boleh ditapis, 4 baris paling mendesak, "See all" ---------- */
+  function hraPrep(list) {
+    var t0 = today().getTime();
+    return list.map(function (a, i) {
+      var dt = a.tarikh ? parseYmdL(a.tarikh) : null, days = dt ? Math.round((dt.getTime() - t0) / 864e5) : 0;
+      var con = /^Kontrak/.test(a.tindakan || ''), late = days < 0, stale = late && !con && days < -365;
+      var g = stale ? 3 : late ? (con ? 0 : 1) : 2;
+      var lbl = con ? (late ? 'Contract expired' : 'Contract ends') : stale ? 'No confirm date · check record' : late ? 'Probation over · confirm' : 'Probation ends · confirm';
+      var when = !dt ? '' : days === 0 ? 'Today' : days > 0 ? 'in ' + days + ' d' : stale ? 'since ' + dt.getFullYear() : -days < 60 ? -days + ' d ago' : Math.round(-days / 30.4) + ' mo ago';
+      return { i: i, a: a, dt: dt, days: days, con: con, late: late, stale: stale, g: g, lbl: lbl, when: when,
+        tone: stale ? '' : late ? 'red' : days <= 7 ? 'orange' : '' };
+    }).sort(function (x, y) { return x.g - y.g || x.days - y.days; });
+  }
+  function hraCard() {
+    var H = S.hra, L = H.list;
+    if (!L.length) return '<section class="card" id="hra"><div class="card-h"><h3>HR actions</h3></div><div class="hra-ok">' + svg('M5 12.5l4.5 4.5L19 7.5') + '<span>All contracts and probations are up to date.</span></div></section>';
+    var n = function (fn) { return L.filter(fn).length; };
+    var F = [['con', 'Contracts expired', n(function (x) { return x.con && x.late; }), function (x) { return x.con && x.late; }],
+      ['pro', 'To confirm', n(function (x) { return !x.con && x.late; }), function (x) { return !x.con && x.late; }],
+      ['soon', 'Due soon', n(function (x) { return !x.late; }), function (x) { return !x.late; }]];
+    var cur = F.filter(function (f) { return f[0] === H.f; })[0];
+    var rows = cur ? L.filter(cur[3]) : L, max = cur || H.all ? rows.length : 4;
+    var seg = '<div class="hra-seg">' + F.map(function (f) {
+      return '<button class="hra-s ' + f[0] + (H.f === f[0] ? ' on' : '') + '" data-act="hraF" data-v="' + f[0] + '"' + (f[2] ? '' : ' disabled') + '><b>' + f[2] + '</b><span>' + f[1] + '</span></button>';
+    }).join('') + '</div>';
+    var list = rows.slice(0, max).map(function (x) {
+      return '<button class="hra-r" data-act="hraOpen" data-v="' + x.i + '"><i class="hra-dot ' + (x.con ? 'con' : 'pro') + (x.stale ? ' stale' : '') + '">' + (x.con ? svg('M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 7 20zM14 3.5V8h4') : svg('M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z')) + '</i>' +
+        '<span class="grow"><b>' + h(titleCase(x.a.nama)) + '</b><small>' + h(x.a.cawangan) + ' · ' + h(x.lbl) + '</small></span>' +
+        '<span class="hra-w ' + x.tone + '">' + h(x.when) + '</span></button>';
+    }).join('');
+    var more = rows.length > max ? '<button class="hra-more" data-act="hraAll">See all ' + rows.length + '</button>' : (H.all && !cur && L.length > 4 ? '<button class="hra-more" data-act="hraAll">Show less</button>' : '');
+    return '<section class="card hra" id="hra"><div class="card-h"><h3>HR actions</h3><span class="chip' + (L.some(function (x) { return x.late && !x.stale; }) ? ' red' : '') + '">' + L.length + '</span></div>' + seg + '<div class="hra-list">' + list + '</div>' + more + '</section>';
+  }
+  function hraRedraw() { var c = $('hra'); if (c) c.outerHTML = hraCard(); }
+
   function uRingkasan() {
     swr([{ a: 'dashboard', mem: true }], function (res) {
       var d = res[0];
@@ -2917,36 +3057,197 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
           '<td>' + (c.belum ? '<span class="chip orange">' + c.belum + '</span>' : 0) + '</td><td>' + c.cuti + '</td>' +
           '<td>' + (c.isu ? '<span class="chip red">' + c.isu + '</span>' : 0) + '</td><td>' + c.mingguDepan + '/' + c.aktif + '</td></tr>';
       }).join('');
-      var act = d.tindakan.length ? d.tindakan.slice(0, 15).map(function (a) {
-        return '<div class="li"><div class="grow"><div style="font-weight:600">' + h(a.nama) + ' · ' + h(a.cawangan) + '</div><div class="muted">' + h(a.tindakan) + '</div></div><span class="chip">' + h(a.tarikh ? a.tarikh.split('-').reverse().join('/') : '') + '</span></div>';
-      }).join('') : '<div class="empty">No HR actions.</div>';
+      S.hra = { list: hraPrep(d.tindakan || []), f: '', all: false };
       urusBody('<div class="dash-grid">' + gaugeCard + '<div class="tiles dash-tiles">' + tiles + '</div></div>' +
         '<div class="cols"><section class="card"><div class="card-h"><h3>Branches today</h3></div><div class="table-box"><table><thead><tr><th>Branch</th><th>Active</th><th>Scheduled</th><th>Clock in</th><th>Late</th><th>Not yet</th><th>Leave</th><th>Issues</th><th>Next wk</th></tr></thead><tbody>' + rows + '</tbody></table></div></section>' +
-        '<section class="card"><div class="card-h"><h3>HR actions</h3><span class="muted">Contracts, probation</span></div><div class="list">' + act + '</div></section></div>');
+        hraCard() + '</div>');
     }, urusErr);
   }
 
+  /* ---------- Coverage: simulasi lantai bergambar (ikut jam) + barisan syif ringkas ----------
+     Lantai restoran (dapur ikut stesen, kaunter & pengurus, ruang makan) — avatar staf muncul ikut syif pada jam
+     dipilih; seret garis masa atau tekan Play untuk simulasi sehari; hari ini: status clock-in langsung. */
+  var CV_G = [['Pagi', 'Morning'], ['Tengah', 'Mid'], ['Split', 'Split'], ['Petang', 'Evening'], ['Lain', 'Other']];
+  function cvHM(m) { m = ((Math.round(m) % 1440) + 1440) % 1440; return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + m % 60).slice(-2); }
+  function cvMin(hm) { var x = /^(\d{1,2}):(\d{2})/.exec(String(hm || '')); return x ? +x[1] * 60 + +x[2] : null; }
   function uLiputan() {
     var d0 = S.date || ymd(today());
-    call('coverage', { cawangan: S.branch, tarikh: d0 }).then(function (c) {
-      var order = [['Pagi', 'blue'], ['Tengah', ''], ['Split', ''], ['Petang', 'orange'], ['Cuti', 'red'], ['Rehat', ''], ['Lain', ''], ['Belum', 'red']];
-      var max = Math.max(1, c.aktif);
-      var bars = order.map(function (o) {
-        var n = c.groups[o[0]].length;
-        return '<div class="row"><span style="width:96px">' + tr(o[0]) + '</span><div class="bar grow"><i style="width:' + Math.round(n / max * 100) + '%;background:' +
-          ({ blue: 'var(--blue)', orange: 'var(--orange)', red: 'var(--red)' }[o[1]] || 'var(--muted)') + '"></i></div><b style="width:24px;text-align:right">' + n + '</b></div>';
-      }).join('');
-      var people = order.filter(function (o) { return c.groups[o[0]].length; }).map(function (o) {
-        return '<div class="card"><span class="eyebrow">' + tr(o[0]) + '</span><div class="list">' + c.groups[o[0]].map(function (m) {
-          var st = m.masuk ? (m.keluar ? 'Out ' + m.keluar : 'In ' + m.masuk) : '';
-          return '<div class="li"><div><div style="font-weight:600">' + h(m.nama) + (m.bahagian ? ' · ' + h(m.bahagian) : '') + '</div><div class="muted">' + h(m.teks) + '</div></div>' +
-            (st ? '<span class="chip ' + chipFor(m.status || 'Hadir') + '">' + h(tr(st)) + '</span>' : (['Pagi', 'Tengah', 'Split', 'Petang'].indexOf(o[0]) >= 0 && c.tarikh === ymd(today()) ? '<span class="chip">Not in yet</span>' : '')) + '</div>';
-        }).join('') + '</div></div>';
-      }).join('');
-      urusBody('<div class="between wrap"><label>Date<input type="date" data-act="date" value="' + h(c.tarikh) + '"></label>' +
-        '<div class="muted">' + h(c.cawangan) + ' · on duty ' + c.bertugas + '/' + c.aktif + ' · clock in ' + c.hadir + '</div></div>' +
-        '<section class="card">' + bars + '</section><div class="tiles" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">' + people + '</div>');
-    }).catch(urusErr);
+    cvStop();
+    call('coverage', { cawangan: S.branch, tarikh: d0 }).then(function (c) { cvInit(c); cvRender(); }).catch(urusErr);
+  }
+  function cvZone(m, office) {
+    if (office) return 'desk';
+    var b = String(m.bahagian || '').toUpperCase(), st = String(m.stesen || '').toLowerCase();
+    if (b === 'BH' || b === 'DAPUR PUSAT') return /ayam|grill/.test(st) ? 'grill' : /western/.test(st) ? 'western' : /dish/.test(st) ? 'dish' : /chef/.test(st) ? 'pass' : 'kitchen';
+    if (b === 'FH') return 'dining';
+    return 'counter';
+  }
+  /* Kawasan setiap zon dalam viewBox 340×300 */
+  var CV_AREA = {
+    grill: { x: 12, y: 50, w: 78, h: 50 }, western: { x: 92, y: 50, w: 78, h: 50 }, dish: { x: 172, y: 50, w: 78, h: 50 }, pass: { x: 252, y: 50, w: 76, h: 50 },
+    counter: { x: 196, y: 136, w: 132, h: 26 }, dining: { x: 14, y: 190, w: 312, h: 92 }, desk: { x: 14, y: 40, w: 312, h: 240 }
+  };
+  function cvPlace(list, a) {
+    var n = list.length; if (!n) return;
+    var cols = Math.max(1, Math.min(n, Math.floor(a.w / 36))), rows = Math.ceil(n / cols);
+    var dy = rows > 1 ? Math.min(40, (a.h - 4) / (rows - 1 || 1)) : 0;
+    list.forEach(function (p, i) {
+      var r = Math.floor(i / cols), inRow = Math.min(cols, n - r * cols), c = i % cols, sx = a.w / inRow;
+      p.x = Math.round(a.x + sx * (c + 0.5)); p.y = Math.round(a.y + (rows > 1 ? r * dy + 10 : a.h / 2 - 2));
+    });
+  }
+  function cvInit(c) {
+    var office = c.cawangan === 'HQ', people = [], live = c.tarikh === ymd(today());
+    CV_G.forEach(function (g) { (c.groups[g[0]] || []).forEach(function (m) { if (m.blok && m.blok.length) people.push(m); }); });
+    // Dapur: staf BH tanpa stesen diletak di stesen paling lengang
+    var z = {};
+    people.forEach(function (m) { m.z = cvZone(m, office); (z[m.z] = z[m.z] || []).push(m); });
+    (z.kitchen || []).forEach(function (m) {
+      var best = ['grill', 'western', 'dish', 'pass'].sort(function (a, b) { return (z[a] || []).length - (z[b] || []).length; })[0];
+      m.z = best; (z[best] = z[best] || []).push(m);
+    });
+    delete z.kitchen;
+    Object.keys(z).forEach(function (k) { cvPlace(z[k], CV_AREA[k]); });
+    var t0 = 600, t1 = 1380;
+    if (people.length) {
+      t0 = Math.min.apply(null, people.map(function (m) { return Math.min.apply(null, m.blok.map(function (b) { return b[0]; })); }));
+      t1 = Math.max.apply(null, people.map(function (m) { return Math.max.apply(null, m.blok.map(function (b) { return b[1]; })); }));
+      t0 = Math.floor(t0 / 60) * 60; t1 = Math.ceil(t1 / 60) * 60;
+    }
+    var need = {}; (c.perlu || []).forEach(function (x) { need[x[0]] = x[1]; });
+    var tl = [];
+    for (var t = t0; t <= t1; t += 15) tl.push({ t: t, n: people.filter(function (m) { return cvOn(m, t); }).length, need: need[Math.floor((t % 1440) / 60)] });
+    var peak = tl.reduce(function (a, b) { return b.n > a.n ? b : a; }, tl[0]);
+    var nowM = new Date().getHours() * 60 + new Date().getMinutes(), nowT = Math.floor(nowM / 15) * 15;
+    var liveT = live && nowT >= t0 && nowT < t1 ? nowT : null;
+    S.cv = { c: c, people: people, office: office, t0: t0, t1: t1, tl: tl, peak: peak, live: liveT, t: liveT !== null ? liveT : (people.length ? peak.t : 720), timer: null, lmax: c.lebihMax || 2 };
+  }
+  function cvOn(m, t) { return m.blok.some(function (b) { return t >= b[0] && t < b[1]; }); }
+  /** Status clock-in langsung (hari ini sahaja): in / done / late / '' */
+  function cvLiveSt(m, nowM) {
+    if ((m.masuk && !m.keluar) || (m.masuk2 && !m.keluar2)) return 'in';
+    var cur = (m.blok || []).filter(function (b) { return b[0] + 5 <= nowM && nowM < b[1]; })[0];
+    if (!cur) return m.masuk ? 'done' : '';
+    var punched = cur === m.blok[0] ? m.masuk : m.masuk2; // syif split: sesi 2 perlu clock-in sendiri
+    return punched ? 'done' : 'late';
+  }
+  function cvFloor() {
+    var V = S.cv, o = V.office;
+    var bg = o
+      ? '<rect x="6" y="6" width="328" height="288" rx="18" class="cv-fl"/><text x="20" y="24" class="cv-zl">HQ OFFICE</text>' +
+        [0, 1, 2].map(function (r) { return [0, 1, 2, 3].map(function (c) { return '<rect x="' + (24 + c * 78) + '" y="' + (58 + r * 84) + '" width="58" height="22" rx="6" class="cv-tb"/>'; }).join(''); }).join('')
+      : '<rect x="6" y="6" width="328" height="288" rx="18" class="cv-fl"/>' +
+        '<rect x="10" y="10" width="320" height="118" rx="14" class="cv-kz"/><text x="20" y="24" class="cv-zl">KITCHEN · BH</text>' +
+        [['GRILL', 12], ['WESTERN', 92], ['DISH', 172], ['CHEF · PASS', 252]].map(function (s) { return '<rect x="' + (s[1] + 4) + '" y="30" width="' + (s[1] === 252 ? 68 : 70) + '" height="12" rx="4" class="cv-ct"/><text x="' + (s[1] + 39) + '" y="38.6" class="cv-sl" text-anchor="middle">' + s[0] + '</text>'; }).join('') +
+        '<rect x="10" y="132" width="320" height="36" rx="12" class="cv-cz"/><rect x="18" y="140" width="168" height="11" rx="4" class="cv-ct"/><text x="102" y="148" class="cv-sl" text-anchor="middle">COUNTER · CASHIER</text><text x="20" y="163" class="cv-zl">FRONT</text>' +
+        '<rect x="10" y="172" width="320" height="118" rx="14" class="cv-dz"/><text x="20" y="186" class="cv-zl">DINING · FH</text>' +
+        [[64, 214], [170, 214], [276, 214], [64, 266], [170, 266], [276, 266]].map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="12" class="cv-tb"/>' + [[-18, 0], [18, 0], [0, -17], [0, 17]].map(function (d) { return '<circle cx="' + (p[0] + d[0]) + '" cy="' + (p[1] + d[1]) + '" r="3" class="cv-ch"/>'; }).join(''); }).join('') +
+        '<path d="M300 289.5h24" class="cv-door"/>';
+    var av = V.people.map(function (m, i) {
+      var col = AVC[(m.id.charCodeAt(m.id.length - 1) + i) % AVC.length];
+      return '<g class="cv-p" id="cvp-' + i + '" transform="translate(' + m.x + ' ' + m.y + ')"><g class="cv-a"><circle r="15" class="cv-ring"/><circle r="12" fill="' + col + '"/>' +
+        '<text class="cv-in" dy="3.6">' + h(initials(m.nama)) + '</text><text class="cv-nm" dy="25">' + h(titleCase(String(m.nama).split(' ')[0]).slice(0, 10)) + '</text></g></g>';
+    }).join('');
+    return '<svg class="cv-svg" viewBox="0 0 340 300" role="img" aria-label="Floor simulation">' + bg + av + '</svg>';
+  }
+  function cvChart() {
+    var V = S.cv, tl = V.tl, W = 340, H = 66, mx = Math.max.apply(null, tl.map(function (x) { return Math.max(x.n, x.need || 0); }).concat([2]));
+    var X = function (t) { return 8 + (t - V.t0) / Math.max(15, V.t1 - V.t0) * (W - 16); }, Y = function (n) { return H - 14 - n / mx * (H - 22); };
+    var area = 'M' + X(V.t0) + ' ' + Y(0) + tl.map(function (p) { return 'L' + X(p.t).toFixed(1) + ' ' + Y(p.n).toFixed(1) + 'L' + X(p.t + 15).toFixed(1) + ' ' + Y(p.n).toFixed(1); }).join('') + 'L' + X(V.t1) + ' ' + Y(0) + 'Z';
+    var nd = tl.filter(function (p) { return p.need !== undefined; });
+    var needP = nd.length ? 'M' + nd.map(function (p) { return X(p.t).toFixed(1) + ' ' + Y(p.need).toFixed(1) + 'L' + X(p.t + 15).toFixed(1) + ' ' + Y(p.need).toFixed(1); }).join('L') : '';
+    var ticks = '';
+    for (var t = V.t0; t <= V.t1; t += 120) ticks += '<text x="' + X(t).toFixed(1) + '" y="' + (H - 2) + '" class="cv-tk" text-anchor="middle">' + cvHM(t).slice(0, 2) + '</text>';
+    return '<div class="cv-tlw"><svg class="cv-tl" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true"><path d="' + area + '" class="cv-area"/>' + (needP ? '<path d="' + needP + '" class="cv-need"/>' : '') +
+      (V.live !== null ? '<line x1="' + X(V.live).toFixed(1) + '" x2="' + X(V.live).toFixed(1) + '" y1="4" y2="' + (H - 12) + '" class="cv-nowl"/>' : '') +
+      '<line id="cv-cur" y1="2" y2="' + (H - 12) + '" class="cv-cur"/><circle id="cv-dot" r="3.6" class="cv-dot"/>' + ticks + '</svg>' +
+      '<input type="range" id="cv-rng" min="' + V.t0 + '" max="' + (V.t1 - 15) + '" step="15" value="' + V.t + '" aria-label="Time of day"></div>';
+  }
+  function cvUpdate() {
+    var V = S.cv; if (!V || !$('cv-time')) return;
+    var t = V.t, isLive = V.live !== null && t === V.live, nowM = new Date().getHours() * 60 + new Date().getMinutes();
+    var on = 0;
+    V.people.forEach(function (m, i) {
+      var el = $('cvp-' + i); if (!el) return;
+      var a = cvOn(m, t); if (a) on++;
+      var st = isLive && a ? cvLiveSt(m, nowM) : '';
+      el.setAttribute('class', 'cv-p' + (a ? ' on' : '') + (st ? ' st-' + st : ''));
+    });
+    var p = V.tl.filter(function (x) { return x.t === t; })[0] || {}, need = p.need;
+    var diff = need === undefined ? null : on - need, tone = diff === null ? '' : diff < 0 ? 'red' : diff > V.lmax ? 'orange' : 'green';
+    $('cv-time').textContent = cvHM(t);
+    $('cv-cnt').innerHTML = '<b>' + on + '</b><span>on floor' + (need !== undefined ? '<br>need ' + need : '') + '</span>';
+    var pill = $('cv-pill');
+    pill.className = 'cv-pill ' + tone; pill.textContent = diff === null ? (on ? 'Scheduled' : 'Closed') : diff < 0 ? 'Short ' + Math.abs(diff) : diff > V.lmax ? 'Over ' + diff : 'Balanced';
+    $('cv-live').hidden = V.live === null; $('cv-live').className = 'cv-live' + (isLive ? ' on' : '');
+    $('cv-live').textContent = isLive ? '● Live' : 'Now';
+    var W = 340, X = 8 + (t + 7.5 - V.t0) / Math.max(15, V.t1 - V.t0) * (W - 16), mx = Math.max.apply(null, V.tl.map(function (x) { return Math.max(x.n, x.need || 0); }).concat([2]));
+    var cur = $('cv-cur'), dot = $('cv-dot');
+    if (cur) { cur.setAttribute('x1', X.toFixed(1)); cur.setAttribute('x2', X.toFixed(1)); dot.setAttribute('cx', X.toFixed(1)); dot.setAttribute('cy', (66 - 14 - (p.n || 0) / mx * 44).toFixed(1)); }
+    var r = $('cv-rng'); if (r && Number(r.value) !== t) r.value = t;
+    var pb = $('cv-play'); if (pb) pb.innerHTML = V.timer ? svg('M8 5v14M16 5v14') + '<span>Pause</span>' : svg('M7 4.5v15l12-7.5z') + '<span>Play day</span>';
+  }
+  function cvStop() { if (S.cv && S.cv.timer) { clearInterval(S.cv.timer); S.cv.timer = null; } }
+  function cvPlay() {
+    var V = S.cv; if (!V) return;
+    if (V.timer) { cvStop(); cvUpdate(); return; }
+    if (V.t >= V.t1 - 15) V.t = V.t0;
+    V.timer = setInterval(function () {
+      if (!$('cv-time') || S.urus !== 'liputan') { cvStop(); return; }
+      V.t += 15; if (V.t >= V.t1 - 15) { V.t = V.t1 - 15; cvStop(); }
+      cvUpdate();
+    }, 380);
+    cvUpdate();
+  }
+  function cvChip(m, g) {
+    var nowM = new Date().getHours() * 60 + new Date().getMinutes();
+    var st = S.cv.c.tarikh === ymd(today()) && m.blok && m.blok.length ? cvLiveSt(m, nowM) : '';
+    return '<button class="cv-c" data-act="cvOpen" data-v="' + h(m.id) + '">' + avatar(m.nama) + '<span>' + h(titleCase(String(m.nama).split(' ')[0])) + (g ? '<small>' + h(g) + '</small>' : '') + '</span>' + (st ? '<i class="cv-st ' + st + '" title="' + ({ in: 'Clocked in', done: 'Clocked out', late: 'Not in yet' }[st]) + '"></i>' : '') + '</button>';
+  }
+  function cvRender() {
+    var V = S.cv, c = V.c, dt = parseYmdL(c.tarikh), g = c.groups;
+    var nav = '<div class="att-top"><button class="icon-round" data-act="cvDay" data-v="-1" aria-label="Previous day">' + svg('M15 6l-6 6 6 6') + '</button>' +
+      '<label class="att-date"><span>' + h(fmtDay(dt)) + (c.tarikh === ymd(today()) ? ' · today' : '') + '</span><input type="date" data-act="date" value="' + h(c.tarikh) + '" aria-label="Choose date"></label>' +
+      '<button class="icon-round" data-act="cvDay" data-v="1" aria-label="Next day">' + svg('M9 6l6 6-6 6') + '</button></div>';
+    var sim = V.people.length
+      ? '<section class="cv-hero"><div class="cv-top"><div><span class="cv-eb">' + h(c.cawangan) + ' · floor simulation</span><b id="cv-time" class="cv-time">--:--</b></div>' +
+        '<div class="cv-r"><div id="cv-cnt" class="cv-cnt"></div><i id="cv-pill" class="cv-pill"></i></div></div>' + cvFloor() + cvChart() +
+        '<div class="cv-ctl"><button class="cv-btn" id="cv-play" data-act="cvPlay"></button><button class="cv-live" id="cv-live" data-act="cvNow" hidden></button>' +
+        '<button class="cv-pk" data-act="cvPeak">Peak ' + cvHM(V.peak.t) + ' · ' + V.peak.n + '</button></div>' +
+        '<div class="cv-leg"><span><i class="lg-on"></i>on shift</span><span><i class="lg-off"></i>off now</span>' + (V.live !== null ? '<span><i class="lg-in"></i>clocked in</span><span><i class="lg-late"></i>not in</span>' : '') + (c.perlu && c.perlu.length ? '<span><i class="lg-need"></i>needed</span>' : '') + '</div></section>'
+      : '<section class="cv-hero cv-empty"><span class="cv-eb">' + h(c.cawangan) + ' · floor simulation</span><b>No shifts on ' + h(fmtDay(dt)) + '</b><p>' + (g.Belum.length ? g.Belum.length + ' staff have no shift yet. Plan the day and the floor comes alive.' : 'Everyone is off or on leave.') + '</p>' +
+        (isMgr() ? '<button class="cv-btn" data-act="urusOpen" data-v="jadual">' + svg('M4 6h16M4 12h16M4 18h10') + '<span>Plan in Roster</span></button>' : '') + '</section>';
+    // Barisan syif: cip avatar ikut kumpulan, bukan senarai panjang
+    var lanes = CV_G.map(function (x) {
+      var L = (g[x[0]] || []).filter(function (m) { return !m.di; }); if (!L.length) return '';
+      var cnt = {}; L.forEach(function (m) { cnt[m.teks] = (cnt[m.teks] || 0) + 1; });
+      var tk = Object.keys(cnt).sort(function (a, b) { return cnt[b] - cnt[a]; })[0];
+      return '<div class="cv-g"><div class="cv-gh"><b>' + x[1] + '</b><small>' + h(tk) + (Object.keys(cnt).length > 1 ? ' +' : '') + '</small><i>' + L.length + '</i></div><div class="cv-chips">' + L.map(function (m) { return cvChip(m); }).join('') + '</div></div>';
+    }).join('');
+    var off = [].concat((g.Cuti || []).map(function (m) { return [m, 'Leave']; }), (g.Rehat || []).map(function (m) { return [m, 'Rest']; }), (g.Lain || []).filter(function (m) { return m.di; }).map(function (m) { return [m, 'At ' + m.di]; }));
+    var offH = off.length ? '<div class="cv-g off"><div class="cv-gh"><b>Off today</b><small>leave · rest · other branch</small><i>' + off.length + '</i></div><div class="cv-chips">' + off.map(function (x) { return cvChip(x[0], x[1]); }).join('') + '</div></div>' : '';
+    var nb = g.Belum || [];
+    var nbH = nb.length ? '<div class="cv-nb"><div class="cv-stack">' + nb.slice(0, 5).map(function (m) { return avatar(m.nama); }).join('') + (nb.length > 5 ? '<span class="av cv-more">+' + (nb.length - 5) + '</span>' : '') + '</div>' +
+      '<div class="grow"><b>' + nb.length + ' not scheduled</b><small>' + h(nb.slice(0, 3).map(function (m) { return titleCase(String(m.nama).split(' ')[0]); }).join(', ')) + (nb.length > 3 ? '…' : '') + '</small></div>' +
+      (isMgr() ? '<button class="btn small" data-act="urusOpen" data-v="jadual">Plan</button>' : '') + '</div>' : '';
+    var lineup = '<section class="card cv-line"><div class="card-h"><h3>Line-up</h3><span class="chip">' + c.bertugas + ' on duty' + (c.tarikh === ymd(today()) ? ' · ' + c.hadir + ' in' : '') + '</span></div>' +
+      (lanes || '<div class="empty">No one on shift.</div>') + offH + nbH + '</section>';
+    urusBody(nav + sim + lineup);
+    if (V.people.length) {
+      $('cv-rng').addEventListener('input', function (e) { cvStop(); V.t = Number(e.target.value); cvUpdate(); });
+      cvUpdate();
+    }
+  }
+  function cvOpen(id) {
+    var V = S.cv, c = V.c, m = null;
+    Object.keys(c.groups).forEach(function (k) { c.groups[k].forEach(function (x) { if (x.id === id) m = x; }); });
+    if (!m) return;
+    var line = function (a, b) { return b ? '<div class="att-l"><span>' + a + '</span><b>' + b + '</b></div>' : ''; };
+    var att = m.masuk ? h(m.masuk) + ' – ' + h(m.keluar || '…') + (m.masuk2 ? ' · ' + h(m.masuk2) + ' – ' + h(m.keluar2 || '…') : '') : '';
+    var sec = [m.bahagian, m.stesen].filter(Boolean).join(' · ');
+    modal(titleCase(m.nama), line('Section', h(sec)) + line('Shift', h((m.kod ? m.kod + ' · ' : '') + m.teks)) + line('Clock-in', att || (c.tarikh === ymd(today()) && m.blok && m.blok.length ? 'Not yet' : '')) +
+      line('Late', m.lewat ? h(m.lewat) + ' min' : '') + line('From branch', h(m.dari || '')) +
+      (m.blok && m.blok.length && V.people.length ? '<button class="btn block" data-act="cvJump" data-v="' + m.blok[0][0] + '" style="margin-top:12px">' + svg('M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z') + ' Show on floor at ' + cvHM(m.blok[0][0]) + '</button>' : ''));
   }
 
   function uKelulusan() {
@@ -4396,6 +4697,25 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
     payDl: function (el) { var f = S.data.payFiles.files[Number(el.dataset.i)]; downloadB64(f.nama, f.b64, 'text/csv'); },
     paySlip: function (el) { showPayslip(S.payMonth, el.dataset.id, false); },
     mySlip: function (el) { showPayslip(el.dataset.v, S.me.id, true); },
+    cvDay: function (el) { S.date = ymd(addDays(parseYmdL(S.cv ? S.cv.c.tarikh : ymd(today())), Number(el.dataset.v))); uLiputan(); },
+    cvPlay: function () { cvPlay(); },
+    cvNow: function () { if (S.cv && S.cv.live !== null) { cvStop(); S.cv.t = S.cv.live; cvUpdate(); } },
+    cvPeak: function () { if (S.cv) { cvStop(); S.cv.t = S.cv.peak.t; cvUpdate(); } },
+    cvOpen: function (el) { cvOpen(el.dataset.v); },
+    cvJump: function (el) { closeModal(); cvStop(); S.cv.t = Number(el.dataset.v); cvUpdate(); var hb = document.querySelector('.cv-hero'); if (hb) hb.scrollIntoView({ block: 'start', behavior: 'smooth' }); },
+    hraF: function (el) { S.hra.f = S.hra.f === el.dataset.v ? '' : el.dataset.v; S.hra.all = false; hraRedraw(); },
+    hraAll: function () { S.hra.all = !S.hra.all; hraRedraw(); },
+    hraOpen: function (el) {
+      var x = S.hra.list.filter(function (q) { return String(q.i) === el.dataset.v; })[0]; if (!x) return;
+      var a = x.a, dt = x.dt ? x.dt.getDate() + ' ' + MON[x.dt.getMonth()] + ' ' + x.dt.getFullYear() : '–';
+      var step = x.con ? (x.late ? 'Renew the contract (update <b>Tamat kontrak</b>), or set <b>Status</b> to Berhenti if they have left.' : 'Decide before ' + dt + ': renew (update <b>Tamat kontrak</b>) or let it end.')
+        : x.stale ? 'Probation ended in ' + x.dt.getFullYear() + ' with no confirmation date. Most likely only the record is missing: fill <b>Tarikh disahkan</b>.'
+        : 'Confirm (fill <b>Tarikh disahkan</b>) or extend probation (update <b>Tamat percubaan</b>).';
+      modal(titleCase(a.nama), '<div class="hra-m"><div class="hra-ml"><span>Full name</span><b>' + h(titleCase(a.namaPenuh || a.nama)) + '</b></div>' +
+        '<div class="hra-ml"><span>Branch</span><b>' + h(a.cawangan) + '</b></div>' +
+        '<div class="hra-ml"><span>' + (x.con ? 'Contract end' : 'Probation end') + '</span><b>' + h(dt) + ' <i class="hra-w ' + x.tone + '">' + h(x.when) + '</i></b></div>' +
+        '<div class="hra-step">' + svg('M5 12h14M13 6l6 6-6 6') + '<span>' + step + ' <small>Daftar Staf · ' + h(a.id) + '</small></span></div></div>');
+    },
     staffBranch: function (el) { S.branch = el.dataset.v; renderStaffing(S.data.staffing); var mb = document.querySelector('.modwin-body'); if (mb) mb.scrollTop = 0; else window.scrollTo(0, 0); },
     staffRefresh: function (el) {
       busy(el, true, 'Calculating…');
