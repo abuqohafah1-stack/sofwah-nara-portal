@@ -472,6 +472,66 @@ td.name{white-space:nowrap;font-weight:600;position:sticky;left:0;background:var
 .onb-ico{font-size:36px;line-height:1;margin-top:4px}
 .onb-dots{display:flex;gap:6px;justify-content:center}.onb-dots i{width:22px;height:5px;border-radius:9px;background:var(--mist-2)}.onb-dots i.on{background:var(--ember)}
 .onb .btn{min-height:48px}
+/* Pemilih julat tarikh cuti */
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld-l{font-size:13px;font-weight:500;color:var(--ink-2)}
+.rng{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;width:100%;min-height:66px;padding:10px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);color:var(--ink);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .15s,box-shadow .15s}
+.rng:focus-visible,.rng:active{outline:none;border-color:var(--ember);box-shadow:0 0 0 4px var(--ember-soft)}
+.rng-s{display:flex;flex-direction:column;gap:3px;min-width:0}
+.rng-s:last-child{text-align:right}
+.rng-s small{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:var(--haze);white-space:nowrap}
+.rng-s b{font:700 18px/1.2 Montserrat,Inter,system-ui,sans-serif;color:var(--slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rng-arr{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#8A55FF,var(--ember) 55%,#00C8B5 140%);box-shadow:0 6px 14px -6px rgba(91,46,209,.6)}
+.rng-arr svg{width:16px;height:16px;stroke-width:2.2}
+.rng-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:13px;color:var(--ink-2)}
+.rng-n{display:inline-flex;align-items:center;padding:5px 11px;border-radius:999px;background:linear-gradient(90deg,var(--ember-soft),#E3F8F5);color:var(--ember-ink);font-weight:600;font-size:13px}
+.rng-after b{color:var(--slate)}
+.rng-after .bad{color:var(--error);font-weight:600}
+.cal{display:flex;flex-direction:column;gap:12px;text-align:left}
+.cal-hint{text-align:center;font-weight:600;color:var(--slate)}
+.cal-steps{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:18px;background:rgba(27,31,75,.07)}
+.cal-steps button{border:0;background:transparent;border-radius:14px;padding:8px 12px;text-align:left;cursor:pointer;font:inherit;color:var(--ink-2);transition:background .2s,box-shadow .2s}
+.cal-steps button small{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--haze)}
+.cal-steps button b{font-size:15px;color:var(--slate);white-space:nowrap}
+.cal-steps button.on{background:#fff;box-shadow:0 4px 14px -4px rgba(27,31,75,.22)}
+.cal-steps button.on small{color:var(--ember-ink)}
+.cal-steps button:disabled{opacity:.5}
+.cal-nav{display:flex;align-items:center;justify-content:space-between}
+.cal-nav b{font:700 16px Montserrat,Inter,system-ui,sans-serif;color:var(--slate)}
+.cal-nav button{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--slate);background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.95);box-shadow:0 2px 8px rgba(27,31,75,.08)}
+.cal-nav button svg{width:16px;height:16px;stroke-width:2.2}
+.cal-nav button:disabled{opacity:.3;cursor:default}
+.cal-wd,.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.cal-wd i{font-style:normal;text-align:center;font-size:11px;font-weight:600;color:var(--haze)}
+.cal-grid{row-gap:4px}
+.cd{position:relative;height:42px;display:grid;place-items:center}
+.cd button{position:relative;z-index:1;width:40px;height:40px;border-radius:13px;border:0;background:transparent;font:600 15px Inter,system-ui,sans-serif;color:var(--slate);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.cd button:active{transform:scale(.92)}
+.cd.off button{color:#A2A7C2;font-weight:500}
+.cd.ph button::after{content:"";position:absolute;bottom:4px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--teal)}
+.cd.now button{box-shadow:inset 0 0 0 1.6px var(--ember)}
+.cd button:disabled{opacity:.25;cursor:default;transform:none}
+.cd.in{background:rgba(122,62,255,.13)}
+.cd.sr{background:linear-gradient(90deg,transparent 50%,rgba(122,62,255,.13) 50%)}
+.cd.er{background:linear-gradient(90deg,rgba(122,62,255,.13) 50%,transparent 50%)}
+.cd.in:nth-child(7n+1){border-radius:13px 0 0 13px}.cd.in:nth-child(7n){border-radius:0 13px 13px 0}
+.cd.in button{color:var(--ember-ink)}.cd.in.off button{color:#A893E6}
+.cd.s button,.cd.e button{color:#fff;background:linear-gradient(145deg,#9366FF,#7A3EFF 55%,#5B2ED1);box-shadow:0 8px 16px -8px rgba(91,46,209,.8)}
+.cd.s.ph button::after,.cd.e.ph button::after{background:#fff}
+.cal-legend{display:flex;gap:16px;justify-content:center;font-size:12px;color:var(--haze)}
+.cal-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:0}
+.lg-off{background:#C9CCE0}.lg-ph{background:var(--teal)}
+.cal-sum{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.95);font-size:13px;color:var(--ink-2)}
+.cal-acts{display:grid;grid-template-columns:1fr 1.6fr;gap:10px}
+.cal-acts .btn{min-height:50px}
+.cal-acts .btn.ghost{background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.95);color:var(--slate)}
+.modal.glass.cal-sheet{padding:calc(14px + env(safe-area-inset-top)) 16px calc(14px + env(safe-area-inset-bottom))}
+.modal.glass.cal-sheet .modal-card{max-width:380px;padding:22px 18px 18px;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px)}
+.modal.glass.cal-sheet .modal-head{margin-bottom:12px}
+@media (max-height:760px){.cd{height:38px}.cd button{width:36px;height:36px}.cal{gap:9px}}
+/* iPhone: input tarikh tidak melimpah keluar kad */
+input[type=date]{-webkit-appearance:none;appearance:none;display:block;min-width:0}
+input[type=date]::-webkit-date-and-time-value{text-align:left}
 /* Kotak kaca (Welcome / pengenalan): terapung di tengah, jauh dari tepi skrin */
 .modal.glass{align-items:center;padding:calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));background:radial-gradient(90% 55% at 12% 22%,rgba(122,62,255,.38),transparent 70%),radial-gradient(80% 50% at 92% 88%,rgba(0,200,181,.26),transparent 70%),rgba(18,22,56,.52);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);animation:fadeIn .25s ease}
 .modal.glass .modal-card{position:relative;max-width:360px;padding:28px 24px 22px;border-radius:32px;background:linear-gradient(155deg,rgba(255,255,255,.84),rgba(255,255,255,.62));backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);border:1px solid rgba(255,255,255,.78);box-shadow:0 34px 70px -22px rgba(8,10,40,.62),0 0 0 .5px rgba(255,255,255,.35),inset 0 1px 0 rgba(255,255,255,.95);animation:glassIn .42s cubic-bezier(.2,.9,.25,1)}
@@ -1339,6 +1399,12 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     LS.set('nara_token', r.token); LS.set('nara_me', JSON.stringify(r.me));
     // Skrin Hari Ini dihantar bersama jawapan log masuk: dipaparkan terus tanpa panggilan kedua
     if (r.today) { S.data.today = r.today; cacheSet('today', r.today); S.todayAt = Date.now(); }
+    // Data tab Schedule / Requests / Me / Team turut dihantar: tukar tab terus dipaparkan, tiada skeleton
+    if (r.boot) Object.keys(r.boot).forEach(function (k) {
+      var spec = { a: k, p: k === 'myWeek' ? { minggu: ymd(monday(today())) } : undefined, mem: k === 'dashboard' };
+      swrPut(spec, r.boot[k]);
+      FRESH[swrKey(spec.a, spec.p)] = { t: Date.now() + 24000, p: Promise.resolve(r.boot[k]) }; // segar 30 s: tiada panggilan semula
+    });
     if (r.me.email) LS.set('nara_email', r.me.email);
     ssSet('nara_alive', '1'); LS.del('nara_left');
     renderShell();
@@ -1868,8 +1934,13 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     var t = today();
     var form = '<section class="card"><div class="card-h"><h3>Apply for leave</h3></div><form data-form="leave">' +
       '<label>Leave type<select name="jenis" required>' + d.jenis.map(function (j) { return '<option>' + h(j) + '</option>'; }).join('') + '</select></label>' +
-      '<div class="two"><label>Start<input type="date" name="mula" required value="' + ymd(addDays(t, 1)) + '"></label>' +
-      '<label>End<input type="date" name="tamat" required value="' + ymd(addDays(t, 1)) + '"></label></div>' +
+      '<div class="fld"><span class="fld-l" id="rng-l">Dates</span>' +
+      '<button type="button" class="rng" data-act="rngOpen" aria-labelledby="rng-l" aria-describedby="rng-n">' +
+      '<span class="rng-s"><small id="rng-wa">Start</small><b id="rng-a"></b></span>' +
+      '<span class="rng-arr" aria-hidden="true">' + svg('M5 12h14M13 6l6 6-6 6') + '</span>' +
+      '<span class="rng-s"><small id="rng-wb">End</small><b id="rng-b"></b></span></button>' +
+      '<div class="rng-meta"><span class="rng-n" id="rng-n"></span><span class="rng-after" id="rng-after"></span></div></div>' +
+      '<input type="hidden" name="mula" value="' + ymd(addDays(t, 1)) + '"><input type="hidden" name="tamat" value="' + ymd(addDays(t, 1)) + '">' +
       '<label>Duration<select name="tempoh">' + (d.tempoh.length ? d.tempoh : ['Penuh']).map(function (j) { return '<option value="' + h(j) + '">' + h(tr(j)) + '</option>'; }).join('') + '</select></label>' +
       '<label>Reason<textarea name="sebab" maxlength="300" placeholder="Brief reason"></textarea></label>' +
       '<div class="row"><button type="button" class="btn ghost small" data-act="pickDoc" data-v="leave">Attach MC / document</button><span class="hint" id="doc-leave">Required for Sick Leave</span></div>' +
@@ -1884,8 +1955,111 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     }).join('') : '<div class="empty">No requests yet.</div>';
     $('mohon-body').innerHTML = '<div class="narrow"><div class="tiles">' + bal + '</div>' + form +
       '<section class="card"><div class="card-h"><h3>My requests</h3><span class="muted">' + d.senarai.length + '</span></div><div class="list">' + list + '</div></section></div>';
+    rngInit(d);
   }
 
+  /* ===== Pemilih julat tarikh cuti: tekan Mula, terus tekan Tamat dalam kalendar yang sama; tempoh & baki
+     dipaparkan serta-merta. Kiraan hari cuti sama seperti pelayan (hari kerja profil, tolak cuti umum). ===== */
+  var MONTH_L = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function rngInit(d) {
+    var f = document.querySelector('form[data-form=leave]'); if (!f) return;
+    var ph = {}; (d.cutiUmum || []).forEach(function (x) { ph[x] = 1; });
+    var tm = ymd(addDays(today(), 1));
+    S.rng = { a: tm, b: tm, work: String(d.hariKerja || '123456'), ph: ph, back: d.belakang || { 'Cuti Sakit': 7, 'Cuti Hospital': 14, 'Cuti Kecemasan': 3 },
+      max: d.maksHari || 100, fromAL: d.dariTahunan || ['Cuti Tahunan', 'Cuti Kecemasan'], baki: d.baki || [],
+      jenis: f.querySelector('[name=jenis]').value, tempoh: (f.querySelector('[name=tempoh]') || {}).value || 'Penuh' };
+    f.querySelector('[name=jenis]').addEventListener('change', function (e) {
+      var R = S.rng; R.jenis = e.target.value;
+      if (R.a < rngMin()) { R.a = R.b = R.back[R.jenis] ? ymd(today()) : tm; }
+      rngPaint();
+    });
+    var tp = f.querySelector('[name=tempoh]');
+    if (tp) tp.addEventListener('change', function (e) { S.rng.tempoh = e.target.value; if (e.target.value !== 'Penuh') S.rng.b = S.rng.a; rngPaint(); });
+    rngPaint();
+  }
+  function rngMin() { var R = S.rng; return ymd(addDays(today(), -(R.back[R.jenis] || 0))); }
+  function rngHalf() { return S.rng.tempoh && S.rng.tempoh !== 'Penuh'; }
+  function rngWd(s) { var d = parseYmdL(s); return String((d.getDay() + 6) % 7 + 1); }
+  /** {cal: hari kalendar, leave: hari cuti ditolak} — sama seperti leaveDays_ di pelayan */
+  function rngCount(a, b) {
+    var R = S.rng; b = b || a;
+    if (!a) return { cal: 0, leave: 0, off: 0 };
+    var cal = Math.round((parseYmdL(b) - parseYmdL(a)) / 864e5) + 1, n = 0;
+    for (var d = parseYmdL(a), i = 0; i < cal; i++, d = addDays(d, 1)) {
+      var s = ymd(d);
+      if (R.work.indexOf(rngWd(s)) < 0 || R.ph[s]) continue;
+      n++;
+    }
+    if (rngHalf() && n > 0) n = 0.5;
+    return { cal: cal, leave: n, off: cal - (rngHalf() ? (n ? 1 : 0) : n) };
+  }
+  function rngBal() {
+    var R = S.rng, t = R.fromAL.indexOf(R.jenis) >= 0 ? 'Cuti Tahunan' : (R.jenis === 'Cuti Sakit' ? 'Cuti Sakit' : '');
+    return t ? R.baki.filter(function (x) { return x.jenis === t; })[0] || null : null;
+  }
+  function rngText(a, b) {
+    var c = rngCount(a, b);
+    if (rngHalf()) return 'Half day · 0.5 leave day';
+    var t = c.cal + (c.cal === 1 ? ' day' : ' days');
+    if (c.leave !== c.cal) t += ' · ' + c.leave + ' leave day' + (c.leave === 1 ? '' : 's');
+    return t;
+  }
+  function rngAfterHtml(a, b) {
+    var bal = rngBal(); if (!bal) return '';
+    var left = Math.round((Number(bal.baki) - Number(bal.menunggu || 0) - rngCount(a, b).leave) * 10) / 10;
+    var nm = bal.jenis === 'Cuti Sakit' ? 'Sick leave' : 'Annual leave';
+    return left < 0 ? '<span class="bad">Not enough ' + nm.toLowerCase() + ' (short ' + (-left) + ')</span>' : nm + ' left after: <b>' + left + '</b> of ' + h(bal.kelayakan);
+  }
+  function rngPaint() {
+    var R = S.rng, f = document.querySelector('form[data-form=leave]'); if (!f || !R) return;
+    if (rngHalf()) R.b = R.a;
+    f.querySelector('[name=mula]').value = R.a; f.querySelector('[name=tamat]').value = R.b || R.a;
+    var A = parseYmdL(R.a), B = parseYmdL(R.b || R.a);
+    $('rng-wa').textContent = 'Start · ' + WDAY[A.getDay()]; $('rng-wb').textContent = 'End · ' + WDAY[B.getDay()];
+    var yr = today().getFullYear(), fmt = function (d) { return d.getDate() + ' ' + MON[d.getMonth()] + (d.getFullYear() !== yr ? ' ’' + String(d.getFullYear()).slice(2) : ''); };
+    $('rng-a').textContent = fmt(A); $('rng-b').textContent = fmt(B);
+    $('rng-n').textContent = rngText(R.a, R.b);
+    var af = $('rng-after'); af.innerHTML = rngAfterHtml(R.a, R.b);
+  }
+  function rngSheet() {
+    var R = S.rng, W = R.w, m = W.month, y = m.getFullYear(), mo = m.getMonth();
+    var lead = (new Date(y, mo, 1).getDay() + 6) % 7, nd = new Date(y, mo + 1, 0).getDate();
+    var min = rngMin(), tday = ymd(today());
+    var hi = W.pick === 'b' && W.a ? ymd(addDays(parseYmdL(W.a), R.max)) : ymd(addDays(today(), 400));
+    var lo = W.a, up = W.pick === 'b' ? null : W.b, cells = '';
+    for (var i = 0; i < lead; i++) cells += '<span class="cd blank"></span>';
+    for (var dd = 1; dd <= nd; dd++) {
+      var s = ymd(new Date(y, mo, dd)), cls = ['cd'], off = R.work.indexOf(rngWd(s)) < 0, ph = !!R.ph[s];
+      if (off) cls.push('off'); if (ph) cls.push('ph'); if (s === tday) cls.push('now');
+      if (lo && s === lo) cls.push('s');
+      if (up && s === up) cls.push('e');
+      if (lo && up && up !== lo) { if (s > lo && s < up) cls.push('in'); if (s === lo) cls.push('sr'); if (s === up) cls.push('er'); }
+      var dis = s < min || s > hi;
+      cells += '<span class="' + cls.join(' ') + '"><button type="button" data-act="rngDay" data-v="' + s + '"' + (dis ? ' disabled' : '') +
+        ' aria-pressed="' + (s === lo || s === up) + '" aria-label="' + h(WDAY[parseYmdL(s).getDay()] + ' ' + dd + ' ' + MONTH_L[mo]) + (off ? ', rest day' : '') + (ph ? ', public holiday' : '') + '">' + dd + '</button></span>';
+    }
+    var minM = parseYmdL(min), canPrev = y > minM.getFullYear() || (y === minM.getFullYear() && mo > minM.getMonth());
+    var lab = function (v) { if (!v) return '—'; var d = parseYmdL(v); return WDAY[d.getDay()] + ', ' + d.getDate() + ' ' + MON[d.getMonth()]; };
+    var half = rngHalf(), ready = W.a && (W.b || half);
+    return '<div class="cal">' +
+      (half ? '<div class="cal-hint">' + h(tr(R.tempoh)) + ': pick one date</div>'
+        : '<div class="cal-steps" role="group" aria-label="Choose start, then end">' +
+          '<button type="button" data-act="rngPick" data-v="a" class="' + (W.pick === 'a' ? 'on' : '') + '"><small>1 · Start</small><b>' + lab(W.a) + '</b></button>' +
+          '<button type="button" data-act="rngPick" data-v="b" class="' + (W.pick === 'b' ? 'on' : '') + '"' + (W.a ? '' : ' disabled') + '><small>2 · End</small><b>' + (W.pick === 'b' ? (W.b ? lab(W.b) : 'Tap a date') : lab(W.b)) + '</b></button></div>') +
+      '<div class="cal-nav"><button type="button" data-act="rngNav" data-v="-1" aria-label="Previous month"' + (canPrev ? '' : ' disabled') + '>' + svg('M15 5l-7 7 7 7') + '</button>' +
+      '<b aria-live="polite">' + MONTH_L[mo] + ' ' + y + '</b><button type="button" data-act="rngNav" data-v="1" aria-label="Next month">' + svg('M9 5l7 7-7 7') + '</button></div>' +
+      '<div class="cal-wd" aria-hidden="true"><i>Mon</i><i>Tue</i><i>Wed</i><i>Thu</i><i>Fri</i><i>Sat</i><i>Sun</i></div>' +
+      '<div class="cal-grid">' + cells + '</div>' +
+      '<div class="cal-legend"><span><i class="lg-off"></i>Your rest day</span><span><i class="lg-ph"></i>Public holiday</span></div>' +
+      '<div class="cal-sum"><span class="rng-n">' + (W.a ? rngText(W.a, W.b || W.a) : 'Pick your dates') + '</span><span class="rng-after">' + (W.a ? rngAfterHtml(W.a, W.b || W.a) : '') + '</span></div>' +
+      '<div class="cal-acts"><button type="button" class="btn ghost" data-act="rngReset">Reset</button><button type="button" class="btn" data-act="rngDone"' + (ready || W.a ? '' : ' disabled') + '>' + (W.pick === 'b' && !W.b ? 'Just ' + (W.a ? lab(W.a).split(',')[1].trim() : 'one day') : 'Done') + '</button></div></div>';
+  }
+  function rngRedraw() { var b = $('modal-body'); if (b && S.rng && S.rng.w) b.innerHTML = rngSheet(); }
+  function rngApply() {
+    var R = S.rng, W = R.w; if (!W || !W.a) return;
+    R.a = W.a; R.b = W.b || W.a; R.w = null;
+    closeModal(); rngPaint();
+  }
   function renderClaims(d) {
     S.docs = {};
     var form = '<section class="card"><div class="card-h"><h3>Submit a claim</h3></div><form data-form="claim">' +
@@ -1924,7 +2098,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
         '<span class="hint">NARA HR ' + h(me.versi || '') + ' · The People Management Platform</span></section>' +
         pushCard() +
         '<section class="card"><div class="card-h"><h3>Announcements</h3></div><div class="list">' + notis + '</div></section>' +
-        '<section class="card"><div class="card-h"><h3>Payslips</h3>' + (S.me.pinSet ? '<span class="chip blue">PIN on</span>' : '') + '</div><div class="list">' + (locked ? '<div class="empty">Payslips are protected by your PIN.<br><button class="btn small" data-act="unlockPin" style="margin-top:10px">Unlock with PIN</button></div>' : slips.length ? slips.map(function (p) {
+        '<section class="card"><div class="card-h"><h3>Payslips</h3>' + '<span class="chip ' + (S.me.pinSet ? 'blue">PIN on' : 'orange">Default PIN') + '</span>' + '</div><div class="list">' + (locked ? '<div class="empty">Payslips are protected by your PIN.<br><button class="btn small" data-act="unlockPin" style="margin-top:10px">Unlock with PIN</button></div>' : slips.length ? slips.map(function (p) {
           return '<div class="li"><div><div style="font-weight:600">' + h(p.label) + '</div><div class="muted">Net ' + rm(p.bersih) + (p.tarikhBayar ? ' · paid ' + h(p.tarikhBayar) : '') + '</div></div><div class="row"><button class="btn ghost small" data-act="mySlip" data-v="' + h(p.bulan) + '">PDF</button>' +
             '<a class="btn ghost small" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent('Salary summary ' + p.label + ' (Sofwah Arabic Grill): net pay RM ' + rm(p.bersih) + (p.tarikhBayar ? ', paid ' + p.tarikhBayar : '') + '. Full payslip in the NARA HR app.') + '">Share</a></div></div>';
         }).join('') : '<div class="empty">Payslips appear here once salary is paid through NARA HR.</div>') + '</div></section>' +
@@ -2025,18 +2199,24 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 
   function securityCard() {
     var set = S.me && S.me.pinSet;
-    return '<section class="card" id="sec-card"><div class="card-h"><h3>Security</h3><span class="chip ' + (set ? 'green' : '') + '">' + (set ? 'PIN on' : 'No PIN') + '</span></div>' +
-      '<div class="muted">' + (set ? 'Your 6-digit PIN protects Payslip and Profile.' : 'Set a 6-digit PIN to protect your Payslip and Profile. Optional.') + '</div>' +
-      '<details class="fold"><summary class="btn ghost block">' + (set ? 'Change PIN' : 'Set a PIN') + '</summary><form data-form="setPin">' + (set ? '<label>Current PIN<input name="currentPin" type="password" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required autocomplete="off"></label>' : '') +
-      '<div class="two"><label>' + (set ? 'New PIN' : 'Enter PIN') + '<input name="pin" type="password" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required autocomplete="off"></label>' +
+    // Belum pilih PIN sendiri → PIN lalai 123456 (medan Current PIN sudah diisi)
+    return '<section class="card" id="sec-card"><div class="card-h"><h3>Security</h3><span class="chip ' + (set ? 'green' : 'orange') + '">' + (set ? 'PIN on' : 'Default PIN') + '</span></div>' +
+      '<div class="muted">' + (set ? 'Your 6-digit PIN protects Payslip and Profile.' : 'Your PIN is the default <b>' + DEFAULT_PIN + '</b> until you choose your own. Set your own 6-digit PIN to keep your Payslip and Profile private.') + '</div>' +
+      '<details class="fold"' + (S.pinOpen ? ' open' : '') + '><summary class="btn ghost block">' + (set ? 'Change PIN' : 'Set my own PIN') + '</summary><form data-form="setPin">' +
+      '<label>Current PIN' + (set ? '' : ' (default)') + '<input name="currentPin" type="' + (set ? 'password' : 'text') + '" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required autocomplete="off"' + (set ? '' : ' value="' + DEFAULT_PIN + '"') + '></label>' +
+      '<div class="two"><label>New PIN<input name="pin" type="password" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required autocomplete="off"></label>' +
       '<label>Confirm PIN<input name="pin2" type="password" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required autocomplete="off"></label></div>' +
       '<button class="btn dark block" type="submit">' + (set ? 'Change PIN' : 'Set PIN') + '</button></form>' +
+      (set ? '<p class="hint">Forgot your PIN? <button type="button" class="link" data-act="pinForgot">Reset it with your password</button></p>' : '') +
       '<p class="hint">Forgot your password? Sign out › Forgot password.</p></details></section>';
   }
+  var DEFAULT_PIN = '123456';
 
   function pinPrompt(then) {
     S.pinThen = then;
-    modal('Enter your PIN', '<form data-form="unlockPin"><p class="muted">Your PIN protects Payslip and Profile.</p><label>PIN<input name="pin" type="password" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required autocomplete="off" autofocus></label><button class="btn block" type="submit">Unlock</button></form>');
+    var set = S.me && S.me.pinSet;
+    modal('Enter your PIN', '<form data-form="unlockPin"><p class="muted">' + (set ? 'Your PIN protects Payslip and Profile.' : 'Your PIN is the default <b>' + DEFAULT_PIN + '</b> until you set your own in Me › Security.') + '</p><label>PIN<input name="pin" type="password" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" required autocomplete="off" autofocus></label><button class="btn block" type="submit">Unlock</button>' +
+      (set ? '<div class="auth-links" style="justify-content:center"><button type="button" class="link" data-act="pinForgot">Forgot PIN?</button></div>' : '') + '</form>');
   }
 
   /** Banner ucapan / iklan HR: sekali sehari bagi setiap banner. */
@@ -3305,6 +3485,27 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
         '<button class="btn block danger" type="submit">Delete my account</button></form>' +
         '<p class="hint">You can create a new account later with your work email if you still work at Sofwah.</p>');
     },
+    pinForgot: function () {
+      modal('Reset your PIN', '<form data-form="resetMyPin"><p class="muted">Enter your account password. Your PIN will go back to the default <b>' + DEFAULT_PIN + '</b>, then you can set a new one.</p>' +
+        '<label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="btn block" type="submit">Reset PIN</button></form>');
+    },
+    rngOpen: function () {
+      var R = S.rng; if (!R) return;
+      R.w = { a: R.a, b: R.b, pick: 'a', month: new Date(parseYmdL(R.a).getFullYear(), parseYmdL(R.a).getMonth(), 1) };
+      modal('Leave dates', rngSheet(), 'glass cal-sheet');
+    },
+    rngPick: function (el) { var W = S.rng.w; if (!W) return; W.pick = el.dataset.v; if (W.pick === 'a') W.b = W.b || W.a; rngRedraw(); },
+    rngNav: function (el) { var W = S.rng.w; if (!W) return; W.month = new Date(W.month.getFullYear(), W.month.getMonth() + Number(el.dataset.v), 1); rngRedraw(); },
+    rngDay: function (el) {
+      var W = S.rng.w, s = el.dataset.v; if (!W) return;
+      buzz(8);
+      if (rngHalf()) { W.a = W.b = s; rngRedraw(); setTimeout(rngApply, 320); return; }
+      if (W.pick === 'a' || !W.a || s < W.a) { W.a = s; W.b = null; W.pick = 'b'; rngRedraw(); return; }
+      W.b = s; rngRedraw(); // julat penuh dipaparkan sekejap, kemudian ditutup sendiri
+      setTimeout(function () { if (S.rng.w === W) rngApply(); }, 450);
+    },
+    rngReset: function () { var W = S.rng.w; if (!W) return; W.a = null; W.b = null; W.pick = 'a'; rngRedraw(); },
+    rngDone: function () { rngApply(); },
     logout: function () {
       call('logout').catch(function () { /* abaikan */ });
       S.token = null; S.me = null; LS.del('nara_token'); LS.del('nara_me'); renderLogin();
@@ -3618,14 +3819,23 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       var d = formData(f);
       if (d.pin !== d.pin2) { busy(btn, false); toast('PINs don’t match.', true); return; }
       call('setPin', { pin: d.pin, currentPin: d.currentPin || '' }).then(function () {
-        S.me.pinSet = true; if (PWA) LS.set('nara_me', JSON.stringify(S.me));
+        S.me.pinSet = true; S.pinOpen = false; if (PWA) LS.set('nara_me', JSON.stringify(S.me));
         toast('PIN saved. Payslip and Profile are now protected.');
         var c = $('sec-card'); if (c) c.outerHTML = securityCard();
       }).catch(function (e) { busy(btn, false); fail(e); });
     },
     unlockPin: function (f, btn) {
-      call('unlockPin', formData(f)).then(function () { closeModal(); var t = S.pinThen; S.pinThen = null; if (t) t(); })
-        .catch(function (e) { busy(btn, false); fail(e); });
+      call('unlockPin', formData(f)).then(function (r) {
+        closeModal(); var t = S.pinThen; S.pinThen = null; if (t) t();
+        if (r && r.lalai) toast('You’re using the default PIN. Set your own in Me › Security.');
+      }).catch(function (e) { busy(btn, false); fail(e); });
+    },
+    resetMyPin: function (f, btn) {
+      call('resetMyPin', formData(f)).then(function () {
+        S.me.pinSet = false; S.pinOpen = true; if (PWA) LS.set('nara_me', JSON.stringify(S.me));
+        closeModal(); toast('PIN reset to the default ' + DEFAULT_PIN + '. Set your own PIN now.');
+        var c = $('sec-card'); if (c) { c.outerHTML = securityCard(); $('sec-card').scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+      }).catch(function (e) { busy(btn, false); fail(e); });
     },
     login: function (f, btn) {
       var d = formData(f);
