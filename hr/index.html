@@ -741,6 +741,9 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 .boot .nara-mark{width:96px;animation:naraNafas 1.6s ease-in-out infinite}
 .boot p{margin:6px 0 0;font:600 10px/1 Montserrat,Inter,system-ui,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:var(--slate-3)}
 @keyframes naraNafas{50%{transform:scale(.93);opacity:.72}}
+/* Pengenalan: arahan Add to Home Screen */
+.onb-how{margin:4px 0 2px;padding:12px 14px 12px 34px;border-radius:14px;background:var(--mist);text-align:left;font-size:14px;line-height:1.5;display:grid;gap:6px}
+.onb-k{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 4px;border-radius:6px;background:#fff;border:1px solid var(--line);font-size:12px}
 /* Selfie clock-in: kamera hadapan dalam app */
 .cam{position:relative;border-radius:22px;overflow:hidden;background:#0E1030;aspect-ratio:3/4;max-height:58vh;margin:0 auto;width:100%}
 .cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
@@ -1684,7 +1687,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   function warmGps() {
     if (S.geoWarm) return;
     S.geoWarm = true;
-    getPos().catch(function (e) { toast(e.message, true); });
+    geoPerm().then(function (p) { if (p === 'granted') getPos().catch(function () { /* diambil semula semasa clock in */ }); });
   }
 
   function onSelfie(file) {
@@ -1860,28 +1863,69 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 
   /* ======================= NARA v3 · Onboarding, kalendar, keselamatan, ucapan ======================= */
   function onbKey() { return 'nara_onb_' + (S.me ? S.me.id : ''); }
-  /** Selepas log masuk pertama di peranti ini: notifikasi → lokasi → kalendar (setiap satu sekali tekan). */
+  /* Pengenalan app: hanya langkah yang MASIH perlu, dan setiap langkah dipaparkan SEKALI sahaja bagi setiap
+     peranti (sama ada dibenarkan atau dilangkau). Kebenaran yang sudah diberi / ditolak tidak ditanya lagi. */
+  function onbSeenKey() { return 'nara_onb_seen_' + (S.me ? S.me.id : ''); }
+  function onbSeen() {
+    var o = {}; try { o = JSON.parse(LS.get(onbSeenKey()) || '{}') || {}; } catch (e) { o = {}; }
+    if (LS.get(onbKey()) === 'done') { o.push = o.loc = o.cal = 1; } // pengenalan versi lama sudah selesai
+    return o;
+  }
+  function onbMark(k) { var o = onbSeen(); o[k] = 1; LS.set(onbSeenKey(), JSON.stringify(o)); }
+  /** Status kebenaran lokasi tanpa memaparkan permintaan: granted | denied | prompt | unknown. */
+  function geoPerm() {
+    if (NATIVE && PLUG.Geolocation) {
+      return PLUG.Geolocation.checkPermissions().then(function (st) {
+        return st.location === 'granted' || st.coarseLocation === 'granted' ? 'granted' : st.location === 'denied' ? 'denied' : 'prompt';
+      }).catch(function () { return 'unknown'; });
+    }
+    if (navigator.permissions && navigator.permissions.query) return navigator.permissions.query({ name: 'geolocation' }).then(function (r) { return r.state; }).catch(function () { return 'unknown'; });
+    return Promise.resolve('unknown');
+  }
+  var ANDROID = /Android/i.test(navigator.userAgent);
+  function onbSteps() {
+    var seen = onbSeen(), ps = pushState();
+    return geoPerm().then(function (geo) {
+      var out = [];
+      if (!NATIVE && PWA && !STANDALONE && !seen.home && (IOS || ANDROID || S.installEvt)) {
+        out.push(IOS
+          ? { k: 'home', ico: '📲', t: 'Add NARA HR to your Home Screen', d: 'Opens like an app, faster, and needed on iPhone for notifications.', how: ['Tap <b>Share</b> <span class="onb-k">⬆︎</span> at the bottom of Safari', 'Choose <b>Add to Home Screen</b>', 'Tap <b>Add</b>, then open NARA HR from your Home Screen'] }
+          : { k: 'home', ico: '📲', t: 'Install NARA HR on your phone', d: 'Opens like an app from your Home Screen, faster, with notifications.', btn: S.installEvt ? 'Install app' : '', act: 'onbInstall', how: S.installEvt ? null : ['Tap the <b>⋮</b> menu in Chrome', 'Choose <b>Install app</b> or <b>Add to Home screen</b>'] });
+      }
+      if (!NATIVE && !seen.push && ps.s === 'sedia' && window.Notification && Notification.permission === 'default') {
+        out.push({ k: 'push', ico: '🔔', t: 'Turn on notifications', d: 'Shift reminders 30 minutes before you start, leave decisions and HR announcements.', btn: 'Allow notifications', act: 'onbPush' });
+      }
+      if (!seen.loc && geo !== 'granted' && geo !== 'denied') {
+        out.push({ k: 'loc', ico: '📍', t: 'Allow location', d: 'Used only when you clock in or out, to confirm you are at your branch.', btn: 'Allow location', act: 'onbLoc' });
+      }
+      if (!seen.cal && !LS.get('nara_cal_' + S.me.id)) {
+        out.push({ k: 'cal', ico: '📅', t: 'Add your shifts to Calendar', d: 'Your shifts, leave and public holidays appear in your phone calendar and update automatically.', btn: 'Add to Calendar', act: 'onbCal' });
+      }
+      return out;
+    });
+  }
   function onboarding(step) {
     if (window.NARA_PIN_LOGIN) return; // mod ujian lama
-    if (!step && S.onbShown) return;
-    S.onbShown = true;
-    if (!S.me || LS.get(onbKey()) === 'done') { showGreeting(); return; }
-    step = step || 1;
-    var ps = pushState();
-    var steps = [
-      { k: 1, ico: '🔔', t: 'Turn on notifications', d: 'Shift reminders 30 minutes before you start, leave decisions and HR announcements.', btn: ps.s === 'aktif' ? '' : ps.s === 'sedia' ? 'Allow notifications' : '', note: ps.s === 'sedia' || ps.s === 'aktif' ? '' : ps.t, act: 'onbPush' },
-      { k: 2, ico: '📍', t: 'Allow location', d: 'Used only when you clock in or out, to confirm you are at your branch.', btn: 'Allow location', act: 'onbLoc' },
-      { k: 3, ico: '📅', t: 'Add your shifts to Calendar', d: 'Your shifts, leave and public holidays appear in your phone calendar and update automatically.', btn: 'Add to Calendar', act: 'onbCal' }
-    ];
-    if (NATIVE) steps = steps.slice(1).map(function (y, i) { y.k = i + 1; return y; }); // app native: notifikasi native diurus berasingan
-    var x = steps[step - 1];
-    if (!x) { LS.set(onbKey(), 'done'); closeModal(); toast('You’re all set. Welcome to NARA HR.'); showGreeting(); return; }
+    if (!S.me) return;
+    if (!step) {
+      if (S.onbShown) return;
+      S.onbShown = true;
+      onbSteps().then(function (list) {
+        if (!list.length) { LS.set(onbKey(), 'done'); showGreeting(); return; }
+        S.onbList = list; onboarding(1);
+      });
+      return;
+    }
+    var steps = S.onbList || [], x = steps[step - 1];
+    if (!x) { LS.set(onbKey(), 'done'); S.onbList = null; closeModal(); toast('You’re all set. Welcome to NARA HR.'); showGreeting(); return; }
     S.onbStep = step;
-    if (!NATIVE && step === 1 && ps.s === 'sedia') pushPrefetch();
-    modal('Welcome to NARA HR', '<div class="onb"><div class="onb-dots">' + steps.map(function (y) { return '<i class="' + (y.k <= step ? 'on' : '') + '"></i>'; }).join('') + '</div>' +
-      '<div class="onb-ico">' + x.ico + '</div><h3>' + h(x.t) + '</h3><p class="muted">' + h(x.d) + '</p>' + (x.note ? '<p class="hint">' + h(x.note) + '</p>' : '') +
-      (x.btn ? '<button class="btn block" data-act="' + x.act + '">' + h(x.btn) + '</button>' : '<div class="chip green" style="align-self:center">Already on ✓</div>') +
-      '<button class="btn ghost block" data-act="onbNext">' + (step < steps.length ? 'Skip for now' : 'Finish') + '</button></div>');
+    onbMark(x.k); // dipaparkan sekali sahaja, walaupun app ditutup sebelum selesai
+    if (x.k === 'push') pushPrefetch();
+    modal('Welcome to NARA HR', '<div class="onb"><div class="onb-dots">' + steps.map(function (y, i) { return '<i class="' + (i < step ? 'on' : '') + '"></i>'; }).join('') + '</div>' +
+      '<div class="onb-ico">' + x.ico + '</div><h3>' + h(x.t) + '</h3><p class="muted">' + h(x.d) + '</p>' +
+      (x.how ? '<ol class="onb-how">' + x.how.map(function (li) { return '<li>' + li + '</li>'; }).join('') + '</ol>' : '') +
+      (x.btn ? '<button class="btn block" data-act="' + x.act + '">' + h(x.btn) + '</button>' : '') +
+      '<button class="btn ghost block" data-act="onbNext">' + (step < steps.length ? (x.btn ? 'Skip for now' : 'Next') : (x.btn ? 'Skip' : 'Done')) + '</button></div>');
   }
 
   function calendarCard() {
@@ -3124,6 +3168,13 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       if (pushState().s !== 'sedia') { onboarding((S.onbStep || 1) + 1); return; }
       pushOn(el, function () { onboarding((S.onbStep || 1) + 1); });
     },
+    onbInstall: function (el) {
+      var next = function () { onboarding((S.onbStep || 1) + 1); };
+      if (!S.installEvt) { toast('Use the ⋮ menu › Install app.'); return; }
+      busy(el, true, 'Waiting…');
+      S.installEvt.prompt();
+      S.installEvt.userChoice.then(function (r) { S.installEvt = null; if (r && r.outcome === 'accepted') toast('NARA HR installed ✓'); next(); }).catch(next);
+    },
     onbLoc: function (el) {
       busy(el, true, 'Waiting…');
       getPos().then(function () { toast('Location allowed ✓'); }).catch(function (e) { toast(e.message, true); })
@@ -3132,14 +3183,15 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     onbCal: function (el) {
       busy(el, true);
       call('calendarLink').then(function (l) {
-        LS.set(onbKey(), 'done'); closeModal();
+        LS.set('nara_cal_' + S.me.id, '1');
+        var more = (S.onbList || []).length > (S.onbStep || 1);
+        if (more) onboarding((S.onbStep || 1) + 1); else { LS.set(onbKey(), 'done'); S.onbList = null; closeModal(); showGreeting(); }
         calOpen(/Android/.test(navigator.userAgent) ? 'google' : 'apple', l);
-        showGreeting();
       }).catch(function (e) { busy(el, false); fail(e); });
     },
     calAdd: function (el) {
       busy(el, true);
-      call('calendarLink').then(function (l) { busy(el, false); calOpen(el.dataset.v, l); }).catch(function (e) { busy(el, false); fail(e); });
+      call('calendarLink').then(function (l) { busy(el, false); LS.set('nara_cal_' + S.me.id, '1'); calOpen(el.dataset.v, l); }).catch(function (e) { busy(el, false); fail(e); });
     },
     unlockPin: function () { pinPrompt(function () { loadLagi(); }); },
     greetClose: function (el) { var g = el.closest('.greet'); if (g) g.remove(); },
