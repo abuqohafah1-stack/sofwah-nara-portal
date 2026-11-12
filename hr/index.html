@@ -937,6 +937,19 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 .ph-oc button[aria-pressed=true][data-v=Open]{background:var(--mint-soft);color:var(--mint)}
 .ph-oc button[aria-pressed=true][data-v=Close]{background:var(--slate);color:#fff}
 .ph-tag.off{color:var(--haze);background:transparent}
+
+/* Face ID / passkey */
+.pk-btn{display:flex;align-items:center;justify-content:center;gap:10px}
+.pk-btn svg{width:22px;height:22px;stroke-width:1.8}
+.pk-list{display:flex;flex-direction:column;margin:12px 0 4px}
+.pk-dev{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.pk-dev:first-child{border-top:0}
+.pk-dev b{display:block;font-size:14px;font-weight:600;color:var(--ink)}.pk-dev small{font-size:12px;color:var(--haze)}
+.pk-ico{width:36px;height:36px;border-radius:12px;background:var(--ember-soft);color:var(--ember-ink);display:grid;place-items:center;flex:0 0 auto}
+.pk-ico svg{width:20px;height:20px}
+.pk-skel{height:44px;border-radius:12px;background:linear-gradient(90deg,var(--mist) 25%,var(--mist-2) 50%,var(--mist) 75%);background-size:200% 100%;animation:pkShim 1.2s infinite;margin:12px 0}
+@keyframes pkShim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+#pk-card .pk-btn{margin-top:12px}
 </style>
 
 </head>
@@ -1032,11 +1045,11 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   function isMgr() { return S.me && ['Manager', 'HR', 'Admin'].indexOf(S.me.role) >= 0; }
   function isHR() { return S.me && (S.me.role === 'HR' || S.me.role === 'Admin'); }
 
-  var AUTH_ACTIONS = { loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, pushRegister: 1, pushTest: 1 };
-  var WRITE_ACTIONS = { deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1 };
+  var AUTH_ACTIONS = { loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, pushRegister: 1, pushTest: 1, pkLogin: 1, pkRegister: 1 };
+  var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1 };
   // Tindakan payroll boleh ambil beberapa minit (slip PDF setiap staf): had masa klien dipanjangkan
   // Log masuk: had 20 s (bukan 45 s) — rangkaian tergantung (cth. tukar Wi-Fi → 4G) dicuba semula sekali secara automatik
-  var SHORT_ACTIONS = { loginEmail: 20000, logout: 15000, ping: 15000 };
+  var SHORT_ACTIONS = { loginEmail: 20000, logout: 15000, ping: 15000, pkLogin: 20000, pkLoginOptions: 15000 };
   var LONG_ACTIONS = { payrollRun: 300000, payrollFiles: 330000, exportPayroll: 120000, payrollSetup: 120000, staffing: 120000, staffingRefresh: 180000, lcMonitor: 300000, lcScan: 120000, lcDashboard: 90000, lcApproveSeeds: 120000, lcDecide: 90000 };
 
   /** Mod PWA (nara.sofwah.my/hr): panggil API JSON Apps Script terus dengan fetch, tanpa iframe. */
@@ -1370,15 +1383,125 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     var em = LS.get('nara_email') || '';
     $('app').innerHTML = '<div class="auth">' + LOGIN_HERO +
       '<form class="auth-card" data-form="loginEmail" autocomplete="on"><h1>Welcome back</h1><p class="muted">Sign in to your NARA HR account.</p>' +
+      (pkOk() && pkOnHere() ? '<button type="button" class="btn block pk-btn" data-act="pkSignIn">' + svg(PK_ICON) + '<span>Sign in with ' + pkTitle() + '</span></button><div class="auth-or"><span>or use your password</span></div>' : '') +
       '<label>Email<input name="email" type="email" value="' + h(em) + '" autocomplete="username" inputmode="email" required placeholder="name@email.com"></label>' +
       '<label>Password<span class="pw-wrap"><input name="password" type="password" autocomplete="current-password" required placeholder="Your password"><button type="button" class="pw-eye" data-act="pwEye" aria-label="Show password">Show</button></span></label>' +
-      '<div class="auth-links" style="justify-content:flex-end"><button type="button" class="link" data-act="authFlow" data-v="forgot">Forgot password?</button></div>' +
+      '<div class="auth-links" style="justify-content:' + (pkOk() && !pkOnHere() ? 'space-between' : 'flex-end') + '">' + (pkOk() && !pkOnHere() ? '<button type="button" class="link" data-act="pkSignIn">Use ' + pkTitle() + '</button>' : '') + '<button type="button" class="link" data-act="authFlow" data-v="forgot">Forgot password?</button></div>' +
       (msg ? '<div class="err">' + h(msg) + '</div>' : '') +
       '<button class="btn block" type="submit">Sign in</button>' +
       '<div class="auth-or"><span>New to NARA HR?</span></div>' +
       '<button type="button" class="btn ghost block" data-act="authFlow" data-v="signup">Create account</button></form></div>';
     var f = document.querySelector('[name=' + (em ? 'password' : 'email') + ']');
-    if (f) f.focus();
+    if (f && !(pkOk() && pkOnHere())) f.focus(); // Face ID aktif: papan kekunci tidak dibuka
+  }
+
+  /* ======================= Face ID / passkey (WebAuthn) — PWA nara.sofwah.my ======================= */
+  var PK_ICON = 'M7 3.5H5.5a2 2 0 0 0-2 2V7M17 3.5h1.5a2 2 0 0 1 2 2V7M7 20.5H5.5a2 2 0 0 1-2-2V17M17 20.5h1.5a2 2 0 0 0 2-2V17M9 9v1.5M15 9v1.5M12 9v4.2h-1M9.3 16.2a4 4 0 0 0 5.4 0';
+  var PK_HOSTS = { 'nara.sofwah.my': 1, localhost: 1 };
+  function pkOk() { return !NATIVE && !!window.PublicKeyCredential && !!PK_HOSTS[location.hostname] && !!(navigator.credentials && navigator.credentials.get); }
+  function pkName() { var u = navigator.userAgent; return /iPhone|iPad|iPod/.test(u) ? 'Face ID' : /Macintosh/.test(u) ? 'Touch ID' : /Android/.test(u) ? 'fingerprint' : /Windows/.test(u) ? 'Windows Hello' : 'passkey'; }
+  function pkTitle() { var n = pkName(); return n === 'fingerprint' ? 'Fingerprint' : n === 'passkey' ? 'Passkey' : n; }
+  function pkDevice() {
+    var u = navigator.userAgent, d = /iPhone/.test(u) ? 'iPhone' : /iPad/.test(u) ? 'iPad' : /Android/.test(u) ? 'Android phone' : /Macintosh/.test(u) ? 'Mac' : /Windows/.test(u) ? 'Windows PC' : 'Device';
+    var b = /Edg\//.test(u) ? 'Edge' : /CriOS|Chrome\//.test(u) ? 'Chrome' : /Firefox|FxiOS/.test(u) ? 'Firefox' : /Safari/.test(u) ? 'Safari' : '';
+    return d + (STANDALONE ? ' · app' : b ? ' · ' + b : '');
+  }
+  function pkOnHere() { return LS.get('nara_pk_on') === '1'; }
+  function b2u(buf) { var b = new Uint8Array(buf), s = ''; for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); }
+  function u2b(x) { x = String(x).replace(/-/g, '+').replace(/_/g, '/'); while (x.length % 4) x += '='; var bin = atob(x), b = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i); return b.buffer; }
+  function pkPlatform() {
+    if (!pkOk() || !PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) return Promise.resolve(false);
+    return PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(function () { return false; });
+  }
+  /* Cabaran disediakan lebih awal (semasa skrin dibuka) supaya Face ID dipanggil terus dalam sentuhan pengguna (syarat iOS) */
+  function pkSetLogin(o) { S.pkLogin = o && o.challenge ? { o: o, at: Date.now() } : null; }
+  function pkFresh(x) { return x && Date.now() - x.at < 240000 ? x.o : null; }
+  function pkSignIn(btn) {
+    var o = pkFresh(S.pkLogin);
+    if (!o) {
+      busy(btn, true, 'Preparing…');
+      call('pkLoginOptions').then(function (x) {
+        pkSetLogin(x); busy(btn, false);
+        if (!x) throw new Error(pkTitle() + ' isn’t available right now. Use your password.');
+        toast('Tap again to continue with ' + pkTitle() + '.');
+      }).catch(function (e) { busy(btn, false); fail(e); });
+      return;
+    }
+    S.pkLogin = null; // cabaran sekali guna
+    extFlow(60000); // lembaran Face ID sistem: jangan anggap app ditinggalkan
+    var req = navigator.credentials.get({ publicKey: { challenge: u2b(o.challenge), rpId: o.rpId, timeout: o.timeout || 60000, userVerification: 'required', allowCredentials: [] } });
+    busy(btn, true, 'Signing in…');
+    req.then(function (c) {
+      if (!c) throw new Error('Cancelled');
+      var r = c.response;
+      return call('pkLogin', { id: c.id, clientDataJSON: b2u(r.clientDataJSON), authenticatorData: b2u(r.authenticatorData), signature: b2u(r.signature), userHandle: r.userHandle ? b2u(r.userHandle) : '' });
+    }).then(function (r) { LS.set('nara_pk_on', '1'); signedIn(r); })
+      .catch(function (e) {
+        var quiet = e && (e.name === 'NotAllowedError' || e.name === 'AbortError' || e.message === 'Cancelled');
+        S.warmAt = 0; warmServer(); // cabaran baharu untuk cubaan seterusnya
+        renderEmailLogin(quiet ? '' : e.message);
+      });
+  }
+  function pkPrefetchReg() {
+    if (!pkOk() || pkFresh(S.pkReg)) return;
+    call('pkRegisterOptions').then(function (o) { S.pkReg = { o: o, at: Date.now() }; }).catch(function () { S.pkReg = null; });
+  }
+  function pkEnroll(btn, after) {
+    var R = pkFresh(S.pkReg);
+    if (!R) {
+      busy(btn, true, 'Preparing…');
+      call('pkRegisterOptions').then(function (o) { S.pkReg = { o: o, at: Date.now() }; busy(btn, false); toast('Ready. Tap again to set up ' + pkTitle() + '.'); })
+        .catch(function (e) { busy(btn, false); fail(e); });
+      return;
+    }
+    S.pkReg = null;
+    extFlow(60000);
+    var req = navigator.credentials.create({ publicKey: {
+      challenge: u2b(R.challenge), rp: R.rp, user: { id: u2b(R.user.id), name: R.user.name, displayName: R.user.displayName },
+      pubKeyCredParams: R.pubKeyCredParams, timeout: R.timeout, attestation: 'none', authenticatorSelection: R.authenticatorSelection,
+      excludeCredentials: (R.excludeCredentials || []).map(function (c) { return { type: 'public-key', id: u2b(c.id) }; })
+    } });
+    busy(btn, true, 'Setting up…');
+    req.then(function (c) {
+      var r = c.response;
+      return call('pkRegister', { id: c.id, clientDataJSON: b2u(r.clientDataJSON), attestationObject: b2u(r.attestationObject), label: pkDevice() });
+    }).then(function (list) {
+      LS.set('nara_pk_on', '1'); S.pkList = list;
+      busy(btn, false); pkCardRefresh();
+      toast(pkTitle() + ' is on. Next time, sign in with a glance.');
+      if (after) after();
+    }).catch(function (e) {
+      busy(btn, false);
+      if (e && e.name === 'InvalidStateError') { LS.set('nara_pk_on', '1'); pkCardRefresh(); toast(pkTitle() + ' is already set up on this device.'); if (after) after(); return; }
+      pkPrefetchReg();
+      if (e && (e.name === 'NotAllowedError' || e.name === 'AbortError')) { toast('Not turned on. You can do it any time in Me › Security.'); return; }
+      fail(e);
+    });
+  }
+  /** Me › Security: peranti dengan Face ID, tambah / buang. */
+  function pkCard() {
+    if (!pkOk()) return '';
+    var on = pkOnHere(), list = S.pkList, t = pkTitle();
+    var rows = !list ? '<div class="pk-skel"></div>' : list.length ? list.map(function (c) {
+      var d = new Date(c.u || c.t);
+      return '<div class="pk-dev"><span class="pk-ico">' + svg(PK_ICON) + '</span><span class="grow"><b>' + h(c.n || 'Device') + '</b><small>' + (c.u ? 'Last used ' : 'Added ') + d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear() + '</small></span>' +
+        '<button class="btn ghost small" data-act="pkRemove" data-id="' + h(c.id) + '">Remove</button></div>';
+    }).join('') : '';
+    return '<section class="card" id="pk-card"><div class="card-h"><h3>' + h(t) + ' sign-in</h3><span class="chip ' + (on ? 'green' : '') + '">' + (on ? 'On' : 'Off') + '</span></div>' +
+      '<div class="muted">' + (on ? 'This device signs in with ' + h(t) + '. No password to type.' : 'Sign in with a glance instead of typing your password.') + ' Your face or fingerprint never leaves your phone; NARA HR only keeps a public key.</div>' +
+      (rows ? '<div class="pk-list">' + rows + '</div>' : '') +
+      (on ? '' : '<button class="btn block pk-btn" data-act="pkEnroll">' + svg(PK_ICON) + '<span>Turn on ' + h(t) + '</span></button>') + '</section>';
+  }
+  function pkCardRefresh() { var c = $('pk-card'); if (c) c.outerHTML = pkCard(); }
+  function pkLoad() {
+    if (!pkOk() || !S.token) return;
+    if (!pkOnHere()) pkPrefetchReg();
+    call('pkList').then(function (l) {
+      S.pkList = l;
+      // Passkey peranti ini dibuang dari peranti lain / oleh HR → tanda tempatan dibersihkan
+      if (!l.length && pkOnHere()) LS.del('nara_pk_on');
+      pkCardRefresh();
+    }).catch(function () { /* pilihan */ });
   }
 
   /* Aliran akaun 3 langkah: 1 E-mel → 2 Kod OTP → 3 Kata laluan. mode: signup | forgot */
@@ -2208,12 +2331,13 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
           return '<div class="li"><div><div style="font-weight:600">' + h(p.label) + '</div><div class="muted">Net ' + rm(p.bersih) + (p.tarikhBayar ? ' · paid ' + h(p.tarikhBayar) : '') + '</div></div><div class="row"><button class="btn ghost small" data-act="mySlip" data-v="' + h(p.bulan) + '">PDF</button>' +
             '<a class="btn ghost small" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent('Salary summary ' + p.label + ' (Sofwah Arabic Grill): net pay RM ' + rm(p.bersih) + (p.tarikhBayar ? ', paid ' + p.tarikhBayar : '') + '. Full payslip in the NARA HR app.') + '">Share</a></div></div>';
         }).join('') : '<div class="empty">Payslips appear here once salary is paid through NARA HR.</div>') + '</div></section>' +
-        calendarCard() + securityCard() +
+        calendarCard() + securityCard() + pkCard() +
         '<button class="btn ghost block" data-act="myAtt">My attendance</button>' +
         '<button class="btn ghost block" data-act="logout">Sign out</button>' +
         '<div class="me-foot"><button class="link-btn" data-act="openLink" data-v="https://nara.sofwah.my/hr/privacy.html">Privacy policy</button><span>·</span>' +
         '<button class="link-btn" data-act="openLink" data-v="https://nara.sofwah.my/hr/support.html">Help</button><span>·</span><button class="link-btn" data-act="deleteAcct">Delete account</button></div>' +
         '<div class="nara-foot">People<i></i>Technology<i></i>Growth</div></div>');
+      pkLoad();
     }, function (e) { setMain(errBox(e)); });
     if (!have) loading();
   }
@@ -2242,18 +2366,23 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   var ANDROID = /Android/i.test(navigator.userAgent);
   var ONB_ICON = {
     home: 'M8 2.8h8a1.6 1.6 0 0 1 1.6 1.6v15.2a1.6 1.6 0 0 1-1.6 1.6H8a1.6 1.6 0 0 1-1.6-1.6V4.4A1.6 1.6 0 0 1 8 2.8zM10.5 18.3h3M12 7.2v6.2M8.9 10.3h6.2',
+    pk: 'M7 3.5H5.5a2 2 0 0 0-2 2V7M17 3.5h1.5a2 2 0 0 1 2 2V7M7 20.5H5.5a2 2 0 0 1-2-2V17M17 20.5h1.5a2 2 0 0 0 2-2V17M9 9v1.5M15 9v1.5M12 9v4.2h-1M9.3 16.2a4 4 0 0 0 5.4 0',
     push: 'M6 16.5v-5.2a6 6 0 0 1 12 0v5.2l1.6 2.1H4.4zM10 21a2.1 2.1 0 0 0 4 0',
     loc: 'M12 21.2s-6.6-6-6.6-11.1a6.6 6.6 0 0 1 13.2 0c0 5.1-6.6 11.1-6.6 11.1zM12 12.6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
     cal: 'M4.5 6.2h15v13.6h-15zM4.5 10.4h15M8.5 3.8v4.4M15.5 3.8v4.4M9 15.3l2.1 2.1 4-4'
   };
   function onbSteps() {
     var seen = onbSeen(), ps = pushState();
-    return geoPerm().then(function (geo) {
+    return Promise.all([geoPerm(), pkPlatform()]).then(function (res) {
+      var geo = res[0], plat = res[1];
       var out = [];
       if (!NATIVE && PWA && !STANDALONE && !seen.home && (IOS || ANDROID || S.installEvt)) {
         out.push(IOS
           ? { k: 'home', ico: '📲', t: 'Add NARA HR to your Home Screen', d: 'Opens like an app, faster, and needed on iPhone for notifications.', how: ['Tap <b>Share</b> <span class="onb-k">⬆︎</span> at the bottom of Safari', 'Choose <b>Add to Home Screen</b>', 'Tap <b>Add</b>, then open NARA HR from your Home Screen'] }
           : { k: 'home', ico: '📲', t: 'Install NARA HR on your phone', d: 'Opens like an app from your Home Screen, faster, with notifications.', btn: S.installEvt ? 'Install app' : '', act: 'onbInstall', how: S.installEvt ? null : ['Tap the <b>⋮</b> menu in Chrome', 'Choose <b>Install app</b> or <b>Add to Home screen</b>'] });
+      }
+      if (plat && !seen.pk && !pkOnHere()) {
+        out.push({ k: 'pk', t: 'Sign in with ' + pkTitle(), d: 'Next time, open NARA HR and sign in with a glance. No password to type. Your face or fingerprint never leaves your phone.', btn: 'Turn on ' + pkTitle(), act: 'onbPk' });
       }
       if (!NATIVE && !seen.push && ps.s === 'sedia' && window.Notification && Notification.permission === 'default') {
         out.push({ k: 'push', ico: '🔔', t: 'Turn on notifications', d: 'Shift reminders 30 minutes before you start, leave decisions and HR announcements.', btn: 'Allow notifications', act: 'onbPush' });
@@ -2284,6 +2413,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     S.onbStep = step;
     onbMark(x.k); // dipaparkan sekali sahaja, walaupun app ditutup sebelum selesai
     if (x.k === 'push') pushPrefetch();
+    if (x.k === 'pk') pkPrefetchReg();
     modal('Welcome to NARA HR', '<div class="onb"><div class="onb-dots" aria-label="Step ' + step + ' of ' + steps.length + '">' + steps.map(function (y, i) { return '<i class="' + (i < step ? 'on' : '') + '"></i>'; }).join('') + '</div>' +
       '<div class="onb-tile">' + svg(ONB_ICON[x.k] || ONB_ICON.cal) + '</div><h3>' + h(x.t) + '</h3><p>' + h(x.d) + '</p>' +
       (x.how ? '<ol class="onb-how">' + x.how.map(function (li) { return '<li>' + li + '</li>'; }).join('') + '</ol>' : '') +
@@ -3653,6 +3783,19 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     },
     authBack: function () { renderEmailLogin(); },
     onbNext: function () { onboarding((S.onbStep || 1) + 1); },
+    onbPk: function (el) { pkEnroll(el, function () { onboarding((S.onbStep || 1) + 1); }); },
+    pkSignIn: function (el) { pkSignIn(el); },
+    pkEnroll: function (el) { pkEnroll(el); },
+    pkRemove: function (el) {
+      if (!window.confirm('Remove ' + pkTitle() + ' sign-in for this device? You can turn it on again any time.')) return;
+      busy(el, true);
+      call('pkRemove', { id: el.dataset.id }).then(function (l) {
+        S.pkList = l;
+        // Dibuang peranti ini sendiri? Tiada cara pasti (passkey disegerak) → padam tanda tempatan jika tiada lagi passkey
+        if (!l.length) LS.del('nara_pk_on');
+        pkCardRefresh(); toast('Removed.');
+      }).catch(function (e) { busy(el, false); fail(e); });
+    },
     onbPush: function (el) {
       if (pushState().s !== 'sedia') { onboarding((S.onbStep || 1) + 1); return; }
       pushOn(el, function () { onboarding((S.onbStep || 1) + 1); });
@@ -4179,7 +4322,8 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   function warmServer() {
     if (S.warmAt && Date.now() - S.warmAt < 120000) return;
     S.warmAt = Date.now();
-    rawCall('ping', {}, 15000).catch(function () { /* pilihan */ });
+    var pk = !S.token && pkOk();
+    rawCall('ping', pk ? { pk: 1 } : {}, 15000).then(function (d) { if (pk && d && d.pk) pkSetLogin(d.pk); }).catch(function () { /* pilihan */ });
   }
   if (NATIVE) {
     document.documentElement.classList.add('native');
