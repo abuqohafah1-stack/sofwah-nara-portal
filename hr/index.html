@@ -405,7 +405,7 @@ td.name{white-space:nowrap;font-weight:600;position:sticky;left:0;background:var
 .dash-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
 
 /* ---------- Modal, toast, luar talian ---------- */
-.modal{position:fixed;inset:0;background:rgba(27,31,75,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0 12px calc(12px + env(safe-area-inset-bottom));animation:fadeIn .2s ease}
+.modal{position:fixed;inset:0;background:rgba(27,31,75,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;align-items:flex-end;justify-content:center;z-index:50;padding:0 16px calc(16px + env(safe-area-inset-bottom));animation:fadeIn .2s ease}
 .modal[hidden]{display:none}
 .modal-card{background:var(--paper);width:100%;max-width:440px;max-height:86vh;overflow:auto;border-radius:var(--r-xl);padding:20px 20px 22px;box-shadow:var(--float);animation:sheet .28s cubic-bezier(.2,.8,.2,1)}
 .modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
@@ -472,6 +472,40 @@ td.name{white-space:nowrap;font-weight:600;position:sticky;left:0;background:var
 .onb-ico{font-size:36px;line-height:1;margin-top:4px}
 .onb-dots{display:flex;gap:6px;justify-content:center}.onb-dots i{width:22px;height:5px;border-radius:9px;background:var(--mist-2)}.onb-dots i.on{background:var(--ember)}
 .onb .btn{min-height:48px}
+/* Kotak kaca (Welcome / pengenalan): terapung di tengah, jauh dari tepi skrin */
+.modal.glass{align-items:center;padding:calc(24px + env(safe-area-inset-top)) 24px calc(24px + env(safe-area-inset-bottom));background:radial-gradient(90% 55% at 12% 22%,rgba(122,62,255,.38),transparent 70%),radial-gradient(80% 50% at 92% 88%,rgba(0,200,181,.26),transparent 70%),rgba(18,22,56,.52);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);animation:fadeIn .25s ease}
+.modal.glass .modal-card{position:relative;max-width:360px;padding:28px 24px 22px;border-radius:32px;background:linear-gradient(155deg,rgba(255,255,255,.84),rgba(255,255,255,.62));backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);border:1px solid rgba(255,255,255,.78);box-shadow:0 34px 70px -22px rgba(8,10,40,.62),0 0 0 .5px rgba(255,255,255,.35),inset 0 1px 0 rgba(255,255,255,.95);animation:glassIn .42s cubic-bezier(.2,.9,.25,1)}
+.modal.glass .modal-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,0) 36%);pointer-events:none}
+.modal.glass .modal-head{position:relative;justify-content:center;margin:0 0 14px;min-height:20px}
+.modal.glass .modal-head h2{font:600 11px/1.2 Montserrat,Inter,system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ember-ink);text-align:center}
+.modal.glass .modal-head .icon-btn{position:absolute;top:-14px;right:-10px;width:34px;height:34px;font-size:13px;color:var(--slate-3);background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.95);box-shadow:0 2px 10px rgba(27,31,75,.1)}
+.modal.glass .onb{position:relative;gap:12px;padding:0}
+.modal.glass .onb-dots{gap:6px;margin-bottom:4px}
+.modal.glass .onb-dots i{width:16px;height:4px;background:rgba(27,31,75,.12);transition:width .3s ease}
+.modal.glass .onb-dots i.on{width:26px;background:linear-gradient(90deg,var(--ember),#00C8B5)}
+.onb-tile{width:76px;height:76px;margin:6px auto 4px;border-radius:24px;display:grid;place-items:center;color:#fff;position:relative;background:linear-gradient(145deg,#9B6BFF 0%,#7A3EFF 48%,#3E7BFF 82%,#00C8B5 120%);box-shadow:0 16px 30px -12px rgba(91,46,209,.65),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -6px 14px rgba(27,31,75,.18)}
+.onb-tile::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.38),rgba(255,255,255,0) 46%);pointer-events:none}
+.onb-tile svg{width:36px;height:36px;stroke-width:1.9}
+.modal.glass .onb h3{font-size:21px;line-height:1.25;letter-spacing:-.015em;color:var(--slate);margin:4px 0 0;text-wrap:balance}
+.modal.glass .onb p{font-size:15px;line-height:1.55;color:#4B5470;max-width:29ch;margin:0 auto;text-wrap:pretty}
+.modal.glass .onb-how{background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.95)}
+.modal.glass .onb-acts{display:grid;gap:10px;margin-top:8px}
+.modal.glass .onb .btn{min-height:52px;font-size:15.5px}
+.modal.glass .onb .btn.ghost{background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.95);color:var(--slate);box-shadow:inset 0 1px 0 rgba(255,255,255,.85)}
+@media (max-height:760px){
+  .modal.glass{padding-top:calc(14px + env(safe-area-inset-top));padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+  .modal.glass .modal-card{padding:22px 20px 18px;max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px)}
+  .modal.glass .modal-head{margin-bottom:10px}
+  .modal.glass .onb{gap:9px}
+  .onb-tile{width:60px;height:60px;border-radius:19px;margin:2px auto 0}.onb-tile svg{width:30px;height:30px}
+  .modal.glass .onb h3{font-size:19px}
+  .modal.glass .onb p{font-size:14px;line-height:1.5}
+  .modal.glass .onb-how{font-size:13.5px;padding:10px 12px 10px 30px;gap:4px}
+  .modal.glass .onb-acts{gap:8px;margin-top:4px}
+  .modal.glass .onb .btn{min-height:48px}
+}
+@keyframes glassIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.modal.glass,.modal.glass .modal-card{animation:none}}
 .greet{position:fixed;inset:0;z-index:80;background:rgba(27,31,75,.5);display:flex;align-items:flex-end;justify-content:center;padding:18px;animation:fadeIn .25s ease}
 .greet-card{width:100%;max-width:420px;background:var(--paper);border-radius:var(--r-xl);overflow:hidden;display:flex;flex-direction:column;gap:12px;padding-bottom:16px;box-shadow:var(--float)}
 .greet-card img{width:100%;max-height:62vh;object-fit:cover;display:block}
@@ -862,6 +896,8 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   var AUTH_ACTIONS = { loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, pushRegister: 1, pushTest: 1 };
   var WRITE_ACTIONS = { deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1 };
   // Tindakan payroll boleh ambil beberapa minit (slip PDF setiap staf): had masa klien dipanjangkan
+  // Log masuk: had 20 s (bukan 45 s) — rangkaian tergantung (cth. tukar Wi-Fi → 4G) dicuba semula sekali secara automatik
+  var SHORT_ACTIONS = { loginEmail: 20000, logout: 15000, ping: 15000 };
   var LONG_ACTIONS = { payrollRun: 300000, payrollFiles: 330000, exportPayroll: 120000, payrollSetup: 120000, staffing: 120000, staffingRefresh: 180000, lcMonitor: 300000, lcScan: 120000, lcDashboard: 90000, lcApproveSeeds: 120000, lcDecide: 90000 };
 
   /** Mod PWA (nara.sofwah.my/hr): panggil API JSON Apps Script terus dengan fetch, tanpa iframe. */
@@ -970,7 +1006,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   }
   function call(action, payload, attempt) {
     attempt = attempt || 0;
-    return (BATCH[action] ? batched(action, payload) : rawCall(action, payload, LONG_ACTIONS[action])).then(function (d) { if (WRITE_ACTIONS[action] && !AUTH_ACTIONS[action]) swrClear(); return d; }).catch(function (e) {
+    return (BATCH[action] ? batched(action, payload) : rawCall(action, payload, LONG_ACTIONS[action] || SHORT_ACTIONS[action])).then(function (d) { if (WRITE_ACTIONS[action] && !AUTH_ACTIONS[action]) swrClear(); return d; }).catch(function (e) {
       if (e.busy && attempt < 3) { toast('Many people are using it now. Retrying in ' + (2 + attempt * 2) + ' saat…'); return wait((2 + attempt * 2) * 1000).then(function () { return call(action, payload, attempt + 1); }); }
       if (e.transport && !WRITE_ACTIONS[action] && attempt < 1) { return wait(1500).then(function () { return call(action, payload, attempt + 1); }); }
       throw e;
@@ -1046,12 +1082,13 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   }
   function fail(e) { toast(e && e.message ? e.message : String(e), true); }
 
-  function modal(title, html) {
+  function modal(title, html, cls) {
+    $('modal').className = 'modal' + (cls ? ' ' + cls : ''); // cls 'glass' = kotak kaca terapung (Welcome)
     $('modal-title').textContent = title;
     $('modal-body').innerHTML = html;
     $('modal').hidden = false;
     var f = $('modal-body').querySelector('input,select,textarea,button');
-    if (f) setTimeout(function () { f.focus(); }, 50);
+    if (f) setTimeout(function () { try { f.focus({ preventScroll: !!cls }); } catch (e) { f.focus(); } }, 50);
   }
   function closeModal() {
     camStop();
@@ -1195,7 +1232,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       '<label>Email<input name="email" type="email" value="' + h(em) + '" autocomplete="username" inputmode="email" required placeholder="name@email.com"></label>' +
       '<label>Password<span class="pw-wrap"><input name="password" type="password" autocomplete="current-password" required placeholder="Your password"><button type="button" class="pw-eye" data-act="pwEye" aria-label="Show password">Show</button></span></label>' +
       '<div class="auth-links" style="justify-content:flex-end"><button type="button" class="link" data-act="authFlow" data-v="forgot">Forgot password?</button></div>' +
-      (msg ? '<div class="' + (S.loginNote ? 'note-ok' : 'err') + '">' + h(msg) + '</div>' : '') +
+      (msg ? '<div class="err">' + h(msg) + '</div>' : '') +
       '<button class="btn block" type="submit">Sign in</button>' +
       '<div class="auth-or"><span>New to NARA HR?</span></div>' +
       '<button type="button" class="btn ghost block" data-act="authFlow" data-v="signup">Create account</button></form></div>';
@@ -1300,6 +1337,8 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   function signedIn(r) {
     S.token = r.token; S.me = r.me; S.tab = 'hari';
     LS.set('nara_token', r.token); LS.set('nara_me', JSON.stringify(r.me));
+    // Skrin Hari Ini dihantar bersama jawapan log masuk: dipaparkan terus tanpa panggilan kedua
+    if (r.today) { S.data.today = r.today; cacheSet('today', r.today); S.todayAt = Date.now(); }
     if (r.me.email) LS.set('nara_email', r.me.email);
     ssSet('nara_alive', '1'); LS.del('nara_left');
     renderShell();
@@ -1329,9 +1368,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     S.token = null; S.me = null; S.data = {}; S.onbShown = false; S.greetShown = false;
     LS.del('nara_token'); LS.del('nara_me'); LS.del('nara_left');
     try { var del = []; for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && k.indexOf('nara_c_') === 0) del.push(k); } del.forEach(function (k) { localStorage.removeItem(k); }); } catch (e) { /* abaikan */ }
-    S.loginNote = true;
-    renderLogin(msg || 'For your security, NARA HR signs you out when you leave or minimise the app. Please sign in again.');
-    S.loginNote = false;
+    renderLogin(msg);
     var pw = document.querySelector('[data-form=loginEmail] [name=password]');
     if (pw && LS.get('nara_email')) setTimeout(function () { try { pw.focus({ preventScroll: true }); } catch (e) { /* abaikan */ } }, 60);
   }
@@ -1341,6 +1378,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     S.token = null; S.me = null; S.data = {};
     LS.del('nara_token'); LS.del('nara_me');
     renderLogin('Session expired. Please sign in again.');
+    warmServer();
   }
 
   /* ======================= Kerangka ======================= */
@@ -1443,6 +1481,8 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   /* ======================= Hari ini ======================= */
   function loadToday() {
     var cached = cacheGet('today');
+    // Baru diterima bersama log masuk (< 20 s): paparkan terus, tiada panggilan semula
+    if (cached && S.todayAt && Date.now() - S.todayAt < 20000) { S.todayAt = 0; S.data.today = cached; renderToday(cached); prefetch(); return; }
     if (cached && cached.tarikh === ymd(today())) { S.data.today = cached; renderToday(cached, true); } else loading();
     call('today').then(function (d) { S.data.today = d; cacheSet('today', d); renderToday(d); prefetch(); })
       .catch(function (e) { if (!cached) setMain(errBox(e)); else toast(e.message, true); });
@@ -1920,6 +1960,12 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     return Promise.resolve('unknown');
   }
   var ANDROID = /Android/i.test(navigator.userAgent);
+  var ONB_ICON = {
+    home: 'M8 2.8h8a1.6 1.6 0 0 1 1.6 1.6v15.2a1.6 1.6 0 0 1-1.6 1.6H8a1.6 1.6 0 0 1-1.6-1.6V4.4A1.6 1.6 0 0 1 8 2.8zM10.5 18.3h3M12 7.2v6.2M8.9 10.3h6.2',
+    push: 'M6 16.5v-5.2a6 6 0 0 1 12 0v5.2l1.6 2.1H4.4zM10 21a2.1 2.1 0 0 0 4 0',
+    loc: 'M12 21.2s-6.6-6-6.6-11.1a6.6 6.6 0 0 1 13.2 0c0 5.1-6.6 11.1-6.6 11.1zM12 12.6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
+    cal: 'M4.5 6.2h15v13.6h-15zM4.5 10.4h15M8.5 3.8v4.4M15.5 3.8v4.4M9 15.3l2.1 2.1 4-4'
+  };
   function onbSteps() {
     var seen = onbSeen(), ps = pushState();
     return geoPerm().then(function (geo) {
@@ -1958,11 +2004,11 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     S.onbStep = step;
     onbMark(x.k); // dipaparkan sekali sahaja, walaupun app ditutup sebelum selesai
     if (x.k === 'push') pushPrefetch();
-    modal('Welcome to NARA HR', '<div class="onb"><div class="onb-dots">' + steps.map(function (y, i) { return '<i class="' + (i < step ? 'on' : '') + '"></i>'; }).join('') + '</div>' +
-      '<div class="onb-ico">' + x.ico + '</div><h3>' + h(x.t) + '</h3><p class="muted">' + h(x.d) + '</p>' +
+    modal('Welcome to NARA HR', '<div class="onb"><div class="onb-dots" aria-label="Step ' + step + ' of ' + steps.length + '">' + steps.map(function (y, i) { return '<i class="' + (i < step ? 'on' : '') + '"></i>'; }).join('') + '</div>' +
+      '<div class="onb-tile">' + svg(ONB_ICON[x.k] || ONB_ICON.cal) + '</div><h3>' + h(x.t) + '</h3><p>' + h(x.d) + '</p>' +
       (x.how ? '<ol class="onb-how">' + x.how.map(function (li) { return '<li>' + li + '</li>'; }).join('') + '</ol>' : '') +
-      (x.btn ? '<button class="btn block" data-act="' + x.act + '">' + h(x.btn) + '</button>' : '') +
-      '<button class="btn ghost block" data-act="onbNext">' + (step < steps.length ? (x.btn ? 'Skip for now' : 'Next') : (x.btn ? 'Skip' : 'Done')) + '</button></div>');
+      '<div class="onb-acts">' + (x.btn ? '<button class="btn block" data-act="' + x.act + '">' + h(x.btn) + '</button>' : '') +
+      '<button class="btn ghost block" data-act="onbNext">' + (step < steps.length ? (x.btn ? 'Skip for now' : 'Next') : (x.btn ? 'Skip' : 'Done')) + '</button></div></div>', 'glass');
   }
 
   function calendarCard() {
@@ -3537,7 +3583,11 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     loginEmail: function (f, btn) {
       var d = formData(f);
       d.email = String(d.email || '').trim();
-      call('loginEmail', d).then(signedIn).catch(function (e) { busy(btn, false); LS.set('nara_email', d.email); renderEmailLogin(e.message); });
+      if (btn) btn.innerHTML = '<span class="spinner"></span> Signing in…';
+      var go = function (n) {
+        return call('loginEmail', d).catch(function (e) { if (e.transport && n < 1) return go(n + 1); throw e; });
+      };
+      go(0).then(signedIn).catch(function (e) { busy(btn, false); LS.set('nara_email', d.email); renderEmailLogin(e.message); });
     },
     emailCode: function (f, btn) {
       var d = formData(f), mode = f.dataset.mode;
@@ -3670,11 +3720,11 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     var same = ssGet('nara_alive') === '1' && (!left || Date.now() - left <= RELOAD_MS);
     if (tok && !same && !S.migrated) {
       S.token = tok;
-      securityLogout('For your security, please sign in each time you open NARA HR.');
+      securityLogout();
       return;
     }
     LS.del('nara_left');
-    if (!tok) { renderLogin(); return; }
+    if (!tok) { renderLogin(); warmServer(); return; }
     S.token = tok; ssSet('nara_alive', '1');
     // Buka serta-merta daripada profil tersimpan; sahkan dengan pelayan di latar.
     var cachedMe = null;
@@ -3686,8 +3736,14 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       if (changed) renderShell();
     }).catch(function (e) {
       if (e && e.transport && S.me) { setOffline(true); return; } // tiada internet: kekal dengan data tersimpan
-      LS.del('nara_token'); LS.del('nara_me'); S.token = null; S.me = null; renderLogin();
+      LS.del('nara_token'); LS.del('nara_me'); S.token = null; S.me = null; renderLogin(); warmServer();
     });
+  }
+  /** Skrin log masuk dibuka: minta pelayan sediakan cache sementara staf menaip kata laluan (log masuk jadi pantas). */
+  function warmServer() {
+    if (S.warmAt && Date.now() - S.warmAt < 120000) return;
+    S.warmAt = Date.now();
+    rawCall('ping', {}, 15000).catch(function () { /* pilihan */ });
   }
   if (NATIVE) {
     document.documentElement.classList.add('native');
