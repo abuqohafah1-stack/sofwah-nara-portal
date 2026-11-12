@@ -1393,6 +1393,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       '<button type="button" class="btn ghost block" data-act="authFlow" data-v="signup">Create account</button></form></div>';
     var f = document.querySelector('[name=' + (em ? 'password' : 'email') + ']');
     if (f && !(pkOk() && pkOnHere())) f.focus(); // Face ID aktif: papan kekunci tidak dibuka
+    if (pkOk() && pkOnHere()) setTimeout(pkAuto, 30);
   }
 
   /* ======================= Face ID / passkey (WebAuthn) — PWA nara.sofwah.my ======================= */
@@ -1414,32 +1415,68 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     return PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(function () { return false; });
   }
   /* Cabaran disediakan lebih awal (semasa skrin dibuka) supaya Face ID dipanggil terus dalam sentuhan pengguna (syarat iOS) */
-  function pkSetLogin(o) { S.pkLogin = o && o.challenge ? { o: o, at: Date.now() } : null; }
+  /* Cabaran log masuk sah 15 minit di pelayan (sekali guna) dan disimpan dalam peranti: buka app → Face ID terus muncul */
+  var PK_LOGIN_MS = 840000;
+  function pkSetLogin(o) {
+    S.pkLogin = o && o.challenge ? { o: o, at: Date.now() } : null;
+    if (S.pkLogin) LS.set('nara_pkc', JSON.stringify(S.pkLogin)); else LS.del('nara_pkc');
+    if (S.pkLogin && S.pkWait) { S.pkWait = false; pkAuto(); }
+  }
   function pkFresh(x) { return x && Date.now() - x.at < 240000 ? x.o : null; }
+  function pkLoginFresh() {
+    var x = S.pkLogin;
+    if (!x) { try { x = JSON.parse(LS.get('nara_pkc') || 'null'); } catch (e) { x = null; } }
+    return x && x.o && Date.now() - x.at < PK_LOGIN_MS ? x.o : null;
+  }
+  function pkTake() { var o = pkLoginFresh(); S.pkLogin = null; LS.del('nara_pkc'); return o; }
+  /** Lembaran Face ID sudah ditutup: tamatkan kelonggaran "aliran luaran" supaya minimize selepas ini tetap log keluar. */
+  function pkExtEnd() { if (!document.hidden) { S.extUntil = 0; S.extAt = 0; } }
+  function pkRefresh() {
+    if (!pkOk() || !pkOnHere() || S.pkFetching || pkLoginFresh()) return;
+    S.pkFetching = true;
+    call('pkLoginOptions').then(function (x) { S.pkFetching = false; pkSetLogin(x); })
+      .catch(function () { S.pkFetching = false; S.pkWait = false; var b = document.querySelector('[data-form=loginEmail] .pk-btn'); if (b) busy(b, false); });
+  }
+  /** Face ID automatik: skrin log masuk pada peranti yang sudah aktifkan Face ID → terus imbas muka, tanpa tekan.
+   *  Sekali bagi setiap paparan; tidak selepas staf tekan Sign out (boleh tukar akaun); dicuba semula bila app dibuka semula. */
+  function pkAuto() {
+    if (S.token || S.pkBusy || S.noAutoPk || S.pkAutoTried || !pkOk() || !pkOnHere()) return;
+    if (document.visibilityState && document.visibilityState !== 'visible') return;
+    var btn = document.querySelector('[data-form=loginEmail] .pk-btn');
+    if (!btn) return;
+    if (!pkLoginFresh()) { S.pkWait = true; busy(btn, true, 'Preparing ' + pkTitle() + '…'); pkRefresh(); return; }
+    S.pkAutoTried = true;
+    pkSignIn(btn);
+  }
   function pkSignIn(btn) {
-    var o = pkFresh(S.pkLogin);
+    if (S.pkBusy) return;
+    var o = pkTake();
     if (!o) {
       busy(btn, true, 'Preparing…');
       call('pkLoginOptions').then(function (x) {
-        pkSetLogin(x); busy(btn, false);
+        S.pkWait = false; pkSetLogin(x); busy(btn, false);
         if (!x) throw new Error(pkTitle() + ' isn’t available right now. Use your password.');
         toast('Tap again to continue with ' + pkTitle() + '.');
       }).catch(function (e) { busy(btn, false); fail(e); });
       return;
     }
-    S.pkLogin = null; // cabaran sekali guna
+    S.pkWait = false; S.pkBusy = true;
     extFlow(60000); // lembaran Face ID sistem: jangan anggap app ditinggalkan
-    var req = navigator.credentials.get({ publicKey: { challenge: u2b(o.challenge), rpId: o.rpId, timeout: o.timeout || 60000, userVerification: 'required', allowCredentials: [] } });
+    var req;
+    try { req = navigator.credentials.get({ publicKey: { challenge: u2b(o.challenge), rpId: o.rpId, timeout: o.timeout || 60000, userVerification: 'required', allowCredentials: [] } }); }
+    catch (e) { req = Promise.reject(e); }
     busy(btn, true, 'Signing in…');
     req.then(function (c) {
+      pkExtEnd();
       if (!c) throw new Error('Cancelled');
       var r = c.response;
       return call('pkLogin', { id: c.id, clientDataJSON: b2u(r.clientDataJSON), authenticatorData: b2u(r.authenticatorData), signature: b2u(r.signature), userHandle: r.userHandle ? b2u(r.userHandle) : '' });
-    }).then(function (r) { LS.set('nara_pk_on', '1'); signedIn(r); })
+    }).then(function (r) { S.pkBusy = false; LS.set('nara_pk_on', '1'); signedIn(r); })
       .catch(function (e) {
-        var quiet = e && (e.name === 'NotAllowedError' || e.name === 'AbortError' || e.message === 'Cancelled');
-        S.warmAt = 0; warmServer(); // cabaran baharu untuk cubaan seterusnya
+        S.pkBusy = false; pkExtEnd();
+        var quiet = e && (e.name === 'NotAllowedError' || e.name === 'AbortError' || e.name === 'SecurityError' || e.message === 'Cancelled');
         renderEmailLogin(quiet ? '' : e.message);
+        pkRefresh(); // cabaran baharu untuk cubaan seterusnya (tekan butang)
       });
   }
   function pkPrefetchReg() {
@@ -1463,6 +1500,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     } });
     busy(btn, true, 'Setting up…');
     req.then(function (c) {
+      pkExtEnd();
       var r = c.response;
       return call('pkRegister', { id: c.id, clientDataJSON: b2u(r.clientDataJSON), attestationObject: b2u(r.attestationObject), label: pkDevice() });
     }).then(function (list) {
@@ -1471,7 +1509,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       toast(pkTitle() + ' is on. Next time, sign in with a glance.');
       if (after) after();
     }).catch(function (e) {
-      busy(btn, false);
+      busy(btn, false); pkExtEnd();
       if (e && e.name === 'InvalidStateError') { LS.set('nara_pk_on', '1'); pkCardRefresh(); toast(pkTitle() + ' is already set up on this device.'); if (after) after(); return; }
       pkPrefetchReg();
       if (e && (e.name === 'NotAllowedError' || e.name === 'AbortError')) { toast('Not turned on. You can do it any time in Me › Security.'); return; }
@@ -1600,6 +1638,8 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 
   function signedIn(r) {
     S.token = r.token; S.me = r.me; S.tab = 'hari';
+    S.pkAutoTried = false; S.noAutoPk = false; S.pkWait = false;
+    if (pkOk() && pkOnHere()) setTimeout(pkRefresh, 4000); // cabaran seterusnya sedia: log masuk semula terus dengan Face ID
     LS.set('nara_token', r.token); LS.set('nara_me', JSON.stringify(r.me));
     // Skrin Hari Ini dihantar bersama jawapan log masuk: dipaparkan terus tanpa panggilan kedua
     if (r.today) { S.data.today = r.today; cacheSet('today', r.today); S.todayAt = Date.now(); }
@@ -1642,7 +1682,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     try { var del = []; for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && k.indexOf('nara_c_') === 0) del.push(k); } del.forEach(function (k) { localStorage.removeItem(k); }); } catch (e) { /* abaikan */ }
     renderLogin(msg);
     var pw = document.querySelector('[data-form=loginEmail] [name=password]');
-    if (pw && LS.get('nara_email')) setTimeout(function () { try { pw.focus({ preventScroll: true }); } catch (e) { /* abaikan */ } }, 60);
+    if (pw && LS.get('nara_email') && !(pkOk() && pkOnHere())) setTimeout(function () { try { pw.focus({ preventScroll: true }); } catch (e) { /* abaikan */ } }, 60);
   }
 
   function logoutLocal() {
@@ -3873,7 +3913,9 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     rngDone: function () { rngApply(); },
     logout: function () {
       call('logout').catch(function () { /* abaikan */ });
-      S.token = null; S.me = null; LS.del('nara_token'); LS.del('nara_me'); renderLogin();
+      S.token = null; S.me = null; LS.del('nara_token'); LS.del('nara_me');
+      S.noAutoPk = true; // tekan Sign out sendiri: Face ID tidak muncul serta-merta (boleh tukar akaun)
+      renderLogin(); pkRefresh();
     },
     pickDoc: function (el) {
       extFlow();
@@ -4072,7 +4114,10 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     if (fn) { e.preventDefault(); fn(el, e); }
   });
   $('modal').addEventListener('click', function (e) { if (e.target === $('modal')) closeModal(); });
-  document.addEventListener('visibilitychange', function () { if (document.hidden) leftApp(); else backToApp(); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { leftApp(); if (!S.token && !S.pkBusy) { S.pkAutoTried = false; S.noAutoPk = false; } }
+    else { backToApp(); if (!S.token) setTimeout(pkAuto, 60); }
+  });
   window.addEventListener('pagehide', leftApp);
   if (NATIVE && PLUG.App) PLUG.App.addListener('appStateChange', function (st) { if (st && st.isActive === false) leftApp(); else backToApp(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('modal').hidden) closeModal(); });
