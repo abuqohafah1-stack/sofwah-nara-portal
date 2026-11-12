@@ -741,6 +741,13 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 .boot .nara-mark{width:96px;animation:naraNafas 1.6s ease-in-out infinite}
 .boot p{margin:6px 0 0;font:600 10px/1 Montserrat,Inter,system-ui,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:var(--slate-3)}
 @keyframes naraNafas{50%{transform:scale(.93);opacity:.72}}
+/* Roster: butang imej jadual mingguan (WhatsApp) */
+.rp-tools{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+.rp-png{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 11px 0 9px;border:0;border-radius:999px;background:linear-gradient(135deg,#8A55FF,var(--ember) 55%,#6A2FF0);color:#fff;font:600 12.5px/1 Inter,system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 16px -8px rgba(122,62,255,.8)}
+.rp-png svg{width:17px;height:17px}
+@media (max-width:440px){.rp-png span{display:none}.rp-png{width:36px;padding:0;justify-content:center}}
+.png-prev{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--mist);box-shadow:0 10px 30px -18px rgba(27,31,75,.5)}
+.png-prev img{display:block;width:100%;height:auto}
 @media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
 </style>
 
@@ -2242,8 +2249,177 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     var lbl = mon.getDate() + (mon.getMonth() !== sun.getMonth() ? ' ' + MON[mon.getMonth()] : '') + ' – ' + sun.getDate() + ' ' + MON[sun.getMonth()];
     return '<div class="rp-top"><div class="rp-wk"><button class="rp-arw" data-act="mweek" data-v="-1" aria-label="Previous week">‹</button>' +
       '<div class="rp-wk-l"><b>' + h(lbl) + '</b><span>' + h(w.cawangan) + '</span></div><button class="rp-arw" data-act="mweek" data-v="1" aria-label="Next week">›</button></div>' +
-      (pl ? '<div class="seg mini" role="group" aria-label="Roster view"><button data-act="rpView" data-v="plan" aria-pressed="' + (view === 'plan') + '">By shift</button><button data-act="rpView" data-v="grid" aria-pressed="' + (view === 'grid') + '">By staff</button></div>' : '') + '</div>';
+      '<div class="rp-tools">' + (pl ? '<div class="seg mini" role="group" aria-label="Roster view"><button data-act="rpView" data-v="plan" aria-pressed="' + (view === 'plan') + '">By shift</button><button data-act="rpView" data-v="grid" aria-pressed="' + (view === 'grid') + '">By staff</button></div>' : '') +
+      '<button class="rp-png" data-act="rpPng" aria-label="Weekly schedule image (PNG) for WhatsApp" title="Weekly schedule image (PNG) for WhatsApp">' + svg('M4 5h16v14H4zM4 15l4.5-4.5 3.5 3.5 2.5-2.5L20 17M15.5 8.5h.01') + '<span>PNG</span></button></div></div>';
   }
+  /* ======================= Jadual mingguan PNG (A4 melintang, 300 dpi) untuk kumpulan WhatsApp ======================= */
+  var HARI_MS = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
+  var BULAN_MS = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+  var KAT_PNG = {
+    Pagi: { bg: '#E6F2FF', fg: '#1C6FD1', l: 'Pagi' }, Tengah: { bg: '#ECEDF7', fg: '#1B1F4B', l: 'Tengah hari' },
+    Petang: { bg: '#F1ECFF', fg: '#5B2ED1', l: 'Petang' }, Split: { bg: '#E0F8F5', fg: '#00796F', l: 'Split' },
+    Rehat: { bg: '#F3F4F8', fg: '#64748B', l: 'Rehat' }, Lain: { bg: '#EDE9FF', fg: '#475569', l: 'Lain-lain' }, Cuti: { bg: '#FFF4E0', fg: '#B45309', l: 'Cuti' }
+  };
+  var GRP_PNG = { Pengurus: 'PENGURUSAN', BH: 'BACK OF HOUSE · DAPUR', FH: 'FRONT OF HOUSE · SERVIS', 'Sambilan (PT)': 'SAMBILAN' };
+  /** Imej SVG jenama daripada pemboleh ubah CSS (--nara-stack, --corak …) dengan saiz intrinsik untuk kanvas. */
+  function brandImg(v, w, hgt) {
+    return new Promise(function (res) {
+      var s = (getComputedStyle(document.documentElement).getPropertyValue(v) || '').trim();
+      var i = s.indexOf('data:'), j = s.lastIndexOf('"');
+      if (i < 0) { res(null); return; }
+      var src = s.slice(i, j > i ? j : s.length - 1).replace(/^data:image\/svg\+xml,%3Csvg /, "data:image/svg+xml,%3Csvg width='" + w + "' height='" + hgt + "' ");
+      var im = new Image();
+      im.onload = function () { res(im); }; im.onerror = function () { res(null); };
+      im.src = src;
+    });
+  }
+  function rpPngBuild() {
+    var R = S.rp, w = R.w, pl = R.plan, cat = rpCat(), mon = parseYmdL(w.minggu), sun = addDays(mon, 6);
+    var W = 3508, H = 2480, M = 110;
+    var fonts = document.fonts ? Promise.all(['700 90px Montserrat', '600 40px Montserrat', '400 30px Inter', '500 30px Inter', '600 30px Inter', '700 30px Inter'].map(function (f) { return document.fonts.load(f).catch(function () {}); })) : Promise.resolve();
+    return Promise.all([fonts, brandImg('--nara-stack', 2071, 1422), brandImg('--corak', 400, 1044)]).then(function (r) {
+      var logo = r[1], tile = r[2];
+      var cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      var g = cv.getContext('2d');
+      var F = function (wt, px, fam) { return wt + ' ' + Math.round(px) + 'px ' + (fam === 'm' ? 'Montserrat, Inter, Arial, sans-serif' : 'Inter, Arial, sans-serif'); };
+      var rr = function (x, y, ww, hh, rad) { g.beginPath(); g.moveTo(x + rad, y); g.arcTo(x + ww, y, x + ww, y + hh, rad); g.arcTo(x + ww, y + hh, x, y + hh, rad); g.arcTo(x, y + hh, x, y, rad); g.arcTo(x, y, x + ww, y, rad); g.closePath(); };
+      var fit = function (t, wt, px, fam, maxW, minPx) { var p = px; g.font = F(wt, p, fam); while (p > (minPx || 12) && g.measureText(t).width > maxW) { p -= 1; g.font = F(wt, p, fam); } return p; };
+      var txt = function (t, x, y, wt, px, fam, col, align, maxW) { if (maxW) fit(t, wt, px, fam, maxW, px * 0.6); else g.font = F(wt, px, fam); g.fillStyle = col; g.textAlign = align || 'left'; g.fillText(t, x, y); };
+      var pattern = function (scale, ox, oy) {
+        if (!tile) return null;
+        var c = document.createElement('canvas'); c.width = Math.round(400 * scale); c.height = Math.round(1044 * scale);
+        c.getContext('2d').drawImage(tile, 0, 0, c.width, c.height);
+        var p = g.createPattern(c, 'repeat'); if (p && p.setTransform && window.DOMMatrix) p.setTransform(new DOMMatrix().translate(ox || 0, oy || 0));
+        return p;
+      };
+      g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H);
+      // --- Kepala: jalur navy + corak reben rasmi + lockup bertindan
+      var HH = 340;
+      g.fillStyle = '#1B1F4B'; g.fillRect(0, 0, W, HH);
+      var pt = pattern(0.36, -40, -60); if (pt) { g.save(); g.globalAlpha = 0.55; g.fillStyle = pt; g.fillRect(0, 0, W, HH); g.restore(); }
+      var gr = g.createLinearGradient(0, 0, W, 0); gr.addColorStop(0, 'rgba(27,31,75,.93)'); gr.addColorStop(0.3, 'rgba(27,31,75,.7)'); gr.addColorStop(0.62, 'rgba(27,31,75,.78)'); gr.addColorStop(1, 'rgba(27,31,75,.95)');
+      g.fillStyle = gr; g.fillRect(0, 0, W, HH);
+      if (logo) g.drawImage(logo, M, 46, 360, 360 * 1422 / 2071);
+      else txt('NARA HR', M, 200, '700', 110, 'm', '#FFFFFF');
+      var wk = mon.getDate() + (mon.getMonth() !== sun.getMonth() ? ' ' + BULAN_MS[mon.getMonth()] : '') + ' – ' + sun.getDate() + ' ' + BULAN_MS[sun.getMonth()] + ' ' + sun.getFullYear();
+      txt('SOFWAH ARABIC GRILL · ' + String(w.cawangan || '').toUpperCase(), W - M, 104, '600', 36, 'i', '#C9C3F5', 'right');
+      txt('Jadual Mingguan', W - M, 210, '700', 104, 'm', '#FFFFFF', 'right');
+      txt(wk, W - M, 288, '600', 58, 'm', '#5FF0E2', 'right');
+      if (R.dirty || R.draft) {
+        g.font = F('700', 34, 'i'); var dl = 'DRAF · BELUM DISIMPAN', dw = g.measureText(dl).width + 56;
+        g.font = F('700', 104, 'm'); var tw = g.measureText('Jadual Mingguan').width;
+        rr(W - M - tw - dw - 40, 150, dw, 70, 35); g.fillStyle = '#FFB020'; g.fill();
+        txt(dl, W - M - tw - 40 - dw / 2, 198, '700', 34, 'i', '#1B1F4B', 'center');
+      }
+      // --- Jadual
+      var top = HH + 46, FOOT = 250, bottom = H - FOOT;
+      var nameW = 560, hrsW = 170, x0 = M, dayX = x0 + nameW, dayW = (W - 2 * M - nameW - hrsW) / 7, hrsX = dayX + 7 * dayW;
+      var groups = [], last = null;
+      var ORD = { Pengurus: 0, BH: 1, FH: 2, 'Sambilan (PT)': 3 };
+      w.rows.map(function (row, i) { return { r: row, i: i }; }).sort(function (a, b) {
+        var oa = ORD[a.r.bahagian] === undefined ? 9 : ORD[a.r.bahagian], ob = ORD[b.r.bahagian] === undefined ? 9 : ORD[b.r.bahagian];
+        return oa - ob || a.i - b.i;
+      }).forEach(function (o) { var row = o.r, b = row.bahagian || 'Lain'; if (b !== last) { groups.push({ b: b, rows: [] }); last = b; } groups[groups.length - 1].rows.push(row); });
+      var headH = 128, gH = 54, totH = 108, n = w.rows.length || 1;
+      var rh = Math.max(52, Math.min(150, (bottom - top - headH - totH - groups.length * gH - 20) / n));
+      // Kepala hari
+      var tY = ymd(today());
+      for (var i = 0; i < 7; i++) {
+        var d = addDays(mon, i), x = dayX + i * dayW, pd = pl && pl.days[i] ? pl.days[i] : null;
+        var wkend = d.getDay() === 5 || d.getDay() === 6, ph = pd && pd.cuti, shut = pd && pd.tutup;
+        rr(x + 6, top, dayW - 12, headH - 10, 22); g.fillStyle = shut ? '#E5E7EB' : ph ? '#E6FBF8' : wkend ? '#F1ECFF' : '#F6F8FE'; g.fill();
+        txt(HARI_MS[d.getDay()], x + dayW / 2, top + 52, '700', 40, 'm', ph ? '#00796F' : wkend ? '#5B2ED1' : '#1B1F4B', 'center');
+        txt(d.getDate() + ' ' + BULAN_MS[d.getMonth()].slice(0, 3) + (shut ? ' · TUTUP' : ph ? ' · ' + ph : wkend ? ' · Hujung minggu' : ''), x + dayW / 2, top + 98, '500', 27, 'i', ph ? '#00796F' : '#64748B', 'center', dayW - 30);
+      }
+      txt('STAF', x0 + 8, top + 76, '700', 30, 'i', '#64748B');
+      txt('JAM', hrsX + hrsW - 10, top + 76, '700', 30, 'i', '#64748B', 'right');
+      var y = top + headH;
+      var used = {}, counts = [0, 1, 2, 3, 4, 5, 6].map(function () { return {}; });
+      groups.forEach(function (gp) {
+        g.fillStyle = '#F6F8FE'; g.fillRect(x0, y + 6, W - 2 * M, gH - 12);
+        g.fillStyle = '#7A3EFF'; g.fillRect(x0, y + 6, 8, gH - 12);
+        txt((GRP_PNG[gp.b] || String(gp.b).toUpperCase()) + '  ·  ' + gp.rows.length + ' orang', x0 + 28, y + gH / 2 + 11, '700', 28, 'i', '#1B1F4B');
+        y += gH;
+        gp.rows.forEach(function (row, ri) {
+          var codes = R.codes[row.id] || [], jam = 0;
+          if (ri % 2) { g.fillStyle = '#FBFBFE'; g.fillRect(x0, y, W - 2 * M, rh); }
+          var nm = titleCase(row.nama || ''), sub = [row.bahagian === 'Sambilan (PT)' ? 'Sambilan' : row.bahagian, row.stesen].filter(Boolean).join(' · ');
+          txt(nm, x0 + 18, y + rh / 2 + (sub ? -2 : rh * 0.12), '700', Math.min(46, rh * 0.36), 'm', '#1B1F4B', 'left', nameW - 30);
+          if (sub) txt(sub, x0 + 18, y + rh / 2 + rh * 0.3, '500', Math.min(28, rh * 0.22), 'i', '#64748B', 'left', nameW - 30);
+          for (var i = 0; i < 7; i++) {
+            var k = codes[i] || '', t = cat[k], lv = (row.cuti || [])[i] || '', x = dayX + i * dayW;
+            var kat = lv ? 'Cuti' : t ? (KAT_PNG[t.kategori] ? t.kategori : 'Lain') : k ? 'Lain' : '';
+            var cx = x + 8, cy = y + 7, cw = dayW - 16, ch = rh - 14;
+            if (!kat) { g.save(); g.setLineDash([10, 8]); g.strokeStyle = '#D6D9E6'; g.lineWidth = 2; rr(cx, cy, cw, ch, 16); g.stroke(); g.restore(); txt('–', x + dayW / 2, y + rh / 2 + 12, '500', 34, 'i', '#B6BCCE', 'center'); continue; }
+            var c = KAT_PNG[kat]; rr(cx, cy, cw, ch, 16); g.fillStyle = c.bg; g.fill();
+            if (kat === 'Rehat') { g.save(); rr(cx, cy, cw, ch, 16); g.clip(); g.strokeStyle = 'rgba(100,116,139,.13)'; g.lineWidth = 3; for (var s = -ch; s < cw; s += 22) { g.beginPath(); g.moveTo(cx + s, cy + ch); g.lineTo(cx + s + ch, cy); g.stroke(); } g.restore(); }
+            var big, small;
+            if (lv) { var q = /\?$/.test(lv); big = lvAb(lv); small = String(lv).replace(/\?$/, '') + (q ? ' (menunggu)' : ''); }
+            else if (kat === 'Rehat') { big = 'REHAT'; small = ''; }
+            else { big = k; small = t ? String(t.teks || '').replace(/\s*–\s*/g, '–').replace(/\s*\/\s*/g, ' · ') : ''; }
+            if (!lv && k) { used[k] = t || { kod: k, teks: k, kategori: 'Lain' }; if (t && WORK.indexOf(t.kategori) >= 0) { jam += Number(t.jam) || 0; counts[i][t.kategori] = (counts[i][t.kategori] || 0) + 1; } }
+            var two = small && ch >= 64;
+            txt(big, x + dayW / 2, y + rh / 2 + (two ? -ch * 0.06 : Math.min(40, ch * 0.36) * 0.36), '700', Math.min(40, ch * 0.36), 'm', c.fg, 'center', cw - 20);
+            if (two) txt(small, x + dayW / 2, y + rh / 2 + ch * 0.3, '500', Math.min(27, ch * 0.24), 'i', c.fg, 'center', cw - 20);
+          }
+          txt(jam ? jam + 'j' : '–', hrsX + hrsW - 10, y + rh / 2 + 13, '700', Math.min(38, rh * 0.32), 'm', jam > 45 ? '#B42318' : '#1B1F4B', 'right');
+          g.strokeStyle = '#EDEFF5'; g.lineWidth = 2; g.beginPath(); g.moveTo(x0, y + rh); g.lineTo(W - M, y + rh); g.stroke();
+          y += rh;
+        });
+      });
+      // Jumlah bertugas setiap hari
+      y += 10;
+      rr(x0, y, W - 2 * M, totH - 10, 22); g.fillStyle = '#1B1F4B'; g.fill();
+      txt('Bertugas', x0 + 28, y + 58, '700', 38, 'm', '#FFFFFF');
+      var tot = 0;
+      for (var i = 0; i < 7; i++) {
+        var x = dayX + i * dayW, cc = counts[i], sum = Object.keys(cc).reduce(function (a, k) { return a + cc[k]; }, 0);
+        txt(sum + ' orang', x + dayW / 2, y + 46, '700', 34, 'm', '#FFFFFF', 'center');
+        var det = ['Pagi', 'Tengah', 'Split', 'Petang'].filter(function (k) { return cc[k]; }).map(function (k) { return (k === 'Tengah' ? 'Tengah' : k) + ' ' + cc[k]; }).join(' · ');
+        txt(det || '–', x + dayW / 2, y + 84, '500', 25, 'i', '#C9C3F5', 'center', dayW - 24);
+        tot += sum;
+      }
+      // --- Kaki: petunjuk kod syif + penyedia
+      var fy = H - FOOT + 46, lx = x0;
+      txt('PETUNJUK', lx, fy + 10, '700', 26, 'i', '#64748B'); lx += 210;
+      var leg = Object.keys(used).sort().map(function (k) { var t = used[k]; return { k: k, t: t.kategori === 'Rehat' ? 'Rehat' : String(t.teks || '').replace(/\s*–\s*/g, '–').replace(/\s*\/\s*/g, ' · '), kat: KAT_PNG[t.kategori] ? t.kategori : 'Lain' }; });
+      leg.push({ k: 'AL / MC', t: 'Cuti', kat: 'Cuti' });
+      leg.forEach(function (l) {
+        g.font = F('700', 28, 'm'); var kw = g.measureText(l.k).width; g.font = F('500', 26, 'i'); var tw = l.t && l.t !== l.k ? g.measureText(l.t).width + 14 : 0;
+        var bw = kw + tw + 48;
+        if (lx + bw > W - M) { lx = x0 + 210; fy += 64; }
+        rr(lx, fy - 30, bw, 52, 26); g.fillStyle = KAT_PNG[l.kat].bg; g.fill();
+        txt(l.k, lx + 24, fy + 7, '700', 28, 'm', KAT_PNG[l.kat].fg);
+        if (tw) txt(l.t, lx + 24 + kw + 14, fy + 6, '500', 26, 'i', KAT_PNG[l.kat].fg);
+        lx += bw + 16;
+      });
+      var now = new Date(), stamp = now.getDate() + ' ' + BULAN_MS[now.getMonth()].slice(0, 3) + ' ' + now.getFullYear() + ', ' + pad2(now.getHours()) + ':' + pad2(now.getMinutes());
+      txt('Disediakan oleh ' + titleCase(S.me.nama) + ' (' + roleName() + ') · ' + stamp + ' · Semak jadual terkini dalam app NARA HR: nara.sofwah.my/hr', x0, H - 54, '500', 27, 'i', '#64748B', 'left', W - 2 * M - 700);
+      txt('NARA HR  ·  People · Technology · Growth', W - M, H - 54, '600', 27, 'm', '#7A3EFF', 'right');
+      var pb = pattern(0.12, 0, -14); if (pb) { g.fillStyle = '#1B1F4B'; g.fillRect(0, H - 22, W, 22); g.save(); g.globalAlpha = 0.85; g.fillStyle = pb; g.fillRect(0, H - 22, W, 22); g.restore(); }
+      else { g.fillStyle = '#7A3EFF'; g.fillRect(0, H - 22, W, 22); }
+      return new Promise(function (res, rej) { cv.toBlob(function (b) { b ? res(b) : rej(new Error('Couldn’t create the image.')); }, 'image/png'); });
+    });
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function rpPng() {
+    if (!S.rp || !S.rp.w) return;
+    toast('Creating the weekly schedule image…');
+    rpPngBuild().then(function (blob) {
+      var w = S.rp.w, name = 'Jadual-' + String(w.cawangan || 'Cawangan').replace(/[^\w]+/g, '-') + '-' + w.minggu + '.png';
+      if (S.rpPng && S.rpPng.url) URL.revokeObjectURL(S.rpPng.url);
+      S.rpPng = { blob: blob, name: name, url: URL.createObjectURL(blob) };
+      var canShare = false;
+      try { canShare = !!(navigator.canShare && navigator.canShare({ files: [new File([blob], name, { type: 'image/png' })] })); } catch (e) { canShare = false; }
+      modal('Weekly schedule · WhatsApp', '<div class="png-prev"><img src="' + S.rpPng.url + '" alt="Weekly schedule image"></div>' +
+        '<p class="hint">A4 landscape · 3508 × 2480 px (300 dpi)' + (S.rp.dirty || S.rp.draft ? ' · <b>Marked DRAF</b>: save the week so the app matches the image.' : '') + '</p>' +
+        '<div class="row" style="gap:8px">' + (NATIVE || canShare ? '<button class="btn grow" data-act="rpPngShare">' + svg('M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v14') + ' Share to WhatsApp</button>' : '') +
+        (NATIVE ? '' : '<button class="btn ' + (canShare ? 'ghost' : '') + ' grow" data-act="rpPngSave">Download PNG</button>') + '</div>');
+      toast('Weekly schedule ready.');
+    }).catch(fail);
+  }
+  function blobB64(b) { return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(String(r.result).split(',')[1]); }; r.onerror = rej; r.readAsDataURL(b); }); }
+
   var LVAB = { 'Cuti Tahunan': 'AL', 'Cuti Sakit': 'MC', 'Cuti Kecemasan': 'EL', 'Cuti Tanpa Gaji': 'UPL', 'Cuti Ganti Cuti Umum': 'RPH', 'Cuti Hospital': 'HL', 'Cuti Bersalin': 'ML', 'Cuti Paterniti': 'PL', 'Cuti Ehsan': 'CL' };
   function lvAb(v) { var q = /\?$/.test(v), b = String(v || '').replace(/\?$/, ''); return (LVAB[b] || b.replace(/^Cuti\s+/i, '').slice(0, 2).toUpperCase()) + (q ? '?' : ''); }
   function codeParts(c) { var m = /^([A-Za-z]+)(.*)$/.exec(c || ''); return m ? [m[1], m[2]] : [String(c || ''), '']; }
@@ -2847,6 +3023,18 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     urusOpen: function (el) { S.urus = el.dataset.v; S.date = null; S.urusAnim = true; loadUrus(); },
     urusClose: function () { S.urus = null; loadUrus(); },
     rpView: function (el) { rpSync(); S.rosterView = el.dataset.v; rpRender(); },
+    rpPng: function () { rpPng(); },
+    rpPngShare: function () {
+      var p = S.rpPng; if (!p) return;
+      if (NATIVE) { blobB64(p.blob).then(function (b64) { downloadB64(p.name, b64, 'image/png'); }); return; }
+      var file = new File([p.blob], p.name, { type: 'image/png' }), w = S.rp.w;
+      navigator.share({ files: [file], title: 'Jadual Mingguan ' + w.cawangan, text: 'Jadual Mingguan ' + w.cawangan + ' · ' + w.label }).catch(function (e) { if (e && e.name !== 'AbortError') ACT.rpPngSave(); });
+    },
+    rpPngSave: function () {
+      var p = S.rpPng; if (!p) return;
+      var a = document.createElement('a'); a.href = p.url; a.download = p.name; a.rel = 'noopener';
+      document.body.appendChild(a); a.click(); setTimeout(function () { document.body.removeChild(a); }, 1000);
+    },
     rpDay: function (el) { S.rp.day = Number(el.dataset.i); rpRender(); },
     rpAdd: function (el) { rpPick(el.dataset.kod, el.dataset.grp); },
     rpSeat: function (el) { rpSeat(el.dataset.id); },
