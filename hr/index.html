@@ -1400,6 +1400,8 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     // Skrin Hari Ini dihantar bersama jawapan log masuk: dipaparkan terus tanpa panggilan kedua
     if (r.today) { S.data.today = r.today; cacheSet('today', r.today); S.todayAt = Date.now(); }
     // Data tab Schedule / Requests / Me / Team turut dihantar: tukar tab terus dipaparkan, tiada skeleton
+    // Payslip sentiasa dilindungi PIN pada sesi baharu: tab Me dipaparkan terus (butang Unlock), disahkan di latar
+    if (!window.NARA_PIN_LOGIN) swrPut({ a: 'myPayslips', mem: true }, 'LOCKED');
     if (r.boot) Object.keys(r.boot).forEach(function (k) {
       var spec = { a: k, p: k === 'myWeek' ? { minggu: ymd(monday(today())) } : undefined, mem: k === 'dashboard' };
       swrPut(spec, r.boot[k]);
