@@ -741,6 +741,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 .boot .nara-mark{width:96px;animation:naraNafas 1.6s ease-in-out infinite}
 .boot p{margin:6px 0 0;font:600 10px/1 Montserrat,Inter,system-ui,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:var(--slate-3)}
 @keyframes naraNafas{50%{transform:scale(.93);opacity:.72}}
+.note-ok{padding:10px 12px;border-radius:12px;background:var(--ember-soft);color:var(--ember-ink);font-size:13.5px;line-height:1.45}
 /* Pengenalan: arahan Add to Home Screen */
 .onb-how{margin:4px 0 2px;padding:12px 14px 12px 34px;border-radius:14px;background:var(--mist);text-align:left;font-size:14px;line-height:1.5;display:grid;gap:6px}
 .onb-k{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 4px;border-radius:6px;background:#fff;border:1px solid var(--line);font-size:12px}
@@ -813,7 +814,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       if (!/^https:\/\/prism\.sofwah\.my\//.test(document.referrer || '') || LS.get('nara_token')) return;
       var d = JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g, '+').replace(/_/g, '/')))));
       if (d && typeof d.t === 'string' && /^[\w-]{16,200}$/.test(d.t)) {
-        LS.set('nara_token', d.t);
+        LS.set('nara_token', d.t); S.migrated = true;
         if (typeof d.e === 'string' && /^[^\s@<>"]+@[^\s@<>"]+$/.test(d.e)) LS.set('nara_email', d.e);
       }
     } catch (e) { /* data rosak: log masuk semula */ }
@@ -873,6 +874,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     if (navigator.vibrate) navigator.vibrate(p);
   }
   function openExternal(url) {
+    extFlow();
     if (NATIVE && PLUG.Browser) { PLUG.Browser.open({ url: url }).catch(function () { window.open(url, '_blank'); }); return; }
     window.open(url, '_blank', 'noopener');
   }
@@ -1142,6 +1144,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   }
   function getPos() {
     if (NATIVE && PLUG.Geolocation) {
+      extFlow(60000); // dialog kebenaran / tetapan lokasi Android menjeda app
       var G = PLUG.Geolocation;
       return G.checkPermissions().then(function (st) {
         return st.location === 'granted' || st.coarseLocation === 'granted' ? st : G.requestPermissions({ permissions: ['location', 'coarseLocation'] });
@@ -1192,7 +1195,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       '<label>Email<input name="email" type="email" value="' + h(em) + '" autocomplete="username" inputmode="email" required placeholder="name@email.com"></label>' +
       '<label>Password<span class="pw-wrap"><input name="password" type="password" autocomplete="current-password" required placeholder="Your password"><button type="button" class="pw-eye" data-act="pwEye" aria-label="Show password">Show</button></span></label>' +
       '<div class="auth-links" style="justify-content:flex-end"><button type="button" class="link" data-act="authFlow" data-v="forgot">Forgot password?</button></div>' +
-      (msg ? '<div class="err">' + h(msg) + '</div>' : '') +
+      (msg ? '<div class="' + (S.loginNote ? 'note-ok' : 'err') + '">' + h(msg) + '</div>' : '') +
       '<button class="btn block" type="submit">Sign in</button>' +
       '<div class="auth-or"><span>New to NARA HR?</span></div>' +
       '<button type="button" class="btn ghost block" data-act="authFlow" data-v="signup">Create account</button></form></div>';
@@ -1298,7 +1301,39 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     S.token = r.token; S.me = r.me; S.tab = 'hari';
     LS.set('nara_token', r.token); LS.set('nara_me', JSON.stringify(r.me));
     if (r.me.email) LS.set('nara_email', r.me.email);
+    ssSet('nara_alive', '1'); LS.del('nara_left');
     renderShell();
+  }
+
+  /* ===== Keselamatan sesi: keluar / minimize app = log keluar; perlu log masuk semula =====
+     Aliran luaran yang dibuka OLEH APP sendiri (kamera, pilih fail, kongsi, kalendar, pautan, kebenaran native)
+     diberi masa untuk kembali tanpa log keluar. */
+  var GRACE_MS = 3000, EXT_MS = 180000, RELOAD_MS = 15000;
+  function ssGet(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+  function ssSet(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* abaikan */ } }
+  function extFlow(ms) { S.extAt = Date.now(); S.extUntil = S.extAt + (ms || EXT_MS); }
+  function leftApp() { if (S.token) LS.set('nara_left', String(Date.now())); }
+  function backToApp() {
+    var t = Number(LS.get('nara_left') || 0); LS.del('nara_left');
+    var ext = S.extUntil || 0, at = S.extAt || 0; S.extUntil = S.extAt = 0;
+    if (!S.token || !t) return;
+    // Aliran luaran sah hanya jika app keluar dalam 15 s selepas app sendiri membukanya
+    var ok = ext && t >= at - 1000 && t - at <= 15000 ? Date.now() <= ext : Date.now() - t <= GRACE_MS;
+    if (!ok) securityLogout();
+  }
+  function securityLogout(msg) {
+    if (!S.token) return;
+    call('logout').catch(function () { /* token tamat di pelayan */ });
+    camStop(); $('modal').hidden = true; $('modal-body').innerHTML = ''; S.gate = false;
+    swrClear(); S.prefetched = false; S.wkHtml = S.statHtml = S.wkData = null; S.wkSel = null;
+    S.token = null; S.me = null; S.data = {}; S.onbShown = false; S.greetShown = false;
+    LS.del('nara_token'); LS.del('nara_me'); LS.del('nara_left');
+    try { var del = []; for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && k.indexOf('nara_c_') === 0) del.push(k); } del.forEach(function (k) { localStorage.removeItem(k); }); } catch (e) { /* abaikan */ }
+    S.loginNote = true;
+    renderLogin(msg || 'For your security, NARA HR signs you out when you leave or minimise the app. Please sign in again.');
+    S.loginNote = false;
+    var pw = document.querySelector('[data-form=loginEmail] [name=password]');
+    if (pw && LS.get('nara_email')) setTimeout(function () { try { pw.focus({ preventScroll: true }); } catch (e) { /* abaikan */ } }, 60);
   }
 
   function logoutLocal() {
@@ -1636,6 +1671,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   function startClock() {
     // Kamera dahulu (perlu sentuhan pengguna), lokasi diambil selepas gambar diambil.
     if (NATIVE && PLUG.Camera) {
+      extFlow();
       PLUG.Camera.takePhoto({ quality: 70, targetWidth: 720, cameraDirection: 'FRONT', saveToGallery: false, correctOrientation: true })
         .then(function (m) { return fetch(m.webPath || CAP.convertFileSrc(m.uri)).then(function (r) { return r.blob(); }); })
         .then(function (b) { onSelfie(b); })
@@ -1652,6 +1688,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     camFallback();
   }
   function camFallback() {
+    extFlow();
     var inp = $('selfie-input');
     inp.value = '';
     inp.click();
@@ -1934,6 +1971,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       '<div class="btn-grid"><button class="btn small" data-act="calAdd" data-v="' + (/Android/.test(navigator.userAgent) ? 'google">Google Calendar' : 'apple">Apple Calendar') + '</button><button class="btn ghost small" data-act="calAdd" data-v="' + (/Android/.test(navigator.userAgent) ? 'apple">Apple' : 'google">Google') + '</button><button class="btn ghost small" data-act="calAdd" data-v="copy">Copy link</button></div></section>';
   }
   function calOpen(kind, link) {
+    extFlow();
     if (kind === 'google') openExternal(link.google);
     else if (kind === 'copy') { try { navigator.clipboard.writeText(link.https); toast('Calendar link copied. Keep it private.'); } catch (e) { modal('Calendar link', '<p class="muted">Copy this private link into your calendar app (Add subscription):</p><input value="' + h(link.https) + '" readonly onclick="this.select()">'); } }
     else window.location.href = link.webcal;
@@ -2995,6 +3033,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 
   /** Muat turun fail: Blob + objectURL (data: URL + download tidak dipercayai di Safari iOS / Chrome). */
   function downloadB64(name, b64, mime) {
+    extFlow();
     if (NATIVE && PLUG.Filesystem && PLUG.Share) {
       var fn = String(name || 'file').replace(/[^\w.\- ]+/g, '_');
       PLUG.Filesystem.writeFile({ path: fn, data: b64, directory: 'CACHE' })
@@ -3117,12 +3156,14 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     rpPng: function () { rpPng(); },
     rpPngShare: function () {
       var p = S.rpPng; if (!p) return;
+      extFlow();
       if (NATIVE) { blobB64(p.blob).then(function (b64) { downloadB64(p.name, b64, 'image/png'); }); return; }
       var file = new File([p.blob], p.name, { type: 'image/png' }), w = S.rp.w;
       navigator.share({ files: [file], title: 'Jadual Mingguan ' + w.cawangan, text: 'Jadual Mingguan ' + w.cawangan + ' · ' + w.label }).catch(function (e) { if (e && e.name !== 'AbortError') ACT.rpPngSave(); });
     },
     rpPngSave: function () {
       var p = S.rpPng; if (!p) return;
+      extFlow();
       var a = document.createElement('a'); a.href = p.url; a.download = p.name; a.rel = 'noopener';
       document.body.appendChild(a); a.click(); setTimeout(function () { document.body.removeChild(a); }, 1000);
     },
@@ -3223,6 +3264,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       S.token = null; S.me = null; LS.del('nara_token'); LS.del('nara_me'); renderLogin();
     },
     pickDoc: function (el) {
+      extFlow();
       S.docTarget = el.dataset.v;
       var inp = $('doc-input');
       inp.value = '';
@@ -3407,12 +3449,16 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
   };
 
   document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('a[target=_blank], a[download], a[href^="webcal:"], a[href^="mailto:"], a[href^="tel:"]')) extFlow();
     var el = e.target.closest('[data-act]');
     if (!el || el.tagName === 'SELECT' || el.tagName === 'INPUT') return;
     var fn = ACT[el.dataset.act];
     if (fn) { e.preventDefault(); fn(el, e); }
   });
   $('modal').addEventListener('click', function (e) { if (e.target === $('modal')) closeModal(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) leftApp(); else backToApp(); });
+  window.addEventListener('pagehide', leftApp);
+  if (NATIVE && PLUG.App) PLUG.App.addListener('appStateChange', function (st) { if (st && st.isActive === false) leftApp(); else backToApp(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('modal').hidden) closeModal(); });
 
   document.addEventListener('change', function (e) {
@@ -3536,7 +3582,7 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
       d.id = d.id.trim();
       call('login', d).then(function (r) {
         S.token = r.token; S.me = r.me; S.tab = 'hari';
-        LS.set('nara_token', r.token); LS.set('nara_id', d.id); LS.set('nara_me', JSON.stringify(r.me));
+        LS.set('nara_token', r.token); ssSet('nara_alive', '1'); LS.set('nara_id', d.id); LS.set('nara_me', JSON.stringify(r.me));
         renderShell();
       }).catch(function (e) { busy(btn, false); renderLogin(e.message); });
     },
@@ -3619,8 +3665,17 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
     }
     if (navigator.onLine === false) setOffline(true);
     var tok = LS.get('nara_token');
+    // Keselamatan: setiap kali app dibuka semula (bukan muat semula dalam sesi yang sama) → log masuk semula
+    var left = Number(LS.get('nara_left') || 0);
+    var same = ssGet('nara_alive') === '1' && (!left || Date.now() - left <= RELOAD_MS);
+    if (tok && !same && !S.migrated) {
+      S.token = tok;
+      securityLogout('For your security, please sign in each time you open NARA HR.');
+      return;
+    }
+    LS.del('nara_left');
     if (!tok) { renderLogin(); return; }
-    S.token = tok;
+    S.token = tok; ssSet('nara_alive', '1');
     // Buka serta-merta daripada profil tersimpan; sahkan dengan pelayan di latar.
     var cachedMe = null;
     try { cachedMe = JSON.parse(LS.get('nara_me') || 'null'); } catch (e) { cachedMe = null; }
