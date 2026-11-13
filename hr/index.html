@@ -2790,10 +2790,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     };
     var cw = swrGet(wk); if (cw) paint(cw);
     swrFetch(wk).then(paint).catch(function () { if (!cw && $('ins-week')) $('ins-week').innerHTML = ''; });
-    var specs = [{ a: 'myLeave' }, { a: 'myAttendance' }];
-    var paintS = function (res) { if (S.navSeq !== nav || !$('ins-stats')) return; S.statHtml = statTiles(res[0], res[1]); $('ins-stats').innerHTML = S.statHtml; };
+    // Today: fokus kerja & servis (kehadiran, ganjaran). Baki cuti hanya dalam tab Requests (keputusan CEO 13/11/2026).
+    var specs = [{ a: 'myAttendance' }];
+    var paintS = function (res) { if (S.navSeq !== nav || !$('ins-stats')) return; S.statHtml = statTiles(res[0]); $('ins-stats').innerHTML = S.statHtml; };
     var cs = specs.map(swrGet);
-    if (cs[0] && cs[1]) paintS(cs);
+    if (cs[0]) paintS(cs);
     Promise.all(specs.map(swrFetch)).then(paintS).catch(function () { /* senyap: jubin pilihan */ });
   }
 
@@ -2820,13 +2821,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     S.wkHtml = box.innerHTML;
   }
 
-  function statTiles(leave, att) {
+  function statTiles(att) {
     var out = '';
-    var al = ((leave && leave.baki) || []).filter(function (b) { return b.jenis === 'Cuti Tahunan'; })[0];
-    if (al) {
-      var p = al.kelayakan ? Math.round(al.baki / al.kelayakan * 100) : 0;
-      out += '<section class="tile">' + ring(p, 'ember') + '<span class="eyebrow">Annual leave</span><b>' + h(al.baki) + '<small>days</small></b><span class="muted">left of ' + h(al.kelayakan) + (al.menunggu ? ', ' + h(al.menunggu) + ' pending' : '') + '</span></section>';
-    }
     var rows = (att || []).filter(function (r) { return r.masuk; });
     if (rows.length) {
       var late = rows.filter(function (r) { return Number(r.lewat) > 0 || /Lewat/.test(r.status); }).length;
@@ -3607,7 +3603,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var win = '';
     if (mod) {
       var needBranch = ['liputan', 'jadual', 'tugasan', 'kehadiran', 'staffing', 'rating'].indexOf(S.urus) >= 0;
-      var sel = needBranch && S.me.scope.length > 1 ? '<label class="mod-branch">Branch<select data-act="branch">' + S.me.scope.map(function (b) {
+      var brs = S.urus === 'rating' && S.rtBr ? S.rtBr : S.me.scope; // rating: cawangan restoran sahaja
+      var sel = needBranch && brs.length > 1 ? '<label class="mod-branch">Branch<select data-act="branch">' + brs.map(function (b) {
         return '<option' + (b === S.branch ? ' selected' : '') + '>' + h(b) + '</option>';
       }).join('') + '</select></label>' : '';
       win = '<div class="modwin' + (S.urusAnim ? ' in' : '') + '" id="modwin"><div class="modwin-panel c-' + mod.c + '" role="dialog" aria-modal="true" aria-label="' + mod.l + '">' +
@@ -4361,7 +4358,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     return out;
   }
   function rpRender() {
-    var R = S.rp, w = R.w, pl = R.plan, view = pl ? S.rosterView : 'grid';
+    var R = S.rp, w = R.w, pl = R.plan, view = pl && !pl.office ? S.rosterView : 'grid'; // HQ: tiada papan syif jualan, ikut staf sahaja
     var head = rpHead(w, pl, view);
     if (view === 'grid') { renderRoster(w, head); return; }
     var cat = rpCat(), di = R.day, day = pl.days[di], dt = parseYmdL(day.ymd), tY = ymd(today());
@@ -4479,7 +4476,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var lbl = mon.getDate() + (mon.getMonth() !== sun.getMonth() ? ' ' + MON[mon.getMonth()] : '') + ' - ' + sun.getDate() + ' ' + MON[sun.getMonth()];
     return '<div class="rp-top"><div class="rp-wk"><button class="rp-arw" data-act="mweek" data-v="-1" aria-label="Previous week">‹</button>' +
       '<div class="rp-wk-l"><b>' + h(lbl) + '</b><span>' + h(w.cawangan) + '</span></div><button class="rp-arw" data-act="mweek" data-v="1" aria-label="Next week">›</button></div>' +
-      '<div class="rp-tools">' + (pl ? '<div class="seg mini" role="group" aria-label="Roster view"><button data-act="rpView" data-v="plan" aria-pressed="' + (view === 'plan') + '">By shift</button><button data-act="rpView" data-v="grid" aria-pressed="' + (view === 'grid') + '">By staff</button></div>' : '') +
+      '<div class="rp-tools">' + (pl && !pl.office ? '<div class="seg mini" role="group" aria-label="Roster view"><button data-act="rpView" data-v="plan" aria-pressed="' + (view === 'plan') + '">By shift</button><button data-act="rpView" data-v="grid" aria-pressed="' + (view === 'grid') + '">By staff</button></div>' : '') +
       '<button class="rp-png" data-act="rpPng" aria-label="Weekly schedule image (PNG) for WhatsApp" title="Weekly schedule image (PNG) for WhatsApp">' + svg('M4 5h16v14H4zM4 15l4.5-4.5 3.5 3.5 2.5-2.5L20 17M15.5 8.5h.01') + '<span>PNG</span></button></div></div>';
   }
   /* ======================= Jadual mingguan PNG (A4 melintang, 300 dpi) untuk kumpulan WhatsApp ======================= */
@@ -4490,7 +4487,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     Petang: { bg: '#F1ECFF', fg: '#5B2ED1', l: 'Petang' }, Split: { bg: '#E0F8F5', fg: '#00796F', l: 'Split' },
     Rehat: { bg: '#F3F4F8', fg: '#64748B', l: 'Rehat' }, 'On Call': { bg: '#FFF7E6', fg: '#9A4B00', l: 'On call (standby)' }, Lain: { bg: '#EDE9FF', fg: '#475569', l: 'Lain-lain' }, Cuti: { bg: '#FFF4E0', fg: '#B45309', l: 'Cuti' }
   };
-  var GRP_PNG = { Pengurus: 'PENGURUSAN', BH: 'BACK OF HOUSE · DAPUR', FH: 'FRONT OF HOUSE · SERVIS', 'Sambilan (PT)': 'SAMBILAN' };
+  var GRP_PNG = { Pengurus: 'PENGURUSAN', BH: 'BACK OF HOUSE · DAPUR', FH: 'FRONT OF HOUSE · SERVIS', 'Sambilan (PT)': 'SAMBILAN', HQ: 'PEJABAT HQ' };
   /** Imej SVG jenama daripada pemboleh ubah CSS (--nara-stack, --corak …) dengan saiz intrinsik untuk kanvas. */
   function brandImg(v, w, hgt) {
     return new Promise(function (res) {
@@ -6316,7 +6313,16 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var RT_CROWN = 'M4 18.5h16M5 16l-1.4-8.5 4.9 3.8L12 5.5l3.5 5.8 4.9-3.8L19 16z';
   function rtTier(t, est) { return '<span class="rt-tier t' + t + (est ? ' est' : '') + '"><i>' + t + '</i>' + RT_L[t] + '</span>'; }
   function rtDots(v) { return '<i class="rt-dots v' + v + '"><b></b><b></b><b></b></i>'; }
-  function uRating() { call('ratingList', { cawangan: S.branch }).then(function (d) { S.rtA = d; rtRender(); }).catch(urusErr); }
+  function uRating() {
+    call('ratingList', { cawangan: S.branch }).then(function (d) {
+      S.rtBr = d.pilihan || null;
+      if (d.bukanResto) {   // rating hanya untuk cawangan restoran (bukan HQ / Central Kitchen)
+        if (d.pilihan && d.pilihan.length) { S.branch = d.pilihan[0]; loadUrus(); return; }
+        urusBody('<section class="card"><p class="muted">Staff rating is for restaurant branches only.</p></section>'); return;
+      }
+      S.rtA = d; rtRender();
+    }).catch(urusErr);
+  }
   function rtStn(grp) { return (S.rtA.stesen[grp] || []); }
   function rtRender() {
     var d = S.rtA, R = d.ringkas;
