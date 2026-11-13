@@ -1,14 +1,14 @@
-/* NARA HR PWA 25497c38db
+/* NARA HR PWA ec5d2ba90c
  * Cache: kerangka app (HTML, ikon, fon) sahaja, stale-while-revalidate → buka serta-merta.
  * TIDAK cache data: semua panggilan API (POST ke Apps Script) terus ke rangkaian.
  * Push: papar notifikasi FCM (Web Push) dan buka app bila ditekan. */
-var V = 'nara-hr-25497c38db';
+var V = 'nara-hr-ec5d2ba90c';
 var SHELL = ['/hr/', '/hr/manifest.webmanifest'];
 var EXTRA = ['/hr/icons/icon-192.png', '/hr/icons/icon-512.png', '/hr/icons/icon-180.png', '/hr/icons/favicon.svg'];
 self.addEventListener('install', function (e) {
   // Kerangka wajib; ikon pilihan (satu ikon hilang tidak menggagalkan pemasangan)
   e.waitUntil(caches.open(V).then(function (c) {
-    return c.addAll(SHELL).then(function () { return Promise.all(EXTRA.map(function (u) { return c.add(u).catch(function () {}); })); });
+    return c.addAll(SHELL.map(function (u) { return new Request(u, { cache: 'reload' }); })).then(function () { return Promise.all(EXTRA.map(function (u) { return c.add(u).catch(function () {}); })); });
   }).then(function () { return self.skipWaiting(); }));
 });
 self.addEventListener('activate', function (e) {
