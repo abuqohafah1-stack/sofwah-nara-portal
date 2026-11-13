@@ -928,6 +928,10 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 .rd-isu li{display:flex;gap:7px;align-items:baseline}.rd-isu li span{flex:0 0 auto;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--haze);min-width:42px}
 .rd-isu li.more{color:var(--haze);font-size:12px;padding-left:49px}
 .rd-ok{display:flex;align-items:center;gap:6px;margin:8px 0 0;font-size:12.5px;color:var(--mint);font-weight:500}.rd-ok svg{width:15px;height:15px}
+.rd-off{display:flex;align-items:center;gap:10px;background:var(--cloud);border-radius:16px;padding:10px 12px;margin:0 0 10px;font-size:12.5px;color:var(--ink-2)}
+.rd-off > svg{width:18px;height:18px;color:var(--ember);flex:0 0 auto}
+.rd-off b{display:block;font-size:13px;color:var(--ink)}.rd-off small{display:block;font-size:12px;color:var(--haze);line-height:1.35}
+.rd-off .btn{flex:0 0 auto}
 .pick.best{background:var(--mint-soft);border-radius:14px;padding-left:8px;padding-right:8px;border-bottom-color:transparent}
 .pick .rt-tier{margin-right:2px}
 /* Modul Staff rating */
@@ -4165,8 +4169,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         on.forEach(function (x) { used[x.id] = 1; });
         var pills = on.map(function (x, k) {
           var rt = x.rt || {};
-          return '<button class="rb-p' + (k >= sl.n ? ' extra' : '') + (x.tamu ? ' guest' : '') + (rt.t ? ' lv' + rt.t : '') + (rt.pic ? ' lead' : '') + '" data-act="rpSeat" data-id="' + h(x.id) + '" title="' + h((RT_L[rt.t] || '') + (rt.pic ? ', shift lead' : '')) + '">' +
-            (rt.t ? '<i class="rb-lv">' + (rt.pic ? svg(RT_CROWN) : rt.t) + '</i>' : '') + h(first(x.nama)) + (x.tamu ? '<sup>' + h(brK(x.asal)) + '</sup>' : '') + '</button>';
+          return '<button class="rb-p' + (k >= sl.n ? ' extra' : '') + (x.tamu ? ' guest' : '') + (rt.t && !rt.est ? ' lv' + rt.t + (rt.pic ? ' lead' : '') : '') + '" data-act="rpSeat" data-id="' + h(x.id) + '" title="' + h((RT_L[rt.t] || '') + (rt.pic ? ', shift lead' : '')) + '">' +
+            (rt.t && !rt.est ? '<i class="rb-lv">' + (rt.pic ? svg(RT_CROWN) : rt.t) + '</i>' : '') + h(first(x.nama)) + (x.tamu ? '<sup>' + h(brK(x.asal)) + '</sup>' : '') + '</button>';
         }).join('');
         for (var k = on.length; k < sl.n; k++) pills += '<button class="rb-p add" data-act="rpAdd" data-kod="' + h(sl.kod) + '" data-grp="' + g + '" aria-label="Add to ' + h(sl.kod) + '">+</button>';
         var tm = splitInline(t.teks || sl.kod).replace(/:00/g, '').replace(/\s*[–-]\s*/g, '-').replace(/\s*[,\/]\s*/g, ' · ');
@@ -6167,8 +6171,10 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   };
 
   /* ---- Kesediaan roster (salinan rateReady_ pelayan, dikira langsung semasa pengurus mengubah syif) ---- */
+  /** Kesediaan dipaparkan bila sekurang-kurangnya separuh pasukan sudah dinilai HR (anggaran sahaja boleh mengelirukan). */
+  function rpRateOn() { var g = S.rp && S.rp.plan && S.rp.plan.rating; return !!(g && g.n && g.dinilai * 2 >= g.n); }
   function rpReady(i) {
-    var pl = S.rp && S.rp.plan; if (!pl || !pl.win || !pl.rating) return null;
+    var pl = S.rp && S.rp.plan; if (!pl || !pl.win || !pl.rating || !rpRateOn()) return null;
     var d = pl.days[i]; if (d.tutup) return null;
     var W = pl.win, RG = pl.rating, lbl = function (k) { var all = RG.stesen.BH.concat(RG.stesen.FH); for (var j = 0; j < all.length; j++) if (all[j][0] === k) return all[j][1]; return k; };
     var on = pl.staf.filter(function (x) { var c = S.rp.codes[x.id] && S.rp.codes[x.id][i]; return c && !away(x, i) && W[c] && W[c].some(Boolean) && x.rt; })
@@ -6198,6 +6204,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     return { skor: max ? Math.max(0, Math.round(got / max * 100)) : null, isu: isu, win: wins };
   }
   function rpReadyCard(i) {
+    var g = S.rp.plan && S.rp.plan.rating;
+    if (g && g.n && !rpRateOn()) {
+      return '<div class="rd-off">' + svg('M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z') + '<span class="grow"><b>Readiness checks start after rating</b><small>' + g.dinilai + ' of ' + g.n + ' staff rated by HR</small></span>' +
+        (isHR() ? '<button class="btn ghost small" data-act="urusOpen" data-v="rating">Rate team</button>' : '') + '</div>';
+    }
     var r = rpReady(i); if (!r || r.skor === null) return '';
     var tone = r.skor >= 90 ? 'ok' : r.skor >= 70 ? 'mid' : 'low', lbl = S.rp.plan.rating.lbl;
     var w = r.win.map(function (o, k) {
