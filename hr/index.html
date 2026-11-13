@@ -304,7 +304,7 @@ td.name{white-space:nowrap;font-weight:600;position:sticky;left:0;background:var
 .wk-d.today b{background:var(--slate);color:#fff}
 .wk-d.sel{background:var(--paper)}
 .wk-d i{width:18px;height:4px;border-radius:4px;background:transparent}
-.k-Pagi{--k:#2D9CFF}.k-Tengah{--k:var(--slate-3)}.k-Petang{--k:var(--ember)}.k-Split{--k:var(--violet)}.k-Cuti{--k:var(--mint)}.k-Rehat{--k:var(--mist-2)}.k-Lain{--k:var(--haze)}
+.k-Pagi{--k:#2D9CFF}.k-Tengah{--k:var(--slate-3)}.k-Petang{--k:var(--ember)}.k-Split{--k:var(--violet)}.k-Cuti{--k:var(--mint)}.k-Rehat{--k:var(--mist-2)}.k-Lain{--k:var(--haze)}.k-On{--k:#E08A00}
 .wk-d i[class]{background:var(--k)}
 .wk-d.k-Rehat i,.wk-d.k-Belum i{background:transparent}
 .wk-detail{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:var(--r-md);padding:12px 14px}
@@ -671,6 +671,7 @@ html.modal-open,html.modal-open body{overflow:hidden}
 .rg-c.k-Split{--k-bg:var(--violet-soft)}.rg-c.k-Split b{color:#00796F}
 .rg-c.k-Rehat{--k-bg:transparent;background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(100,116,139,.12) 5px 6px)}.rg-c.k-Rehat b{color:var(--haze);font-weight:600}
 .rg-c.k-Lain{--k-bg:var(--mist-2)}.rg-c.k-Lain b{color:var(--ink-2)}
+.rg-c.k-On{--k-bg:#FFF7E6}.rg-c.k-On b{color:#9A4B00}
 .rg-c.lv{--k-bg:var(--mint-soft);background-image:none}.rg-c.lv b{color:var(--mint)}.rg-c.lv small{color:var(--mint);opacity:.75;font-size:8px}
 .rg-c.chg{box-shadow:inset 0 0 0 2px var(--ember)}
 .rg-c.pulse{animation:rgPulse .5s ease}
@@ -687,7 +688,7 @@ html.modal-open,html.modal-open body{overflow:hidden}
 .rg-o{position:relative;border:0;border-radius:12px;padding:15px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:inherit;color:var(--ink);background:var(--k-bg,var(--mist));cursor:pointer;min-height:50px}
 .rg-o b{font-size:14px;font-weight:700}
 .rg-o small{font-size:10.5px;color:var(--ink-2);line-height:1.2;text-align:center;font-variant-numeric:tabular-nums}
-.rg-o.k-Pagi{--k-bg:var(--sky-soft)}.rg-o.k-Tengah{--k-bg:#ECEDF7}.rg-o.k-Petang{--k-bg:var(--ember-soft)}.rg-o.k-Split{--k-bg:var(--violet-soft)}.rg-o.k-Rehat,.rg-o.k-Lain{--k-bg:var(--mist)}
+.rg-o.k-Pagi{--k-bg:var(--sky-soft)}.rg-o.k-Tengah{--k-bg:#ECEDF7}.rg-o.k-Petang{--k-bg:var(--ember-soft)}.rg-o.k-Split{--k-bg:var(--violet-soft)}.rg-o.k-Rehat,.rg-o.k-Lain{--k-bg:var(--mist)}.rg-o.k-On{--k-bg:#FFF7E6}
 .rg-o.on{box-shadow:inset 0 0 0 2px var(--slate)}
 .rg-o em{position:absolute;top:4px;right:5px;font-style:normal;font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:999px}
 .rg-o em.ok{background:var(--mint-soft);color:var(--mint)}.rg-o em.short{background:#fff;color:var(--ember-ink)}
@@ -2574,7 +2575,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function initials(n) { var p = String(n || '?').trim().split(/\s+/); return (p[0].charAt(0) + (p.length > 1 && !/^(bin|binti|bt|b)$/i.test(p[1]) ? p[1].charAt(0) : '')).toUpperCase(); }
   var AVC = ['#1B1F4B', '#7A3EFF', '#2D9CFF', '#00A99A', '#5B2ED1', '#6F74A2', '#121638'];
   /** Rakan sesyif hari ini: dikumpul ikut syif (pagi → split → petang), grid avatar padat dengan cincin status. */
-  var MATE_KAT = { Pagi: 'Morning', Tengah: 'Mid', Split: 'Split', Petang: 'Evening' };
+  var MATE_KAT = { Pagi: 'Morning', Tengah: 'Mid', Split: 'Split', Petang: 'Evening', 'On Call': 'On call' };
   function matesCard(list) {
     if (!list.length) return '';
     var groups = [], by = {}, inN = 0;
@@ -2622,7 +2623,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     return '<svg class="gauge" viewBox="0 0 200 112" aria-hidden="true"><path d="M20 100A80 80 0 0 1 180 100" class="g-trk"/>' + out + '</svg>';
   }
   function splitInline(teks) { return String(teks || '').replace(/\s*\/\s*/g, ', '); }
-  var KAT = { Pagi: 'Morning', Tengah: 'Mid', Petang: 'Evening', Split: 'Split', Rehat: 'Rest day', Belum: 'Not scheduled', Lain: 'Other' };
+  var KAT = { Pagi: 'Morning', Tengah: 'Mid', Petang: 'Evening', Split: 'Split', Rehat: 'Rest day', Belum: 'Not scheduled', Lain: 'Other', 'On Call': 'On call' };
 
   /* owner: tab yang memiliki kandungan ini. Jawapan lewat (pelayan perlahan) untuk tab lain TIDAK boleh menulis ganti
      skrin semasa (contoh: tab Me dibuka tetapi data Today tiba kemudian). */
@@ -2710,7 +2711,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var title = state === 'shift' ? (parts[0][0] || sy.teks) : pad2(nowD.getHours()) + ':' + pad2(nowD.getMinutes());
     var until = state === 'shift' ? (parts[0][1] ? 'until ' + parts[0][1] : '') : state === 'leave' ? 'On leave today' : state === 'rest' ? 'Rest day today' : 'No shift today';
     var then = state === 'shift' && parts.length > 1 ? 'then ' + parts.slice(1).map(function (p) { return p.join('-'); }).join(', ') : '';
-    var sub = state === 'shift' ? (KAT[sy.kategori] || tr(sy.kategori)) + ' shift, ' + sy.kod + (d.di ? ' · at ' + d.di : '') + (sy.rehat && parts.length < 2 ? '\n' + sy.rehat + ' min break' : '')
+    var sub = state === 'shift' && sy.kategori === 'On Call' ? 'On call, ' + sy.kod + ' · standby at home\nClock in only if you are called in.'
+      : state === 'shift' ? (KAT[sy.kategori] || tr(sy.kategori)) + ' shift, ' + sy.kod + (d.di ? ' · at ' + d.di : '') + (sy.rehat && parts.length < 2 ? '\n' + sy.rehat + ' min break' : '')
       : state === 'leave' ? d.cuti : state === 'rest' ? 'Working anyway? Clock in as usual.' : 'On duty today? Clock in as usual.';
     var openIn = r.masuk2 && !r.keluar2 ? r.masuk2 : (r.masuk && !r.keluar ? r.masuk : '');
     S.liveFrom = openIn && d.tarikh ? new Date(d.tarikh + 'T' + openIn + ':00').getTime() : 0;
@@ -4486,7 +4488,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var KAT_PNG = {
     Pagi: { bg: '#E6F2FF', fg: '#1C6FD1', l: 'Pagi' }, Tengah: { bg: '#ECEDF7', fg: '#1B1F4B', l: 'Tengah hari' },
     Petang: { bg: '#F1ECFF', fg: '#5B2ED1', l: 'Petang' }, Split: { bg: '#E0F8F5', fg: '#00796F', l: 'Split' },
-    Rehat: { bg: '#F3F4F8', fg: '#64748B', l: 'Rehat' }, Lain: { bg: '#EDE9FF', fg: '#475569', l: 'Lain-lain' }, Cuti: { bg: '#FFF4E0', fg: '#B45309', l: 'Cuti' }
+    Rehat: { bg: '#F3F4F8', fg: '#64748B', l: 'Rehat' }, 'On Call': { bg: '#FFF7E6', fg: '#9A4B00', l: 'On call (standby)' }, Lain: { bg: '#EDE9FF', fg: '#475569', l: 'Lain-lain' }, Cuti: { bg: '#FFF4E0', fg: '#B45309', l: 'Cuti' }
   };
   var GRP_PNG = { Pengurus: 'PENGURUSAN', BH: 'BACK OF HOUSE · DAPUR', FH: 'FRONT OF HOUSE · SERVIS', 'Sambilan (PT)': 'SAMBILAN' };
   /** Imej SVG jenama daripada pemboleh ubah CSS (--nara-stack, --corak …) dengan saiz intrinsik untuk kanvas. */
@@ -4709,7 +4711,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (sl.grp !== meta.grp) return;
       need[sl.kod] = { n: sl.n, on: pl.staf.filter(function (x) { return x.grp === sl.grp && !away(x, i) && R.codes[x.id] && R.codes[x.id][i] === sl.kod; }).length };
     });
-    var GRP = [['Pagi', 'Morning'], ['Tengah', 'Mid'], ['Petang', 'Evening'], ['Split', 'Split'], ['Rehat', 'Off'], ['Lain', 'Other']];
+    var GRP = [['Pagi', 'Morning'], ['Tengah', 'Mid'], ['Petang', 'Evening'], ['Split', 'Split'], ['On Call', 'On call'], ['Rehat', 'Off'], ['Lain', 'Other']];
     var used = {}, body = GRP.map(function (g) {
       var list = w.shifts.filter(function (t) { var k = t.kategori; if (g[0] === 'Lain') return !used[t.kod]; return k === g[0]; });
       list.forEach(function (t) { used[t.kod] = 1; });
