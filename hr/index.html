@@ -1146,8 +1146,23 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .cv-sub{font-size:11.5px;color:rgba(255,255,255,.72);white-space:nowrap}
 .cv-pill{border-radius:8px!important}
 .cv-barsw{padding:2px 2px 0}
-.cv-bars{display:flex;align-items:flex-end;gap:4px;height:46px}
-.cv-b{position:relative;flex:1 1 0;min-width:0;height:100%;border:0;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cv-bars{position:relative;display:flex;align-items:flex-end;gap:4px;height:46px;cursor:ew-resize;touch-action:pan-y;-webkit-user-select:none;user-select:none;outline:none}
+.cv-bars:focus-visible{box-shadow:0 0 0 2px rgba(205,187,255,.6);border-radius:6px}
+.cv-ph{position:absolute;top:-8px;bottom:-3px;width:2px;margin-left:-1px;border-radius:2px;background:#fff;pointer-events:none;transition:left .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 8px rgba(255,255,255,.45)}
+.cv-ph b{position:absolute;top:-5px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(51,214,198,.5)}
+.cv-bars.drag .cv-ph{transition:none}.cv-bars.drag .cv-ph b{transform:scale(1.25)}
+.cv-play{display:inline-flex;align-items:center;gap:6px;border:0;background:#fff;color:var(--slate);border-radius:10px;padding:6px 11px 6px 9px;font:600 11.5px/1 Inter,sans-serif;cursor:pointer}
+.cv-play svg{width:13px;height:13px}
+.cv-play.on{background:#33D6C6;color:#0B2A2E}
+.cv-wrap{display:flex;flex-direction:column;gap:14px}
+.cv-wrap.cv-wait{opacity:.55;transform:translateX(var(--dx,0));transition:opacity .18s,transform .25s;pointer-events:none}
+.cv-wrap.cv-wait .cv-hero::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent,#33D6C6,transparent);background-size:50% 100%;background-repeat:no-repeat;animation:cvLoad 1s linear infinite}
+.cv-wrap.cv-in-r{animation:cvInR .34s cubic-bezier(.2,.8,.2,1)}.cv-wrap.cv-in-l{animation:cvInL .34s cubic-bezier(.2,.8,.2,1)}
+@keyframes cvInR{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes cvInL{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+@keyframes cvLoad{from{background-position:-50% 0}to{background-position:150% 0}}
+@media (prefers-reduced-motion:reduce){.cv-wrap.cv-in-r,.cv-wrap.cv-in-l{animation:none}.cv-ph{transition:none}}
+.cv-b{position:relative;flex:1 1 0;min-width:0;height:100%;-webkit-tap-highlight-color:transparent}
 .cv-b i{position:absolute;left:0;right:0;bottom:0;border-radius:4px 4px 2px 2px;background:rgba(255,255,255,.2);transition:height .3s ease,background-color .2s}
 .cv-b.ok i{background:rgba(51,214,198,.42)}.cv-b.short i{background:rgba(255,122,122,.55)}
 .cv-b.sel i{background:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.18)}
@@ -3429,10 +3444,58 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var CV_Z = [['kitchen', 'Kitchen'], ['front', 'Front'], ['dining', 'Dining']];
   function cvHM(m) { m = ((Math.round(m) % 1440) + 1440) % 1440; return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + m % 60).slice(-2); }
   function cvMin(hm) { var x = /^(\d{1,2}):(\d{2})/.exec(String(hm || '')); return x ? +x[1] * 60 + +x[2] : null; }
-  function uLiputan() {
-    var d0 = S.date || ymd(today());
+  /* Tukar tarikh lancar: data hari sebelah dimuat awal (cache), label tarikh bertukar serta-merta, kad lama kekal
+     (malap) sehingga data baharu tiba, kemudian kad bertukar dengan animasi gelongsor. Tiada skrin kosong / lompat. */
+  S.cvCache = {}; S.cvPf = {};
+  function cvKey(b, d) { return b + '|' + d; }
+  function cvFetch(b, d) {
+    return call('coverage', { cawangan: b, tarikh: d }).then(function (c) { S.cvCache[cvKey(b, d)] = { c: c, at: Date.now() }; return c; });
+  }
+  function cvPrefetch(b, d) {
+    [1, -1, 2, -2].forEach(function (o, i) {
+      var dd = ymd(addDays(parseYmdL(d), o)), k = cvKey(b, dd);
+      if (S.cvCache[k] || S.cvPf[k]) return;
+      S.cvPf[k] = 1;
+      setTimeout(function () { cvFetch(b, dd).catch(function () { /* pilihan */ }).then(function () { delete S.cvPf[k]; }); }, i * 250);
+    });
+  }
+  function uLiputan(dir) {
+    var d0 = S.date || ymd(today()), b = S.branch, k = cvKey(b, d0), hit = S.cvCache[k];
+    var fresh = hit && (d0 !== ymd(today()) || Date.now() - hit.at < 60000);
     cvStop();
-    call('coverage', { cawangan: S.branch, tarikh: d0 }).then(function (c) { cvInit(c); cvRender(); }).catch(urusErr);
+    var seq = S.cvSeq = (S.cvSeq || 0) + 1;
+    if (hit) cvShow(hit.c, dir);
+    else if ($('cv-wrap')) cvWait(d0, dir);
+    if (fresh) { cvPrefetch(b, d0); return; }
+    cvFetch(b, d0).then(function (c) {
+      if (seq !== S.cvSeq || S.urus !== 'liputan') return;
+      if (!hit || JSON.stringify(hit.c) !== JSON.stringify(c)) cvShow(c, hit ? 0 : dir, !!hit);
+      cvPrefetch(b, d0);
+    }).catch(function (e) {
+      if (seq !== S.cvSeq) return;
+      var w = $('cv-wrap'); if (w) w.classList.remove('cv-wait');
+      if (!hit && !$('cv-wrap')) urusErr(e); else toast(e.message, true);
+    });
+  }
+  /** Label tarikh bertukar serta-merta; kad semasa dimalapkan sementara menunggu. */
+  function cvWait(d0, dir) {
+    var dt = parseYmdL(d0), lab = $('cv-dl'), inp = document.querySelector('.cv-nav input[type=date]'), w = $('cv-wrap');
+    if (lab) lab.textContent = fmtDay(dt) + (d0 === ymd(today()) ? ' · today' : '');
+    if (inp) inp.value = d0;
+    if (w) { w.classList.remove('cv-in-l', 'cv-in-r'); w.classList.add('cv-wait'); w.style.setProperty('--dx', (dir || 0) * -10 + 'px'); }
+  }
+  /** Papar data: kali pertama bina penuh; seterusnya hanya kandungan kad ditukar (nav kekal, skrol kekal). */
+  function cvShow(c, dir, quiet) {
+    var keepT = quiet && S.cv && S.cv.c.tarikh === c.tarikh && S.cv.t !== S.cv.nowM ? S.cv.t : null;
+    cvInit(c);
+    if (keepT !== null && keepT >= S.cv.t0 && keepT < S.cv.t1) S.cv.t = keepT;
+    if (!$('cv-wrap')) { cvRender(); return; }
+    cvWait(c.tarikh, 0);
+    var w = $('cv-wrap');
+    w.innerHTML = cvBody();
+    w.classList.remove('cv-wait', 'cv-in-l', 'cv-in-r');
+    if (dir) { void w.offsetWidth; w.classList.add(dir > 0 ? 'cv-in-r' : 'cv-in-l'); }
+    if (S.cv.people.length) cvUpdate();
   }
   function cvZone(m, office) {
     if (office) return 'office';
@@ -3457,7 +3520,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       hours.push({ h: hh, n: people.filter(function (m) { return cvOn(m, at); }).length, need: need[hh % 24] });
     }
     var peak = hours.reduce(function (a, b) { return b.n > a.n ? b : a; }, hours[0] || { h: 12, n: 0 });
-    S.cv = { c: c, people: people, office: office, t0: t0, t1: t1, hours: hours, peak: peak, liveH: liveH, nowM: nowM, h: liveH !== null ? liveH : peak.h, lmax: c.lebihMax || 2 };
+    S.cv = { c: c, people: people, office: office, t0: t0, t1: t1, hours: hours, peak: peak, liveH: liveH, nowM: nowM, lmax: c.lebihMax || 2, timer: null,
+      t: liveH !== null ? nowM : peak.h * 60 + 30 };
   }
   function cvOn(m, t) { return m.blok.some(function (b) { return t >= b[0] && t < b[1]; }); }
   /** Status clock-in langsung (hari ini sahaja): in / done / late / '' */
@@ -3468,17 +3532,18 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var punched = cur === m.blok[0] ? m.masuk : m.masuk2; // syif split: sesi 2 perlu clock-in sendiri
     return punched ? 'done' : 'late';
   }
-  function cvT() { var V = S.cv; return V.liveH !== null && V.h === V.liveH ? V.nowM : V.h * 60 + 30; }
+  function cvT() { return S.cv.t; }
+  function cvIsLive() { var V = S.cv; return V.liveH !== null && V.t === V.nowM; }
   function cvBars() {
     var V = S.cv, H = V.hours, mx = Math.max.apply(null, H.map(function (x) { return Math.max(x.n, x.need || 0); }).concat([2]));
-    return '<div class="cv-bars" role="group" aria-label="Staff on the floor by hour">' + H.map(function (x) {
+    return '<div class="cv-bars" id="cv-track" role="slider" tabindex="0" aria-label="Time of day: drag to scrub" aria-valuemin="' + V.t0 + '" aria-valuemax="' + (V.t1 - 15) + '" aria-valuenow="' + V.t + '">' + H.map(function (x) {
       var tone = x.need !== undefined && x.n < x.need ? ' short' : ' ok';
-      return '<button class="cv-b' + tone + (x.h === V.h ? ' sel' : '') + (x.h === V.liveH ? ' now' : '') + '" data-act="cvHour" data-v="' + x.h + '" aria-pressed="' + (x.h === V.h) + '" aria-label="' + cvHM(x.h * 60) + ', ' + x.n + ' on floor' + (x.need !== undefined ? ', need ' + x.need : '') + '">' +
-        '<i style="height:' + Math.max(8, Math.round(x.n / mx * 100)) + '%"></i>' + (x.need !== undefined ? '<em style="bottom:' + Math.round(x.need / mx * 100) + '%"></em>' : '') + '</button>';
-    }).join('') + '</div><div class="cv-hx">' + H.map(function (x, i) { return '<span>' + (i % 3 === 0 ? cvHM(x.h * 60).slice(0, 2) : '') + '</span>'; }).join('') + '</div>';
+      return '<span class="cv-b' + tone + (x.h === Math.floor(V.t / 60) ? ' sel' : '') + (x.h === V.liveH ? ' now' : '') + '" data-v="' + x.h + '">' +
+        '<i style="height:' + Math.max(8, Math.round(x.n / mx * 100)) + '%"></i>' + (x.need !== undefined ? '<em style="bottom:' + Math.round(x.need / mx * 100) + '%"></em>' : '') + '</span>';
+    }).join('') + '<i class="cv-ph" id="cv-ph" aria-hidden="true"><b></b></i></div><div class="cv-hx">' + H.map(function (x, i) { return '<span>' + (i % 3 === 0 ? cvHM(x.h * 60).slice(0, 2) : '') + '</span>'; }).join('') + '</div>';
   }
   function cvZones() {
-    var V = S.cv, t = cvT(), live = V.liveH !== null && V.h === V.liveH;
+    var V = S.cv, t = cvT(), live = cvIsLive();
     return (V.office ? [['office', 'Office']] : CV_Z).map(function (z) {
       var L = V.people.filter(function (m) { return m.z === z[0] && cvOn(m, t); });
       return '<div class="cv-zr"><span class="cv-zn">' + z[1] + '</span><div class="cv-zav">' + (L.length ? L.map(function (m) {
@@ -3489,38 +3554,82 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
   function cvUpdate() {
     var V = S.cv; if (!V || !$('cv-time')) return;
-    var t = cvT(), x = V.hours.filter(function (y) { return y.h === V.h; })[0] || { n: 0 };
-    var live = V.liveH !== null && V.h === V.liveH;
+    var t = V.t, hh = Math.floor(t / 60), x = V.hours.filter(function (y) { return y.h === hh; })[0] || { n: 0 };
+    var live = cvIsLive();
     var on = V.people.filter(function (m) { return cvOn(m, t); }).length, need = x.need;
     var diff = need === undefined ? null : on - need, tone = diff === null ? '' : diff < 0 ? 'red' : diff > V.lmax ? 'orange' : 'green';
-    $('cv-time').textContent = live ? cvHM(t) : cvHM(V.h * 60);
+    $('cv-time').textContent = cvHM(t);
     $('cv-lv').hidden = !live;
-    var rg = $('cv-rg'); rg.hidden = live; rg.textContent = 'to ' + cvHM(V.h * 60 + 60);
+    var rg = $('cv-rg'); if (rg) rg.hidden = true;
     $('cv-sub').textContent = on + ' on floor' + (need !== undefined ? ' · need ' + need : '');
     var pill = $('cv-pill');
     pill.className = 'cv-pill ' + tone; pill.textContent = diff === null ? (on ? 'Scheduled' : 'Closed') : diff < 0 ? 'Short ' + Math.abs(diff) : diff > V.lmax ? 'Over ' + diff : 'Balanced';
-    $('cv-barsw').innerHTML = cvBars();
-    $('cv-zones').innerHTML = cvZones();
-    var nb = $('cv-nowb'); if (nb) nb.hidden = V.liveH === null || live;
+    var bw = $('cv-barsw');
+    if (bw && bw.dataset.d !== V.c.tarikh) { bw.innerHTML = cvBars(); bw.dataset.d = V.c.tarikh; cvTrack(); }
+    if (bw) Array.prototype.forEach.call(bw.querySelectorAll('.cv-b'), function (el) { el.classList.toggle('sel', Number(el.dataset.v) === hh); });
+    var ph = $('cv-ph'); if (ph) ph.style.left = ((t - V.t0) / Math.max(15, V.t1 - V.t0) * 100).toFixed(2) + '%';
+    var tr = $('cv-track'); if (tr) { tr.setAttribute('aria-valuenow', t); tr.setAttribute('aria-valuetext', cvHM(t) + ', ' + on + ' on floor'); }
+    var key = (V.c.tarikh + t + (live ? 'L' : '')), zs = $('cv-zones');
+    if (zs && zs.dataset.k !== key) { zs.innerHTML = cvZones(); zs.dataset.k = key; }
+    var nb = $('cv-nowb'); if (nb) nb.hidden = V.liveH === null || live || !!V.timer;
     var lg = $('cv-lg'); if (lg) lg.hidden = !live;
+    var pb = $('cv-play'); if (pb) { pb.innerHTML = V.timer ? svg('M8 5v14M16 5v14') + '<span>Pause</span>' : svg('M7 4.5v15l12-7.5z') + '<span>Play</span>'; pb.classList.toggle('on', !!V.timer); }
+  }
+  /** Tarik (seret) pada bar untuk pilih masa (setiap 15 minit); tekan anak panah papan kekunci juga boleh. */
+  function cvTrack() {
+    var tr = $('cv-track'), V = S.cv; if (!tr || tr.dataset.on) return;
+    tr.dataset.on = '1';
+    var drag = false;
+    var at = function (e) {
+      var r = tr.getBoundingClientRect(), f = Math.max(0, Math.min(0.9999, (e.clientX - r.left) / r.width));
+      var t = S.cv.t0 + Math.round(f * (S.cv.t1 - S.cv.t0) / 15) * 15;
+      t = Math.max(S.cv.t0, Math.min(S.cv.t1 - 15, t));
+      if (t !== S.cv.t) { S.cv.t = t; cvUpdate(); buzz(4); }
+    };
+    tr.addEventListener('pointerdown', function (e) { cvStop(); drag = true; try { tr.setPointerCapture(e.pointerId); } catch (x) { /* abaikan */ } tr.classList.add('drag'); at(e); });
+    tr.addEventListener('pointermove', function (e) { if (drag) at(e); });
+    var end = function () { drag = false; tr.classList.remove('drag'); cvUpdate(); };
+    tr.addEventListener('pointerup', end); tr.addEventListener('pointercancel', end);
+    tr.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 15 : e.key === 'ArrowLeft' ? -15 : 0; if (!d) return;
+      e.preventDefault(); cvStop(); S.cv.t = Math.max(S.cv.t0, Math.min(S.cv.t1 - 15, S.cv.t + d)); cvUpdate();
+    });
   }
   function cvStop() { if (S.cv && S.cv.timer) { clearInterval(S.cv.timer); S.cv.timer = null; } }
-  function cvPlay() { /* tiada lagi main sehari: simulasi kini ringkas */ }
+  /** Play: masa bergerak 15 minit setiap langkah sehingga tutup kedai (sentuh bar untuk berhenti). */
+  function cvPlay() {
+    var V = S.cv; if (!V) return;
+    if (V.timer) { cvStop(); cvUpdate(); return; }
+    if (V.t >= V.t1 - 15) V.t = V.t0;
+    V.timer = setInterval(function () {
+      if (!$('cv-time') || S.urus !== 'liputan' || S.cv !== V) { clearInterval(V.timer); V.timer = null; return; }
+      V.t = Math.min(V.t1 - 15, Math.floor(V.t / 15) * 15 + 15);
+      if (V.t >= V.t1 - 15) { clearInterval(V.timer); V.timer = null; }
+      cvUpdate();
+    }, 320);
+    cvUpdate();
+  }
   function cvChip(m, g) {
     var nowM = new Date().getHours() * 60 + new Date().getMinutes();
     var st = S.cv.c.tarikh === ymd(today()) && m.blok && m.blok.length ? cvLiveSt(m, nowM) : '';
     return '<button class="cv-c" data-act="cvOpen" data-v="' + h(m.id) + '">' + avatar(m.nama) + '<span>' + h(titleCase(String(m.nama).split(' ')[0])) + (g ? '<small>' + h(g) + '</small>' : '') + '</span>' + (st ? '<i class="cv-st ' + st + '" title="' + ({ in: 'Clocked in', done: 'Clocked out', late: 'Not in yet' }[st]) + '"></i>' : '') + '</button>';
   }
   function cvRender() {
-    var V = S.cv, c = V.c, dt = parseYmdL(c.tarikh), g = c.groups;
-    var nav = '<div class="att-top"><button class="icon-round" data-act="cvDay" data-v="-1" aria-label="Previous day">' + svg('M15 6l-6 6 6 6') + '</button>' +
-      '<label class="att-date"><span>' + h(fmtDay(dt)) + (c.tarikh === ymd(today()) ? ' · today' : '') + '</span><input type="date" data-act="date" value="' + h(c.tarikh) + '" aria-label="Choose date"></label>' +
+    var c = S.cv.c, dt = parseYmdL(c.tarikh);
+    var nav = '<div class="att-top cv-nav"><button class="icon-round" data-act="cvDay" data-v="-1" aria-label="Previous day">' + svg('M15 6l-6 6 6 6') + '</button>' +
+      '<label class="att-date"><span id="cv-dl">' + h(fmtDay(dt)) + (c.tarikh === ymd(today()) ? ' · today' : '') + '</span><input type="date" data-act="date" value="' + h(c.tarikh) + '" aria-label="Choose date"></label>' +
       '<button class="icon-round" data-act="cvDay" data-v="1" aria-label="Next day">' + svg('M9 6l6 6-6 6') + '</button></div>';
+    urusBody(nav + '<div id="cv-wrap" class="cv-wrap">' + cvBody() + '</div>');
+    if (S.cv.people.length) cvUpdate();
+    cvSwipe();
+  }
+  function cvBody() {
+    var V = S.cv, c = V.c, dt = parseYmdL(c.tarikh), g = c.groups;
     var sim = V.people.length
       ? '<section class="cv-hero cv2"><div class="cv-top"><div class="cv-tl2"><span class="cv-eb">On the floor</span><div class="cv-tm"><b id="cv-time">--:--</b><span class="cv-lv" id="cv-lv" hidden><i></i>Live</span><span class="cv-rg" id="cv-rg" hidden></span></div></div>' +
         '<div class="cv-r"><i id="cv-pill" class="cv-pill"></i><span id="cv-sub" class="cv-sub"></span></div></div>' +
         '<div id="cv-barsw" class="cv-barsw"></div><div id="cv-zones" class="cv-zones"></div>' +
-        '<div class="cv-ft"><button class="cv-pk" data-act="cvPeak">Peak ' + cvHM(V.peak.h * 60) + ' · ' + V.peak.n + '</button>' +
+        '<div class="cv-ft"><button class="cv-play" id="cv-play" data-act="cvPlay"></button><button class="cv-pk" data-act="cvPeak">Peak ' + cvHM(V.peak.h * 60) + ' · ' + V.peak.n + '</button>' +
         '<span id="cv-lg" class="cv-lg" hidden><span><i class="d-in"></i>In</span><span><i class="d-late"></i>Not in yet</span></span>' +
         '<button class="cv-nowb" id="cv-nowb" data-act="cvNow" hidden>Back to now</button></div></section>'
       : '<section class="cv-hero cv2 cv-empty"><span class="cv-eb">On the floor</span><b>No shifts on ' + h(fmtDay(dt)) + '</b><p>' + (g.Belum.length ? g.Belum.length + ' staff have no shift yet.' : 'Everyone is off or on leave.') + '</p>' +
@@ -3540,8 +3649,24 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       (isMgr() ? '<button class="btn small" data-act="urusOpen" data-v="jadual">Plan</button>' : '') + '</div>' : '';
     var lineup = '<section class="card cv-line"><div class="card-h"><h3>Line-up</h3><span class="chip">' + c.bertugas + ' on duty' + (c.tarikh === ymd(today()) ? ' · ' + c.hadir + ' in' : '') + '</span></div>' +
       (lanes || '<div class="empty">No one on shift.</div>') + offH + nbH + '</section>';
-    urusBody(nav + sim + lineup);
-    if (V.people.length) cvUpdate();
+    return sim + lineup;
+  }
+  /** Hari sebelum / selepas: tarikh semasa diambil dari label (bukan data yang mungkin belum tiba). */
+  function cvGo(o) {
+    var cur = S.date || (S.cv ? S.cv.c.tarikh : ymd(today()));
+    S.date = ymd(addDays(parseYmdL(cur), o));
+    uLiputan(o);
+  }
+  /** Leret kad ke kiri / kanan untuk tukar hari. */
+  function cvSwipe() {
+    var w = $('cv-wrap'); if (!w || w.dataset.sw) return;
+    w.dataset.sw = '1';
+    var x0 = 0, y0 = 0, t0 = 0;
+    w.addEventListener('touchstart', function (e) { var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; t0 = e.target.closest && e.target.closest('#cv-track') ? 0 : Date.now(); }, { passive: true });
+    w.addEventListener('touchend', function (e) {
+      var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+      if (t0 && Date.now() - t0 < 600 && Math.abs(dx) > 70 && Math.abs(dy) < 40) cvGo(dx < 0 ? 1 : -1); // seret pada bar = pilih masa, bukan tukar hari
+    }, { passive: true });
   }
   function cvOpen(id) {
     var V = S.cv, c = V.c, m = null;
@@ -5243,13 +5368,12 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       busy(el, true);
       call('joinSet', { baru: true }).then(function (d) { closeModal(); S.qrA = d; qrRender(); toast('New QR ready. Download and print it.'); }).catch(function (e) { busy(el, false); fail(e); });
     },
-    cvDay: function (el) { S.date = ymd(addDays(parseYmdL(S.cv ? S.cv.c.tarikh : ymd(today())), Number(el.dataset.v))); uLiputan(); },
+    cvDay: function (el) { cvGo(Number(el.dataset.v)); },
     cvPlay: function () { cvPlay(); },
-    cvNow: function () { if (S.cv && S.cv.liveH !== null) { S.cv.h = S.cv.liveH; cvUpdate(); } },
-    cvHour: function (el) { if (S.cv) { S.cv.h = Number(el.dataset.v); cvUpdate(); } },
-    cvPeak: function () { if (S.cv) { S.cv.h = S.cv.peak.h; cvUpdate(); } },
+    cvNow: function () { if (S.cv && S.cv.liveH !== null) { cvStop(); S.cv.t = S.cv.nowM; cvUpdate(); } },
+    cvPeak: function () { if (S.cv) { cvStop(); S.cv.t = S.cv.peak.h * 60 + 30; cvUpdate(); } },
     cvOpen: function (el) { cvOpen(el.dataset.v); },
-    cvJump: function (el) { closeModal(); var V = S.cv, hh = Math.floor(Number(el.dataset.v) / 60); V.h = Math.max(V.t0 / 60, Math.min(V.t1 / 60 - 1, hh)); cvUpdate(); var hb = document.querySelector('.cv-hero'); if (hb) hb.scrollIntoView({ block: 'start', behavior: 'smooth' }); },
+    cvJump: function (el) { closeModal(); cvStop(); var V = S.cv; V.t = Math.max(V.t0, Math.min(V.t1 - 15, Number(el.dataset.v))); cvUpdate(); var hb = document.querySelector('.cv-hero'); if (hb) hb.scrollIntoView({ block: 'start', behavior: 'smooth' }); },
     hraF: function (el) { S.hra.f = S.hra.f === el.dataset.v ? '' : el.dataset.v; S.hra.all = false; hraRedraw(); },
     hraAll: function () { S.hra.all = !S.hra.all; hraRedraw(); },
     hraOpen: function (el) {
@@ -5334,7 +5458,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var act = el.dataset.act;
     if (act === 'branch') { S.branch = el.value; loadUrus(); }
     else if (act === 'payMonth') { S.payMonth = el.value; if ((S.data.payStatus || { months: [] }).months.some(function (m) { return m.bulan === el.value; })) loadPayMonth(el.value); else $('pay-body').innerHTML = '<div class="card"><div class="empty">' + h(el.value) + '  not processed yet. Tap Run payroll.</div></div>'; }
-    else if (act === 'date') { S.date = el.value; (S.urus === 'kehadiran' ? uKehadiran : uLiputan)(); }
+    else if (act === 'date') { var pv = S.date || ymd(today()); S.date = el.value; if (S.urus === 'kehadiran') uKehadiran(); else uLiputan(el.value > pv ? 1 : el.value < pv ? -1 : 0); }
     else if (act === 'role') {
       var skop = document.querySelector('[data-skop="' + el.dataset.id + '"]');
       call('setRole', { id: el.dataset.id, role: el.value, skop: skop ? skop.value : '' }).then(function () { toast('Role updated.'); }).catch(fail);
