@@ -1246,6 +1246,20 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .auth-card .jn-ok-chk{display:flex;flex-direction:row;align-items:flex-start;gap:10px;font-size:12.5px;line-height:1.45;font-weight:500;color:var(--ink-2)}
 .auth-card .jn-ok-chk input{width:20px;height:20px;min-height:0;padding:0;margin:1px 0 0;flex:0 0 auto;accent-color:var(--ember)}
 .jn-nav{display:flex;gap:8px;margin-top:4px}.jn-nav .btn{flex:0 0 auto}.jn-nav .btn.grow{flex:1}
+/* Payroll: IC & bank */
+.auth-card select{width:100%;min-height:46px;border:1.5px solid transparent;background:var(--mist);border-radius:12px;padding:10px 12px;font:500 15px/1.2 inherit;font-family:inherit;color:var(--ink);appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--haze) 50%),linear-gradient(135deg,var(--haze) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+.auth-card select:focus{outline:0;background-color:var(--paper);border-color:var(--ember)}
+.auth-card input[name=ic],.auth-card input[name=akaun],.auth-card input[name=akaun2]{font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.jn-ich{min-height:0;margin:-6px 2px 0;font-size:12.5px;font-weight:500;display:flex;align-items:center;gap:6px}
+.jn-ich:empty{display:none}
+.jn-ich.ok{color:var(--mint)}.jn-ich.ok::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor;flex:0 0 auto}
+.jn-ich.bad{color:var(--coral,#E5484D)}
+.jn-safe{display:flex;gap:10px;align-items:flex-start;background:var(--mist);border-radius:14px;padding:11px 12px;font-size:12.5px;line-height:1.45;color:var(--ink-2)}
+.jn-safe svg{width:18px;height:18px;color:var(--slate);flex:0 0 auto;margin-top:1px}
+.jn-safe b{color:var(--ink)}
+.jn-mask{font-variant-numeric:tabular-nums;letter-spacing:.06em;white-space:nowrap}
+.jn-paid{display:flex;gap:10px;align-items:center;background:var(--mint-soft);border-radius:14px;padding:11px 12px;font-size:13px;color:var(--ink)}
+.jn-paid svg{width:18px;height:18px;color:var(--mint);flex:0 0 auto}
 .jn-done{align-items:stretch;text-align:left}
 .jn-okc{width:58px;height:58px;border-radius:50%;background:var(--mint-soft);color:var(--mint);display:grid;place-items:center;margin-top:-4px}
 .jn-okc svg{width:30px;height:30px}
@@ -3681,15 +3695,16 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
 
   /* ======================= Sertai Sofwah (QR), borang keahlian staf baharu =======================
-     /hr/#join=<kod> → 3 langkah (Anda · Kerja · Sahkan) → terus jadi staf (ID automatik ikut cawangan) → cipta akaun. */
-  var JOIN_DESC = { Tetap: 'Full-time · 2-month probation', Kontrak: 'Fixed term with an end date', Sementara: 'Short period, e.g. festive season', Sambilan: 'Part-time on set days', Kasual: 'On call when the branch needs you' };
+     /hr/#join=<kod> → 4 langkah (Anda · Kerja · Payroll · Sahkan) → terus jadi staf (ID automatik ikut cawangan) → cipta akaun.
+     IC & bank hanya dalam memori halaman ini, dihantar sekali ke pelayan (fail NARA Payroll), dipadam selepas berjaya. Tiada localStorage. */
+  var JOIN_DESC = { Tetap: 'Full-time · 3-month probation', Kontrak: 'Fixed term with an end date', Sementara: 'Short period, e.g. festive season', Sambilan: 'Part-time on set days', Kasual: 'On call when the branch needs you' };
   var JOIN_ICO = { Tetap: 'M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6zM9 12l2 2 4-4', Kontrak: 'M7 3.5h7l4 4v13H7zM14 3.5V8h4M10 13h5M10 17h3', Sementara: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', Sambilan: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M8 13h3M13 13h3M8 17h3', Kasual: 'M13 2L4 14h7l-1 8 9-12h-7z' };
   var JOIN_STN = [['Ayam', 'Grill'], ['Western', 'Western'], ['Dish', 'Dish'], ['Chef', 'Chef']];
   var DAY7 = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   function joinKeyFromHash() { var m = /^#join=([A-Za-z0-9]{6,40})/.exec(location.hash || ''); return m ? m[1] : null; }
   function joinHero() { return '<div class="auth-hero jn-hero"><div class="auth-lock" role="img" aria-label="NARA HR"></div><div class="jn-tag">Join the Sofwah team</div></div>'; }
   function renderJoin(k) {
-    S.join = { k: k, step: 1, d: { nama: '', panggilan: '', jantina: '', telefon: '', email: '', jenis: '', cawangan: '', bahagian: 'FH', stesen: '', mula: ymd(today()), tamat: '', hari: '', setuju: false } };
+    S.join = { k: k, step: 1, d: { nama: '', panggilan: '', jantina: '', telefon: '', email: '', jenis: '', cawangan: '', bahagian: 'FH', stesen: '', mula: ymd(today()), tamat: '', hari: '', idj: 'IC', ic: '', negara: '', lahir: '', bank: '', bankLain: '', akaun: '', akaun2: '', milik: false, setuju: false } };
     $('app').innerHTML = '<div class="auth jn">' + joinHero() + '<div class="auth-card jn-card"><div class="pk-skel"></div><div class="pk-skel"></div><div class="pk-skel"></div></div></div>';
     call('joinInfo', { k: k }).then(function (info) { S.join.info = info; S.join.d.mula = info.hariIni; joinRender(); })
       .catch(function (e) {
@@ -3701,11 +3716,46 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var J = S.join; if (!J) return;
     [].forEach.call(document.querySelectorAll('.jn-card [name]'), function (el) { J.d[el.name] = el.type === 'checkbox' ? el.checked : el.value; });
   }
+  /* ---- IC & bank (langkah Payroll) ---- */
+  function joinIcDigits(v) { return String(v || '').replace(/\D/g, '').slice(0, 12); }
+  function joinIcFmt(v) { var d = joinIcDigits(v); return d.length > 8 ? d.slice(0, 6) + '-' + d.slice(6, 8) + '-' + d.slice(8) : d.length > 6 ? d.slice(0, 6) + '-' + d.slice(6) : d; }
+  function joinIcDob(d) {
+    if (d.length < 6) return null;
+    var yy = +d.slice(0, 2), mm = +d.slice(2, 4), dd = +d.slice(4, 6), y = yy + 2000 > today().getFullYear() ? 1900 + yy : 2000 + yy, dt = new Date(y, mm - 1, dd);
+    return dt.getFullYear() === y && dt.getMonth() === mm - 1 && dt.getDate() === dd ? dt : null;
+  }
+  function joinAge(dob) { var on = parseYmdL(S.join.d.mula), a = on.getFullYear() - dob.getFullYear(); if (on.getMonth() < dob.getMonth() || (on.getMonth() === dob.getMonth() && on.getDate() < dob.getDate())) a--; return a; }
+  function joinAk(v) { return String(v || '').replace(/[\s-]/g, ''); }
+  function joinMask(v, keep) { var s = String(v || ''); return s.length <= keep ? s : '•'.repeat(Math.min(8, s.length - keep)) + s.slice(-keep); }
+  function joinBankName() { var d = S.join.d; return d.bank === 'Lain' ? String(d.bankLain).trim() : d.bank; }
+  /** Semakan langsung di bawah medan IC (tarikh lahir & jantina daripada nombor), tanpa memaparkan nombor semula. */
+  function joinIcHint() {
+    var d = S.join.d, n = joinIcDigits(d.ic), el = document.getElementById('jn-ich'); if (!el) return;
+    var dob = joinIcDob(n), msg = '', cls = 'muted';
+    if (n.length === 12 && dob) {
+      var g = +n.charAt(11) % 2 ? 'L' : 'P';
+      msg = 'Born ' + fmtLong(dob) + ' · ' + (g === 'L' ? 'Male' : 'Female'); cls = g === d.jantina ? 'ok' : 'bad';
+      if (g !== d.jantina) msg += '. You chose ' + (d.jantina === 'L' ? 'male' : 'female') + ' in step 1.';
+    } else if (n.length >= 6 && !dob) { msg = 'The first 6 digits are your birth date (YYMMDD).'; cls = 'bad'; }
+    el.className = 'jn-ich ' + cls; el.textContent = msg;
+  }
+  function joinAkHint() {
+    var d = S.join.d, a = joinAk(d.akaun), b = joinAk(d.akaun2), el = document.getElementById('jn-akh'); if (!el) return;
+    el.className = 'jn-ich ' + (!b ? 'muted' : a === b ? 'ok' : 'bad'); el.textContent = !b ? '' : a === b ? 'Account numbers match' : (b.length < a.length && a.indexOf(b) === 0 ? '' : 'Account numbers do not match');
+  }
+  function joinPayBind() {
+    var ic = document.querySelector('.jn-card [name=ic]'), a1 = document.querySelector('.jn-card [name=akaun]'), a2 = document.querySelector('.jn-card [name=akaun2]');
+    if (ic && S.join.d.idj === 'IC') ic.addEventListener('input', function () { var p = ic.selectionStart, before = ic.value.length; ic.value = joinIcFmt(ic.value); S.join.d.ic = ic.value; try { var q = p + (ic.value.length - before); ic.setSelectionRange(q, q); } catch (e) { /* abaikan */ } joinIcHint(); });
+    [a1, a2].forEach(function (el) { if (el) el.addEventListener('input', function () { el.value = el.value.replace(/[^\d\s-]/g, ''); S.join.d[el.name] = el.value; joinAkHint(); }); });
+    var bk = document.querySelector('.jn-card [name=bank]');
+    if (bk) bk.addEventListener('change', function () { joinRead(); joinRender(); var f = document.querySelector('.jn-card [name=' + (S.join.d.bank === 'Lain' ? 'bankLain' : 'akaun') + ']'); if (f) f.focus(); });
+    joinIcHint(); joinAkHint();
+  }
   function joinProbEnd() { var m = parseYmdL(S.join.d.mula); return new Date(m.getFullYear(), m.getMonth() + (S.join.info.percubaan || 3), m.getDate()); }
   function fmtLong(d) { return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); }
   function joinRender(err) {
     var J = S.join, d = J.d, info = J.info, st = J.step, br = joinBr(), body;
-    var steps = '<div class="steps">' + ['You', 'Job', 'Confirm'].map(function (l, i) {
+    var steps = '<div class="steps">' + ['You', 'Job', 'Payroll', 'Confirm'].map(function (l, i) {
       var n = i + 1; return '<div class="step' + (n < st ? ' done' : n === st ? ' on' : '') + '"><i>' + (n < st ? '✓' : n) + '</i><span>' + l + '</span></div>';
     }).join('<b class="step-bar"></b>') + '</div>';
     var seg = function (f, opts) { return '<div class="jn-seg">' + opts.map(function (o) { return '<button type="button" class="' + (d[f] === o[0] ? 'on' : '') + '" data-act="joinPick" data-f="' + f + '" data-v="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>'; };
@@ -3732,6 +3782,22 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         (br && br.jenis === 'resto' ? '<div class="jn-lbl">Section</div>' + seg('bahagian', [['FH', 'Front of house'], ['BH', 'Kitchen']]) : '') +
         (kitchen ? '<div class="jn-lbl">Station <small class="muted">optional</small></div><div class="jn-chips">' + JOIN_STN.map(function (x) { return '<button type="button" class="jn-chip' + (d.stesen === x[0] ? ' on' : '') + '" data-act="joinPick" data-f="stesen" data-v="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>' : '') +
         '<label>Start date<input name="mula" type="date" value="' + h(d.mula) + '"></label>' + extra;
+    } else if (st === 3) {
+      var banks = (info.bank || []).map(function (b) { return '<option value="' + h(b) + '"' + (d.bank === b ? ' selected' : '') + '>' + h(b) + '</option>'; }).join('');
+      var ic = d.idj === 'IC';
+      body = '<h1>Payroll details</h1><p class="muted">Needed so your salary, EPF, SOCSO and tax are ready from your first month.</p>' +
+        '<div class="jn-lbl">Identity document</div>' + seg('idj', [['IC', 'MyKad'], ['PP', 'Passport']]) +
+        (ic ? '<label>MyKad number<input name="ic" value="' + h(joinIcFmt(d.ic)) + '" inputmode="numeric" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="14" placeholder="e.g. 990101-02-5123"></label><div id="jn-ich" class="jn-ich muted"></div>'
+          : '<label>Passport number<input name="ic" value="' + h(d.ic) + '" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="15" placeholder="e.g. A12345678"></label>' +
+            '<label>Country<input name="negara" value="' + h(d.negara) + '" autocomplete="country-name" placeholder="e.g. Indonesia"></label>' +
+            '<label>Date of birth<input name="lahir" type="date" value="' + h(d.lahir) + '"></label>') +
+        '<div class="jn-lbl">Salary account</div>' +
+        '<label>Bank<select name="bank"><option value="">Choose your bank</option>' + banks + '<option value="Lain"' + (d.bank === 'Lain' ? ' selected' : '') + '>Other bank</option></select></label>' +
+        (d.bank === 'Lain' ? '<label>Bank name<input name="bankLain" value="' + h(d.bankLain) + '" placeholder="Name of your bank"></label>' : '') +
+        '<label>Account number<input name="akaun" value="' + h(d.akaun) + '" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="24" placeholder="Digits only"></label>' +
+        '<label>Type it again<input name="akaun2" value="' + h(d.akaun2) + '" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="24" placeholder="To make sure it is right"></label><div id="jn-akh" class="jn-ich muted"></div>' +
+        '<label class="jn-ok-chk"><input type="checkbox" name="milik"' + (d.milik ? ' checked' : '') + '><span>This account is in my own name. Salary is only paid into the staff member’s own account.</span></label>' +
+        '<div class="jn-safe">' + svg('M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9.5h-13zM12 15v2.5') + '<span><b>Private and secure.</b> Sent once over an encrypted link and kept only in Sofwah’s payroll file, seen by HR payroll. Not on your phone, and never shown in full again.</span></div>';
     } else {
       var ty2 = (info.jenis || []).filter(function (t) { return t.k === d.jenis; })[0] || {};
       var line = function (a, b) { return '<div class="att-l"><span>' + a + '</span><b>' + b + '</b></div>'; };
@@ -3741,13 +3807,16 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         line('Name', h(d.nama.toUpperCase())) + (d.panggilan ? line('Call me', h(d.panggilan)) : '') + line('Gender', d.jantina === 'L' ? 'Male' : 'Female') +
         line('Mobile', h(d.telefon)) + line('Email', h(d.email)) + line('Type', h(ty2.l + ' · ' + ty2.k)) +
         line('Branch', h(d.cawangan) + (br && br.jenis === 'resto' ? ' · ' + (d.bahagian === 'BH' ? 'Kitchen' : 'Front') : '') + (d.stesen ? ' · ' + h((JOIN_STN.filter(function (x) { return x[0] === d.stesen; })[0] || [])[1] || d.stesen) : '')) +
-        line('Start', fmtLong(parseYmdL(d.mula))) + term + '</div>' +
-        '<label class="jn-ok-chk"><input type="checkbox" name="setuju"' + (d.setuju ? ' checked' : '') + '><span>My details are true. Sofwah may keep them for HR purposes under the Personal Data Protection Act 2010.</span></label>' +
-        '<p class="hint jn-hint">Your staff ID is created automatically. HR will collect your IC and bank details separately for payroll.</p>';
+        line('Start', fmtLong(parseYmdL(d.mula))) + term +
+        line(d.idj === 'IC' ? 'MyKad' : 'Passport', '<span class="jn-mask">' + h(d.idj === 'IC' ? '••••••-••-' + joinIcDigits(d.ic).slice(-4) : joinMask(String(d.ic).toUpperCase().replace(/[^A-Z0-9]/g, ''), 3)) + '</span>') +
+        line('Bank', h(joinBankName()) + ' <span class="jn-mask">' + h(joinMask(joinAk(d.akaun), 4)) + '</span>') + '</div>' +
+        '<label class="jn-ok-chk"><input type="checkbox" name="setuju"' + (d.setuju ? ' checked' : '') + '><span>My details are true. Sofwah may keep them for HR and payroll (EPF, SOCSO, EIS and tax) under the Personal Data Protection Act 2010.</span></label>' +
+        '<p class="hint jn-hint">Your staff ID is created automatically. Your MyKad and bank details go only to Sofwah’s payroll file.</p>';
     }
     $('app').innerHTML = '<div class="auth jn">' + joinHero() + '<div class="auth-card jn-card">' + steps + body + (err ? '<div class="err">' + h(err) + '</div>' : '') +
       '<div class="jn-nav">' + (st > 1 ? '<button type="button" class="btn ghost" data-act="joinBack">Back</button>' : '') +
-      '<button type="button" class="btn grow" data-act="' + (st < 3 ? 'joinNext' : 'joinSubmit') + '">' + (st < 3 ? 'Next' : 'Join Sofwah') + '</button></div></div></div>';
+      '<button type="button" class="btn grow" data-act="' + (st < 4 ? 'joinNext' : 'joinSubmit') + '">' + (st < 4 ? 'Next' : 'Join Sofwah') + '</button></div></div></div>';
+    if (st === 3) joinPayBind();
   }
   function joinValid() {
     var d = S.join.d, st = S.join.step;
@@ -3762,6 +3831,27 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (!d.mula) return 'Choose your start date.';
       if ((d.jenis === 'Kontrak' || d.jenis === 'Sementara') && (!d.tamat || d.tamat <= d.mula)) return 'Choose an end date after your start date.';
       if ((d.jenis === 'Sambilan' || d.jenis === 'Kasual') && !d.hari) return 'Choose the days you can work.';
+    } else if (st === 3) {
+      if (d.idj === 'IC') {
+        var n = joinIcDigits(d.ic), dob = joinIcDob(n);
+        if (n.length !== 12) return 'Enter your 12-digit MyKad number.';
+        if (!dob) return 'Your MyKad number does not look right. The first 6 digits are your birth date (YYMMDD).';
+        var g = +n.charAt(11) % 2 ? 'L' : 'P';
+        if (g !== d.jantina) return 'Your MyKad number is for a ' + (g === 'L' ? 'male' : 'female') + '. Check your gender (step 1) or your MyKad number.';
+        if (joinAge(dob) < 15) return 'You must be at least 15 years old to work with Sofwah.';
+      } else {
+        var pp = String(d.ic).toUpperCase().replace(/[^A-Z0-9]/g, '');
+        if (!/^[A-Z0-9]{6,12}$/.test(pp) || !/\d/.test(pp)) return 'Enter your passport number.';
+        if (String(d.negara).trim().length < 3) return 'Enter the country of your passport.';
+        if (!d.lahir) return 'Enter your date of birth.';
+        if (joinAge(parseYmdL(d.lahir)) < 15) return 'You must be at least 15 years old to work with Sofwah.';
+      }
+      if (!d.bank) return 'Choose your bank.';
+      if (d.bank === 'Lain' && String(d.bankLain).trim().length < 3) return 'Enter the name of your bank.';
+      var a = joinAk(d.akaun);
+      if (!/^\d{7,20}$/.test(a)) return 'Enter your bank account number (7 to 20 digits).';
+      if (joinAk(d.akaun2) !== a) return 'The two account numbers do not match. Please type them again.';
+      if (!d.milik) return 'Please confirm the account is in your own name.';
     } else if (!d.setuju) return 'Please tick the declaration to continue.';
     return '';
   }
@@ -3771,6 +3861,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     $('app').innerHTML = '<div class="auth jn">' + joinHero() + '<div class="auth-card jn-card jn-done"><div class="jn-okc">' + svg('M5 12.5l4.5 4.5L19 7.5') + '</div>' +
       '<h1>Welcome to Sofwah, ' + h(r.nama) + '!</h1><p class="muted">You’re registered as <b>' + h(r.label.toLowerCase()) + '</b> staff at <b>' + h(r.cawangan) + '</b>, starting ' + h(fmtLong(m)) + '.</p>' +
       '<div class="jn-id"><span>Your staff ID</span><b>' + h(r.id) + '</b></div>' +
+      (r.bank ? '<div class="jn-paid">' + svg('M7 11V8a5 5 0 0 1 10 0v3M5.5 11h13v9.5h-13zM12 15v2.5') + '<span>Payroll details saved · ' + h(r.bank) + ' <span class="jn-mask">••••' + h(r.hujung || '') + '</span></span></div>' : '') +
       '<ol class="jn-next"><li><b>Create your NARA HR account</b><span>Verify ' + h(r.email) + ' and choose a password.</span></li><li><b>Get your shifts</b><span>Your manager adds you to the roster.</span></li><li><b>Clock in with the app</b><span>Selfie and location at your branch.</span></li></ol>' +
       '<button class="btn block" data-act="joinAccount">Create my account</button></div></div>';
   }
@@ -5321,6 +5412,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     joinPick: function (el) {
       joinRead(); var d = S.join.d, f = el.dataset.f, v = el.dataset.v;
       if (f === 'stesen' && d.stesen === v) v = '';
+      if (f === 'idj' && d.idj !== v) { d.ic = ''; d.lahir = ''; d.negara = ''; }
       d[f] = v;
       if (f === 'cawangan') { var b = joinBr(); if (b && b.jenis === 'kitchen') d.bahagian = 'BH'; else if (b && b.jenis === 'office') { d.bahagian = 'HQ'; d.stesen = ''; } else if (d.bahagian === 'HQ') d.bahagian = 'FH'; }
       if (f === 'bahagian' && v === 'FH') d.stesen = '';
@@ -5335,7 +5427,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var d = S.join.d, p = {}; Object.keys(d).forEach(function (k) { p[k] = d[k]; });
       p.k = S.join.k; p.setuju = d.setuju === true; p.nama = String(d.nama).trim(); p.email = String(d.email).trim();
       busy(el, true);
-      call('joinSubmit', p).then(joinDone).catch(function (x) { joinRender(x.message); });
+      call('joinSubmit', p).then(function (r) {
+        ['ic', 'akaun', 'akaun2', 'lahir', 'negara', 'bankLain'].forEach(function (k) { S.join.d[k] = ''; }); // padam dari memori selepas berjaya
+        p = null; joinDone(r);
+      }).catch(function (x) {
+        var e = x.message || '';
+        if (/MyKad|passport|bank|account|birth|years old/i.test(e) && !/already registered/.test(e)) S.join.step = 3; // terus ke medan yang perlu dibetulkan
+        joinRender(e);
+      });
     },
     joinAccount: function (el) {
       var r = S.join && S.join.done; if (!r) return;
