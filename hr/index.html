@@ -1678,18 +1678,27 @@ label.cb-ck:has(input:checked){border-color:var(--ember);background:var(--ember-
 .dense .legend{font-size:12.5px;gap:6px 14px}
 .dense .dash-grid,.dense .cols{gap:10px}
 /* Cawangan hari ini */
+.dash-grid + .cols{margin-top:12px}
 .br-list{display:flex;flex-direction:column}
-.br-row{padding:10px 0;border-top:1px solid rgba(27,31,75,.07);display:flex;flex-direction:column;gap:6px}
-.br-row:first-child{border-top:0;padding-top:0}
-.br-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.br-top > b{font-size:14.5px;font-weight:600}
-.br-n{font-size:12.5px;color:var(--haze);font-variant-numeric:tabular-nums;white-space:nowrap}.br-n b{font-size:15px;color:var(--ink)}
-.br-bar{display:flex;height:6px;border-radius:6px;background:#fff;overflow:hidden}
-.br-bar i{display:block;height:100%}.br-bar i.in{background:var(--slate)}.br-bar i.late{background:var(--ember)}
-.br-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px 6px;font-size:11.5px;color:var(--haze)}
-.br-meta > span:first-child{margin-right:4px}
-.br-f{font-size:11px;font-weight:600;padding:2px 7px;border-radius:999px;background:#fff;color:var(--ink-2)}
-.br-f.late{color:var(--ember-ink);background:var(--ember-soft)}.br-f.wait{color:#B7791F;background:#FFF7E6}.br-f.leave{color:#1F7FD6;background:var(--sky-soft)}.br-f.bad{color:var(--error);background:var(--error-soft)}
+.br-row{display:grid;grid-template-columns:10px 1fr auto;align-items:center;gap:12px;padding:11px 0;border-top:1px solid rgba(27,31,75,.07)}
+.br-row:first-child{border-top:0;padding-top:2px}
+.br-dot{width:10px;height:10px;border-radius:50%;background:var(--ember)}
+.br-row.ok .br-dot{background:var(--teal)}.br-row.none .br-dot{background:#E3DEF3}
+.br-main{min-width:0;display:flex;flex-direction:column;gap:1px}
+.br-main > b{font:600 14.5px/1.25 Montserrat,Inter,sans-serif;color:var(--slate);letter-spacing:-.01em}
+.br-msg{font-size:12px;color:var(--haze);display:flex;flex-wrap:wrap;gap:0 6px}
+.br-row.ok .br-msg{color:var(--teal-ink)}
+.br-x::before{content:"·";margin-right:6px;color:var(--haze)}
+.br-x.late{color:var(--ember-ink)}.br-x.bad{color:var(--error)}
+.br-n{display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-size:12px;color:var(--haze);font-variant-numeric:tabular-nums;white-space:nowrap}
+.br-n b{font:700 17px/1 Montserrat,Inter,sans-serif;color:var(--slate)}
+.br-bar{width:64px;height:5px;border-radius:5px;background:#E3DEF3;overflow:hidden}
+.br-bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--ember),#2D9CFF)}
+.br-row.ok .br-bar i{background:var(--teal)}
+.br-none{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:#fff;color:var(--haze)}
+.br-tot{font-size:12.5px;color:var(--haze);font-variant-numeric:tabular-nums}.br-tot b{font:700 15px Montserrat,Inter,sans-serif;color:var(--slate)}
+.br-foot{margin-top:10px;padding:9px 12px;border-radius:12px;background:#fff;font-size:12px;color:var(--ink-2)}
+.br-foot.warn{background:#FFF7E6;color:#9A4B00}
 /* Dashboard: clock-in padat */
 .dense .gauge-card{display:grid;grid-template-columns:140px minmax(0,1fr);grid-template-areas:"h h" "g l";column-gap:16px;row-gap:8px;align-items:center}
 .dense .gauge-card .card-h{grid-area:h}.dense .gauge-card .gauge-wrap{grid-area:g}.dense .gauge-card .legend{grid-area:l;grid-template-columns:1fr;gap:7px}
@@ -3728,18 +3737,22 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         return '<div class="tile' + (i === 0 ? ' lead' : '') + '">' + (i === 0 && x[3] ? ring(x[3]) : '') + '<span class="eyebrow">' + h(x[0]) + '</span><b>' + h(x[1] || 0) + '</b><span class="muted">' + h(x[2]) + '</span></div>';
       }).join('');
       // Cawangan hari ini: satu baris setiap cawangan (bar clock-in + isu), tanpa jadual lebar yang perlu ditatal ke tepi
+      var brIn = 0, brSc = 0, brReady = 0;
       var rows = d.cawangan.map(function (c) {
-        var sc = Number(c.dijadual || 0), hd = Number(c.hadir || 0), pc = sc ? Math.min(100, Math.round(hd / sc * 100)) : 0, lt = Math.min(hd, Number(c.lewat || 0));
-        var flags = (c.lewat ? '<span class="br-f late">' + c.lewat + ' late</span>' : '') + (c.belum ? '<span class="br-f wait">' + c.belum + ' unrostered</span>' : '') +
-          (c.cuti ? '<span class="br-f leave">' + c.cuti + ' leave</span>' : '') + (c.isu ? '<span class="br-f bad">' + c.isu + ' issue' + (c.isu > 1 ? 's' : '') + '</span>' : '') +
-          (c.tanpaKoordinat && c.cawangan !== 'HQ' ? '<span class="br-f bad">No GPS</span>' : '');
-        return '<div class="br-row"><div class="br-top"><b>' + h(c.cawangan) + '</b><span class="br-n"><b>' + hd + '</b>/' + sc + ' in</span></div>' +
-          '<div class="br-bar" role="img" aria-label="' + hd + ' of ' + sc + ' clocked in"><i class="in" style="width:' + (sc ? (hd - lt) / sc * 100 : 0) + '%"></i><i class="late" style="width:' + (sc ? lt / sc * 100 : 0) + '%"></i></div>' +
-          '<div class="br-meta"><span>' + c.aktif + (c.keperluan ? ' of ' + c.keperluan : '') + ' staff · next week ' + c.mingguDepan + '/' + c.aktif + ' rostered</span>' + flags + '</div></div>';
+        var sc = Number(c.dijadual || 0), hd = Number(c.hadir || 0), lt = Math.min(hd, Number(c.lewat || 0));
+        var wait = c.belumMasuk != null ? Number(c.belumMasuk) : Math.max(0, sc - hd), pc = sc ? Math.min(100, Math.round((sc - wait) / sc * 100)) : 0;
+        brIn += sc ? sc - wait : 0; brSc += sc; if (c.aktif && Number(c.mingguDepan) >= Number(c.aktif)) brReady++;
+        var st = !sc ? 'none' : !wait ? 'ok' : 'go';
+        var msg = !sc ? c.aktif + ' staff' + (hd ? ' · ' + hd + ' clocked in' : '') : !wait ? 'Everyone is in' : wait + ' not in yet';
+        var extra = (lt ? '<span class="br-x late">' + lt + ' late</span>' : '') + (c.cuti ? '<span class="br-x">' + c.cuti + ' on leave</span>' : '') +
+          (c.isu ? '<span class="br-x bad">' + c.isu + ' roster issue' + (c.isu > 1 ? 's' : '') + '</span>' : '') + (c.tanpaKoordinat && c.cawangan !== 'HQ' ? '<span class="br-x bad">No GPS</span>' : '');
+        return '<div class="br-row ' + st + '"><i class="br-dot" aria-hidden="true"></i><div class="br-main"><b>' + h(c.cawangan) + '</b><span class="br-msg">' + h(msg) + extra + '</span></div>' +
+          (sc ? '<div class="br-n" role="img" aria-label="' + (sc - wait) + ' of ' + sc + ' clocked in"><span><b>' + (sc - wait) + '</b>/' + sc + '</span><div class="br-bar"><i style="width:' + pc + '%"></i></div></div>' : '<span class="br-none">No roster</span>') + '</div>';
       }).join('');
+      var brFoot = '<div class="br-foot' + (brReady < d.cawangan.length ? ' warn' : '') + '">Next week\'s roster: <b>' + brReady + ' of ' + d.cawangan.length + '</b> branches ready</div>';
       S.hra = { list: hraPrep(d.tindakan || []), f: '', all: false };
       var html = '<div class="dash-grid">' + gaugeCard + '<div class="tiles dash-tiles">' + tiles + '</div></div>' +
-        '<div class="cols"><section class="card br-card"><div class="card-h"><h3>Branches today</h3><span class="muted">' + d.cawangan.length + '</span></div><div class="br-list">' + rows + '</div></section>' +
+        '<div class="cols"><section class="card br-card"><div class="card-h"><h3>Branches today</h3><span class="br-tot"><b>' + brIn + '</b>/' + brSc + ' in</span></div><div class="br-list">' + rows + '</div>' + brFoot + '</section>' +
         hraCard() + '</div>';
       box.innerHTML = html;
       if (box.id === 'hub-dash') {
