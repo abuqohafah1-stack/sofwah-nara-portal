@@ -1276,14 +1276,44 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .tile.rw.miss .rw-ico,.tile.rw.lock .rw-ico{color:var(--haze)}
 .rw-ico svg{width:18px;height:18px}
 
-/* ---------- Privacy policy / Help: popup dalam app ---------- */
-.modal.doc-sheet{padding-top:calc(12px + env(safe-area-inset-top))}
-.modal.doc-sheet .modal-card{max-width:760px;height:calc(100vh - 28px);height:calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));max-height:none;display:flex;flex-direction:column;padding:16px 16px 14px}
+/* ---------- Privacy policy / Help: popup dalam app (statik; hanya teks skrol) ---------- */
+html:has(#modal.doc-sheet:not([hidden])),html:has(#modal.doc-sheet:not([hidden])) body,html:has(#modal.cb-sheet:not([hidden])) body{overflow:hidden}
+.modal.doc-sheet{align-items:stretch;padding:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom));overscroll-behavior:none}
+.modal.doc-sheet .modal-card{width:100%;max-width:760px;height:100%;max-height:none;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;padding:16px 0 0}
+.modal.doc-sheet .modal-head{flex:0 0 auto;padding:0 16px 0 20px;margin-bottom:10px}
 .modal.doc-sheet #modal-body{flex:1;min-height:0;display:flex;flex-direction:column}
-.doc-frame{position:relative;flex:1;min-height:240px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#fff}
-.doc-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.doc-tools{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 20px 10px}
+.doc-tools:empty{display:none}
+.doc-upd{font-size:12px;color:var(--haze);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.doc-body{position:relative;flex:1;min-height:0;overflow-x:hidden;touch-action:pan-y;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;border-top:1px solid var(--line);padding:4px 22px 28px}
 .doc-ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--haze)}
-.doc-close{margin-top:12px;flex:0 0 auto}
+.doc-if{display:block;width:100%;height:100%;min-height:60vh;border:0}
+.doc-foot{flex:0 0 auto;padding:12px 16px calc(14px);border-top:1px solid var(--line);background:var(--paper)}
+.doc-content{font-size:14.5px;line-height:1.6;color:var(--ink-2);overflow-wrap:anywhere;max-width:100%}
+.doc-content *{max-width:100%}
+.doc-content .wrap{max-width:none;margin:0}
+.doc-content h2{font:700 17px/1.3 Montserrat,Inter,sans-serif;color:var(--slate);letter-spacing:-.01em;margin:24px 0 6px}
+.doc-content h3{font-size:14.5px;color:var(--ink);margin:16px 0 2px}
+.doc-content p{margin:6px 0}
+.doc-content ul{padding-left:20px;margin:6px 0}.doc-content li{margin:4px 0}
+.doc-content b,.doc-content strong{color:var(--ink)}
+.doc-content .card{background:var(--mist);border-radius:16px;padding:14px 16px;margin:14px 0}
+.doc-content table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;table-layout:fixed}
+.doc-content th,.doc-content td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+@media (max-width:640px){
+  .doc-content table.doc-tbl,.doc-tbl tbody,.doc-tbl thead,.doc-tbl tr,.doc-tbl td{display:block;width:100%}
+  .doc-tbl tr.doc-th{display:none}
+  .doc-tbl tr{background:var(--mist);border-radius:14px;padding:10px 14px;margin:0 0 8px}
+  .doc-tbl td{border:0;padding:2px 0;font-size:13.5px}
+  .doc-tbl td:first-child{font-weight:600;color:var(--ink);font-size:14px;padding-bottom:4px}
+  .doc-tbl td[data-l]:not(:first-child)::before{content:attr(data-l);display:block;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--haze);margin-top:6px}
+}
+.doc-content th{color:var(--haze);font-weight:600;font-size:12px}
+.doc-content hr{display:none}
+.doc-content a{color:var(--ember-ink)}
+.doc-content .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--ember-ink);background:var(--ember-soft);border-radius:8px;padding:2px 8px}
+.doc-content section[hidden]{display:none}
+.doc-content>.wrap>*:first-child,.doc-content>.wrap>section>*:first-child{margin-top:14px}
 
 /* ---------- Compensation & Benefits (NARA HR 1.0.19) ---------- */
 .modal.cb-sheet{padding-top:calc(12px + env(safe-area-inset-top))}
@@ -5531,12 +5561,63 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   };
 
   /* ======================= Privacy policy / Help: popup dalam app (tiada lagi halaman tanpa butang kembali) ======================= */
+  /* Kandungan halaman awam dipaparkan terus dalam popup (bukan iframe): tajuk & Close kekal statik, hanya teks yang skrol. */
+  var DOC_CACHE = {};
   function docSheet(url, title) {
-    modal(title, '<div class="doc-frame"><div class="doc-ph"><span class="spinner"></span></div><iframe src="' + h(url) + '" title="' + h(title) + '" referrerpolicy="no-referrer"></iframe></div>' +
-      '<button class="btn ghost block doc-close" data-act="closeModal">Close</button>', 'doc-sheet');
-    var f = document.querySelector('#modal .doc-frame iframe');
-    if (f) f.addEventListener('load', function () { var p = document.querySelector('#modal .doc-ph'); if (p) p.remove(); });
+    modal(title, '<div class="doc-tools" id="doc-tools"></div><div class="doc-body" id="doc-body"><div class="doc-ph"><span class="spinner"></span></div></div>' +
+      '<div class="doc-foot"><button class="btn ghost block" data-act="closeModal">Close</button></div>', 'doc-sheet');
+    var got = DOC_CACHE[url] ? Promise.resolve(DOC_CACHE[url]) : fetch(url, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); });
+    got.then(function (html) {
+      DOC_CACHE[url] = html;
+      var body = $('doc-body'), tools = $('doc-tools');
+      if (!body || $('modal').hidden) return;
+      var doc = new DOMParser().parseFromString(html, 'text/html');
+      var main = doc.querySelector('main') || doc.body;
+      Array.prototype.forEach.call(main.querySelectorAll('script,style,link,iframe,object,embed,form'), function (n) { n.remove(); });
+      Array.prototype.forEach.call(main.querySelectorAll('*'), function (n) {
+        Array.prototype.slice.call(n.attributes).forEach(function (a) { if (/^on/i.test(a.name) || (/^(href|src)$/i.test(a.name) && /^\s*javascript:/i.test(a.value))) n.removeAttribute(a.name); });
+        if (n.tagName === 'A' && /^https?:/i.test(n.getAttribute('href') || '')) { n.setAttribute('target', '_blank'); n.setAttribute('rel', 'noopener'); }
+      });
+      body.innerHTML = '<div class="doc-content">' + main.innerHTML + '</div>';
+      // Jadual → kad bertingkat di telefon (tiada tatal ke tepi): setiap sel diberi label lajurnya
+      Array.prototype.forEach.call(body.querySelectorAll('.doc-content table'), function (t) {
+        var hs = []; t.classList.add('doc-tbl');
+        Array.prototype.forEach.call(t.querySelectorAll('tr'), function (tr) {
+          var cells = Array.prototype.slice.call(tr.children);
+          if (cells.length && cells.every(function (c) { return c.tagName === 'TH'; })) { hs = cells.map(function (c) { return c.textContent.trim(); }); tr.classList.add('doc-th'); return; }
+          cells.forEach(function (td, i) { if (hs[i]) td.setAttribute('data-l', hs[i]); });
+        });
+      });
+      var upd = /Last updated ([^<·]+)/.exec(html);
+      var two = body.querySelector('#en') && body.querySelector('#ms');
+      tools.innerHTML = (two ? '<div class="seg mini" role="group" aria-label="Language"><button data-act="docLang" data-v="ms">Bahasa Melayu</button><button data-act="docLang" data-v="en">English</button></div>' : '') +
+        (upd ? '<span class="doc-upd">Updated ' + h(upd[1].trim().replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b/, '$1')) + '</span>' : '');
+      if (two) docLang(LS.get('nara_doclang') || 'ms');
+    }).catch(function () {
+      var body = $('doc-body');
+      if (body) body.innerHTML = '<iframe class="doc-if" src="' + h(url) + '" title="' + h(title) + '"></iframe>';
+    });
   }
+  function docLang(v) {
+    var b = $('doc-body');
+    if (!b) return;
+    ['en', 'ms'].forEach(function (k) { var x = b.querySelector('#' + k); if (x) x.hidden = k !== v; });
+    Array.prototype.forEach.call(document.querySelectorAll('#doc-tools [data-act=docLang]'), function (x) { x.setAttribute('aria-pressed', String(x.dataset.v === v)); });
+    b.scrollTop = 0;
+    LS.set('nara_doclang', v);
+  }
+  // Popup dokumen: hanya kawasan teks boleh skrol; seret pada tajuk / butang tidak menggerakkan popup atau skrin di belakang
+  $('modal').addEventListener('touchmove', function (e) {
+    if ($('modal').classList.contains('doc-sheet') && !(e.target.closest && e.target.closest('.doc-body'))) e.preventDefault();
+  }, { passive: false });
+  // Pautan dalam dokumen: #seksyen skrol dalam popup sahaja
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('#doc-body a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    var t = $('doc-body').querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
   /* ======================= Compensation & Benefits (NARA HR 1.0.19) ======================= */
   var CB_G = {
@@ -5722,6 +5803,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
 
   Object.assign(ACT, {
+    docLang: function (el) { docLang(el.dataset.v); },
     cbOpen: function () { cbOpen('view'); },
     cbAck: function (el) {
       busy(el, true);
