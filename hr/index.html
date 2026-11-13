@@ -1358,7 +1358,7 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .rw-ico svg{width:18px;height:18px}
 
 /* ---------- Privacy policy / Help: popup dalam app (statik; hanya teks skrol) ---------- */
-html:has(#modal.doc-sheet:not([hidden])),html:has(#modal.doc-sheet:not([hidden])) body,html:has(#modal.cb-sheet:not([hidden])) body{overflow:hidden}
+html:has(#modal.doc-sheet:not([hidden])),html:has(#modal.doc-sheet:not([hidden])) body,html:has(#modal.cb-sheet:not([hidden])) body,html:has(#modal.md-sheet:not([hidden])) body{overflow:hidden}
 .modal.doc-sheet{align-items:stretch;padding:calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom));overscroll-behavior:none}
 .modal.doc-sheet .modal-card{width:100%;max-width:760px;height:100%;max-height:none;margin:0 auto;display:flex;flex-direction:column;overflow:hidden;padding:16px 0 0}
 .modal.doc-sheet .modal-head{flex:0 0 auto;padding:0 16px 0 20px;margin-bottom:10px}
@@ -1396,6 +1396,69 @@ html:has(#modal.doc-sheet:not([hidden])),html:has(#modal.doc-sheet:not([hidden])
 .doc-content .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--ember-ink);background:var(--ember-soft);border-radius:8px;padding:2px 8px}
 .doc-content section[hidden]{display:none}
 .doc-content>.wrap>*:first-child,.doc-content>.wrap>section>*:first-child{margin-top:14px}
+
+/* ---------- Minda Sofwah (NARA HR 1.0.29) ---------- */
+.card.md-card{padding:0;overflow:hidden;border:0;color:#fff;background:radial-gradient(120% 90% at 100% 0%,rgba(0,200,181,.24),transparent 55%),radial-gradient(90% 80% at 0% 100%,rgba(122,62,255,.5),transparent 62%),linear-gradient(160deg,#262B66,#1B1F4B 60%,#141737)}
+.md-card-b{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:16px 16px 12px;text-align:left;cursor:pointer;color:inherit;border-radius:inherit}
+.md-card-b b{display:block;font:700 16px/1.2 Montserrat,Inter,sans-serif;letter-spacing:-.01em;color:#fff}
+.md-card-b small{display:block;font-size:12.5px;line-height:1.4;color:rgba(255,255,255,.74);margin-top:3px}
+.md-card .cb-chev{color:rgba(255,255,255,.6)}
+.md-ic{flex:0 0 auto;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#9EF0E6}
+.md-ic svg{width:22px;height:22px}
+.md-pop{display:flex;gap:8px;overflow-x:auto;padding:0 16px 16px;scrollbar-width:none}
+.md-pop::-webkit-scrollbar,.md-sug::-webkit-scrollbar{display:none}
+.md-pop button{flex:0 0 auto;min-height:0;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font:500 12.5px/1 Inter,sans-serif;padding:9px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.md-pop button:active{background:rgba(255,255,255,.18)}
+.modal.md-sheet{padding-top:calc(12px + env(safe-area-inset-top))}
+.modal.md-sheet .modal-card{max-width:520px;height:calc(100vh - 28px);height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));max-height:none;padding:16px 0 0;display:flex;flex-direction:column;overflow:hidden;background:#F7F6FD}
+.modal.md-sheet .modal-head{padding:0 16px;margin-bottom:6px}
+.modal.md-sheet #modal-body{flex:1;min-height:0;display:flex;flex-direction:column}
+.md{flex:1;min-height:0;display:flex;flex-direction:column}
+.md-log{flex:1;min-height:0;overflow-y:auto;padding:6px 14px 18px;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.md-hero{display:flex;align-items:center;gap:10px;padding:2px 2px 6px}
+.md-hero b{display:block;font:700 14px/1.2 Montserrat,Inter,sans-serif;color:var(--slate)}
+.md-hero small{display:block;font-size:12px;line-height:1.35;color:var(--haze);margin-top:2px}
+.md-row{display:flex;gap:8px;align-items:flex-end;max-width:94%}
+.md-av{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#9EF0E6;background:linear-gradient(150deg,#7A3EFF,#1B1F4B);box-shadow:0 4px 10px rgba(122,62,255,.26)}
+.md-av svg{width:16px;height:16px}
+.md-av.lg{width:40px;height:40px}
+.md-av.lg svg{width:20px;height:20px}
+.md-b{min-width:0;border-radius:18px;padding:11px 14px;font-size:14.5px;line-height:1.5;color:var(--ink);animation:mdIn .26s cubic-bezier(.2,.8,.2,1)}
+.md-b p{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.md-b.nara{background:#fff;border:1px solid var(--line);border-bottom-left-radius:6px;box-shadow:0 2px 8px rgba(27,31,75,.05)}
+.md-b.me{align-self:flex-end;max-width:84%;color:#fff;background:linear-gradient(150deg,#7A3EFF,#5B2ED1);border-bottom-right-radius:6px;box-shadow:0 4px 12px rgba(91,46,209,.22)}
+.md-tag{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font:600 10.5px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-ink)}
+.md-tag.warn{color:var(--ember-ink)}
+.md-tag svg{width:12px;height:12px}
+.md-kats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.md-kat{display:flex;align-items:center;gap:8px;min-height:0;border:1px solid var(--line);background:var(--mist);border-radius:14px;padding:9px 10px;font:600 13px/1.25 Inter,sans-serif;color:var(--slate);cursor:pointer;text-align:left}
+.md-kat i{flex:0 0 auto;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#fff;color:var(--ember);font-style:normal}
+.md-kat i svg{width:16px;height:16px}
+.md-kat:active,.md-opt:active{background:var(--ember-soft);border-color:#CDBBFF}
+.md-rel{margin-top:12px;font:600 10.5px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--haze)}
+.md-opts{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.md-rel+.md-opts{margin-top:8px}
+.md-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:0;border:1px solid var(--line);background:var(--mist);border-radius:12px;padding:10px 12px;font:500 13.5px/1.35 Inter,sans-serif;color:var(--slate);text-align:left;cursor:pointer}
+.md-opt svg{width:14px;height:14px;flex:0 0 auto;color:var(--ember)}
+.md-typing{display:flex;gap:4px;padding:15px 16px}
+.md-typing i{width:7px;height:7px;border-radius:50%;background:var(--slate-3);animation:mdDot 1s infinite}
+.md-typing i:nth-child(2){animation-delay:.15s}
+.md-typing i:nth-child(3){animation-delay:.3s}
+@keyframes mdDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+@keyframes mdIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.md-dock{flex:0 0 auto;border-top:1px solid var(--line);background:#fff;padding:10px 12px calc(12px + env(safe-area-inset-bottom))}
+.md-sug{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -12px 10px;padding:0 12px}
+.md-sug:empty{display:none}
+.md-sug button{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;min-height:0;max-width:250px;border:1px solid #DED3FF;background:var(--ember-soft);color:var(--ember-ink);font:600 12.5px/1.2 Inter,sans-serif;padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.md-sug button.md-top{background:var(--slate);border-color:var(--slate);color:#fff}
+.md-sug button svg{width:14px;height:14px;flex:0 0 auto}
+.md-ask{display:flex;flex-direction:row;gap:8px;align-items:center}
+.md-ask input{flex:1;min-height:46px;border-radius:999px;padding:10px 16px;background:var(--mist)}
+.md-ask input:focus{background:#fff}
+.md-ask button{flex:0 0 auto;width:46px;height:46px;min-height:0;padding:0;border-radius:50%;border:0;display:grid;place-items:center;color:#fff;background:linear-gradient(150deg,#7A3EFF,#5B2ED1);cursor:pointer;box-shadow:0 4px 12px rgba(91,46,209,.3)}
+.md-ask button svg{width:20px;height:20px}
+.md-ask button:disabled{opacity:.7}
+.md-note{display:block;text-align:center;font-size:11.5px;line-height:1.35;color:var(--haze);margin-top:8px}
 
 /* ---------- Compensation & Benefits (NARA HR 1.0.19) ---------- */
 .modal.cb-sheet{padding-top:calc(12px + env(safe-area-inset-top))}
@@ -3324,7 +3387,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         '<div><dt>Branch</dt><dd>' + h(me.cawangan) + '</dd></div><div><dt>Section</dt><dd>' + h(me.bahagian || me.stesen || '-') + '</dd></div>' +
         (me.email ? '<div style="grid-column:1/-1;border-right:0"><dt>Email</dt><dd>' + h(me.email) + '</dd></div>' : '') + '</dl>' +
         '<span class="hint">NARA HR ' + h(me.versi || '') + ' · The People Management Platform</span></section>' +
-        cbCard() + pushCard() +
+        mdCard() + cbCard() + pushCard() +
         '<section class="card"><div class="card-h"><h3>Announcements</h3></div><div class="list">' + notis + '</div></section>' +
         '<section class="card"><div class="card-h"><h3>Payslips</h3>' + '<span class="chip ' + (S.me.pinSet ? 'blue">PIN on' : 'orange">Default PIN') + '</span>' + '</div><div class="list">' + (locked ? '<div class="empty">Payslips are protected by your PIN.<br><button class="btn small" data-act="unlockPin" style="margin-top:10px">Unlock with PIN</button></div>' : slips.length ? slips.map(function (p) {
           return '<div class="li"><div><div style="font-weight:600">' + h(p.label) + '</div><div class="muted">Net ' + rm(p.bersih) + (p.tarikhBayar ? ' · paid ' + h(p.tarikhBayar) : '') + '</div></div><div class="row"><button class="btn ghost small" data-act="mySlip" data-v="' + h(p.bulan) + '">PDF</button>' +
@@ -3338,6 +3401,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         '<div class="nara-foot">People<i></i>Technology<i></i>Growth</div></div>');
       pkLoad();
       swrFetch({ a: 'cbMine' }).then(function () { var mc = $('cb-card'); if (mc) mc.outerHTML = cbCard(); }).catch(function () { /* kad pilihan */ });
+      if (!MEM[swrKey('minda')]) swrFetch({ a: 'minda' }).then(function () { var c = $('md-card'); if (c) c.outerHTML = mdCard(); }).catch(function () { /* kad pilihan */ });
     }, function (e) { setMain(errBox(e)); });
     if (!have) loading();
   }
@@ -3683,7 +3747,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var nw = !!a.baharu || /^Daftar sendiri/.test(a.tindakan || '');
       var con = !nw && /^Kontrak/.test(a.tindakan || ''), late = !nw && days < 0, stale = late && !con && days < -365;
       var g = nw ? -1 : stale ? 3 : late ? (con ? 0 : 1) : 2;
-      var NT = { Tetap: 'permanent', Kontrak: 'contract', Sementara: 'temporary', Sambilan: 'part-timer', Kasual: 'casual' }, nt = (/·\s*(\S+)$/.exec(a.tindakan || '') || [])[1];
+      var NT = { Tetap: 'permanent', Kontrak: 'contract', Sementara: 'contract', Sambilan: 'part-timer', Kasual: 'casual' }, nt = (/·\s*(\S+)$/.exec(a.tindakan || '') || [])[1];
       var lbl = nw ? 'New sign-up · ' + (NT[nt] || 'staff') + ' · check' : con ? (late ? 'Contract expired' : 'Contract ends') : stale ? 'No confirm date · check record' : late ? 'Probation over · confirm' : 'Probation ends · confirm';
       var when = !dt ? '' : nw ? (days === 0 ? 'Today' : -days + ' d ago') : days === 0 ? 'Today' : days > 0 ? 'in ' + days + ' d' : stale ? 'since ' + dt.getFullYear() : -days < 60 ? -days + ' d ago' : Math.round(-days / 30.4) + ' mo ago';
       return { i: i, a: a, dt: dt, days: days, nw: nw, con: con, late: late, stale: stale, g: g, lbl: lbl, when: when,
@@ -4011,8 +4075,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   /* ======================= Sertai Sofwah (QR), borang keahlian staf baharu =======================
      /hr/#join=<kod> → 4 langkah (Anda · Kerja · Payroll · Sahkan) → terus jadi staf (ID automatik ikut cawangan) → cipta akaun.
      IC & bank hanya dalam memori halaman ini, dihantar sekali ke pelayan (fail NARA Payroll), dipadam selepas berjaya. Tiada localStorage. */
-  var JOIN_DESC = { Tetap: 'Full-time · 3-month probation', Kontrak: 'Fixed term with an end date', Sementara: 'Short period, e.g. festive season', Sambilan: 'Part-time on set days', Kasual: 'On call when the branch needs you' };
-  var JOIN_ICO = { Tetap: 'M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6zM9 12l2 2 4-4', Kontrak: 'M7 3.5h7l4 4v13H7zM14 3.5V8h4M10 13h5M10 17h3', Sementara: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', Sambilan: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M8 13h3M13 13h3M8 17h3', Kasual: 'M13 2L4 14h7l-1 8 9-12h-7z' };
+  var JOIN_DESC = { Tetap: 'Full-time · 3-month probation', Kontrak: 'Fixed term with an end date', Sambilan: 'Part-time on set days', Kasual: 'On call when the branch needs you' };
+  var JOIN_ICO = { Tetap: 'M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6zM9 12l2 2 4-4', Kontrak: 'M7 3.5h7l4 4v13H7zM14 3.5V8h4M10 13h5M10 17h3', Sambilan: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M8 13h3M13 13h3M8 17h3', Kasual: 'M13 2L4 14h7l-1 8 9-12h-7z' };
   var JOIN_STN = [['Ayam', 'Grill'], ['Western', 'Western'], ['Dish', 'Dish'], ['Chef', 'Chef']];
   var DAY7 = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   function joinKeyFromHash() { var m = /^#join=([A-Za-z0-9]{6,40})/.exec(location.hash || ''); return m ? m[1] : null; }
@@ -4088,7 +4152,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var brs = (info.cawangan || []).map(function (b) { return '<button type="button" class="jn-chip' + (d.cawangan === b.nama ? ' on' : '') + '" data-act="joinPick" data-f="cawangan" data-v="' + h(b.nama) + '">' + h(b.nama) + '</button>'; }).join('');
       var kitchen = br && (br.jenis === 'kitchen' || (br.jenis === 'resto' && d.bahagian === 'BH'));
       var extra = '';
-      if (d.jenis === 'Kontrak' || d.jenis === 'Sementara') extra = '<label>' + (d.jenis === 'Kontrak' ? 'Contract ends' : 'Last working day') + '<input name="tamat" type="date" value="' + h(d.tamat) + '" min="' + h(d.mula) + '"></label>';
+      if (d.jenis === 'Kontrak') extra = '<label>Contract ends<input name="tamat" type="date" value="' + h(d.tamat) + '" min="' + h(d.mula) + '"></label>';
       else if (d.jenis === 'Sambilan' || d.jenis === 'Kasual') extra = '<div class="jn-lbl">Days you can work</div><div class="jn-days">' + DAY7.map(function (x, i) { var n = String(i + 1); return '<button type="button" class="' + (d.hari.indexOf(n) >= 0 ? 'on' : '') + '" data-act="joinDay" data-v="' + n + '">' + x + '</button>'; }).join('') + '</div>';
       else if (d.jenis === 'Tetap') extra = '<div class="jn-note">' + svg(JOIN_ICO.Tetap) + '<span>Probation for ' + (info.percubaan || 3) + ' months, until <b>' + fmtLong(joinProbEnd()) + '</b>.</span></div>';
       body = '<h1>Your job</h1><div class="jn-lbl">Employment type</div><div class="jn-types">' + ty + '</div>' +
@@ -4115,7 +4179,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     } else {
       var ty2 = (info.jenis || []).filter(function (t) { return t.k === d.jenis; })[0] || {};
       var line = function (a, b) { return '<div class="att-l"><span>' + a + '</span><b>' + b + '</b></div>'; };
-      var term = d.jenis === 'Tetap' ? line('Probation until', fmtLong(joinProbEnd())) : (d.jenis === 'Kontrak' || d.jenis === 'Sementara') ? line(d.jenis === 'Kontrak' ? 'Contract ends' : 'Last day', fmtLong(parseYmdL(d.tamat)))
+      var term = d.jenis === 'Tetap' ? line('Probation until', fmtLong(joinProbEnd())) : d.jenis === 'Kontrak' ? line('Contract ends', fmtLong(parseYmdL(d.tamat)))
         : line('Days', d.hari.split('').map(function (n) { return DAY7[n - 1]; }).join(', '));
       body = '<h1>Confirm</h1><p class="muted">Check your details, then join.</p><div class="jn-sum">' +
         line('Name', h(d.nama.toUpperCase())) + (d.panggilan ? line('Call me', h(d.panggilan)) : '') + line('Gender', d.jantina === 'L' ? 'Male' : 'Female') +
@@ -4143,7 +4207,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (!d.jenis) return 'Choose your employment type.';
       if (!d.cawangan) return 'Choose your branch.';
       if (!d.mula) return 'Choose your start date.';
-      if ((d.jenis === 'Kontrak' || d.jenis === 'Sementara') && (!d.tamat || d.tamat <= d.mula)) return 'Choose an end date after your start date.';
+      if (d.jenis === 'Kontrak' && (!d.tamat || d.tamat <= d.mula)) return 'Choose an end date after your start date.';
       if ((d.jenis === 'Sambilan' || d.jenis === 'Kasual') && !d.hari) return 'Choose the days you can work.';
     } else if (st === 3) {
       if (d.idj === 'IC') {
@@ -4223,7 +4287,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       c.fillStyle = '#fff'; rrect(c, lx - 10, ly - 10, lb + 20, lb + 20, 26); c.fill();
       if (mark) { var mw = lb * 0.92, mh = mw * 743 / 1000; c.drawImage(mark, (W - mw) / 2, ly + (lb - mh) / 2, mw, mh); }
       // Jenis pekerjaan
-      var chips = ['Tetap', 'Kontrak', 'Sementara', 'Sambilan', 'Kasual'];
+      var chips = ['Tetap', 'Kontrak', 'Sambilan', 'Kasual'];
       c.font = '600 30px Inter, sans-serif';
       var ws = chips.map(function (t) { return c.measureText(t).width + 56; }), gap = 16, tot = ws.reduce(function (a, b) { return a + b; }, 0) + gap * (chips.length - 1), x = (W - tot) / 2, cy = 1290;
       chips.forEach(function (t, i) {
@@ -4231,7 +4295,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         c.strokeStyle = 'rgba(255,255,255,.22)'; c.lineWidth = 2; c.stroke();
         c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText(t, x + ws[i] / 2, cy + 43); x += ws[i] + gap;
       });
-      c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '500 24px Inter, sans-serif'; c.fillText('Permanent · Contract · Temporary · Part-timer · Casual worker', W / 2, 1400);
+      c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '500 24px Inter, sans-serif'; c.fillText('Permanent · Contract · Part-timer · Casual worker', W / 2, 1400);
       // 3 langkah
       var stp = [['1', 'Scan', 'with your phone camera'], ['2', 'Fill in', 'your details · 2 min'], ['3', 'Create account', 'and get your shifts']];
       stp.forEach(function (s, i) {
@@ -6135,7 +6199,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var CB_GIFT = 'M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7zM12 7c1.5-3 5-3.5 5-1.5S14 7 12 7z';
   var CB_LOCK = 'M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5z';
   var CB_SCALE = 'M12 4v16M7 20h10M4 8h16M6 8l-3 6a3 3 0 0 0 6 0zM18 8l-3 6a3 3 0 0 0 6 0z';
-  var CB_JL = { Tetap: 'Permanent', Kontrak: 'Contract', Sementara: 'Temporary', Sambilan: 'Part-time', Kasual: 'Casual', Intern: 'Intern', Praktikal: 'Intern' };
+  var CB_JL = { Tetap: 'Permanent', Kontrak: 'Contract', Sementara: 'Contract', Sambilan: 'Part-time', Kasual: 'Casual', Intern: 'Intern', Praktikal: 'Intern' };
   var CB_PL = { 'Kehadiran bulanan': 'Monthly attendance', 'Penilaian tahunan': 'Annual review', 'Anugerah pengurusan': 'Management award' };
   function cbDate(s) { if (!s) return ''; var d = parseYmdL(s); return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); }
   function cbMon(s) { if (!s) return ''; var d = parseYmdL(s); return MON[d.getMonth()] + ' ' + d.getFullYear(); }
@@ -6227,6 +6291,149 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<span class="grow"><b>My benefits</b><small>' + (d ? d.kini.length + ' yours today' + (later ? ' · ' + later + ' unlock as you grow' : '') : 'Leave, rewards, claims and your growth path') + '</small></span>' +
       '<i class="cb-chev">' + svg('M9 6l6 6-6 6') + '</i></button></section>';
   }
+
+  /* ======================= Minda Sofwah (Me): soalan lazim + tanya NARA ======================= */
+  var MD_ICON = 'M4 5h16v11H10l-5 4v-4H4zM12 7.6l.9 1.9 1.9.9-1.9.9-.9 1.9-.9-1.9-1.9-.9 1.9-.9z';
+  var MD_SPARK = 'M12 3l1.8 4.6L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.9zM18.5 15.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z';
+  var MD_K = {
+    start: 'M5 21V4h11l-2 4 2 4H5', shift: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', leave: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+    pay: 'M3 7h18v12H3zM16 13h2M6 7l2-3h8l2 3', career: 'M3 17l6-6 4 4 8-8M15 7h6v6', sofwah: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M15.5 8.5l-2 5-5 2 2-5z',
+    rules: 'M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z', app: 'M7 3h10v18H7zM11 18h2'
+  };
+  var MD_POP = { L01: 'My annual leave', C01: 'How do I get promoted?', D02: 'Where is Sofwah heading?', P04: 'What benefits do I get?', A01: 'How do I clock in?' };
+  var MD_CHEV = 'M9 6l6 6-6 6';
+  function mdSt() { if (!S.md || S.md.id !== S.me.id) S.md = { id: S.me.id, msgs: [], sug: null }; return S.md; }
+  function mdData() { return swrGet({ a: 'minda' }); }
+  function mdFind(id) { var d = mdData(); return d ? d.soalan.filter(function (q) { return q.id === id; })[0] : null; }
+  function mdOpenNow() { return !$('modal').hidden && $('modal').classList.contains('md-sheet'); }
+  function mdPop(d) {
+    var ids = Object.keys(MD_POP);
+    if (d) ids = ids.filter(function (id) { return d.soalan.some(function (q) { return q.id === id; }); });
+    else ids = ['C01', 'D02', 'A01'];
+    return ids.slice(0, 3);
+  }
+  /** Kad Me › Minda Sofwah. */
+  function mdCard() {
+    var d = mdData();
+    return '<section class="card md-card" id="md-card"><button class="md-card-b" data-act="mdOpen"><span class="md-ic">' + svg(MD_ICON) + '</span>' +
+      '<span class="grow"><b>Minda Sofwah</b><small>Ask NARA about your leave, pay, growth and where Sofwah is heading</small></span><i class="cb-chev">' + svg(MD_CHEV) + '</i></button>' +
+      '<div class="md-pop">' + mdPop(d).map(function (id) { return '<button data-act="mdOpen" data-q="' + id + '">' + h(MD_POP[id]) + '</button>'; }).join('') + '</div></section>';
+  }
+  function mdKats(d) {
+    return '<div class="md-kats">' + d.kategori.map(function (k) {
+      return '<button class="md-kat" data-act="mdKat" data-k="' + h(k.k) + '"><i>' + svg(MD_K[k.k] || MD_K.start) + '</i><span>' + h(k.l) + '</span></button>';
+    }).join('') + '</div>';
+  }
+  function mdOpts(ids, label) {
+    var list = ids.map(mdFind).filter(Boolean);
+    if (!list.length) return '';
+    return (label ? '<div class="md-rel">' + h(label) + '</div>' : '') + '<div class="md-opts">' + list.map(function (q) {
+      return '<button class="md-opt" data-act="mdQ" data-id="' + h(q.id) + '"><span>' + h(q.q) + '</span>' + svg(MD_CHEV) + '</button>';
+    }).join('') + '</div>';
+  }
+  function mdMsgHtml(m) {
+    if (m.who === 'me') return '<div class="md-b me"><p>' + h(m.t) + '</p></div>';
+    if (m.who === 'typing') return '<div class="md-row" id="md-typing"><span class="md-av">' + svg(MD_SPARK) + '</span><div class="md-b nara md-typing"><i></i><i></i><i></i></div></div>';
+    var d = mdData();
+    var body = (m.t ? '<p>' + h(m.t) + '</p>' : '') +
+      (m.src === 'AI' ? '<span class="md-tag">' + svg(MD_SPARK) + 'Personalised by NARA AI</span>' : m.src === 'Tiada' ? '<span class="md-tag warn">Sent to HR to add here</span>' : '') +
+      (m.kats && d ? mdKats(d) : '') + (m.opts ? mdOpts(m.opts, m.optsLabel) : '');
+    return '<div class="md-row"><span class="md-av">' + svg(MD_SPARK) + '</span><div class="md-b nara">' + body + '</div></div>';
+  }
+  function mdSugHtml() {
+    var st = mdSt(), d = mdData(), ids = (st.sug && st.sug.length ? st.sug : mdPop(d)).slice(0, 4);
+    return '<button class="md-top" data-act="mdTopics">' + svg('M4 6h16M4 12h16M4 18h10') + 'Topics</button>' +
+      ids.map(mdFind).filter(Boolean).map(function (q) { return '<button data-act="mdQ" data-id="' + h(q.id) + '">' + h(q.q) + '</button>'; }).join('');
+  }
+  function mdNote() {
+    var d = mdData();
+    if (!d) return 'Answers are a guide. Your contract and HR have the final say.';
+    return (d.ai ? 'Smart answers from Sofwah policy · ' : '') + d.baki + (d.baki === 1 ? ' question' : ' questions') + ' left today · HR has the final say.';
+  }
+  function mdSheetHtml() {
+    var st = mdSt(), d = mdData();
+    return '<div class="md"><div class="md-log" id="md-log"><div class="md-hero"><span class="md-av lg">' + svg(MD_SPARK) + '</span><div><b>NARA</b><small>Your Sofwah guide · answers based on your service, role and branch</small></div></div>' +
+      (st.msgs.length ? st.msgs.map(mdMsgHtml).join('') : d ? '' : '<div class="md-row"><span class="md-av">' + svg(MD_SPARK) + '</span><div class="md-b nara md-typing"><i></i><i></i><i></i></div></div>') + '</div>' +
+      '<div class="md-dock"><div class="md-sug" id="md-sug">' + (d ? mdSugHtml() : '') + '</div>' +
+      '<form class="md-ask" data-form="mdAsk" autocomplete="off"><input name="q" id="md-q" maxlength="300" enterkeyhint="send" placeholder="' + (d && d.ai ? 'Ask NARA anything about work…' : 'Ask your own question…') + '" aria-label="Your question">' +
+      '<button type="submit" aria-label="Send">' + svg('M5 12h13M13 6l6 6-6 6') + '</button></form><small class="md-note" id="md-note">' + h(mdNote()) + '</small></div></div>';
+  }
+  function mdScroll(toQuestion) {
+    var log = $('md-log'); if (!log) return;
+    var me = toQuestion ? log.querySelectorAll('.md-b.me') : null, el = me && me.length ? me[me.length - 1] : null;
+    var top = el ? log.scrollTop + el.getBoundingClientRect().top - log.getBoundingClientRect().top - 10 : log.scrollHeight;
+    try { log.scrollTo({ top: top, behavior: 'smooth' }); } catch (e) { log.scrollTop = top; }
+  }
+  function mdPush(m) {
+    var st = mdSt();
+    if (m.who !== 'typing') st.msgs.push(m);
+    var log = $('md-log'); if (!log || !mdOpenNow()) return;
+    var t = $('md-typing'); if (t && m.who !== 'typing') t.remove();
+    log.insertAdjacentHTML('beforeend', mdMsgHtml(m));
+    mdScroll(m.who === 'nara' && !!m.t && m.t.length > 160);
+  }
+  function mdDock() { var s = $('md-sug'); if (s) s.innerHTML = mdSugHtml(); var n = $('md-note'); if (n) n.textContent = mdNote(); }
+  /** Jawapan tempatan (soalan lazim): tunjuk "menaip" sebentar supaya terasa seperti chat. */
+  function mdReply(m, ms) {
+    mdPush({ who: 'typing' });
+    setTimeout(function () { mdPush(m); mdDock(); }, ms || 520);
+  }
+  function mdIntro(d) { mdPush({ who: 'nara', t: d.hai, kats: true }); mdDock(); }
+  function mdAskId(id) {
+    var q = mdFind(id); if (!q) return;
+    mdPush({ who: 'me', t: q.q });
+    mdSt().sug = q.rel;
+    mdReply({ who: 'nara', t: q.a, opts: q.rel, optsLabel: q.rel.length ? 'You may also ask' : '' });
+  }
+  function mdOpen(qid) {
+    var st = mdSt(), spec = { a: 'minda' }, d = swrGet(spec);
+    modal('Minda Sofwah', mdSheetHtml(), 'md-sheet');
+    setTimeout(function () { mdScroll(false); var a = document.activeElement; if (a && a.id === 'md-q') a.blur(); }, 80); // papan kekunci hanya bila staf tekan kotak soalan
+    var go = function () {
+      if (!st.msgs.length) mdIntro(mdData());
+      if (qid) setTimeout(function () { mdAskId(qid); }, st.msgs.length > 1 ? 0 : 420);
+    };
+    if (d) go();
+    swrFetch(spec).then(function () {
+      var c = $('md-card'); if (c) c.outerHTML = mdCard();
+      if (!mdOpenNow()) return;
+      if (!d) { $('modal-body').innerHTML = mdSheetHtml(); go(); } else mdDock();
+    }).catch(function (e) {
+      if (!d && mdOpenNow()) { var log = $('md-log'); if (log) log.innerHTML = '<div class="empty">' + h(e && e.message ? e.message : 'Can’t reach NARA right now.') + '<br><button class="btn small" data-act="mdOpen" style="margin-top:10px">Try again</button></div>'; }
+    });
+  }
+  FORMS.mdAsk = function (f, btn) {
+    var inp = f.elements.q, q = String(inp.value || '').replace(/\s+/g, ' ').trim();
+    if (q.length < 3) { busy(btn, false); inp.focus(); return; }
+    inp.value = '';
+    mdPush({ who: 'me', t: q });
+    mdPush({ who: 'typing' });
+    call('mindaAsk', { q: q }).then(function (r) {
+      var d = mdData(); if (d) { d.baki = r.baki; swrPut({ a: 'minda' }, d); }
+      mdSt().sug = r.rel && r.rel.length ? r.rel : null;
+      mdPush({ who: 'nara', t: r.a, src: r.sumber, opts: r.rel, optsLabel: r.rel && r.rel.length ? 'Related' : '' });
+      mdDock();
+    }).catch(function (e) {
+      mdPush({ who: 'nara', t: e && e.message ? e.message : 'I couldn’t answer that right now. Please try again.' });
+    }).then(function () { busy(btn, false); });
+  };
+  Object.assign(ACT, {
+    mdOpen: function (el) { mdOpen(el.dataset.q || ''); },
+    mdQ: function (el) { mdAskId(el.dataset.id); },
+    mdKat: function (el) {
+      var d = mdData(); if (!d) return;
+      var k = el.dataset.k, kat = d.kategori.filter(function (x) { return x.k === k; })[0];
+      var ids = d.soalan.filter(function (q) { return q.k === k; }).map(function (q) { return q.id; });
+      mdPush({ who: 'me', t: kat ? kat.l : k });
+      mdSt().sug = ids.slice(0, 4);
+      mdReply({ who: 'nara', t: 'Here’s what staff often ask about ' + (kat ? kat.l.toLowerCase() : 'this') + ':', opts: ids }, 380);
+    },
+    mdTopics: function () {
+      var d = mdData(); if (!d) return;
+      mdSt().sug = null;
+      mdReply({ who: 'nara', t: 'Pick a topic, or type your own question below.', kats: true }, 300);
+    }
+  });
 
   /* ---------- HR › Comp & Benefits (Admin: tick / pilih kelayakan / tambah) ---------- */
   var CB_PRE = [
