@@ -901,6 +901,102 @@ h1,h2,h3,.hello h1,.big,.tile b,.gauge-num b,.shift-time,.lc-ring b,.pin-show,.p
 .rg-c.home b{font-size:10.5px;color:var(--haze)}.rg-c.home small{color:#9AA3B5}
 .rb-p.guest{box-shadow:inset 0 0 0 1.5px var(--ember-2)}
 .rb-p sup{font-size:9px;font-weight:700;color:var(--ember-ink);margin-left:3px;vertical-align:super;letter-spacing:.02em}
+/* ===== Rating Staf: tahap 1-5 (warna tetap di seluruh app) ===== */
+:root{--t1:#94A3B8;--t2:#33D6C6;--t3:#009888;--t4:#7A3EFF;--t5:#1B1F4B}
+.rb-p{display:inline-flex;align-items:center;gap:4px}
+.rb-lv{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;font:700 9.5px/1 Inter,sans-serif;font-style:normal;color:#fff;background:var(--t3);flex:0 0 auto;margin-left:-4px}
+.rb-lv svg{width:10px;height:10px;stroke:#fff;fill:rgba(255,255,255,.35)}
+.rb-p.lv1 .rb-lv{background:var(--t1)}.rb-p.lv2 .rb-lv{background:var(--t2)}.rb-p.lv3 .rb-lv{background:var(--t3)}.rb-p.lv4 .rb-lv{background:var(--t4)}.rb-p.lv5 .rb-lv{background:var(--t5)}
+.rb-p.lead .rb-lv{background:linear-gradient(140deg,#F5B83D,#E08A00)}
+.rg-d i.warn{background:#F5B83D}
+/* Kad kesediaan hari */
+.rd{border-radius:18px;padding:12px 14px;margin:0 0 10px;background:var(--mint-soft);border:1px solid #B3EEE8}
+.rd.mid{background:#FFF7E6;border-color:#F8DFA8}.rd.low{background:var(--error-soft);border-color:#F4C6C3}
+.rd-top{display:flex;align-items:center;gap:12px}
+.rd-s{display:flex;flex-direction:column;align-items:flex-start;min-width:64px}
+.rd-s b{font:700 24px/1 Montserrat,Inter,sans-serif;color:var(--slate);letter-spacing:-.02em}.rd-s small{font-size:11px;color:var(--haze);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.rd.ok .rd-s b{color:var(--mint)}.rd.mid .rd-s b{color:#B7791F}.rd.low .rd-s b{color:var(--error)}
+.rd-ws{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.rd-w{background:rgba(255,255,255,.75);border-radius:12px;padding:6px 8px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.rd-w small{font-size:10.5px;color:var(--haze);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.rd-w b{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--ink);white-space:nowrap}
+.rd-w.warn{box-shadow:inset 0 0 0 1.5px #F5B83D}.rd-w.none{opacity:.5}
+.rd-lead{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:linear-gradient(140deg,#F5B83D,#E08A00)}
+.rd-lead svg{width:10px;height:10px;stroke:#fff;fill:rgba(255,255,255,.35)}
+.rd-lead.off{background:#CBD5E1}
+.rd-isu{list-style:none;margin:9px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--ink-2)}
+.rd-isu li{display:flex;gap:7px;align-items:baseline}.rd-isu li span{flex:0 0 auto;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--haze);min-width:42px}
+.rd-isu li.more{color:var(--haze);font-size:12px;padding-left:49px}
+.rd-ok{display:flex;align-items:center;gap:6px;margin:8px 0 0;font-size:12.5px;color:var(--mint);font-weight:500}.rd-ok svg{width:15px;height:15px}
+.pick.best{background:var(--mint-soft);border-radius:14px;padding-left:8px;padding-right:8px;border-bottom-color:transparent}
+.pick .rt-tier{margin-right:2px}
+/* Modul Staff rating */
+.rt-tier{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.rt-tier i{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:6px;font:700 10.5px/1 Inter,sans-serif;font-style:normal;color:#fff;background:var(--t3)}
+.rt-tier.t1 i{background:var(--t1)}.rt-tier.t2 i{background:var(--t2)}.rt-tier.t3 i{background:var(--t3)}.rt-tier.t4 i{background:var(--t4)}.rt-tier.t5 i{background:var(--t5)}
+.rt-tier.est i{opacity:.55}
+.rt-bar{display:flex;height:12px;border-radius:999px;overflow:hidden;margin-top:10px;background:var(--mist-2);gap:2px}
+.rt-seg{display:grid;place-items:center;min-width:16px;color:#fff}.rt-seg b{font-size:8.5px;line-height:1}
+.rt-seg.t1{background:var(--t1)}.rt-seg.t2{background:var(--t2)}.rt-seg.t3{background:var(--t3)}.rt-seg.t4{background:var(--t4)}.rt-seg.t5{background:var(--t5)}
+.rt-leg{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:7px;font-size:11.5px;color:var(--haze)}
+.rt-leg span{display:inline-flex;align-items:center;gap:4px}.rt-leg b{color:var(--ink);font-weight:600}
+.rt-sw{width:8px;height:8px;border-radius:3px;display:inline-block}
+.rt-sw.t1{background:var(--t1)}.rt-sw.t2{background:var(--t2)}.rt-sw.t3{background:var(--t3)}.rt-sw.t4{background:var(--t4)}.rt-sw.t5{background:var(--t5)}
+.rt-cov{display:flex;align-items:flex-start;gap:10px;margin-top:10px}
+.rt-cov-h{flex:0 0 58px;font-size:12px;font-weight:600;color:var(--ink-2);padding-top:7px}
+.rt-cvs{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.rt-cv{display:inline-flex;align-items:center;gap:6px;padding:5px 10px 5px 5px;border-radius:999px;background:var(--mint-soft);font-size:12.5px;font-weight:500;color:var(--ink)}
+.rt-cv b{display:grid;place-items:center;min-width:22px;height:22px;border-radius:999px;background:#fff;color:var(--mint);font-size:12px}
+.rt-cv sup{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--haze);vertical-align:super;margin-left:-2px}
+.rt-cv.thin{background:#FFF7E6}.rt-cv.thin b{color:#B7791F}
+.rt-cv.bad{background:var(--error-soft)}.rt-cv.bad b{color:var(--error)}
+.rt-cv.none{background:var(--cloud)}.rt-cv.none b{color:var(--haze)}
+.rt-note{display:flex;gap:10px;align-items:flex-start;background:#FFF7E6;border-radius:16px;padding:11px 13px;font-size:12.5px;line-height:1.45;color:var(--ink-2);margin-bottom:12px}
+.rt-note svg{width:18px;height:18px;color:#B7791F;flex:0 0 auto;margin-top:1px}.rt-note b{color:var(--ink)}
+.rt-how{background:var(--cloud);border-radius:16px;padding:11px 14px;margin-bottom:12px;font-size:13px}
+.rt-how summary{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--slate);cursor:pointer;list-style:none}
+.rt-how summary::-webkit-details-marker{display:none}.rt-how summary svg{width:17px;height:17px;color:var(--ember)}
+.rt-how ol{margin:10px 0 6px;padding-left:20px;display:flex;flex-direction:column;gap:5px;color:var(--ink-2)}.rt-how ol b{color:var(--ink)}
+.rt-how p{margin:4px 0 0;font-size:12px}
+.rt-row{display:flex;align-items:center;gap:12px;width:100%;padding:11px 2px;border:0;border-top:1px solid var(--line);background:none;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer}
+.rt-list .card-h + .rt-row{border-top:0}
+.rt-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.rt-main > b{display:flex;align-items:center;gap:5px;font-size:15px;font-weight:600}
+.rt-main > small{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.rt-lead{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:linear-gradient(140deg,#F5B83D,#E08A00);font-style:normal;flex:0 0 auto}
+.rt-lead svg{width:11px;height:11px;stroke:#fff;fill:rgba(255,255,255,.35)}
+.rt-est,.rt-rel{font-style:normal;font-size:11px;font-weight:600;padding:2px 7px;border-radius:999px;background:var(--cloud);color:var(--haze)}
+.rt-rel{background:var(--mint-soft);color:var(--mint)}.rt-rel.low{background:#FFF7E6;color:#B7791F}
+.rt-sks{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:1px}
+.rt-sk{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-2)}
+.rt-dots{display:inline-flex;gap:2px;font-style:normal}.rt-dots b{width:6px;height:6px;border-radius:50%;background:var(--mist-2)}
+.rt-dots.v1 b:nth-child(-n+1),.rt-dots.v2 b:nth-child(-n+2),.rt-dots.v3 b:nth-child(-n+3){background:var(--mint)}
+.rt-score{display:flex;flex-direction:column;align-items:center;flex:0 0 auto;min-width:44px}
+.rt-score b{font:700 18px/1 Montserrat,Inter,sans-serif;color:var(--slate)}.rt-score small{font-size:10px;color:var(--haze);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+/* Borang rating */
+.rt-form{display:flex;flex-direction:column;gap:12px}
+.rt-form > p.muted{margin:0}
+.rt-fs{border:0;margin:0;padding:0;min-width:0}
+.rt-fs legend{font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:7px;padding:0}
+.rt-lvs{display:flex;flex-direction:column;gap:6px}
+.rt-lv{display:block;cursor:pointer}
+.rt-lv input{position:absolute;opacity:0;pointer-events:none}
+.rt-lv > span{display:grid;grid-template-columns:30px 1fr;column-gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:9px 11px;background:#fff;transition:border-color .15s,background .15s}
+.rt-lv i{grid-row:span 2;display:grid;place-items:center;width:30px;height:30px;border-radius:10px;font:700 14px/1 Montserrat,Inter,sans-serif;font-style:normal;color:#fff;background:var(--t3)}
+.rt-lv.t1 i{background:var(--t1)}.rt-lv.t2 i{background:var(--t2)}.rt-lv.t4 i{background:var(--t4)}.rt-lv.t5 i{background:var(--t5)}
+.rt-lv b{font-size:14px}.rt-lv small{font-size:12px;color:var(--haze);line-height:1.35}
+.rt-lv input:checked + span{border-color:var(--ember);background:var(--ember-soft)}
+.rt-lv input:focus-visible + span{outline:2px solid var(--ember);outline-offset:2px}
+.rt-st{display:grid;grid-template-columns:72px 1fr;align-items:center;gap:8px;margin-bottom:6px}
+.rt-st > span{font-size:13px;font-weight:600;color:var(--ink)}
+.rt-seg4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;background:var(--mist);border-radius:12px;padding:3px}
+.rt-seg4 label{display:block;cursor:pointer}
+.rt-seg4 input{position:absolute;opacity:0;pointer-events:none}
+.rt-seg4 span{display:block;text-align:center;border-radius:9px;padding:8px 2px;font-size:12px;font-weight:600;color:var(--haze);white-space:nowrap}
+.rt-seg4 input:checked + span{background:#fff;color:var(--slate);box-shadow:0 1px 3px rgba(27,31,75,.12)}
+.rt-seg4 label:nth-child(3) input:checked + span,.rt-seg4 label:nth-child(4) input:checked + span{color:var(--mint)}
+.rt-more summary{font-size:13px;font-weight:600;color:var(--ember-ink);cursor:pointer;margin-bottom:8px}
+.modal.rt-sheet .cb-live{margin:0}
 .rb-o.away{opacity:.7}
 .rg-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:12px 0 4px;min-height:46px;border:1.5px dashed #CFC6F5;border-radius:14px;background:transparent;color:var(--ember-ink);font-weight:600;font-size:14px;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .rg-add svg{width:16px;height:16px}.rg-add:active{background:var(--ember-soft)}
@@ -1566,7 +1662,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function isHR() { return S.me && (S.me.role === 'HR' || S.me.role === 'Admin'); }
 
   var AUTH_ACTIONS = { loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, pushRegister: 1, pushTest: 1, pkLogin: 1, pkRegister: 1 };
-  var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1, cbAck: 1, cbSave: 1 };
+  var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1, cbAck: 1, cbSave: 1, ratingSave: 1 };
   // Tindakan payroll boleh ambil beberapa minit (slip PDF setiap staf): had masa klien dipanjangkan
   // Log masuk: had 20 s (bukan 45 s), rangkaian tergantung (cth. tukar Wi-Fi → 4G) dicuba semula sekali secara automatik
   var SHORT_ACTIONS = { loginEmail: 20000, logout: 15000, ping: 15000, pkLogin: 20000, pkLoginOptions: 15000 };
@@ -3287,6 +3383,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     { k: 'akses', l: 'Access', d: 'Sign-in, roles and PIN', c: 'violet', hr: true, i: 'M14.5 9.5a4 4 0 1 1-3.6 5.5H8v2.5H5.5V15H3v-2.5h7.9a4 4 0 0 1 3.6-3z' },
     { k: 'notis', l: 'Announcements', d: 'Notices and greeting banners', c: 'mint', hr: true, i: 'M4 10v4h3l7 4V6l-7 4zM17.5 9a4 4 0 0 1 0 6' },
     { k: 'qr', l: 'Join QR', d: 'New staff sign up by scanning', c: 'mint', hr: true, i: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2.5v2.5H14zM17.5 17.5H20V20h-2.5zM14 20h2.5M20 14v2.5' },
+    { k: 'rating', l: 'Staff rating', d: 'Skills that shape the roster', c: 'violet', hr: true, i: 'M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z' },
     { k: 'cb', l: 'Comp & Benefits', d: 'Benefits and growth, by eligibility', c: 'ember', hr: true, i: 'M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7zM12 7c1.5-3 5-3.5 5-1.5S14 7 12 7z' },
     { k: 'cutiumum', l: 'Public holidays', d: 'Company’s 11 days, open or closed', c: 'sky', hr: true, i: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M12 11.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z' },
     { k: 'payroll', l: 'Payroll', d: 'Statutory pay and payslips', c: 'slate', hr: true, i: 'M3 7h18v11H3zM3 11h18M7 15h3' },
@@ -3306,7 +3403,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var mod = URUS.filter(function (u) { return u.k === S.urus; })[0];
     var win = '';
     if (mod) {
-      var needBranch = ['liputan', 'jadual', 'tugasan', 'kehadiran', 'staffing'].indexOf(S.urus) >= 0;
+      var needBranch = ['liputan', 'jadual', 'tugasan', 'kehadiran', 'staffing', 'rating'].indexOf(S.urus) >= 0;
       var sel = needBranch && S.me.scope.length > 1 ? '<label class="mod-branch">Branch<select data-act="branch">' + S.me.scope.map(function (b) {
         return '<option' + (b === S.branch ? ' selected' : '') + '>' + h(b) + '</option>';
       }).join('') + '</select></label>' : '';
@@ -3321,7 +3418,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     document.documentElement.classList.toggle('modal-open', !!mod);
     if (!mod) { if (!dash) swrFetch({ a: 'dashboard', mem: true }).then(function () { if (S.tab === 'urus' && !S.urus) loadUrus(); }).catch(function () { /* lencana pilihan */ }); return; }
     var fn = { ringkasan: uRingkasan, liputan: uLiputan, kelulusan: uKelulusan, jadual: uJadual, tugasan: uTugasan,
-      kehadiran: uKehadiran, staffing: uStaffing, rekod: uRekod, akses: uAkses, notis: uNotis, payroll: uPayroll, pematuhan: uPematuhan, cutiumum: uCutiUmum, qr: uQr, cb: uCb }[S.urus];
+      kehadiran: uKehadiran, staffing: uStaffing, rekod: uRekod, akses: uAkses, notis: uNotis, payroll: uPayroll, pematuhan: uPematuhan, cutiumum: uCutiUmum, qr: uQr, cb: uCb, rating: uRating }[S.urus];
     fn();
   }
   function urusBody(html) { var b = $('urus-body'); if (b) b.innerHTML = html; }
@@ -4050,9 +4147,10 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var first = function (n) { return titleCase(String(n || '').split(/\s+/)[0]); };
     // Jalur 7 hari: tap untuk tukar hari; garis hijau = cukup orang, oren = kurang
     var strip = pl.days.map(function (d, i) {
-      var x = parseYmdL(d.ymd), ok = rpDayOk(i), special = d.jenis.filter(function (j) { return j !== 'Hari biasa' && j !== 'Hujung minggu' && j !== 'Peak gaji'; }).length;
+      var x = parseYmdL(d.ymd), ok = rpDayOk(i), rdy = ok ? rpReady(i) : null, special = d.jenis.filter(function (j) { return j !== 'Hari biasa' && j !== 'Hujung minggu' && j !== 'Peak gaji'; }).length;
+      if (ok && rdy && rdy.skor !== null && rdy.skor < 80) ok = 'warn';
       return '<button class="rg-d rp-dd' + (i === di ? ' sel' : '') + (x.getDay() === 5 || x.getDay() === 6 ? ' wkend' : '') + (d.ymd === tY ? ' today' : '') + (d.tutup ? ' shut' : '') + (special ? ' special' : '') + '" data-act="rpDay" data-i="' + i + '" aria-pressed="' + (i === di) + '" aria-label="' + h(fmtDay(x)) + '">' +
-        '<small>' + WDAY[x.getDay()] + '</small><b>' + x.getDate() + '</b><i class="' + (ok === null ? '' : ok ? 'ok' : 'short') + '"></i></button>';
+        '<small>' + WDAY[x.getDay()] + '</small><b>' + x.getDate() + '</b><i class="' + (ok === null ? '' : ok === 'warn' ? 'warn' : ok ? 'ok' : 'short') + '"></i></button>';
     }).join('');
     var types = day.jenis.filter(function (j) { return j !== 'Hari biasa'; }).map(function (j) { return '<span class="rp-tag' + (j === 'Ramadan' || j === 'Tutup' ? ' blue' : '') + '">' + h(DAYTYPE[j] || j) + '</span>'; }).join('') + (day.cuti ? '<span class="rp-tag">' + h(day.cuti) + '</span>' : '');
     var info = '<div class="rp-info"><div class="rp-info-l"><b>' + h(fmtDay(dt)) + '</b>' + (types || '<span class="rp-tag plain">Regular day</span>') + '</div>' +
@@ -4065,7 +4163,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       return slots.map(function (sl) {
         var t = cat[sl.kod] || {}, on = pl.staf.filter(function (x) { return x.grp === g && !away(x, di) && R.codes[x.id] && R.codes[x.id][di] === sl.kod; });
         on.forEach(function (x) { used[x.id] = 1; });
-        var pills = on.map(function (x, k) { return '<button class="rb-p' + (k >= sl.n ? ' extra' : '') + (x.tamu ? ' guest' : '') + '" data-act="rpSeat" data-id="' + h(x.id) + '">' + h(first(x.nama)) + (x.tamu ? '<sup>' + h(brK(x.asal)) + '</sup>' : '') + '</button>'; }).join('');
+        var pills = on.map(function (x, k) {
+          var rt = x.rt || {};
+          return '<button class="rb-p' + (k >= sl.n ? ' extra' : '') + (x.tamu ? ' guest' : '') + (rt.t ? ' lv' + rt.t : '') + (rt.pic ? ' lead' : '') + '" data-act="rpSeat" data-id="' + h(x.id) + '" title="' + h((RT_L[rt.t] || '') + (rt.pic ? ', shift lead' : '')) + '">' +
+            (rt.t ? '<i class="rb-lv">' + (rt.pic ? svg(RT_CROWN) : rt.t) + '</i>' : '') + h(first(x.nama)) + (x.tamu ? '<sup>' + h(brK(x.asal)) + '</sup>' : '') + '</button>';
+        }).join('');
         for (var k = on.length; k < sl.n; k++) pills += '<button class="rb-p add" data-act="rpAdd" data-kod="' + h(sl.kod) + '" data-grp="' + g + '" aria-label="Add to ' + h(sl.kod) + '">+</button>';
         var tm = splitInline(t.teks || sl.kod).replace(/:00/g, '').replace(/\s*[–-]\s*/g, '-').replace(/\s*[,\/]\s*/g, ' · ');
         return '<div class="rb-cell k-' + h(role) + '"><div class="rb-ch"><b>' + h(sl.kod) + '</b><span>' + h(tm) + '</span><em class="' + (on.length >= sl.n ? 'ok' : 'short') + '">' + on.length + '/' + sl.n + '</em></div><div class="rb-ps">' + pills + '</div></div>';
@@ -4093,7 +4195,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var bottom = '<div class="rb-off"><div class="rb-off-h"><span>Not in a slot today</span><button class="rg-chk ' + (chk ? 'warn' : 'ok') + '" data-act="rgChecks">' + (chk ? chk + ' to review this week' : 'Week all clear') + '</button></div>' +
       (rest.length ? '<div class="rb-os">' + rest.map(function (r) { return r[1]; }).join('') + '</div>' : '<span class="muted">Everyone is on a shift.</span>') + '</div>';
     urusBody(head + '<div class="rp-days"><div class="rp-strip">' + strip + '</div>' + info + '</div>' +
-      (day.tutup ? '<section class="card"><div class="empty">Closed on this day. No shifts needed.</div></section>' : board) + bottom +
+      (day.tutup ? '<section class="card"><div class="empty">Closed on this day. No shifts needed.</div></section>' : rpReadyCard(di) + board) + bottom +
       guestBtn() + '<div class="rp-actions"><button class="btn ghost small" data-act="rpAuto">Auto-fill</button><button class="btn ghost small" data-act="rpClear">Clear</button>' +
       '<button class="btn small" data-act="saveWeek">' + (R.draft ? 'Save draft' : R.dirty ? 'Save changes' : 'Save') + '</button></div>');
   }
@@ -4110,11 +4212,22 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var now = cur === kod ? 'Already here' : ct && ['Pagi', 'Tengah', 'Petang', 'Split'].indexOf(ct.kategori) >= 0 ? 'Now on ' + cur : cur ? 'Rest day' : 'Free';
       return { x: x, same: x.grp === grp, busy: now !== 'Free' && now !== 'Rest day', warn: warn, now: now, here: cur === kod };
     }).filter(function (r) { return !r.here; });
-    rows.sort(function (a, b) { return (b.same - a.same) || ((a.warn ? 1 : 0) - (b.warn ? 1 : 0)) || (a.busy - b.busy); });
+    // Kesan rating: berapa % kesediaan hari ini naik jika staf ini diletakkan di sini
+    var base = rpReady(di), b0 = base && base.skor !== null ? base.skor : null;
+    rows.forEach(function (r) {
+      r.fit = 0;
+      if (b0 === null) return;
+      var keep = R.codes[r.x.id][di]; R.codes[r.x.id][di] = kod;
+      var after = rpReady(di); R.codes[r.x.id][di] = keep;
+      r.fit = after && after.skor !== null ? after.skor - b0 : 0;
+    });
+    rows.sort(function (a, b) { return (b.same - a.same) || ((a.warn ? 1 : 0) - (b.warn ? 1 : 0)) || (a.busy - b.busy) || (b.fit - a.fit) || ((b.x.rt ? b.x.rt.t : 0) - (a.x.rt ? a.x.rt.t : 0)); });
+    var bestFit = rows.filter(function (r) { return r.same && !r.warn && !r.busy && r.fit > 0; })[0];
     modal('Add to ' + splitInline(t.teks || kod), '<p class="muted">' + h(fmtDay(parseYmdL(pl.days[di].ymd))) + ', ' + (grp === 'FH' ? 'front of house' : 'back of house') + '</p><div class="list">' +
       (rows.length ? rows.map(function (r) {
-        return '<button class="pick" data-act="rpSet" data-id="' + h(r.x.id) + '" data-kod="' + h(kod) + '">' + avatar(r.x.nama) + '<span class="grow"><b>' + h(titleCase(r.x.nama)) + '</b><small>' + h(r.x.bahagian || r.x.grp) + ' · ' + h(r.now) + '</small></span>' +
-          (r.warn ? '<span class="chip orange">' + h(r.warn) + '</span>' : r.x.tamu ? '<span class="chip blue">From ' + h(brK(r.x.asal)) + '</span>' : !r.same ? '<span class="chip">Other team</span>' : '') + '</button>';
+        var rt = r.x.rt || {};
+        return '<button class="pick' + (r === bestFit ? ' best' : '') + '" data-act="rpSet" data-id="' + h(r.x.id) + '" data-kod="' + h(kod) + '">' + avatar(r.x.nama) + '<span class="grow"><b>' + h(titleCase(r.x.nama)) + (rt.pic ? '<i class="rt-lead" title="Shift lead">' + svg(RT_CROWN) + '</i>' : '') + '</b><small>' + (rt.t ? rtTier(rt.t, rt.est) + ' ' : '') + h(r.x.bahagian || r.x.grp) + ' · ' + h(r.now) + '</small></span>' +
+          (r.warn ? '<span class="chip orange">' + h(r.warn) + '</span>' : r.x.tamu ? '<span class="chip blue">From ' + h(brK(r.x.asal)) + '</span>' : !r.same ? '<span class="chip">Other team</span>' : r === bestFit ? '<span class="chip green">Best fit +' + r.fit + '%</span>' : r.fit > 0 ? '<span class="chip">+' + r.fit + '% ready</span>' : '') + '</button>';
       }).join('') : '<div class="empty">Nobody is available on this day.</div>') + '</div>');
   }
   /** Ubah syif seorang staf pada hari yang dipilih. */
@@ -5984,7 +6097,120 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       (!nw && /tambahan/i.test(x.src) ? '<button type="button" class="btn ghost block danger" data-act="cbRemove" data-k="' + h(x.k) + '">Remove</button>' : '') + '</form>';
   }
 
+  /* ======================= Rating Staf (HR / Admin) → Roster pintar =======================
+     Tahap 1-5, ketua syif, kemahiran stesen 0-3. Belum dinilai = anggaran NARA. Roster pintar membaca rating ini. */
+  var RT_L = ['', 'Trainee', 'Basic', 'Competent', 'Senior', 'Expert'];
+  var RT_H = ['', 'Learning the job, works with a buddy', 'Handles simple tasks, still needs guidance', 'Works any normal shift on their own', 'Strong on busy days, coaches others', 'Can run the whole floor or kitchen'];
+  var SK_L = ['No', 'Learning', 'Solo', 'Expert'];
+  var RT_CROWN = 'M4 18.5h16M5 16l-1.4-8.5 4.9 3.8L12 5.5l3.5 5.8 4.9-3.8L19 16z';
+  function rtTier(t, est) { return '<span class="rt-tier t' + t + (est ? ' est' : '') + '"><i>' + t + '</i>' + RT_L[t] + '</span>'; }
+  function rtDots(v) { return '<i class="rt-dots v' + v + '"><b></b><b></b><b></b></i>'; }
+  function uRating() { call('ratingList', { cawangan: S.branch }).then(function (d) { S.rtA = d; rtRender(); }).catch(urusErr); }
+  function rtStn(grp) { return (S.rtA.stesen[grp] || []); }
+  function rtRender() {
+    var d = S.rtA, R = d.ringkas;
+    var bar = [1, 2, 3, 4, 5].map(function (t) { return R.tier[t] ? '<span class="rt-seg t' + t + '" style="flex:' + R.tier[t] + '" title="' + RT_L[t] + '"><b>' + R.tier[t] + '</b></span>' : ''; }).join('');
+    var legend = [5, 4, 3, 2, 1].map(function (t) { return '<span><i class="rt-sw t' + t + '"></i>' + RT_L[t] + ' <b>' + R.tier[t] + '</b></span>'; }).join('');
+    var cov = ['BH', 'FH'].map(function (g) {
+      return '<div class="rt-cov"><span class="rt-cov-h">' + (g === 'BH' ? 'Kitchen' : 'Front') + '</span><div class="rt-cvs">' + R.liput[g].map(function (x) {
+        return '<span class="rt-cv ' + (x.n === 0 ? (x.wajib ? 'bad' : 'none') : x.n === 1 && x.wajib ? 'thin' : 'ok') + '"><b>' + x.n + '</b>' + h(x.l) + (x.wajib ? '<sup>must</sup>' : '') + '</span>';
+      }).join('') + '</div></div>';
+    }).join('');
+    var tone = R.skor >= 80 ? 'mint' : R.skor >= 65 ? 'ember' : 'violet';
+    var head = '<section class="card ph-sum rt-sum"><div class="ph-sum-l">' + ring(R.skor, tone) + '<div class="ph-n"><b>' + R.skor + '</b><small>score</small></div></div>' +
+      '<div class="ph-sum-r"><b>' + h(d.cawangan) + ' team strength</b><span>Average level ' + R.purata + ' · ' + R.pic + ' shift lead' + (R.pic === 1 ? '' : 's') + ' · ' + R.dinilai + ' of ' + R.n + ' rated</span>' +
+      '<div class="rt-bar">' + bar + '</div><div class="rt-leg">' + legend + '</div></div></section>' +
+      '<section class="card rt-covc"><div class="card-h"><h3>Who can work each station</h3></div><p class="muted">Staff at Solo or Expert. NARA keeps every must-have station covered at lunch, afternoon and dinner.</p>' + cov + '</section>' +
+      (R.dinilai < R.n ? '<div class="rt-note">' + svg('M12 8v5M12 16.5h.01M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18') + '<span><b>' + (R.n - R.dinilai) + ' not rated yet.</b> Until you rate them, NARA estimates from service length and the station in their profile.</span></div>' : '') +
+      '<details class="rt-how"><summary>' + svg('M4 5h16v15H4zM4 9h16M8 3v4M16 3v4') + 'How ratings shape the roster</summary><ol>' +
+      '<li><b>A shift lead at all times.</b> Lunch, afternoon and dinner.</li><li><b>A senior in every team.</b> Level 4 or 5, at the front and in the kitchen.</li>' +
+      '<li><b>Must-have stations covered.</b> Grill and Western in the kitchen, Cashier at the front.</li><li><b>Trainees never alone.</b> Always on with a senior.</li>' +
+      '<li><b>Busy days get the strongest team.</b> Weekends, payday peak, public and school holidays, Ramadan.</li></ol><p class="muted">Fair hours, split limits and fixed rest days always come first.</p></details>';
+    var grpL = { M: 'Managers', FH: 'Front of house', BH: 'Kitchen' }, by = {};
+    d.staf.forEach(function (x) { var k = x.mgr ? 'M' : x.grp; (by[k] = by[k] || []).push(x); });
+    var list = ['M', 'FH', 'BH'].filter(function (k) { return by[k]; }).map(function (k) {
+      return '<section class="card rt-list"><div class="card-h"><h3>' + grpL[k] + '</h3><span class="muted">' + by[k].length + '</span></div>' + by[k].map(rtRow).join('') + '</section>';
+    }).join('');
+    urusBody(head + list);
+  }
+  function rtRow(x) {
+    var st = rtStn(x.grp).filter(function (s) { return x.sk[s[0]] > 0; }).map(function (s) { return '<span class="rt-sk">' + h(s[1]) + rtDots(x.sk[s[0]]) + '</span>'; }).join('');
+    return '<button class="rt-row" data-act="rtEdit" data-id="' + h(x.id) + '">' + avatar(x.nama) + '<span class="grow rt-main"><b>' + h(titleCase(x.nama)) + (x.pic ? '<i class="rt-lead" title="Shift lead">' + svg(RT_CROWN) + '</i>' : '') + '</b>' +
+      '<small>' + rtTier(x.t, x.est) + (x.est ? '<em class="rt-est">Estimate</em>' : '') + (x.rel ? '<em class="rt-rel' + (x.rel.tepat < 85 ? ' low' : '') + '">On time ' + x.rel.tepat + '%</em>' : '') + '</small>' +
+      (st ? '<span class="rt-sks">' + st + '</span>' : '') + '</span><span class="rt-score" title="NARA score: level 60%, on time 25%, stations 15%"><b>' + x.skor + '</b><small>score</small></span></button>';
+  }
+  function rtEdit(id) {
+    var x = S.rtA.staf.filter(function (q) { return q.id === id; })[0]; if (!x) return;
+    var lv = [1, 2, 3, 4, 5].map(function (t) { return '<label class="rt-lv t' + t + '"><input type="radio" name="t" value="' + t + '"' + (x.t === t ? ' checked' : '') + '><span><i>' + t + '</i><b>' + RT_L[t] + '</b><small>' + RT_H[t] + '</small></span></label>'; }).join('');
+    var other = x.grp === 'BH' ? 'FH' : 'BH';
+    var stRow = function (s) {
+      return '<div class="rt-st"><span>' + h(s[1]) + '</span><div class="rt-seg4">' + [0, 1, 2, 3].map(function (v) {
+        return '<label><input type="radio" name="sk_' + h(s[0]) + '" value="' + v + '"' + ((x.sk[s[0]] || 0) === v ? ' checked' : '') + '><span>' + SK_L[v] + '</span></label>';
+      }).join('') + '</div></div>';
+    };
+    modal('Rate ' + titleCase(x.nama), '<form data-form="ratingSave" data-id="' + h(x.id) + '" class="rt-form">' +
+      '<p class="muted">' + h(x.bahagian || x.grp) + (x.masuk ? ' · with Sofwah since ' + cbMon(x.masuk) : '') + (x.rel ? ' · on time ' + x.rel.tepat + '% (8 weeks)' : '') + '</p>' +
+      '<fieldset class="rt-fs"><legend>Level</legend><div class="rt-lvs">' + lv + '</div></fieldset>' +
+      '<label class="cb-live rt-pic"><span class="grow"><b>Can lead a shift</b><small>Opens or closes, handles cash and complaints</small></span><input type="checkbox" name="pic"' + (x.pic ? ' checked' : '') + '></label>' +
+      '<fieldset class="rt-fs"><legend>' + (x.grp === 'BH' ? 'Kitchen' : 'Front') + ' stations</legend>' + rtStn(x.grp).map(stRow).join('') + '</fieldset>' +
+      '<details class="rt-more"' + (rtStn(other).some(function (s) { return x.sk[s[0]] > 0; }) ? ' open' : '') + '><summary>Also works ' + (other === 'BH' ? 'in the kitchen' : 'at the front') + '</summary>' + rtStn(other).map(stRow).join('') + '</details>' +
+      '<label>Note (optional)<input name="catatan" maxlength="200" value="' + h(x.catatan) + '" placeholder="e.g. Ready for Senior after Ramadan"></label>' +
+      (x.pada ? '<p class="hint">Last rated ' + h(x.pada) + (x.oleh ? ' by ' + h(x.oleh) : '') + '.</p>' : '<p class="hint">Not rated yet. Showing NARA’s estimate.</p>') +
+      '<button class="btn block" type="submit">Save rating</button></form>', 'rt-sheet');
+  }
+  FORMS.ratingSave = function (f, btn) {
+    var lv = f.querySelector('[name=t]:checked');
+    var p = { id: f.dataset.id, t: Number(lv ? lv.value : 0), pic: f.querySelector('[name=pic]').checked, sk: {}, catatan: f.querySelector('[name=catatan]').value };
+    [].forEach.call(f.querySelectorAll('input[type=radio]:checked'), function (el) { if (el.name.indexOf('sk_') === 0) p.sk[el.name.slice(3)] = Number(el.value); });
+    call('ratingSave', p).then(function (d) { S.rtA = d; closeModal(); rtRender(); toast('Rating saved. The roster uses it from now on.'); })
+      .catch(function (e) { busy(btn, false); fail(e); });
+  };
+
+  /* ---- Kesediaan roster (salinan rateReady_ pelayan, dikira langsung semasa pengurus mengubah syif) ---- */
+  function rpReady(i) {
+    var pl = S.rp && S.rp.plan; if (!pl || !pl.win || !pl.rating) return null;
+    var d = pl.days[i]; if (d.tutup) return null;
+    var W = pl.win, RG = pl.rating, lbl = function (k) { var all = RG.stesen.BH.concat(RG.stesen.FH); for (var j = 0; j < all.length; j++) if (all[j][0] === k) return all[j][1]; return k; };
+    var on = pl.staf.filter(function (x) { var c = S.rp.codes[x.id] && S.rp.codes[x.id][i]; return c && !away(x, i) && W[c] && W[c].some(Boolean) && x.rt; })
+      .map(function (x) { return { nama: titleCase(String(x.nama).split(/\s+/)[0]), grp: x.grp, rt: x.rt, kod: S.rp.codes[x.id][i] }; });
+    var got = 0, max = 0, isu = [], wins = [];
+    RG.lbl.forEach(function (lb, w) {
+      var duty = on.filter(function (x) { return W[x.kod][w]; });
+      var o = { n: duty.length, pic: duty.some(function (x) { return x.rt.pic; }), avg: duty.length ? Math.round(duty.reduce(function (a, x) { return a + x.rt.t; }, 0) / duty.length * 10) / 10 : 0, isu: [] };
+      if (!duty.length) { wins.push(o); return; }
+      max += 3; if (o.pic) got += 3; else o.isu.push('no shift lead');
+      ['FH', 'BH'].forEach(function (g) {
+        var team = duty.filter(function (x) { return x.grp === g; }), gl = g === 'BH' ? 'Kitchen' : 'Front';
+        if (!team.length) return;
+        max += 2;
+        var senior = team.some(function (x) { return x.rt.t >= 4; });
+        if (senior) got += 2; else o.isu.push(gl + ': no senior');
+        (RG.wajib[g] || []).forEach(function (k) {
+          max += 1;
+          if (team.some(function (x) { return (x.rt.sk[k] || 0) >= 2; })) got += 1; else o.isu.push(gl + ': no one for ' + lbl(k));
+        });
+        if (!senior) team.filter(function (x) { return x.rt.t <= 1; }).forEach(function (x) { got -= 1; o.isu.push(x.nama + ' (trainee) without a senior'); });
+      });
+      if (d.sibuk && o.avg && o.avg < 3) { max += 1; o.isu.push('busy day, team level ' + o.avg + ' (aim 3+)'); } else if (d.sibuk) { max += 1; got += 1; }
+      o.isu.forEach(function (t) { isu.push({ w: lb, t: t }); });
+      wins.push(o);
+    });
+    return { skor: max ? Math.max(0, Math.round(got / max * 100)) : null, isu: isu, win: wins };
+  }
+  function rpReadyCard(i) {
+    var r = rpReady(i); if (!r || r.skor === null) return '';
+    var tone = r.skor >= 90 ? 'ok' : r.skor >= 70 ? 'mid' : 'low', lbl = S.rp.plan.rating.lbl;
+    var w = r.win.map(function (o, k) {
+      return '<div class="rd-w' + (!o.n ? ' none' : o.isu.length ? ' warn' : ' ok') + '"><small>' + (lbl[k] === 'Afternoon' ? 'Aft' : lbl[k]) + '</small>' +
+        (o.n ? '<b>' + (o.pic ? '<i class="rd-lead">' + svg(RT_CROWN) + '</i>' : '<i class="rd-lead off">' + svg(RT_CROWN) + '</i>') + 'Lv ' + o.avg + '</b>' : '<b>-</b>') + '</div>';
+    }).join('');
+    var isu = r.isu.slice(0, 3).map(function (x) { return '<li><span>' + h(x.w === 'Afternoon' ? 'Aft' : x.w) + '</span>' + h(x.t) + '</li>'; }).join('') + (r.isu.length > 3 ? '<li class="more">+' + (r.isu.length - 3) + ' more</li>' : '');
+    return '<section class="rd ' + tone + '"><div class="rd-top"><div class="rd-s"><b>' + r.skor + '%</b><small>ready</small></div><div class="rd-ws">' + w + '</div></div>' +
+      (isu ? '<ul class="rd-isu">' + isu + '</ul>' : '<p class="rd-ok">' + svg('M5 12.5l4.5 4.5L19 7.5') + 'Leads, seniors and key stations covered all day.</p>') + '</section>';
+  }
+
   Object.assign(ACT, {
+    rtEdit: function (el) { rtEdit(el.dataset.id); },
     docLang: function (el) { docLang(el.dataset.v); },
     cbOpen: function () { cbOpen('view'); },
     cbAck: function (el) {
