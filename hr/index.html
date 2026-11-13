@@ -34,7 +34,7 @@
    Soft Lavender #EDE9FF, Cloud White #F6F8FE, Charcoal #1F2937. Montserrat (tajuk) + Inter (teks & UI).
    (NARA HR · Sofwah Arabic Grill)
    Kertas putih, kolam "mist" biru pucat, SATU blok slate (kad syif) bercorak
-   kekisi khatam. Oren Sofwah hanya untuk: tindakan, hari ini, hujung minggu (Jum–Sab).
+   kekisi khatam. Oren Sofwah hanya untuk: tindakan, hari ini, hujung minggu (Jum-Sab).
    Tiada bayang pada kad; bayang hanya untuk benda terapung (nav, modal, toast).
    ===================================================================== */
 :root{
@@ -1298,6 +1298,7 @@ html:has(#modal.doc-sheet:not([hidden])),html:has(#modal.doc-sheet:not([hidden])
 .doc-content ul{padding-left:20px;margin:6px 0}.doc-content li{margin:4px 0}
 .doc-content b,.doc-content strong{color:var(--ink)}
 .doc-content .card{background:var(--mist);border-radius:16px;padding:14px 16px;margin:14px 0}
+.doc-content .card b{display:inline}
 .doc-content table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;table-layout:fixed}
 .doc-content th,.doc-content td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
 @media (max-width:640px){
@@ -1535,7 +1536,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   var AUTH_ACTIONS = { loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, pushRegister: 1, pushTest: 1, pkLogin: 1, pkRegister: 1 };
   var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1, cbAck: 1, cbSave: 1 };
   // Tindakan payroll boleh ambil beberapa minit (slip PDF setiap staf): had masa klien dipanjangkan
-  // Log masuk: had 20 s (bukan 45 s) — rangkaian tergantung (cth. tukar Wi-Fi → 4G) dicuba semula sekali secara automatik
+  // Log masuk: had 20 s (bukan 45 s), rangkaian tergantung (cth. tukar Wi-Fi → 4G) dicuba semula sekali secara automatik
   var SHORT_ACTIONS = { loginEmail: 20000, logout: 15000, ping: 15000, pkLogin: 20000, pkLoginOptions: 15000 };
   var LONG_ACTIONS = { payrollRun: 300000, payrollFiles: 330000, exportPayroll: 120000, payrollSetup: 120000, staffing: 120000, staffingRefresh: 180000, lcMonitor: 300000, lcScan: 120000, lcDashboard: 90000, lcApproveSeeds: 120000, lcDecide: 90000 };
 
@@ -1669,7 +1670,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function cacheSet(k, d) { LS.set(cacheKey(k), JSON.stringify({ t: Date.now(), d: d })); }
 
   /* Papar-dahulu (stale-while-revalidate): tab dibuka serta-merta daripada data terakhir, kemudian
-   * dikemas kini senyap dari pelayan. mem:true = ingatan sesi sahaja (slip gaji, data pengurus) —
+   * dikemas kini senyap dari pelayan. mem:true = ingatan sesi sahaja (slip gaji, data pengurus) -
    * tidak disimpan dalam telefon. Sebarang tindakan menulis mengosongkan cache ini. */
   var MEM = {};
   function swrKey(a, pl) { return 'q_' + a + (pl ? '_' + JSON.stringify(pl) : ''); }
@@ -1892,7 +1893,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     if (pkOk() && pkOnHere()) setTimeout(pkAuto, 30);
   }
 
-  /* ======================= Face ID / passkey (WebAuthn) — PWA nara.sofwah.my ======================= */
+  /* ======================= Face ID / passkey (WebAuthn), PWA nara.sofwah.my ======================= */
   var PK_ICON = 'M7 3.5H5.5a2 2 0 0 0-2 2V7M17 3.5h1.5a2 2 0 0 1 2 2V7M7 20.5H5.5a2 2 0 0 1-2-2V17M17 20.5h1.5a2 2 0 0 0 2-2V17M9 9v1.5M15 9v1.5M12 9v4.2h-1M9.3 16.2a4 4 0 0 0 5.4 0';
   var PK_HOSTS = { 'nara.sofwah.my': 1, localhost: 1 };
   function pkOk() { return !NATIVE && !!window.PublicKeyCredential && !!PK_HOSTS[location.hostname] && !!(navigator.credentials && navigator.credentials.get); }
@@ -2158,7 +2159,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
 
   /* ===== Sesi pintar =====
-     Telefon sendiri (lalai): kekal log masuk — minimize, tukar app, kunci telefon atau tutup app TIDAK log keluar.
+     Telefon sendiri (lalai): kekal log masuk, minimize, tukar app, kunci telefon atau tutup app TIDAK log keluar.
      Log masuk semula hanya bila: tidak buka app 30 hari · had mutlak (90 hari; HR/Admin 30 hari, pelayan) ·
      kata laluan ditukar / akaun disekat (pelayan, serta-merta) · tekan Sign out.
      Payslip dikunci semula dengan PIN selepas 10 minit di luar app.
@@ -2293,7 +2294,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     });
     var ord = ['Pagi', 'Tengah', 'Split', 'Petang', 'Lain'];
     groups.sort(function (a, b) { return ord.indexOf(a.kat) - ord.indexOf(b.kat) || String(a.teks).localeCompare(String(b.teks)); });
-    var time = function (t) { return splitInline(String(t || '')).replace(/:00\b/g, '').replace(/\s*[–-]\s*/g, '–').replace(/\s*,\s*/g, ' · '); };
+    var time = function (t) { return splitInline(String(t || '')).replace(/:00\b/g, '').replace(/\s*[–-]\s*/g, '-').replace(/\s*,\s*/g, ' · '); };
     var body = groups.map(function (g) {
       g.p.sort(function (a, b) { return (b.hadir && !b.keluar ? 1 : 0) - (a.hadir && !a.keluar ? 1 : 0) || String(a.nama).localeCompare(String(b.nama)); });
       return '<div class="tm-g k-' + h(g.kat) + '"><div class="tm-gh"><i></i><b>' + h(MATE_KAT[g.kat] || 'Shift') + '</b><span>' + h(time(g.teks)) + '</span><em>' + g.p.length + '</em></div>' +
@@ -2312,7 +2313,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     for (var i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) % 9973;
     return '<span class="av ' + (cls || '') + '" style="--c:' + (color || AVC[x % AVC.length]) + '" aria-hidden="true">' + h(initials(s)) + '</span>';
   }
-  /** Cincin kemajuan SVG (0–100). */
+  /** Cincin kemajuan SVG (0-100). */
   function ring(p, tone) {
     var c = 2 * Math.PI * 26, v = Math.max(0, Math.min(100, Number(p) || 0));
     return '<svg class="ring ' + (tone || '') + '" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" class="trk"/>' +
@@ -2332,7 +2333,9 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function splitInline(teks) { return String(teks || '').replace(/\s*\/\s*/g, ', '); }
   var KAT = { Pagi: 'Morning', Tengah: 'Mid', Petang: 'Evening', Split: 'Split', Rehat: 'Rest day', Belum: 'Not scheduled', Lain: 'Other' };
 
-  function setMain(html) { var m = $('main'); if (m) m.innerHTML = html; }
+  /* owner: tab yang memiliki kandungan ini. Jawapan lewat (pelayan perlahan) untuk tab lain TIDAK boleh menulis ganti
+     skrin semasa (contoh: tab Me dibuka tetapi data Today tiba kemudian). */
+  function setMain(html, owner) { if (owner && owner !== S.tab) return false; var m = $('main'); if (m) m.innerHTML = html; return true; }
   var SKEL = '<div class="skel" aria-busy="true" aria-label="Loading"><i style="width:42%"></i><i></i><i style="width:76%"></i><i style="width:58%"></i></div>';
   function loading() { setMain('<div class="narrow"><div class="card">' + SKEL + '</div><div class="card">' + SKEL + '</div></div>'); }
 
@@ -2354,8 +2357,12 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     // Baru diterima bersama log masuk (< 20 s): paparkan terus, tiada panggilan semula
     if (cached && S.todayAt && Date.now() - S.todayAt < 20000) { S.todayAt = 0; S.data.today = cached; renderToday(cached); prefetch(); return; }
     if (cached && cached.tarikh === ymd(today())) { S.data.today = cached; renderToday(cached, true); } else loading();
-    call('today').then(function (d) { S.data.today = d; cacheSet('today', d); renderToday(d); prefetch(); })
-      .catch(function (e) { if (!cached) setMain(errBox(e)); else toast(e.message, true); });
+    var nav = S.navSeq;
+    call('today').then(function (d) {
+      S.data.today = d; cacheSet('today', d);
+      if (S.navSeq !== nav || S.tab !== 'hari') return; // staf sudah pindah tab: simpan data sahaja, jangan lukis
+      renderToday(d); prefetch();
+    }).catch(function (e) { if (S.navSeq !== nav || S.tab !== 'hari') return; if (!cached) setMain(errBox(e), 'hari'); else toast(e.message, true); });
   }
   function errBox(e) {
     return '<div class="card"><div class="err">' + h(e.message || e) + '</div><button class="btn ghost small" data-act="reload">Try again</button></div>';
@@ -2399,6 +2406,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
 
   function renderToday(d, stale) {
+    if (S.tab !== 'hari') return; // hanya tab Today boleh melukis kad Today
     var sy = d.syif, r = d.rekod || {};
     var state = d.cuti ? 'leave' : !sy.kod ? 'none' : sy.kategori === 'Rehat' ? 'rest' : 'shift';
     var done = d.langkah === 'selesai';
@@ -2410,7 +2418,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var nowD = new Date();
     var title = state === 'shift' ? (parts[0][0] || sy.teks) : pad2(nowD.getHours()) + ':' + pad2(nowD.getMinutes());
     var until = state === 'shift' ? (parts[0][1] ? 'until ' + parts[0][1] : '') : state === 'leave' ? 'On leave today' : state === 'rest' ? 'Rest day today' : 'No shift today';
-    var then = state === 'shift' && parts.length > 1 ? 'then ' + parts.slice(1).map(function (p) { return p.join('–'); }).join(', ') : '';
+    var then = state === 'shift' && parts.length > 1 ? 'then ' + parts.slice(1).map(function (p) { return p.join('-'); }).join(', ') : '';
     var sub = state === 'shift' ? (KAT[sy.kategori] || tr(sy.kategori)) + ' shift, ' + sy.kod + (d.di ? ' · at ' + d.di : '') + (sy.rehat && parts.length < 2 ? '\n' + sy.rehat + ' min break' : '')
       : state === 'leave' ? d.cuti : state === 'rest' ? 'Working anyway? Clock in as usual.' : 'On duty today? Clock in as usual.';
     var openIn = r.masuk2 && !r.keluar2 ? r.masuk2 : (r.masuk && !r.keluar ? r.masuk : '');
@@ -2419,9 +2427,9 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 
     var showTimes = state !== 'leave' || r.masuk;
     var times = showTimes ? '<div class="times">' +
-      '<div><span>In</span><b>' + h(r.masuk || '—') + '</b></div>' +
-      '<div><span>Out</span><b>' + h(r.keluar || '—') + '</b></div>' +
-      (sy.kategori === 'Split' || r.masuk2 ? '<div><span>In 2</span><b>' + h(r.masuk2 || '—') + '</b></div><div><span>Out 2</span><b>' + h(r.keluar2 || '—') + '</b></div>' : '') +
+      '<div><span>In</span><b>' + h(r.masuk || '--:--') + '</b></div>' +
+      '<div><span>Out</span><b>' + h(r.keluar || '--:--') + '</b></div>' +
+      (sy.kategori === 'Split' || r.masuk2 ? '<div><span>In 2</span><b>' + h(r.masuk2 || '--:--') + '</b></div><div><span>Out 2</span><b>' + h(r.keluar2 || '--:--') + '</b></div>' : '') +
       '</div>' : '';
     var note = d.geofence.ada ? 'Selfie and location, within ' + d.geofence.radius + ' m of ' + S.me.cawangan : 'Selfie and location required';
     if (r.status) note = 'Status: ' + tr(r.status) + (r.lewat ? ', ' + r.lewat + ' min late' : '');
@@ -2460,10 +2468,10 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var quick = '<div class="quick ga-quick">' + QUICK.map(function (q) { return '<button data-act="quick" data-v="' + q.v + '"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + q.i + '"></path></svg></span>' + h(q.l) + '</button>'; }).join('') + '</div>';
 
     var top = longShift + cbBanner();
-    setMain('<div class="today-grid">' + (top ? '<div class="ga-warn cb-top">' + top + '</div>' : '') + hero + quick +
+    if (!setMain('<div class="today-grid">' + (top ? '<div class="ga-warn cb-top">' + top + '</div>' : '') + hero + quick +
       '<div class="ga-week" id="ins-week">' + (S.wkHtml || '<section class="card">' + SKEL + '</section>') + '</div>' +
       '<div class="ga-stats" id="ins-stats">' + (S.statHtml || '') + '</div>' +
-      notes + mates + tasks + '</div>');
+      notes + mates + tasks + '</div>', 'hari')) return;
     startLed();
     bindDial();
     setBell();
@@ -2606,7 +2614,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         });
       return;
     }
-    // Web / PWA: kamera hadapan dalam app (getUserMedia) — sama di Android, iPhone dan komputer riba.
+    // Web / PWA: kamera hadapan dalam app (getUserMedia), sama di Android, iPhone dan komputer riba.
     // Jika kamera tidak boleh dibuka, staf boleh guna app kamera telefon (input fail) dari skrin yang sama.
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.isSecureContext && window.top === window.self) { camOpen(); return; }
     camFallback();
@@ -2720,7 +2728,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var d = S.data.today || {}, step = d.langkah && d.langkah !== 'selesai' ? d.langkah : 'masuk', at = new Date();
       item = { step: step, p: { lat: pos.lat, lng: pos.lng, acc: pos.acc, selfie: selfie, t: at.getTime(), cid: Date.now().toString(36) + Math.random().toString(36).slice(2, 9) } };
       var q = clockQ(); q.push(item); clockQSet(q);
-      // Serta-merta: kad dikemas kini, raikan — staf tidak menunggu pelayan
+      // Serta-merta: kad dikemas kini, raikan, staf tidak menunggu pelayan
       busy(btn, false);
       clockOptimistic(step, at);
       celebrate();
@@ -2750,7 +2758,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var have = swr([{ a: 'myWeek', p: { minggu: ymd(mon) } }], function (res) {
       var w = res[0];
       var m0 = parseYmdL(w.minggu), m6 = addDays(m0, 6);
-      var range = m0.getDate() + (m0.getMonth() !== m6.getMonth() ? ' ' + MON[m0.getMonth()] : '') + ' – ' + m6.getDate() + ' ' + MON[m6.getMonth()] + ' ' + m6.getFullYear();
+      var range = m0.getDate() + (m0.getMonth() !== m6.getMonth() ? ' ' + MON[m0.getMonth()] : '') + ' - ' + m6.getDate() + ' ' + MON[m6.getMonth()] + ' ' + m6.getFullYear();
       var rel = S.weekOff === 0 ? 'This week' : S.weekOff === 1 ? 'Next week' : S.weekOff === -1 ? 'Last week' : (S.weekOff > 0 ? 'In ' + S.weekOff + ' weeks' : Math.abs(S.weekOff) + ' weeks ago');
       var work = w.days.filter(function (d) { return ['Pagi', 'Tengah', 'Petang', 'Split'].indexOf(d.kategori) >= 0 && !d.cuti; }).length;
       var t0 = today(), off = null, offWhy = '';
@@ -2770,7 +2778,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         '<div><b>' + h(range) + '</b><span>' + h(rel) + '</span></div>' +
         '<button class="icon-round" data-act="week" data-v="1" aria-label="Next week">' + svg('M9 6l6 6-6 6') + '</button></div>' +
         '<div class="tiles"><div class="tile lead"><span class="eyebrow">Shifts</span><b>' + work + '<small>of 7 days</small></b><span class="muted">' + (w.jam ? h(w.jam) + ' hours scheduled' : h(rel)) + '</span></div>' +
-        '<div class="tile"><span class="eyebrow">Next day off</span>' + (off ? '<b>' + WDAY[off.getDay()] + '<small>' + off.getDate() + ' ' + MON[off.getMonth()] + '</small></b><span class="muted">' + (offWhy || 'Rest day') + '</span>' : '<b>–</b><span class="muted">none in this week</span>') + '</div></div>' +
+        '<div class="tile"><span class="eyebrow">Next day off</span>' + (off ? '<b>' + WDAY[off.getDay()] + '<small>' + off.getDate() + ' ' + MON[off.getMonth()] + '</small></b><span class="muted">' + (offWhy || 'Rest day') + '</span>' : '<b>-</b><span class="muted">none in this week</span>') + '</div></div>' +
         '<section class="card tl-card">' + rows + '</section>' + '<div id="ph-card-slot">' + phCard() + '</div>' +
         '<button class="btn ghost block" data-act="myAtt">My attendance, last 30 days</button></div>');
       if (!swrGet({ a: 'myHolidays' })) swrFetch({ a: 'myHolidays' }).then(function () { var sl = $('ph-card-slot'); if (sl) sl.innerHTML = phCard(); }).catch(function () { /* pilihan */ });
@@ -2815,7 +2823,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     swrFetch({ a: 'myAttendance' }).then(function (rows) {
       $('modal-body').innerHTML = rows.length ? '<div class="list">' + rows.map(function (r) {
         return '<div class="li"><div><div style="font-weight:600">' + h(r.tarikh) + ' · ' + h(r.kod || '-') + '</div><div class="muted">' +
-          h(r.masuk || '—') + ' – ' + h(r.keluar || '—') + (r.masuk2 ? ' · ' + h(r.masuk2) + ' – ' + h(r.keluar2 || '—') : '') +
+          h(r.masuk || '--:--') + ' - ' + h(r.keluar || '--:--') + (r.masuk2 ? ' · ' + h(r.masuk2) + ' - ' + h(r.keluar2 || '--:--') : '') +
           (r.jam ? ' · ' + h(r.jam) + ' h' : '') + '</div></div><span class="chip ' + chipFor(r.status) + '">' + h(tr(r.status) || '-') + (Number(r.lewat) ? ' ' + h(r.lewat) + 'm' : '') + '</span></div>';
       }).join('') + '</div>' : '<div class="empty">No records yet.</div>';
     }).catch(function (e) { $('modal-body').innerHTML = errBox(e); });
@@ -2857,7 +2865,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<button class="btn block" type="submit">Submit request</button></form></section>';
     var list = d.senarai.length ? d.senarai.map(function (l) {
       return '<div class="li"><div class="grow"><div style="font-weight:600">' + h(l.jenis) + (l.hari ? ' · ' + h(l.hari) + ' days' : '') + '</div>' +
-        '<div class="muted">' + h(l.mula) + (l.tamat && l.tamat !== l.mula ? ' – ' + h(l.tamat) : '') + (l.tempoh && l.tempoh !== 'Penuh' ? ' · ' + h(l.tempoh) : '') +
+        '<div class="muted">' + h(l.mula) + (l.tamat && l.tamat !== l.mula ? ' - ' + h(l.tamat) : '') + (l.tempoh && l.tempoh !== 'Penuh' ? ' · ' + h(l.tempoh) : '') +
         (l.oleh ? ' · ' + h(l.oleh) : '') + '</div>' + (l.semakan ? '<div class="err">' + h(l.semakan) + '</div>' : '') + '</div>' +
         '<div style="text-align:right"><span class="chip ' + chipFor(l.status) + '">' + h(tr(l.status)) + '</span>' +
         (l.boleBatal ? '<br><button class="btn ghost small" style="margin-top:6px" data-act="cancelLeave" data-row="' + l.row + '">Cancel</button>' : '') + '</div></div>';
@@ -2889,7 +2897,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function rngMin() { var R = S.rng; return ymd(addDays(today(), -(R.back[R.jenis] || 0))); }
   function rngHalf() { return S.rng.tempoh && S.rng.tempoh !== 'Penuh'; }
   function rngWd(s) { var d = parseYmdL(s); return String((d.getDay() + 6) % 7 + 1); }
-  /** {cal: hari kalendar, leave: hari cuti ditolak} — sama seperti leaveDays_ di pelayan */
+  /** {cal: hari kalendar, leave: hari cuti ditolak}, sama seperti leaveDays_ di pelayan */
   function rngCount(a, b) {
     var R = S.rng; b = b || a;
     if (!a) return { cal: 0, leave: 0, off: 0 };
@@ -2948,7 +2956,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         ' aria-pressed="' + (s === lo || s === up) + '" aria-label="' + h(WDAY[parseYmdL(s).getDay()] + ' ' + dd + ' ' + MONTH_L[mo]) + (off ? ', rest day' : '') + (ph ? ', public holiday' : '') + '">' + dd + '</button></span>';
     }
     var minM = parseYmdL(min), canPrev = y > minM.getFullYear() || (y === minM.getFullYear() && mo > minM.getMonth());
-    var lab = function (v) { if (!v) return '—'; var d = parseYmdL(v); return WDAY[d.getDay()] + ', ' + d.getDate() + ' ' + MON[d.getMonth()]; };
+    var lab = function (v) { if (!v) return '-'; var d = parseYmdL(v); return WDAY[d.getDay()] + ', ' + d.getDate() + ' ' + MON[d.getMonth()]; };
     var half = rngHalf(), ready = W.a && (W.b || half);
     return '<div class="cal">' +
       (half ? '<div class="cal-hint">' + h(tr(R.tempoh)) + ': pick one date</div>'
@@ -3002,7 +3010,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       setMain('<div class="narrow">' +
         '<section class="card person"><div class="person-top">' + avatar(me.namaPenuh || me.nama, 'av-xl', '#1B1F4B') + '<div><b>' + h(titleCase(me.namaPenuh || me.nama)) + '</b><span>' + h(me.jawatan || roleName()) + ', ' + h(me.cawangan) + '</span></div></div>' +
         '<dl class="facts"><div><dt>Staff ID</dt><dd>' + h(me.id) + '</dd></div><div><dt>Access</dt><dd>' + roleName() + '</dd></div>' +
-        '<div><dt>Branch</dt><dd>' + h(me.cawangan) + '</dd></div><div><dt>Section</dt><dd>' + h(me.bahagian || me.stesen || '–') + '</dd></div>' +
+        '<div><dt>Branch</dt><dd>' + h(me.cawangan) + '</dd></div><div><dt>Section</dt><dd>' + h(me.bahagian || me.stesen || '-') + '</dd></div>' +
         (me.email ? '<div style="grid-column:1/-1;border-right:0"><dt>Email</dt><dd>' + h(me.email) + '</dd></div>' : '') + '</dl>' +
         '<span class="hint">NARA HR ' + h(me.versi || '') + ' · The People Management Platform</span></section>' +
         cbCard() + pushCard() +
@@ -3337,7 +3345,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
   function urusErr(e) { urusBody(errBox(e)); }
 
-  /* ---------- HR actions: ringkas — 3 kumpulan boleh ditapis, 4 baris paling mendesak, "See all" ---------- */
+  /* ---------- HR actions: ringkas, 3 kumpulan boleh ditapis, 4 baris paling mendesak, "See all" ---------- */
   function hraPrep(list) {
     var t0 = today().getTime();
     return list.map(function (a, i) {
@@ -3412,7 +3420,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
 
   /* ---------- Coverage: simulasi lantai bergambar (ikut jam) + barisan syif ringkas ----------
-     Lantai restoran (dapur ikut stesen, kaunter & pengurus, ruang makan) — avatar staf muncul ikut syif pada jam
+     Lantai restoran (dapur ikut stesen, kaunter & pengurus, ruang makan), avatar staf muncul ikut syif pada jam
      dipilih; seret garis masa atau tekan Play untuk simulasi sehari; hari ini: status clock-in langsung. */
   var CV_G = [['Pagi', 'Morning'], ['Tengah', 'Mid'], ['Split', 'Split'], ['Petang', 'Evening'], ['Lain', 'Other']];
   function cvHM(m) { m = ((Math.round(m) % 1440) + 1440) % 1440; return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + m % 60).slice(-2); }
@@ -3590,14 +3598,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     Object.keys(c.groups).forEach(function (k) { c.groups[k].forEach(function (x) { if (x.id === id) m = x; }); });
     if (!m) return;
     var line = function (a, b) { return b ? '<div class="att-l"><span>' + a + '</span><b>' + b + '</b></div>' : ''; };
-    var att = m.masuk ? h(m.masuk) + ' – ' + h(m.keluar || '…') + (m.masuk2 ? ' · ' + h(m.masuk2) + ' – ' + h(m.keluar2 || '…') : '') : '';
+    var att = m.masuk ? h(m.masuk) + ' - ' + h(m.keluar || '…') + (m.masuk2 ? ' · ' + h(m.masuk2) + ' - ' + h(m.keluar2 || '…') : '') : '';
     var sec = [m.bahagian, m.stesen].filter(Boolean).join(' · ');
     modal(titleCase(m.nama), line('Section', h(sec)) + line('Shift', h((m.kod ? m.kod + ' · ' : '') + m.teks)) + line('Clock-in', att || (c.tarikh === ymd(today()) && m.blok && m.blok.length ? 'Not yet' : '')) +
       line('Late', m.lewat ? h(m.lewat) + ' min' : '') + line('From branch', h(m.dari || '')) +
       (m.blok && m.blok.length && V.people.length ? '<button class="btn block" data-act="cvJump" data-v="' + m.blok[0][0] + '" style="margin-top:12px">' + svg('M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z') + ' Show on floor at ' + cvHM(m.blok[0][0]) + '</button>' : ''));
   }
 
-  /* ======================= Sertai Sofwah (QR) — borang keahlian staf baharu =======================
+  /* ======================= Sertai Sofwah (QR), borang keahlian staf baharu =======================
      /hr/#join=<kod> → 3 langkah (Anda · Kerja · Sahkan) → terus jadi staf (ID automatik ikut cawangan) → cipta akaun. */
   var JOIN_DESC = { Tetap: 'Full-time · 2-month probation', Kontrak: 'Fixed term with an end date', Sementara: 'Short period, e.g. festive season', Sambilan: 'Part-time on set days', Kasual: 'On call when the branch needs you' };
   var JOIN_ICO = { Tetap: 'M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6zM9 12l2 2 4-4', Kontrak: 'M7 3.5h7l4 4v13H7zM14 3.5V8h4M10 13h5M10 17h3', Sementara: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', Sambilan: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M8 13h3M13 13h3M8 17h3', Kasual: 'M13 2L4 14h7l-1 8 9-12h-7z' };
@@ -3693,7 +3701,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
   function joinLeave() { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { location.hash = ''; } S.join = null; }
 
-  /* ---------- HR: Join QR — poster NARA (kanvas) + buka/tutup + tukar QR + staf baharu ---------- */
+  /* ---------- HR: Join QR, poster NARA (kanvas) + buka/tutup + tukar QR + staf baharu ---------- */
   function cssUrl(name) {
     var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     if (v.indexOf('url(') !== 0) return null;
@@ -3787,7 +3795,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     call('approvals').then(function (d) {
       var cuti = d.cuti.map(function (c) {
         return '<div class="card"><div class="between"><div><div style="font-weight:700">' + h(c.nama) + ' · ' + h(c.cawangan) + '</div><div class="muted">' + h(c.jenis) + ' · ' + h(c.mula) +
-          (c.tamat !== c.mula ? ' – ' + h(c.tamat) : '') + (c.hari ? ' · ' + h(c.hari) + ' days' : '') + (c.tempoh && c.tempoh !== 'Penuh' ? ' · ' + h(c.tempoh) : '') + '</div></div><span class="chip orange">Leave</span></div>' +
+          (c.tamat !== c.mula ? ' - ' + h(c.tamat) : '') + (c.hari ? ' · ' + h(c.hari) + ' days' : '') + (c.tempoh && c.tempoh !== 'Penuh' ? ' · ' + h(c.tempoh) : '') + '</div></div><span class="chip orange">Leave</span></div>' +
           (c.sebab ? '<div>' + h(c.sebab) + '</div>' : '') + (c.semakan ? '<div class="err">' + h(c.semakan) + '</div>' : '') +
           '<div class="muted">Requested ' + h(c.dimohon || '-') + ' · ' + h(c.sumber || '') + (safeUrl(c.dokumen) ? ' · <a href="' + h(safeUrl(c.dokumen)) + '" target="_blank" rel="noopener">Document</a>' : '') + '</div>' +
           '<div class="row"><button class="btn dark small grow" data-act="decide" data-kind="cuti" data-row="' + c.row + '" data-v="Lulus">Approve</button>' +
@@ -3887,13 +3895,13 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var used = {}, grps = ['FH', 'BH'].filter(function (g) { return day.slots.some(function (sl) { return sl.grp === g; }); });
     var cell = function (g, role) {
       var slots = day.slots.filter(function (sl) { return sl.grp === g && sl.peranan === role; });
-      if (!slots.length) return '<div class="rb-cell none"><span class="muted">–</span></div>';
+      if (!slots.length) return '<div class="rb-cell none"><span class="muted">-</span></div>';
       return slots.map(function (sl) {
         var t = cat[sl.kod] || {}, on = pl.staf.filter(function (x) { return x.grp === g && !away(x, di) && R.codes[x.id] && R.codes[x.id][di] === sl.kod; });
         on.forEach(function (x) { used[x.id] = 1; });
         var pills = on.map(function (x, k) { return '<button class="rb-p' + (k >= sl.n ? ' extra' : '') + (x.tamu ? ' guest' : '') + '" data-act="rpSeat" data-id="' + h(x.id) + '">' + h(first(x.nama)) + (x.tamu ? '<sup>' + h(brK(x.asal)) + '</sup>' : '') + '</button>'; }).join('');
         for (var k = on.length; k < sl.n; k++) pills += '<button class="rb-p add" data-act="rpAdd" data-kod="' + h(sl.kod) + '" data-grp="' + g + '" aria-label="Add to ' + h(sl.kod) + '">+</button>';
-        var tm = splitInline(t.teks || sl.kod).replace(/:00/g, '').replace(/\s*[–-]\s*/g, '–').replace(/\s*[,\/]\s*/g, ' · ');
+        var tm = splitInline(t.teks || sl.kod).replace(/:00/g, '').replace(/\s*[–-]\s*/g, '-').replace(/\s*[,\/]\s*/g, ' · ');
         return '<div class="rb-cell k-' + h(role) + '"><div class="rb-ch"><b>' + h(sl.kod) + '</b><span>' + h(tm) + '</span><em class="' + (on.length >= sl.n ? 'ok' : 'short') + '">' + on.length + '/' + sl.n + '</em></div><div class="rb-ps">' + pills + '</div></div>';
       }).join('');
     };
@@ -3968,7 +3976,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   /** Kepala padat: minggu (‹ ›) dan pilihan paparan dalam satu baris. */
   function rpHead(w, pl, view) {
     var mon = parseYmdL(w.minggu), sun = addDays(mon, 6);
-    var lbl = mon.getDate() + (mon.getMonth() !== sun.getMonth() ? ' ' + MON[mon.getMonth()] : '') + ' – ' + sun.getDate() + ' ' + MON[sun.getMonth()];
+    var lbl = mon.getDate() + (mon.getMonth() !== sun.getMonth() ? ' ' + MON[mon.getMonth()] : '') + ' - ' + sun.getDate() + ' ' + MON[sun.getMonth()];
     return '<div class="rp-top"><div class="rp-wk"><button class="rp-arw" data-act="mweek" data-v="-1" aria-label="Previous week">‹</button>' +
       '<div class="rp-wk-l"><b>' + h(lbl) + '</b><span>' + h(w.cawangan) + '</span></div><button class="rp-arw" data-act="mweek" data-v="1" aria-label="Next week">›</button></div>' +
       '<div class="rp-tools">' + (pl ? '<div class="seg mini" role="group" aria-label="Roster view"><button data-act="rpView" data-v="plan" aria-pressed="' + (view === 'plan') + '">By shift</button><button data-act="rpView" data-v="grid" aria-pressed="' + (view === 'grid') + '">By staff</button></div>' : '') +
@@ -4023,7 +4031,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       g.fillStyle = gr; g.fillRect(0, 0, W, HH);
       if (logo) g.drawImage(logo, M, 46, 360, 360 * 1422 / 2071);
       else txt('NARA HR', M, 200, '700', 110, 'm', '#FFFFFF');
-      var wk = mon.getDate() + (mon.getMonth() !== sun.getMonth() ? ' ' + BULAN_MS[mon.getMonth()] : '') + ' – ' + sun.getDate() + ' ' + BULAN_MS[sun.getMonth()] + ' ' + sun.getFullYear();
+      var wk = mon.getDate() + (mon.getMonth() !== sun.getMonth() ? ' ' + BULAN_MS[mon.getMonth()] : '') + ' - ' + sun.getDate() + ' ' + BULAN_MS[sun.getMonth()] + ' ' + sun.getFullYear();
       txt('SOFWAH ARABIC GRILL · ' + String(w.cawangan || '').toUpperCase(), W - M, 104, '600', 36, 'i', '#C9C3F5', 'right');
       txt('Jadual Mingguan', W - M, 210, '700', 104, 'm', '#FFFFFF', 'right');
       txt(wk, W - M, 288, '600', 58, 'm', '#5FF0E2', 'right');
@@ -4073,19 +4081,19 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             if (aw && !lv) { k = '@' + brK(aw); t = null; }
             var kat = lv ? 'Cuti' : t ? (KAT_PNG[t.kategori] ? t.kategori : 'Lain') : k ? 'Lain' : '';
             var cx = x + 8, cy = y + 7, cw = dayW - 16, ch = rh - 14;
-            if (!kat) { g.save(); g.setLineDash([10, 8]); g.strokeStyle = '#D6D9E6'; g.lineWidth = 2; rr(cx, cy, cw, ch, 16); g.stroke(); g.restore(); txt('–', x + dayW / 2, y + rh / 2 + 12, '500', 34, 'i', '#B6BCCE', 'center'); continue; }
+            if (!kat) { g.save(); g.setLineDash([10, 8]); g.strokeStyle = '#D6D9E6'; g.lineWidth = 2; rr(cx, cy, cw, ch, 16); g.stroke(); g.restore(); txt('-', x + dayW / 2, y + rh / 2 + 12, '500', 34, 'i', '#B6BCCE', 'center'); continue; }
             var c = KAT_PNG[kat]; rr(cx, cy, cw, ch, 16); g.fillStyle = c.bg; g.fill();
             if (kat === 'Rehat') { g.save(); rr(cx, cy, cw, ch, 16); g.clip(); g.strokeStyle = 'rgba(100,116,139,.13)'; g.lineWidth = 3; for (var s = -ch; s < cw; s += 22) { g.beginPath(); g.moveTo(cx + s, cy + ch); g.lineTo(cx + s + ch, cy); g.stroke(); } g.restore(); }
             var big, small;
             if (lv) { var q = /\?$/.test(lv); big = lvAb(lv); small = String(lv).replace(/\?$/, '') + (q ? ' (menunggu)' : ''); }
             else if (kat === 'Rehat') { big = 'REHAT'; small = ''; }
-            else { big = k; small = aw ? aw : t ? String(t.teks || '').replace(/\s*–\s*/g, '–').replace(/\s*\/\s*/g, ' · ') : ''; }
+            else { big = k; small = aw ? aw : t ? String(t.teks || '').replace(/\s*–\s*/g, '-').replace(/\s*\/\s*/g, ' · ') : ''; }
             if (!lv && k && !aw) { used[k] = t || { kod: k, teks: k, kategori: 'Lain' }; if (t && WORK.indexOf(t.kategori) >= 0) { jam += Number(t.jam) || 0; counts[i][t.kategori] = (counts[i][t.kategori] || 0) + 1; } }
             var two = small && ch >= 64;
             txt(big, x + dayW / 2, y + rh / 2 + (two ? -ch * 0.06 : Math.min(40, ch * 0.36) * 0.36), '700', Math.min(40, ch * 0.36), 'm', c.fg, 'center', cw - 20);
             if (two) txt(small, x + dayW / 2, y + rh / 2 + ch * 0.3, '500', Math.min(27, ch * 0.24), 'i', c.fg, 'center', cw - 20);
           }
-          txt(jam ? jam + 'j' : '–', hrsX + hrsW - 10, y + rh / 2 + 13, '700', Math.min(38, rh * 0.32), 'm', jam > 45 ? '#B42318' : '#1B1F4B', 'right');
+          txt(jam ? jam + 'j' : '-', hrsX + hrsW - 10, y + rh / 2 + 13, '700', Math.min(38, rh * 0.32), 'm', jam > 45 ? '#B42318' : '#1B1F4B', 'right');
           g.strokeStyle = '#EDEFF5'; g.lineWidth = 2; g.beginPath(); g.moveTo(x0, y + rh); g.lineTo(W - M, y + rh); g.stroke();
           y += rh;
         });
@@ -4099,13 +4107,13 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         var x = dayX + i * dayW, cc = counts[i], sum = Object.keys(cc).reduce(function (a, k) { return a + cc[k]; }, 0);
         txt(sum + ' orang', x + dayW / 2, y + 46, '700', 34, 'm', '#FFFFFF', 'center');
         var det = ['Pagi', 'Tengah', 'Split', 'Petang'].filter(function (k) { return cc[k]; }).map(function (k) { return (k === 'Tengah' ? 'Tengah' : k) + ' ' + cc[k]; }).join(' · ');
-        txt(det || '–', x + dayW / 2, y + 84, '500', 25, 'i', '#C9C3F5', 'center', dayW - 24);
+        txt(det || '-', x + dayW / 2, y + 84, '500', 25, 'i', '#C9C3F5', 'center', dayW - 24);
         tot += sum;
       }
       // --- Kaki: petunjuk kod syif + penyedia
       var fy = H - FOOT + 46, lx = x0;
       txt('PETUNJUK', lx, fy + 10, '700', 26, 'i', '#64748B'); lx += 210;
-      var leg = Object.keys(used).sort().map(function (k) { var t = used[k]; return { k: k, t: t.kategori === 'Rehat' ? 'Rehat' : String(t.teks || '').replace(/\s*–\s*/g, '–').replace(/\s*\/\s*/g, ' · '), kat: KAT_PNG[t.kategori] ? t.kategori : 'Lain' }; });
+      var leg = Object.keys(used).sort().map(function (k) { var t = used[k]; return { k: k, t: t.kategori === 'Rehat' ? 'Rehat' : String(t.teks || '').replace(/\s*–\s*/g, '-').replace(/\s*\/\s*/g, ' · '), kat: KAT_PNG[t.kategori] ? t.kategori : 'Lain' }; });
       leg.push({ k: 'AL / MC', t: 'Cuti', kat: 'Cuti' });
       leg.forEach(function (l) {
         g.font = F('700', 28, 'm'); var kw = g.measureText(l.k).width; g.font = F('500', 26, 'i'); var tw = l.t && l.t !== l.k ? g.measureText(l.t).width + 14 : 0;
@@ -4182,7 +4190,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       }).join('');
       return '<div class="rg-r' + (r.tamu ? ' guest' : '') + '"><button class="rg-n' + (f ? ' flag' : '') + '" data-act="rgWho" data-id="' + h(r.id) + '"><b>' + h(titleCase(String(r.nama || '').split(/\s+/)[0])) + '</b>' +
         (r.tamu ? '<small class="from">From ' + h(brK(r.asal)) + '</small>' :
-        '<small>' + h(r.bahagian === 'Sambilan (PT)' ? 'PT' : r.bahagian === 'Pengurus' ? 'Mgr' : (r.bahagian || '–')) + ' · <span class="' + (jam > 45 ? 'over' : '') + '">' + jam + 'h</span></small>') + '</button>' + cells + '</div>';
+        '<small>' + h(r.bahagian === 'Sambilan (PT)' ? 'PT' : r.bahagian === 'Pengurus' ? 'Mgr' : (r.bahagian || '-')) + ' · <span class="' + (jam > 45 ? 'over' : '') + '">' + jam + 'h</span></small>') + '</button>' + cells + '</div>';
     }).join('');
     var chk = Object.keys(flags).length;
     var corner = '<button class="rg-corner ' + (chk ? 'warn' : 'ok') + '" data-act="rgChecks" aria-label="' + (chk ? chk + ' staff to review' : 'Week checks: all clear') + '"><b>' + w.rows.filter(function (x) { return !x.tamu; }).length + ' staff</b><small>' + (chk ? chk + ' review' : 'All clear') + '</small></button>';
@@ -4331,7 +4339,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<div class="row" style="margin-top:8px"><button class="btn ghost small grow danger" data-act="tkDel" data-j="' + j + '">Remove duty</button><button class="btn small grow" data-act="tkDutyOk" data-j="' + j + '">Done</button></div>');
   }
 
-  /* Attendance: senarai kad padat (tiada jadual lebar) — ringkasan di atas, tap staf untuk butiran & tindakan. */
+  /* Attendance: senarai kad padat (tiada jadual lebar), ringkasan di atas, tap staf untuk butiran & tindakan. */
   function uKehadiran() {
     var d0 = S.date || ymd(today());
     call('branchAttendance', { cawangan: S.branch, tarikh: d0 }).then(function (rows) { S.att = { rows: rows, d0: d0, f: S.att && S.att.d0 === d0 ? S.att.f : '' }; attRender(); }).catch(urusErr);
@@ -4357,9 +4365,9 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     });
     var body = list.length ? list.map(function (r) {
       var k = attKind(r), lab = ATT_K[k], i = rows.indexOf(r);
-      var t = r.status === 'Tiada rekod' ? (r.kelas === 'absen' || r.kelas === 'semak' ? 'Not clocked in' : r.cadangan) : (r.masuk || '—') + ' – ' + (r.keluar || '…') + (r.masuk2 ? ' · ' + r.masuk2 + ' – ' + (r.keluar2 || '…') : '');
+      var t = r.status === 'Tiada rekod' ? (r.kelas === 'absen' || r.kelas === 'semak' ? 'Not clocked in' : r.cadangan) : (r.masuk || '--:--') + ' - ' + (r.keluar || '…') + (r.masuk2 ? ' · ' + r.masuk2 + ' - ' + (r.keluar2 || '…') : '');
       var ot = Number(r.ot) > 0 && r.otLulus === '' ? '<span class="chip violet">OT ' + h(r.ot) + 'h</span>' : '';
-      return '<button class="att-r k-' + k + '" data-act="attOpen" data-i="' + i + '">' + avatar(r.nama) + '<span class="grow"><b>' + h(titleCase(r.nama)) + '</b><small>' + h(r.kod || '–') + ' · ' + h(t) + '</small></span>' + ot +
+      return '<button class="att-r k-' + k + '" data-act="attOpen" data-i="' + i + '">' + avatar(r.nama) + '<span class="grow"><b>' + h(titleCase(r.nama)) + '</b><small>' + h(r.kod || '-') + ' · ' + h(t) + '</small></span>' + ot +
         '<span class="chip ' + lab[1] + '">' + lab[0] + (k === 'late' && Number(r.lewat) ? ' ' + h(r.lewat) + 'm' : '') + '</span></button>';
     }).join('') : '<div class="empty">' + (rows.length ? 'No one in this filter.' : 'No attendance records for this date.') + '</div>';
     urusBody('<div class="att-top"><button class="icon-round" data-act="attDay" data-v="-1" aria-label="Previous day">' + svg('M15 6l-6 6 6 6') + '</button>' +
@@ -4381,11 +4389,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         (isHR() && (r.kelas === 'absen' || r.kelas === 'semak') ? '<button class="btn block" data-act="addAtt" data-id="' + h(r.id) + '" style="margin-top:12px">Add manual record</button>' : '');
     } else {
       html = '<div class="att-ls">' +
-        line('Shift', h(r.kod || '–')) +
-        line('In – out', h((r.masuk || '—') + ' – ' + (r.keluar || '—'))) +
-        (r.masuk2 ? line('Session 2', h(r.masuk2 + ' – ' + (r.keluar2 || '—'))) : '') +
+        line('Shift', h(r.kod || '-')) +
+        line('In - out', h((r.masuk || '--:--') + ' - ' + (r.keluar || '--:--'))) +
+        (r.masuk2 ? line('Session 2', h(r.masuk2 + ' - ' + (r.keluar2 || '--:--'))) : '') +
         line('Status', '<span class="chip ' + lab[1] + '">' + h(tr(r.status) || lab[0]) + '</span>' + (Number(r.lewat) ? ' <small>late ' + h(r.lewat) + ' min</small>' : '')) +
-        line('Distance', r.jarak !== '' && r.jarak !== null && r.jarak !== undefined ? h(r.jarak) + ' m' : '–') +
+        line('Distance', r.jarak !== '' && r.jarak !== null && r.jarak !== undefined ? h(r.jarak) + ' m' : '-') +
         (r.catatan ? line('Notes', h(r.catatan)) : '') + '</div>' +
         (Number(r.ot) > 0 ? '<div class="att-ot"><span>Overtime<br><small>counted ' + h(r.ot) + ' h</small></span><input type="number" step="0.5" min="0" max="8" value="' + h(r.otLulus !== '' ? r.otLulus : r.ot) + '" id="ot-' + r.row + '"><button class="btn small dark" data-act="ot" data-row="' + r.row + '">Approve</button></div>' : '') +
         '<div class="row" style="margin-top:12px">' + (r.selfie ? '<button class="btn ghost small grow" data-act="selfie" data-row="' + r.row + '" data-nama="' + h(r.nama) + '">Selfie</button>' : '') +
@@ -4400,11 +4408,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
 
   function staffTone(t) { return t.indexOf('🔴') === 0 ? 'red' : t.indexOf('🟡') === 0 ? 'orange' : 'green'; }
-  function n1(x) { return x === null || x === undefined || x === '' ? '–' : (Math.round(Number(x) * 10) / 10).toFixed(1); }
+  function n1(x) { return x === null || x === undefined || x === '' ? '-' : (Math.round(Number(x) * 10) / 10).toFixed(1); }
   function rm0(x) { return 'RM' + Math.round(Number(x || 0)).toLocaleString('en-MY'); }
 
-  /* Staffing: gaya NARA — blok slate bercorak (hero), 3 slot sebagai cincin padat, carta ikut jam, senarai cawangan tanpa jadual lebar. */
-  var SLOT_T = { 'Tengah hari': ['Midday', '10–15'], 'Petang': ['Afternoon', '15–18'], 'Malam': ['Night', '18–23'] };
+  /* Staffing: gaya NARA, blok slate bercorak (hero), 3 slot sebagai cincin padat, carta ikut jam, senarai cawangan tanpa jadual lebar. */
+  var SLOT_T = { 'Tengah hari': ['Midday', '10-15'], 'Petang': ['Afternoon', '15-18'], 'Malam': ['Night', '18-23'] };
   function stRing(v, need, tone) {
     var p = Math.max(0, Math.min(1, v / Math.max(need, 0.1))), c = 2 * Math.PI * 30;
     return '<svg class="st-ring ' + tone + '" viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="30" class="trk"/><circle cx="36" cy="36" r="30" class="val" stroke-dasharray="' + (p * c).toFixed(1) + ' ' + c.toFixed(1) + '"/></svg>';
@@ -4437,7 +4445,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<div class="st-big"><b>' + h(rm0(b.splh)) + '</b><span>sales per staff-hour<br><small>target ' + h(rm0(pr.splh)) + '</small></span>' +
       '<i class="st-pill ' + bt + '">' + (b.slotTidakSeimbang ? b.slotTidakSeimbang + ' slot' + (b.slotTidakSeimbang > 1 ? 's' : '') + ' to adjust' : 'All slots balanced') + '</i></div>' +
       '<div class="st-stats"><div><b>' + n1(b.serentak) + '</b><span>avg on floor</span></div><div><b>' + h(rm0(b.jualanSehari)) + '</b><span>sales / day</span></div><div><b>' + b.h01 + '</b><span>active staff</span></div></div>' +
-      '<div class="st-src">' + h(src) + ' · ' + h(d.dari.split('-').reverse().join('/')) + ' – ' + h(d.hingga.split('-').reverse().join('/')) + ' · ' + b.hari + ' trading days</div></section>';
+      '<div class="st-src">' + h(src) + ' · ' + h(d.dari.split('-').reverse().join('/')) + ' - ' + h(d.hingga.split('-').reverse().join('/')) + ' · ' + b.hari + ' trading days</div></section>';
     var slotHtml = slots.map(function (x) {
       var tone = staffTone(x.tindakan), t = SLOT_T[x.waktu] || [tr(x.waktu), ''];
       var nx = x.dijadual === null ? 'Next week: not set' : 'Next week ' + n1(x.dijadual) + (x.lebihJadual < -1 ? ' · short' : x.lebihJadual > pr.lebihMax ? ' · over' : ' · ok');
@@ -4470,7 +4478,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   /* ---------- Pematuhan Undang-undang (HR / Admin) ---------- */
   var LC_TABS = [['ringkasan', 'Summary'], ['kemaskini', 'Updates'], ['peraturan', 'Rules'], ['akta', 'Acts & amendments'], ['semakan', 'Checks']];
   function lcTone(k) { return k === 'Patuh' ? 'green' : k === 'Tidak patuh' ? 'red' : k === 'Action needed' ? 'orange' : ''; }
-  function lcDate(s) { return s ? String(s).split('-').reverse().join('/') : '–'; }
+  function lcDate(s) { return s ? String(s).split('-').reverse().join('/') : '-'; }
   function lcSeg() {
     if (!S.lcTab) S.lcTab = 'ringkasan';
     return '<div class="seg lc-seg">' + LC_TABS.map(function (t) { return '<button data-act="lcTab" data-v="' + t[0] + '" aria-pressed="' + (S.lcTab === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div>';
@@ -4489,7 +4497,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var sk = d.skor === null ? 0 : d.skor;
       var tone = sk >= 85 ? 'var(--green)' : sk >= 65 ? 'var(--orange)' : 'var(--red)';
       var issues = d.checks.filter(function (c) { return c.keputusan === 'Tidak patuh' || c.keputusan === 'Action needed'; });
-      var ring = '<div class="lc-ring" style="--p:' + sk + ';--c:' + tone + '"><div><b>' + (d.skor === null ? '–' : sk + '%') + '</b><span>compliance score</span></div></div>';
+      var ring = '<div class="lc-ring" style="--p:' + sk + ';--c:' + tone + '"><div><b>' + (d.skor === null ? '-' : sk + '%') + '</b><span>compliance score</span></div></div>';
       var tiles = [
         ['Active rules', d.aktif, d.menungguLulus ? d.menungguLulus + ' pending approval' : 'all approved'],
         ['Open issues', issues.length, issues.filter(function (c) { return c.keputusan === 'Tidak patuh'; }).length + ' tidak patuh'],
@@ -4529,11 +4537,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
           '<div style="font-weight:600">' + h(u.perubahan) + '</div>' +
           '<div class="muted">' + (u.akta ? 'Akta ' + h(u.akta) + ' · ' : '') + (u.modul ? 'Modul ' + h(u.modul) + ' · ' : '') + 'Kuat kuasa ' + h(u.kuatKuasa || 'unknown') + '</div>' +
           (u.analisis ? '<div class="hint">' + h(u.analisis) + '</div>' : '') +
-          '<div class="muted">Reviewed: ' + h(u.semak || '–') + ' · Approved: ' + h(u.lulus || '–') + ' · In use from: ' + h(u.mula || '–') + '</div>' +
+          '<div class="muted">Reviewed: ' + h(u.semak || '-') + ' · Approved: ' + h(u.lulus || '-') + ' · In use from: ' + h(u.mula || '-') + '</div>' +
           '<div class="row">' + (u.url ? '<a class="btn ghost small" href="' + h(u.url) + '" target="_blank" rel="noopener">Source</a>' : '') + '<button class="btn small" data-act="lcUpdOpen" data-i="' + i + '">Review</button></div></section>';
       }).join('') || '<div class="card"><div class="empty">No updates yet.</div></div>';
       var src = '<section class="card"><span class="eyebrow">Sources monitored</span><div class="table-box"><table><thead><tr><th>Agency</th><th>Page</th><th>Type</th><th>Checks</th><th>Status</th></tr></thead><tbody>' +
-        d.sumber.map(function (s) { return '<tr><td class="name">' + h(s.agensi) + '</td><td><a href="' + h(s.url) + '" target="_blank" rel="noopener">' + h(s.halaman) + '</a></td><td>' + h(s.jenis) + '</td><td class="muted">' + h(s.terakhir || '–') + '</td><td><span class="chip ' + (/^Gagal/.test(s.status) ? 'red' : /^OK|Asas/.test(s.status) ? 'green' : '') + '">' + h(tr(s.status)) + '</span></td></tr>'; }).join('') +
+        d.sumber.map(function (s) { return '<tr><td class="name">' + h(s.agensi) + '</td><td><a href="' + h(s.url) + '" target="_blank" rel="noopener">' + h(s.halaman) + '</a></td><td>' + h(s.jenis) + '</td><td class="muted">' + h(s.terakhir || '-') + '</td><td><span class="chip ' + (/^Gagal/.test(s.status) ? 'red' : /^OK|Asas/.test(s.status) ? 'green' : '') + '">' + h(tr(s.status)) + '</span></td></tr>'; }).join('') +
         '</tbody></table></div><div class="hint">There’s no official API from JTKSM / KWSP / PERKESO / LHDN: the system monitors pages and news feeds daily, detects new documents, and HR verifies against the Gazette before anything changes.</div></section>';
       lcBody('<div class="row"><button class="btn small" data-act="lcAddUpd">+ Manual update</button><button class="btn ghost small" data-act="lcMonitor">Scan now</button><span class="hint">e.g. agency subscription email, circular, legal advice</span></div>' + list + src);
     }).catch(lcErr);
@@ -4550,7 +4558,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
             var g = x[0], nx = g.versi.filter(function (v) { return v.dari > ymd(today()) && v.status !== 'Ditolak'; })[0];
             var pend = g.versi.filter(function (v) { return v.status === 'Menunggu kelulusan'; }).length;
             return '<tr><td class="name">' + h(g.perkara) + (nx ? '<div class="hint">→ ' + h(nx.nilai) + ' mulai ' + lcDate(nx.dari) + ' (' + (nx.status === 'Draf' ? 'awaiting gazette' : h(nx.status)) + ')</div>' : '') + '</td>' +
-              '<td><b>' + (g.semasa === null ? '–' : h(g.semasa)) + '</b> <span class="muted">' + h(g.unit) + '</span></td><td class="muted">' + h(g.juris) + '</td><td class="muted">' + h(g.seksyen) + '</td>' +
+              '<td><b>' + (g.semasa === null ? '-' : h(g.semasa)) + '</b> <span class="muted">' + h(g.unit) + '</span></td><td class="muted">' + h(g.juris) + '</td><td class="muted">' + h(g.seksyen) + '</td>' +
               '<td>' + (pend ? '<span class="chip orange">' + pend + ' menunggu</span>' : g.semasa === null ? '<span class="chip">belum aktif</span>' : '<span class="chip green">aktif</span>') + '</td>' +
               '<td><button class="btn ghost small" data-act="lcRuleOpen" data-i="' + x[1] + '">Open</button></td></tr>';
           }).join('') + '</tbody></table></div></section>';
@@ -4572,7 +4580,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     modal(g.perkara, '<p class="muted">' + h(g.akta) + ' · ' + h(g.seksyen) + ' · ' + h(g.juris) + '</p><div class="list">' + rows + '</div>' +
       '<h3 style="font-size:15px;margin:14px 0 6px">Propose new version</h3><form data-form="lcPropose" data-key="' + h(g.key) + '" data-juris="' + h(g.juris) + '">' +
       '<div class="grid2"><label>New value (' + h(g.unit) + ')<input name="nilai" type="number" step="any" required></label><label>Effective from<input name="dari" type="date" required></label></div>' +
-      '<label>Related amendment<select name="pindaan"><option value="">—</option>' + d.pindaan.map(function (p) { return '<option value="' + h(p.id) + '">' + h(p.id + ' · ' + p.tajuk + ' (' + p.status + ')') + '</option>'; }).join('') + '</select></label>' +
+      '<label>Related amendment<select name="pindaan"><option value="">None</option>' + d.pindaan.map(function (p) { return '<option value="' + h(p.id) + '">' + h(p.id + ' · ' + p.tajuk + ' (' + p.status + ')') + '</option>'; }).join('') + '</select></label>' +
       '<label>Reason & source (Gazette / circular)<textarea name="sebab" required placeholder="Contoh: P.U.(A) xxx/2027, Perintah Gaji Minimum 2027"></textarea></label>' +
       '<button class="btn block" type="submit">Submit for approval</button></form>');
   }
@@ -4588,7 +4596,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
           (a.url ? '<a class="btn ghost small" href="' + h(a.url) + '" target="_blank" rel="noopener">Official source</a>' : '') + '</section>';
       }).join('');
       var am = '<section class="card"><span class="eyebrow">Amendment history</span><div class="list">' + d.pindaan.map(function (p, i) {
-        return '<div class="li"><div><div style="font-weight:600">' + h(p.id) + ' · ' + h(p.tajuk) + '</div><div class="muted">Kuat kuasa ' + h(p.kuatKuasa || '–') + ' · ' + h(p.lama || '–') + ' → ' + h(p.baharu) + '</div>' +
+        return '<div class="li"><div><div style="font-weight:600">' + h(p.id) + ' · ' + h(p.tajuk) + '</div><div class="muted">Kuat kuasa ' + h(p.kuatKuasa || '-') + ' · ' + h(p.lama || '-') + ' → ' + h(p.baharu) + '</div>' +
           (p.catatan ? '<div class="hint">' + h(p.catatan) + '</div>' : '') + '<div class="row">' + (p.url ? '<a class="btn ghost small" href="' + h(p.url) + '" target="_blank" rel="noopener">Source</a>' : '') +
           '<button class="btn ghost small" data-act="lcAmendOpen" data-i="' + i + '">Update status</button></div></div><span class="chip ' + (p.status === 'Disahkan' ? 'green' : p.status === 'Menunggu warta' ? 'orange' : '') + '">' + h(tr(p.status)) + '</span></div>';
       }).join('') + '</div></section>';
@@ -5009,7 +5017,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     resetSignin: function (el) {
       if (!window.confirm('Reset sign-in for ' + el.dataset.nama + '? Their password and PIN will be cleared and they must tap "Create account" again with the same email.')) return;
       busy(el, true);
-      call('resetSignin', { id: el.dataset.id }).then(function (r) { busy(el, false); toast('Sign-in reset for ' + r.nama + (r.email ? ' (' + r.email + ')' : ' — no email on file') + '.'); }).catch(function (e) { busy(el, false); fail(e); });
+      call('resetSignin', { id: el.dataset.id }).then(function (r) { busy(el, false); toast('Sign-in reset for ' + r.nama + (r.email ? ' (' + r.email + ')' : ' (no email on file)') + '.'); }).catch(function (e) { busy(el, false); fail(e); });
     },
     pushTest: function (el) {
       busy(el, true, 'Sending…');
@@ -5295,7 +5303,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     hraAll: function () { S.hra.all = !S.hra.all; hraRedraw(); },
     hraOpen: function (el) {
       var x = S.hra.list.filter(function (q) { return String(q.i) === el.dataset.v; })[0]; if (!x) return;
-      var a = x.a, dt = x.dt ? x.dt.getDate() + ' ' + MON[x.dt.getMonth()] + ' ' + x.dt.getFullYear() : '–';
+      var a = x.a, dt = x.dt ? x.dt.getDate() + ' ' + MON[x.dt.getMonth()] + ' ' + x.dt.getFullYear() : '-';
       var step = x.nw ? 'Joined through the QR sign-up on ' + dt + '. Check name, branch and type in <b>Daftar Staf</b>, add them to the roster, and collect IC and bank details through your usual HR process.' : x.con ? (x.late ? 'Renew the contract (update <b>Tamat kontrak</b>), or set <b>Status</b> to Berhenti if they have left.' : 'Decide before ' + dt + ': renew (update <b>Tamat kontrak</b>) or let it end.')
         : x.stale ? 'Probation ended in ' + x.dt.getFullYear() + ' with no confirmation date. Most likely only the record is missing: fill <b>Tarikh disahkan</b>.'
         : 'Confirm (fill <b>Tarikh disahkan</b>) or extend probation (update <b>Tamat percubaan</b>).';
@@ -5847,6 +5855,31 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var p = { k: f.dataset.k || undefined, on: !!d.on, t: d.t, v: d.v, d: d.d, g: d.g, j: d.jAll ? [] : j, s: d.s, m: Number(d.m || 0), p: d.p, u: d.u, c: d.c, r: d.r };
     call('cbSave', p).then(function (r) { S.cbA = r; closeModal(); cbRender(); toast(p.k ? 'Saved.' : p.t + ' added' + (p.on ? ' and live for staff.' : '.')); }).catch(function (e) { busy(btn, false); fail(e); });
   };
+
+  /* Tiada tanda sempang panjang (em dash / en dash) dalam teks yang dipaparkan, termasuk teks dari sheet
+     (pengumuman, polisi, pematuhan). Hanya nod teks diubah; atribut, nilai borang & pilihan tidak disentuh. */
+  var DASH_RE = /[\u2014\u2013]/, DASH_SKIP = /^(SCRIPT|STYLE|TEXTAREA|OPTION|INPUT)$/;
+  function undash(t) {
+    return t.replace(/\s+\u2014\s+/g, ', ').replace(/\s+\u2013\s+/g, ' - ').replace(/^\s*\u2014\s*/, '').replace(/[\u2014\u2013]/g, '-');
+  }
+  function undashText(n) {
+    var v = n.nodeValue, p = n.parentNode;
+    if (!v || !DASH_RE.test(v) || (p && DASH_SKIP.test(p.nodeName))) return;
+    n.nodeValue = undash(v);
+  }
+  function undashTree(root) {
+    if (!root) return;
+    if (root.nodeType === 3) { undashText(root); return; }
+    if (root.nodeType !== 1 || DASH_SKIP.test(root.nodeName)) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = w.nextNode())) undashText(n);
+  }
+  try {
+    new MutationObserver(function (ms) {
+      ms.forEach(function (m) { if (m.type === 'characterData') undashText(m.target); else Array.prototype.forEach.call(m.addedNodes, undashTree); });
+    }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    undashTree(document.body);
+  } catch (e) { /* pelayar lama: teks sumber app sudah tanpa sempang panjang */ }
 
   document.addEventListener('submit', function (e) {
     var f = e.target;
