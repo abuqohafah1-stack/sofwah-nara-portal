@@ -1256,6 +1256,17 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .hra-s.new b{color:var(--mint)}
 .hra-dot.new{background:var(--mint-soft);color:var(--mint)}
 .hra-w.mint{color:var(--mint)}
+
+/* Ganjaran tepat masa */
+.tile.rw{position:relative;overflow:hidden}
+.tile.rw.on{background:linear-gradient(150deg,#E3FAF6,#F2FFFC)}
+.tile.rw.on b{color:#00796B}
+.tile.rw.miss b{color:var(--ink-2)}
+.tile.rw.lock{background:var(--mist)}
+.tile.rw.lock b{color:var(--slate);opacity:.75}
+.rw-ico{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#fff;color:var(--mint)}
+.tile.rw.miss .rw-ico,.tile.rw.lock .rw-ico{color:var(--haze)}
+.rw-ico svg{width:18px;height:18px}
 </style>
 
 </head>
@@ -1484,7 +1495,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     b.style.display = off ? 'block' : 'none';
   }
   window.addEventListener('offline', function () { setOffline(true); });
-  window.addEventListener('online', function () { setOffline(false); toast('Back online.'); });
+  window.addEventListener('online', function () { setOffline(false); toast('Back online.'); setTimeout(clockFlush, 800); });
 
   function cacheKey(k) { return 'nara_c_' + (S.me ? S.me.id : '') + '_' + k; }
   function cacheGet(k) { try { var v = JSON.parse(LS.get(cacheKey(k)) || 'null'); return v && Date.now() - v.t < 86400000 ? v.d : null; } catch (e) { return null; } }
@@ -2061,7 +2072,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     // Skrin dimuat selepas pintu (privasi / PIN sementara) dilepasi supaya tiada ralat "sila tukar PIN" di latar
     if (!me.privasi) privacyGate();
     else if (me.tukarPin) pinGate();
-    else { route(); if (!deepLink()) onboarding(); }
+    else { route(); if (!deepLink()) onboarding(); setTimeout(clockFlush, 1200); } // clock tertangguh (offline / sesi tamat) dihantar
   }
   /** Pautan dari notifikasi telefon (cth. /hr/#cuti-umum) → buka terus skrin berkaitan. */
   function deepLink() {
@@ -2233,6 +2244,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '</div>' : '';
     var note = d.geofence.ada ? 'Selfie and location, within ' + d.geofence.radius + ' m of ' + S.me.cawangan : 'Selfie and location required';
     if (r.status) note = 'Status: ' + tr(r.status) + (r.lewat ? ', ' + r.lewat + ' min late' : '');
+    if (clockQ().length) note = 'Saved on this phone · sending to NARA HR…';
     var dial = canClock || done ? '<div class="dial-wrap"><div class="dial-pit"><div class="dial-ring" id="dial-ring" style="--p:' + (done ? 100 : 0) + '">' +
       '<button class="dial' + (done ? ' done' : '') + '" data-act="clock" aria-label="' + h(done ? 'Done for today' : d.langkahLabel + ': hold until the ring fills, then release') + '"' + (done ? ' disabled' : '') + '>' +
       ico(done ? 'check' : 'hand', 'dial-ico') + '<b>' + h(done ? 'Done' : d.langkahLabel) + '</b><small id="dial-sub">' + (done ? 'Today’s record is complete' : 'Hold until the ring fills') + '</small></button>' +
@@ -2324,7 +2336,22 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var pct = Math.round((rows.length - late) / rows.length * 100);
       out += '<section class="tile">' + ring(pct, pct >= 90 ? 'mint' : 'ember') + '<span class="eyebrow">On time</span><b>' + pct + '<small>%</small></b><span class="muted">' + rows.length + ' shift' + (rows.length === 1 ? '' : 's') + ' in 30 days' + (late ? ', ' + late + ' late' : '') + '</span></section>';
     }
+    out += rewardTile(att);
     return out ? '<div class="tiles stat2">' + out + '</div>' : '';
+  }
+
+  /** Ganjaran tepat masa (polisi syarikat): RM100.00 sebulan untuk staf tetap yang disahkan, jika tiada lewat bulan itu. */
+  function rewardTile(att) {
+    var me = S.me || {}, amt = Number(me.ganjaran || 0);
+    if (!amt || me.jenis !== 'Tetap') return '';
+    var now = new Date(), mm = pad2(now.getMonth() + 1), mon = MON[now.getMonth()];
+    var rm = 'RM' + amt.toFixed(2).replace(/\.00$/, '') + '<small>.00</small>';
+    var gift = svg('M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7zM12 7c1.5-3 5-3.5 5-1.5S14 7 12 7z');
+    if (!me.tetap) return '<section class="tile rw lock"><span class="rw-ico">' + gift + '</span><span class="eyebrow">On-time reward</span><b>' + rm + '</b><span class="muted">Every month once you’re confirmed. Build the habit now.</span></section>';
+    var month = (att || []).filter(function (r) { return r.masuk && String(r.tarikh || '').slice(-2) === mm; });
+    var late = month.filter(function (r) { return Number(r.lewat) > 0 || /Lewat/.test(r.status); }).length;
+    return '<section class="tile rw' + (late ? ' miss' : ' on') + '"><span class="rw-ico">' + gift + '</span><span class="eyebrow">On-time reward</span><b>' + rm + '</b><span class="muted">' +
+      (late ? 'Missed for ' + mon + ' (' + late + ' late). Back on track next month.' : 'On track for ' + mon + '. Stay on time every shift.') + '</span></section>';
   }
 
   /** Tahan untuk clock: cincin penuh → lepaskan → kamera dibuka (dalam acara pointerup, jadi pelayar membenarkan). */
@@ -2441,35 +2468,94 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     geoPerm().then(function (p) { if (p === 'granted') getPos().catch(function () { /* diambil semula semasa clock in */ }); });
   }
 
+  /* Clock pantas: kad dikemas kini serta-merta dengan masa tekan; hantaran ke pelayan di latar melalui peti keluar
+     telefon (tiada internet / app ditutup → dihantar semula bila app dibuka; cid elak rekod berganda). */
+  var STEP_LBL = { masuk: 'Clock in', keluar: 'Clock out', masuk2: 'Clock in (2)', keluar2: 'Clock out (2)', selesai: 'Shift done' };
+  function clockNext(r, kat) { if (!r.masuk) return 'masuk'; if (!r.keluar) return 'keluar'; if (kat === 'Split' && !r.masuk2) return 'masuk2'; if (r.masuk2 && !r.keluar2) return 'keluar2'; return 'selesai'; }
+  function clockQ() { try { return JSON.parse(LS.get('nara_clockq') || '[]'); } catch (e) { return []; } }
+  function clockQSet(q) { try { if (q.length) LS.set('nara_clockq', JSON.stringify(q)); else LS.del('nara_clockq'); } catch (e) { /* storan penuh */ } }
+  function clockQDel(cid) { clockQSet(clockQ().filter(function (x) { return x.p.cid !== cid; })); }
+  function hm(d) { return pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+  function clockOptimistic(step, at) {
+    var d = S.data.today; if (!d) return;
+    var r = {}; Object.keys(d.rekod || {}).forEach(function (k) { r[k] = d.rekod[k]; });
+    r[step] = hm(at);
+    d.rekod = r; d.langkah = clockNext(r, (d.syif || {}).kategori); d.langkahLabel = STEP_LBL[d.langkah];
+    S.data.today = d; renderToday(d);
+  }
+  function clockApply(res) {
+    var d = S.data.today || {};
+    if (res && res.ringkas) {
+      var r = {}; Object.keys(d.rekod || {}).forEach(function (k) { r[k] = d.rekod[k]; });
+      Object.keys(res.rekod || {}).forEach(function (k) { if (res.rekod[k] !== '' || !r[k]) r[k] = res.rekod[k]; });
+      d.rekod = r; d.langkah = res.langkah; d.langkahLabel = res.langkahLabel;
+    } else if (res) d = res;
+    S.data.today = d; cacheSet('today', d);
+    if (S.tab === 'hari' && $('dial-ring') && !document.querySelector('.dial.hold') && $('modal').hidden) renderToday(d);
+  }
+  function clockRefresh() {
+    delete FRESH[swrKey('today')];
+    call('today').then(function (t) {
+      if (clockQ().length) return;
+      S.data.today = t; cacheSet('today', t);
+      // Jangan lukis semula semasa staf menekan dial / kamera terbuka
+      var holding = document.querySelector('.dial.hold') || !$('modal').hidden || S.cam;
+      if (S.tab === 'hari' && $('dial-ring') && !holding) renderToday(t);
+    }).catch(function () { /* pilihan */ });
+  }
+  function clockSend(item) {
+    return call('clock', item.p).then(function (res) {
+      clockQDel(item.p.cid);
+      clockApply(res);
+      setTimeout(clockRefresh, 2500); // status lewat, rakan sesyif: segar di latar
+      return res;
+    });
+  }
+  function clockFlush() {
+    var q = clockQ();
+    if (!q.length || !S.token || S.clockFlushing) return;
+    S.clockFlushing = true;
+    var it = q[0]; it.p.retry = true;
+    clockSend(it).then(function (res) {
+      S.clockFlushing = false;
+      toast(STEP_LBL[res.baru.step] + ' ' + res.baru.masa + ' · sent ✓');
+      if (clockQ().length) clockFlush();
+    }).catch(function (e) {
+      S.clockFlushing = false;
+      if (e && (e.transport || e.code === 'AUTH')) { clearTimeout(S.clockT); S.clockT = setTimeout(clockFlush, 30000); return; }
+      clockQDel(it.p.cid); toast('Clock not saved: ' + e.message, true); clockRefresh();
+    });
+  }
   function onSelfie(file) {
     var btn = document.querySelector('[data-act=clock]');
     busy(btn, true, 'Getting location…');
-    var selfie;
+    var selfie, item = null;
     shrinkImage(file, 480, 0.6).then(function (url) {
       selfie = url;
       return getPos();
     }).then(function (pos) {
-      busy(btn, true, 'Sending…');
-      var before = (S.data.today || {}).langkah;
-      return call('clock', { lat: pos.lat, lng: pos.lng, acc: pos.acc, selfie: selfie }).catch(function (e) {
-        if (!e.transport) throw e;
-        // Sambungan putus selepas hantar: semak sama ada rekod sudah sampai sebelum minta staf cuba lagi
-        busy(btn, true, 'Confirming…');
-        return call('today').then(function (t) {
-          if (t.langkah !== before) { t.baru = { step: before, masa: (t.rekod || {})[{ masuk: 'masuk', keluar: 'keluar', masuk2: 'masuk2', keluar2: 'keluar2' }[before]] || '', jarak: '', luar: false, disahkan: true }; return t; }
-          throw new Error('Record not received (connection dropped). Try again.');
-        });
-      });
-    }).then(function (d) {
-      S.data.today = d;
-      cacheSet('today', d);
-      renderToday(d);
+      var d = S.data.today || {}, step = d.langkah && d.langkah !== 'selesai' ? d.langkah : 'masuk', at = new Date();
+      item = { step: step, p: { lat: pos.lat, lng: pos.lng, acc: pos.acc, selfie: selfie, t: at.getTime(), cid: Date.now().toString(36) + Math.random().toString(36).slice(2, 9) } };
+      var q = clockQ(); q.push(item); clockQSet(q);
+      // Serta-merta: kad dikemas kini, raikan — staf tidak menunggu pelayan
+      busy(btn, false);
+      clockOptimistic(step, at);
       celebrate();
-      var b = d.baru;
-      toast((b ? ({ masuk: 'Clock in', keluar: 'Clock out', masuk2: 'Clock in (2)', keluar2: 'Clock out (2)' }[b.step] + ' ' + b.masa) : 'Recorded') +
-        (b && b.luar ? ' · OUTSIDE AREA (' + b.jarak + ' m), manager notified' : ' · done'), b && b.luar);
+      toast(STEP_LBL[step] + ' ' + hm(at) + ' · saving…');
+      return clockSend(item).then(function (res) {
+        var b = res.baru;
+        toast(STEP_LBL[b.step] + ' ' + b.masa + (b.luar ? ' · OUTSIDE AREA (' + b.jarak + ' m), manager notified' : ' · saved ✓'), b.luar);
+      });
     }).catch(function (e) {
       busy(btn, false);
+      if (item && e && (e.transport || e.code === 'AUTH')) {
+        // Disimpan dalam telefon; dihantar semula automatik (masa tekan dikekalkan)
+        toast('Saved on this phone. It will send automatically when you’re online.', false);
+        clearTimeout(S.clockT); S.clockT = setTimeout(clockFlush, 20000);
+        if (S.tab === 'hari' && S.data.today) renderToday(S.data.today);
+        return;
+      }
+      if (item) { clockQDel(item.p.cid); clockRefresh(); }
       fail(e);
     });
   }
@@ -5067,7 +5153,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   $('modal').addEventListener('click', function (e) { if (e.target === $('modal')) closeModal(); });
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { leftApp(); if (!S.token && !S.pkBusy) { S.pkAutoTried = false; S.noAutoPk = false; } }
-    else { backToApp(); if (!S.token) setTimeout(pkAuto, 60); }
+    else { backToApp(); if (!S.token) setTimeout(pkAuto, 60); else setTimeout(clockFlush, 600); }
   });
   window.addEventListener('pagehide', leftApp);
   if (NATIVE && PLUG.App) PLUG.App.addListener('appStateChange', function (st) { if (st && st.isActive === false) leftApp(); else backToApp(); });
