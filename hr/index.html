@@ -100,19 +100,25 @@ b,strong{font-weight:600}
 .top.compact .hello .sub,.top.compact .who{display:none}
 .top.compact .hello h1{font-size:30px}
 .top-meta{display:none}
-.main{flex:1;width:100%;max-width:1240px;margin:0 auto;padding:12px 20px calc(var(--nav-h) + 44px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+.main{flex:1;width:100%;max-width:1240px;margin:0 auto;padding:12px 20px calc(var(--nav-h) + 56px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
 .narrow{max-width:420px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:14px}
 
 /* Nav bawah terapung: ikon sahaja, butang aktif mengembang dengan label */
-.nav{position:fixed;left:0;right:0;bottom:calc(12px + env(safe-area-inset-bottom));display:flex;justify-content:center;padding:0 16px;z-index:20;pointer-events:none}
-.nav-in{pointer-events:auto;display:flex;align-items:center;gap:4px;width:100%;max-width:400px;padding:6px;border-radius:999px;background:rgba(255,255,255,.97);border:1px solid var(--line);box-shadow:var(--float)}
-.nav button{flex:1 1 0;min-width:0;height:var(--nav-h);border:0;border-radius:999px;background:none;color:var(--haze);display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:14px;font-weight:600;padding:0 8px;transition:flex-grow .25s cubic-bezier(.2,.7,.2,1),background-color .2s,color .2s;-webkit-tap-highlight-color:transparent}
-.nav svg{width:22px;height:22px;flex:0 0 auto}
-.nav button span{display:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nav button[aria-current="page"]{flex:0 0 auto;padding:0 16px;background:var(--slate);color:#fff}
-.nav button[aria-current="page"] span{display:inline}
-.nav button[aria-current="page"] svg{color:var(--ember-2)}
-.nav button:active{transform:scale(.94)}
+.nav{position:fixed;left:0;right:0;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;padding:0 14px;z-index:20;pointer-events:none}
+/* NARA HR 1.0.19: bar terapung squircle (bukan pil) + penunjuk navy yang meluncur antara tab */
+.nav-in{--n:4;position:relative;pointer-events:auto;display:flex;align-items:stretch;width:100%;max-width:420px;padding:6px;border-radius:26px;background:rgba(255,255,255,.98);border:1px solid rgba(27,31,75,.07);box-shadow:0 22px 44px -18px rgba(27,31,75,.34),0 6px 14px -6px rgba(27,31,75,.12),inset 0 1px 0 #fff}
+.nav-ind{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px) / var(--n));pointer-events:none;transform:translateX(calc(var(--i,0) * 100%));transition:transform .46s cubic-bezier(.3,1.32,.5,1)}
+.nav-ind::before{content:"";position:absolute;inset:0 3px;border-radius:20px;background:radial-gradient(120% 90% at 30% 0%,rgba(122,62,255,.55),transparent 62%),linear-gradient(160deg,#2A2E66 0%,#1B1F4B 58%,#13163A 100%);box-shadow:0 10px 20px -10px rgba(27,31,75,.75),inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.18)}
+.nav-ind::after{content:"";position:absolute;top:0;left:50%;width:18px;height:3px;margin-left:-9px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,#9366FF,#00C8B5)}
+.nav button{position:relative;z-index:1;flex:1 1 0;min-width:0;height:58px;border:0;border-radius:20px;background:none;color:#7C8299;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;font:600 10.5px/1 Inter,system-ui,-apple-system,sans-serif;letter-spacing:.03em;padding:0 4px;transition:color .3s;-webkit-tap-highlight-color:transparent}
+.nav svg{width:22px;height:22px;flex:0 0 auto;transition:transform .35s cubic-bezier(.3,1.4,.5,1),color .3s}
+.nav button span{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav button[aria-current="page"]{color:#fff}
+.nav button[aria-current="page"] svg{color:#CDBBFF;transform:translateY(-1px)}
+@media (hover:hover){.nav button:not([aria-current="page"]):hover{color:var(--slate)}}
+.nav button:active svg{transform:scale(.88)}
+.nav .nav-dot{position:absolute;top:9px;left:calc(50% + 7px);width:8px;height:8px;border-radius:50%;background:#FF5A79;box-shadow:0 0 0 2px #fff}
+.nav button[aria-current="page"] .nav-dot{box-shadow:0 0 0 2px #1B1F4B}
 
 /* ---------- Komponen ---------- */
 .card{background:var(--mist);border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0;border:0;box-shadow:none}
@@ -649,11 +655,13 @@ html.modal-open,html.modal-open body{overflow:hidden}
   .narrow{max-width:760px}
   /* nav menjadi baris pil di atas (tengah), seperti papan pemuka */
   .nav{position:absolute;top:24px;bottom:auto;left:50%;right:auto;transform:translateX(-50%);padding:0;width:auto}
-  .nav-in{width:auto;max-width:none;background:var(--mist);border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:5px}
-  .nav button{flex:0 0 auto;height:42px;padding:0 18px;font-size:14px;font-weight:500;color:var(--ink-2)}
+  .nav-in{width:auto;max-width:none;background:var(--mist);border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:5px;border-radius:18px;gap:2px}
+  .nav-ind{display:none}
+  .nav button{flex:0 0 auto;flex-direction:row;gap:8px;height:42px;padding:0 18px;border-radius:13px;font-size:14px;font-weight:500;letter-spacing:0;color:var(--ink-2)}
   .nav button span{display:inline}
   .nav button svg{width:18px;height:18px}
-  .nav button[aria-current="page"]{flex-grow:0}
+  .nav button[aria-current="page"]{flex-grow:0;background:var(--slate);color:#fff}
+  .nav .nav-dot{top:7px;left:28px}
   #toast{bottom:32px}
   .tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
   .stat2{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1267,6 +1275,135 @@ form[data-form=phAnn] .btn svg{width:18px;height:18px;vertical-align:-3px;margin
 .rw-ico{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#fff;color:var(--mint)}
 .tile.rw.miss .rw-ico,.tile.rw.lock .rw-ico{color:var(--haze)}
 .rw-ico svg{width:18px;height:18px}
+
+/* ---------- Privacy policy / Help: popup dalam app ---------- */
+.modal.doc-sheet{padding-top:calc(12px + env(safe-area-inset-top))}
+.modal.doc-sheet .modal-card{max-width:760px;height:calc(100vh - 28px);height:calc(100dvh - 28px - env(safe-area-inset-top) - env(safe-area-inset-bottom));max-height:none;display:flex;flex-direction:column;padding:16px 16px 14px}
+.modal.doc-sheet #modal-body{flex:1;min-height:0;display:flex;flex-direction:column}
+.doc-frame{position:relative;flex:1;min-height:240px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.doc-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.doc-ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--haze)}
+.doc-close{margin-top:12px;flex:0 0 auto}
+
+/* ---------- Compensation & Benefits (NARA HR 1.0.19) ---------- */
+.modal.cb-sheet{padding-top:calc(12px + env(safe-area-inset-top))}
+.modal.cb-sheet .modal-card{max-width:520px;max-height:calc(100vh - 28px);max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:18px 16px 0}
+.cb{display:flex;flex-direction:column;gap:16px}
+.cb-hero{position:relative;overflow:hidden;border-radius:22px;padding:20px 18px 18px;color:#fff;background:radial-gradient(110% 80% at 100% 0%,rgba(0,200,181,.26),transparent 55%),radial-gradient(90% 70% at 0% 100%,rgba(122,62,255,.5),transparent 62%),linear-gradient(160deg,#262B66,#1B1F4B 58%,#14173B)}
+.cb-hero::before{content:"";position:absolute;right:-40px;top:-60px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 0 22px rgba(255,255,255,.025),0 0 0 46px rgba(255,255,255,.02);pointer-events:none}
+.cb-hero-ic{position:absolute;right:16px;top:16px;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
+.cb-hero-ic svg{width:24px;height:24px;color:#CDBBFF}
+.cb-eye{position:relative;font:600 10.5px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#9EF0E6}
+.cb-hero h3{position:relative;font:700 22px/1.2 Montserrat,Inter,sans-serif;margin:10px 60px 4px 0;letter-spacing:-.02em;color:#fff}
+.cb-hero p{position:relative;margin:0;color:rgba(255,255,255,.74);font-size:13.5px}
+.cb-nums{position:relative;display:flex;gap:8px;margin-top:16px}
+.cb-nums div{flex:1;min-width:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:10px 10px 9px}
+.cb-nums b{display:block;font:700 24px/1 Montserrat,Inter,sans-serif;font-variant-numeric:tabular-nums}
+.cb-nums span{display:block;margin-top:5px;font-size:11.5px;color:rgba(255,255,255,.72);line-height:1.25}
+.cb-path{position:relative;list-style:none;margin:18px 0 0;padding:0;display:flex;overflow-x:auto;scrollbar-width:none}
+.cb-path::-webkit-scrollbar{display:none}
+.cb-path li{position:relative;flex:0 0 auto;min-width:88px;padding:16px 12px 0 0}
+.cb-path li::before{content:"";position:absolute;top:5px;left:12px;right:0;height:2px;background:rgba(255,255,255,.18)}
+.cb-path li:last-child::before{display:none}
+.cb-path li i{position:absolute;top:0;left:0;width:12px;height:12px;border-radius:50%;background:#1B1F4B;border:2px solid rgba(255,255,255,.45)}
+.cb-path li.on i{background:#00C8B5;border-color:#00C8B5;box-shadow:0 0 0 4px rgba(0,200,181,.22)}
+.cb-path b{display:block;font-size:12.5px;font-weight:600}
+.cb-path small{display:block;font-size:11px;color:rgba(255,255,255,.62);margin-top:2px;white-space:nowrap}
+.cb-sec h4{font:700 15.5px/1.2 Montserrat,Inter,sans-serif;margin:4px 2px 10px;color:var(--slate);letter-spacing:-.01em}
+.cb-lead{margin:-4px 2px 10px;font-size:13px;color:var(--haze)}
+.cb-grp+.cb-grp{margin-top:6px}
+.cb-gl{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--haze);margin:12px 2px 8px}
+.cb-gl i{width:8px;height:8px;border-radius:3px;background:var(--g)}
+.cb-gl em{font-style:normal;color:var(--slate-3);letter-spacing:0}
+.cb-it{border-radius:16px;background:var(--paper);border:1px solid var(--line);margin-bottom:8px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.cb-it[open]{border-color:color-mix(in srgb,var(--g) 30%,var(--line));box-shadow:0 8px 20px -14px rgba(27,31,75,.35)}
+.cb-it summary{list-style:none;display:flex;align-items:center;gap:12px;padding:11px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cb-it summary::-webkit-details-marker{display:none}
+.cb-ic{flex:0 0 auto;width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:#F4F2FB;background:color-mix(in srgb,var(--g) 11%,#fff);color:var(--g)}
+.cb-ic svg{width:21px;height:21px}
+.cb-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.cb-tx b{font-size:14.5px;color:var(--ink);line-height:1.3}
+.cb-v{font-size:13px;color:var(--ink-2)}
+.cb-nx{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;color:var(--teal-ink);margin-top:2px}
+.cb-nx svg{width:12px;height:12px}
+.cb-chev{flex:0 0 auto;color:var(--slate-3);transition:transform .2s;display:grid;font-style:normal}
+.cb-chev svg{width:16px;height:16px}
+.cb-it[open] .cb-chev{transform:rotate(90deg)}
+.cb-more{padding:0 14px 14px 64px;font-size:13.5px;color:var(--ink-2)}
+.cb-more p{margin:0 0 8px}
+.cb-cond{display:flex;gap:6px;align-items:flex-start;color:var(--ink)}
+.cb-cond svg{width:15px;height:15px;color:var(--mint);flex:0 0 auto;margin-top:2px}
+.cb-tags{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.cb-tags>span{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;padding:4px 8px;border-radius:8px;background:var(--mist);color:var(--ink-2)}
+.cb-tags svg{width:12px;height:12px}
+.cb-tags>.cb-pf{background:var(--ember-soft);color:var(--ember-ink)}
+.cb-tags>.cb-law{background:var(--mint-soft);color:var(--teal-ink)}
+.cb-ref{display:block;font-size:11px;color:var(--slate-3)}
+.cb-it.lock{background:var(--cloud);border-style:dashed}
+.cb-it.lock .cb-ic{background:#fff;color:var(--slate-3)}
+.cb-ms+.cb-ms{margin-top:12px}
+.cb-ms-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:4px 2px 8px}
+.cb-ms-h b{font-size:13.5px;color:var(--slate)}
+.cb-ms-h span{font-size:12px;color:var(--haze);font-weight:500}
+.cb-rv{display:flex;align-items:center;gap:8px;font-size:13px;background:var(--mint-soft);color:var(--teal-ink);padding:9px 12px;border-radius:12px;margin:0 0 10px}
+.cb-rv svg{width:16px;height:16px;flex:0 0 auto}
+.cb-lagi{display:flex;gap:10px;align-items:flex-start;padding:14px;border-radius:16px;background:var(--ember-soft);color:var(--ember-ink);font-size:13.5px}
+.cb-lagi svg{width:20px;height:20px;flex:0 0 auto}
+.cb-src{font-size:11.5px;color:var(--haze);margin:0 2px;line-height:1.5}
+.cb-cta{position:sticky;bottom:0;margin:0 -16px;padding:14px 16px calc(16px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(255,255,255,0),#fff 28%)}
+.cb-cta .btn{gap:8px}
+.cb-cta .btn svg{width:18px;height:18px}
+.cb-top{display:flex;flex-direction:column;gap:14px}
+.card.cb-ban{display:flex;flex-direction:row;align-items:center;text-align:left;gap:12px;padding:14px;background:linear-gradient(135deg,#F1ECFF,#E6FBF8)}
+.cb-ban .btn{flex:0 0 auto}
+.cb-ban-ic{flex:0 0 auto;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(155deg,#2A2E66,#1B1F4B);color:#CDBBFF}
+.cb-ban-ic svg{width:22px;height:22px}
+.cb-ban b,.cb-card-b b{display:block;font-size:15px;color:var(--ink)}
+.cb-ban small,.cb-card-b small{display:block;font-size:12.5px;color:var(--haze);margin-top:2px}
+.card.cb-card{padding:0}
+.cb-card-b{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:16px;text-align:left;cursor:pointer;border-radius:inherit;color:inherit}
+.cb-admin{display:flex;flex-direction:column;gap:14px}
+.cb-lawbar{display:flex;align-items:center;gap:12px;width:100%;border:1px solid #B3EEE8;background:var(--mint-soft);border-radius:18px;padding:12px 14px;text-align:left;cursor:pointer;color:var(--ink)}
+.cb-lawbar-ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#fff;color:var(--teal-ink);flex:0 0 auto}
+.cb-lawbar-ic svg{width:20px;height:20px}
+.cb-lawbar b{display:block;font-size:14px}.cb-lawbar small{display:block;font-size:12.5px;color:var(--ink-2)}
+.cb-pre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cb-prev h3{font-size:16px}.cb-prev>p{margin:2px 0 12px;font-size:13px}
+.cb-pre button{min-height:54px;border:1px solid var(--line);background:var(--paper);border-radius:14px;cursor:pointer;padding:8px 6px;line-height:1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--slate)}
+.cb-pre button b{font-size:13px;font-weight:600}.cb-pre button small{font-size:11.5px;color:var(--haze)}
+.cb-pre button:active{background:var(--mist)}
+.cb-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:2;background:var(--paper);padding:6px 0}
+.cb-bar .seg.mini{flex:1 1 auto;min-width:0;overflow-x:auto}
+.cb-add{flex:0 0 auto;width:42px;height:42px;border-radius:14px;border:0;background:var(--ember);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 18px -10px rgba(122,62,255,.9)}
+.cb-add svg{width:20px;height:20px}
+.cb-gh{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.cb-gh h3{flex:1;font-size:16px}
+.cb-r{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.cb-r .ph-tg{margin-top:2px}
+.cb-r.on .ph-tg{background:var(--ember)}.cb-r.on .ph-tg i{transform:translateX(18px)}
+.cb-rb{flex:1;min-width:0;border:0;background:none;padding:0;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;color:var(--ink)}
+.cb-rb b{font-size:14.5px}
+.cb-rval{font-size:13px;color:var(--ink-2)}
+.cb-r:not(.on) .cb-rb b,.cb-r:not(.on) .cb-rval{color:var(--haze)}
+.cb-rb .cb-tags{margin:4px 0 0}
+.cb-c{font-size:11.5px;font-weight:500;padding:3px 8px;border-radius:7px;background:var(--mist);color:var(--ink-2)}
+.cb-c.pf{background:var(--ember-soft);color:var(--ember-ink)}
+.cb-s{font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:7px;border:1px solid var(--line);color:var(--slate-3)}
+.cb-s.sug{border-color:#F3D19C;background:#FFF7E8;color:#9A5B00}
+.cb-s.hr{border-color:#B3EEE8;background:var(--mint-soft);color:var(--teal-ink)}
+.cb-flag{display:flex;gap:6px;align-items:flex-start;font-size:12px;line-height:1.4;color:var(--teal-ink);margin:4px 0 0}
+.cb-flag svg{width:14px;height:14px;flex:0 0 auto;margin-top:1px}
+.cb-form{display:flex;flex-direction:column;gap:12px}
+label.cb-live{flex-direction:row;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--mist);cursor:pointer}
+.cb-live b{display:block;font-size:14px;color:var(--ink)}.cb-live small{display:block;font-weight:400;color:var(--haze)}
+.cb-live input{width:22px;height:22px}
+.cb-fs{border:0;padding:0;margin:0;min-width:0}
+.cb-fs legend{font-size:13px;font-weight:500;color:var(--ink-2);margin-bottom:6px;padding:0}
+.cb-cks{display:flex;flex-wrap:wrap;gap:8px}
+label.cb-ck{flex-direction:row;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--line);border-radius:12px;font-size:13.5px;color:var(--ink);cursor:pointer}
+label.cb-ck:has(input:checked){border-color:var(--ember);background:var(--ember-soft);color:var(--ember-ink)}
+.cb-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+@media (min-width:1000px){.cb-pre{grid-template-columns:repeat(6,minmax(0,1fr))}}
 </style>
 
 </head>
@@ -1366,7 +1503,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function isHR() { return S.me && (S.me.role === 'HR' || S.me.role === 'Admin'); }
 
   var AUTH_ACTIONS = { loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, pushRegister: 1, pushTest: 1, pkLogin: 1, pkRegister: 1 };
-  var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1 };
+  var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1, cbAck: 1, cbSave: 1 };
   // Tindakan payroll boleh ambil beberapa minit (slip PDF setiap staf): had masa klien dipanjangkan
   // Log masuk: had 20 s (bukan 45 s) — rangkaian tergantung (cth. tukar Wi-Fi → 4G) dicuba semula sekali secara automatik
   var SHORT_ACTIONS = { loginEmail: 20000, logout: 15000, ping: 15000, pkLogin: 20000, pkLoginOptions: 15000 };
@@ -1613,6 +1750,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     return '';
   }
 
+  /* Ikon nav bawah (lebih halus, garis 1.8): Today · Schedule · Requests · HR · Me */
+  var NAV_ICON = {
+    hari: 'M4 10.5L12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5H15v-5.5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5.5H5.5A1.5 1.5 0 0 1 4 19z',
+    jadual: 'M5.5 5h13A1.5 1.5 0 0 1 20 6.5v12a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-12A1.5 1.5 0 0 1 5.5 5zM4 10h16M8.5 3v4M15.5 3v4M8 14h2M14 14h2',
+    mohon: 'M7 3.5h7l5 5v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1zM13.5 3.5V9H19M9.5 13h5M9.5 16.5h5',
+    urus: 'M4 4.5h6.5V11H4zM13.5 4.5H20V11h-6.5zM4 14h6.5v6.5H4zM13.5 14H20v6.5h-6.5z',
+    lagi: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20.5c.8-3.6 3.9-6 7.5-6s6.7 2.4 7.5 6'
+  };
   var ICON = {
     hari: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
     jadual: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4',
@@ -2051,8 +2196,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function renderShell() {
     var me = S.me;
     if (PWA && me) LS.set('nara_me', JSON.stringify(me));
-    var nav = tabsFor().map(function (t) {
-      return '<button data-act="tab" data-v="' + t.k + '"' + (S.tab === t.k ? ' aria-current="page"' : '') + ' aria-label="' + t.l + '" title="' + t.l + '">' + svg(ICON[t.k]) + '<span>' + t.l + '</span></button>';
+    var tabs = tabsFor(), cur = Math.max(0, tabs.map(function (t) { return t.k; }).indexOf(S.tab));
+    var prev = S.navIdx === undefined ? cur : S.navIdx;
+    var navBadge = { urus: (function () { var d = swrGet({ a: 'dashboard', mem: true }); return d ? Number(d.cutiMenunggu || 0) + Number(d.tuntutanMenunggu || 0) : 0; })(), lagi: me && me.cb ? 1 : 0 };
+    var nav = '<i class="nav-ind" id="nav-ind" style="--i:' + prev + '" aria-hidden="true"></i>' + tabs.map(function (t) {
+      return '<button data-act="tab" data-v="' + t.k + '"' + (S.tab === t.k ? ' aria-current="page"' : '') + ' aria-label="' + t.l + '" title="' + t.l + '">' + svg(NAV_ICON[t.k] || ICON[t.k]) + '<span>' + t.l + '</span>' + (navBadge[t.k] ? '<i class="nav-dot" aria-hidden="true"></i>' : '') + '</button>';
     }).join('');
     var title = S.tab === 'urus' ? (isHR() ? 'HR' : 'Team') : TAB_TITLE[S.tab];
     var unread = ((S.data.today && S.data.today.notis) || []).filter(function (n) { return n.wajib; }).length;
@@ -2064,11 +2212,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<button class="me-chip" data-act="goto" data-v="lagi" aria-label="Profile">' + avatar(me.nama, 'av-lg', '#1B1F4B') + '<span class="me-txt"><b>' + h(titleCase(me.nama)) + '</b><small>' + roleName() + ', ' + h(me.cawangan) + '</small></span></button></div></div>' +
       (S.tab === 'hari'
         ? '<div class="hello"><span class="sub">Assalamualaikum,</span><h1>' + h(titleCase(me.nama)) + '</h1>' +
-          '<div class="who"><span>' + h(me.cawangan) + '</span><span>' + h(isMgr() ? roleName() : (me.bahagian || 'Crew')) + '</span><span>' + h(me.id) + '</span></div></div>'
+          '<div class="who"><span>' + h(me.cawangan) + '</span>' + (function () { var r = isMgr() ? roleName() : (me.bahagian || 'Crew'); return r && r !== me.cawangan ? '<span>' + h(r) + '</span>' : ''; })() + '<span>' + h(me.id) + '</span></div></div>'
         : '<div class="hello"><h1>' + h(title) + '</h1></div>') +
       '</header>' +
       '<main class="main" id="main"></main>' +
-      '<nav class="nav" aria-label="Main menu"><div class="nav-in">' + nav + '</div></nav></div>';
+      '<nav class="nav" aria-label="Main menu"><div class="nav-in" style="--n:' + tabs.length + '">' + nav + '</div></nav></div>';
+    // Penunjuk meluncur dari tab sebelumnya ke tab semasa
+    S.navIdx = cur;
+    if (prev !== cur) requestAnimationFrame(function () { requestAnimationFrame(function () { var ind = $('nav-ind'); if (ind) ind.style.setProperty('--i', cur); }); });
     // Skrin dimuat selepas pintu (privasi / PIN sementara) dilepasi supaya tiada ralat "sila tukar PIN" di latar
     if (!me.privasi) privacyGate();
     else if (me.tukarPin) pinGate();
@@ -2278,7 +2429,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 
     var quick = '<div class="quick ga-quick">' + QUICK.map(function (q) { return '<button data-act="quick" data-v="' + q.v + '"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + q.i + '"></path></svg></span>' + h(q.l) + '</button>'; }).join('') + '</div>';
 
-    setMain('<div class="today-grid">' + longShift + hero + quick +
+    var top = longShift + cbBanner();
+    setMain('<div class="today-grid">' + (top ? '<div class="ga-warn cb-top">' + top + '</div>' : '') + hero + quick +
       '<div class="ga-week" id="ins-week">' + (S.wkHtml || '<section class="card">' + SKEL + '</section>') + '</div>' +
       '<div class="ga-stats" id="ins-stats">' + (S.statHtml || '') + '</div>' +
       notes + mates + tasks + '</div>');
@@ -2375,6 +2527,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     btn.addEventListener('pointerdown', function (e) {
       if (btn.disabled) return;
       e.preventDefault();
+      if (S.me && S.me.cb === 1 && !S.me.cbSkip) { cbOpen('gate'); return; } // staf baharu: faedah dahulu, sebelum clock-in pertama
       holding = true; full = false; t0 = Date.now();
       btn.classList.add('hold');
       try { btn.setPointerCapture(e.pointerId); } catch (x) { /* abaikan */ }
@@ -2391,7 +2544,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     btn.addEventListener('pointercancel', reset);
     btn.addEventListener('contextmenu', function (e) { e.preventDefault(); });
     btn.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); S.dialFired = Date.now(); startClock(); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (S.me && S.me.cb === 1 && !S.me.cbSkip) { cbOpen('gate'); return; } S.dialFired = Date.now(); startClock(); }
     });
   }
 
@@ -2822,7 +2975,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         '<div><dt>Branch</dt><dd>' + h(me.cawangan) + '</dd></div><div><dt>Section</dt><dd>' + h(me.bahagian || me.stesen || '–') + '</dd></div>' +
         (me.email ? '<div style="grid-column:1/-1;border-right:0"><dt>Email</dt><dd>' + h(me.email) + '</dd></div>' : '') + '</dl>' +
         '<span class="hint">NARA HR ' + h(me.versi || '') + ' · The People Management Platform</span></section>' +
-        pushCard() +
+        cbCard() + pushCard() +
         '<section class="card"><div class="card-h"><h3>Announcements</h3></div><div class="list">' + notis + '</div></section>' +
         '<section class="card"><div class="card-h"><h3>Payslips</h3>' + '<span class="chip ' + (S.me.pinSet ? 'blue">PIN on' : 'orange">Default PIN') + '</span>' + '</div><div class="list">' + (locked ? '<div class="empty">Payslips are protected by your PIN.<br><button class="btn small" data-act="unlockPin" style="margin-top:10px">Unlock with PIN</button></div>' : slips.length ? slips.map(function (p) {
           return '<div class="li"><div><div style="font-weight:600">' + h(p.label) + '</div><div class="muted">Net ' + rm(p.bersih) + (p.tarikhBayar ? ' · paid ' + h(p.tarikhBayar) : '') + '</div></div><div class="row"><button class="btn ghost small" data-act="mySlip" data-v="' + h(p.bulan) + '">PDF</button>' +
@@ -2835,6 +2988,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         '<button class="link-btn" data-act="openLink" data-v="https://nara.sofwah.my/hr/support.html">Help</button><span>·</span><button class="link-btn" data-act="deleteAcct">Delete account</button></div>' +
         '<div class="nara-foot">People<i></i>Technology<i></i>Growth</div></div>');
       pkLoad();
+      swrFetch({ a: 'cbMine' }).then(function () { var mc = $('cb-card'); if (mc) mc.outerHTML = cbCard(); }).catch(function () { /* kad pilihan */ });
     }, function (e) { setMain(errBox(e)); });
     if (!have) loading();
   }
@@ -2897,6 +3051,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     if (window.NARA_PIN_LOGIN) return; // mod ujian lama
     if (!S.me) return;
     if (!step) {
+      // Staf baharu (daftar QR / masuk < 60 hari): faedah & peluang dahulu, kemudian pengenalan app
+      if (S.me.cb === 1 && !S.me.cbSkip && !S.cbAuto) { S.cbAuto = true; cbOpen('gate', function () { onboarding(); }); return; }
       if (S.onbShown) return;
       S.onbShown = true;
       onbSteps().then(function (list) {
@@ -3061,6 +3217,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     { k: 'akses', l: 'Access', d: 'Sign-in, roles and PIN', c: 'violet', hr: true, i: 'M14.5 9.5a4 4 0 1 1-3.6 5.5H8v2.5H5.5V15H3v-2.5h7.9a4 4 0 0 1 3.6-3z' },
     { k: 'notis', l: 'Announcements', d: 'Notices and greeting banners', c: 'mint', hr: true, i: 'M4 10v4h3l7 4V6l-7 4zM17.5 9a4 4 0 0 1 0 6' },
     { k: 'qr', l: 'Join QR', d: 'New staff sign up by scanning', c: 'mint', hr: true, i: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2.5v2.5H14zM17.5 17.5H20V20h-2.5zM14 20h2.5M20 14v2.5' },
+    { k: 'cb', l: 'Comp & Benefits', d: 'Benefits and growth, by eligibility', c: 'ember', hr: true, i: 'M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7zM12 7c1.5-3 5-3.5 5-1.5S14 7 12 7z' },
     { k: 'cutiumum', l: 'Public holidays', d: 'Company’s 11 days, open or closed', c: 'sky', hr: true, i: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M12 11.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z' },
     { k: 'payroll', l: 'Payroll', d: 'Statutory pay and payslips', c: 'slate', hr: true, i: 'M3 7h18v11H3zM3 11h18M7 15h3' },
     { k: 'pematuhan', l: 'Compliance', d: 'Labour law checks', c: 'ember', hr: true, i: 'M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6zM9 12l2 2 4-4' }
@@ -3094,7 +3251,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     document.documentElement.classList.toggle('modal-open', !!mod);
     if (!mod) { if (!dash) swrFetch({ a: 'dashboard', mem: true }).then(function () { if (S.tab === 'urus' && !S.urus) loadUrus(); }).catch(function () { /* lencana pilihan */ }); return; }
     var fn = { ringkasan: uRingkasan, liputan: uLiputan, kelulusan: uKelulusan, jadual: uJadual, tugasan: uTugasan,
-      kehadiran: uKehadiran, staffing: uStaffing, rekod: uRekod, akses: uAkses, notis: uNotis, payroll: uPayroll, pematuhan: uPematuhan, cutiumum: uCutiUmum, qr: uQr }[S.urus];
+      kehadiran: uKehadiran, staffing: uStaffing, rekod: uRekod, akses: uAkses, notis: uNotis, payroll: uPayroll, pematuhan: uPematuhan, cutiumum: uCutiUmum, qr: uQr, cb: uCb }[S.urus];
     fn();
   }
   function urusBody(html) { var b = $('urus-body'); if (b) b.innerHTML = html; }
@@ -3412,7 +3569,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 
   /* ======================= Sertai Sofwah (QR) — borang keahlian staf baharu =======================
      /hr/#join=<kod> → 3 langkah (Anda · Kerja · Sahkan) → terus jadi staf (ID automatik ikut cawangan) → cipta akaun. */
-  var JOIN_DESC = { Tetap: 'Full-time · 3-month probation', Kontrak: 'Fixed term with an end date', Sementara: 'Short period, e.g. festive season', Sambilan: 'Part-time on set days', Kasual: 'On call when the branch needs you' };
+  var JOIN_DESC = { Tetap: 'Full-time · 2-month probation', Kontrak: 'Fixed term with an end date', Sementara: 'Short period, e.g. festive season', Sambilan: 'Part-time on set days', Kasual: 'On call when the branch needs you' };
   var JOIN_ICO = { Tetap: 'M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6zM9 12l2 2 4-4', Kontrak: 'M7 3.5h7l4 4v13H7zM14 3.5V8h4M10 13h5M10 17h3', Sementara: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2', Sambilan: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M8 13h3M13 13h3M8 17h3', Kasual: 'M13 2L4 14h7l-1 8 9-12h-7z' };
   var JOIN_STN = [['Ayam', 'Grill'], ['Western', 'Western'], ['Dish', 'Dish'], ['Chef', 'Chef']];
   var DAY7 = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -4833,7 +4990,12 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       S.installEvt.prompt();
       S.installEvt.userChoice.then(function () { S.installEvt = null; var b = $('install-btn'); if (b) b.hidden = true; });
     },
-    openLink: function (el) { openExternal(el.dataset.v); },
+    openLink: function (el) {
+      var u = el.dataset.v;
+      // Privacy policy / Help: popup dalam app dengan butang Close (PWA tiada butang kembali bila halaman dibuka penuh)
+      if (!NATIVE && /^https:\/\/nara\.sofwah\.my\/hr\/(privacy|support)\.html/.test(u)) { docSheet(u, /privacy/.test(u) ? 'Privacy policy' : 'Help'); return; }
+      openExternal(u);
+    },
     deleteAcct: function () {
       modal('Delete your NARA HR account?',
         '<p>This removes your sign-in for NARA HR on every phone: your password, profile PIN, calendar link and notification devices are erased, and you are signed out.</p>' +
@@ -5366,6 +5528,242 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         $('payroll-out').innerHTML = '<div class="li"><div><div style="font-weight:600">' + h(r.nama) + '</div><div class="muted">' + h(r.staf) + ' staff</div></div><a class="btn small" href="' + h(r.url) + '" target="_blank" rel="noopener">Open</a></div>';
       }).catch(function (e) { busy(btn, false); fail(e); });
     }
+  };
+
+  /* ======================= Privacy policy / Help: popup dalam app (tiada lagi halaman tanpa butang kembali) ======================= */
+  function docSheet(url, title) {
+    modal(title, '<div class="doc-frame"><div class="doc-ph"><span class="spinner"></span></div><iframe src="' + h(url) + '" title="' + h(title) + '" referrerpolicy="no-referrer"></iframe></div>' +
+      '<button class="btn ghost block doc-close" data-act="closeModal">Close</button>', 'doc-sheet');
+    var f = document.querySelector('#modal .doc-frame iframe');
+    if (f) f.addEventListener('load', function () { var p = document.querySelector('#modal .doc-ph'); if (p) p.remove(); });
+  }
+
+  /* ======================= Compensation & Benefits (NARA HR 1.0.19) ======================= */
+  var CB_G = {
+    pay: { l: 'Pay & rewards', c: '#7A3EFF', i: 'M12 4c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zM4 7v5c0 1.7 3.6 3 8 3s8-1.3 8-3V7M4 12v5c0 1.7 3.6 3 8 3s8-1.3 8-3v-5' },
+    leave: { l: 'Leave & time off', c: '#2D9CFF', i: 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4' },
+    health: { l: 'Health & protection', c: '#00A99A', i: 'M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6zM12 9v6M9 12h6' },
+    claims: { l: 'Claims & allowances', c: '#475569', i: 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3' },
+    care: { l: 'Family & wellbeing', c: '#D9467A', i: 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z' },
+    grow: { l: 'Career & growth', c: '#1B1F4B', i: 'M3 17l6-6 4 4 8-8M15 7h6v6' }
+  };
+  var CB_ORDER = ['pay', 'leave', 'health', 'claims', 'care', 'grow'];
+  var CB_GIFT = 'M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.5S10 7 12 7zM12 7c1.5-3 5-3.5 5-1.5S14 7 12 7z';
+  var CB_LOCK = 'M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5z';
+  var CB_SCALE = 'M12 4v16M7 20h10M4 8h16M6 8l-3 6a3 3 0 0 0 6 0zM18 8l-3 6a3 3 0 0 0 6 0z';
+  var CB_JL = { Tetap: 'Permanent', Kontrak: 'Contract', Sementara: 'Temporary', Sambilan: 'Part-time', Kasual: 'Casual', Intern: 'Intern', Praktikal: 'Intern' };
+  var CB_PL = { 'Kehadiran bulanan': 'Monthly attendance', 'Penilaian tahunan': 'Annual review', 'Anugerah pengurusan': 'Management award' };
+  function cbDate(s) { if (!s) return ''; var d = parseYmdL(s); return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear(); }
+  function cbMon(s) { if (!s) return ''; var d = parseYmdL(s); return MON[d.getMonth()] + ' ' + d.getFullYear(); }
+
+  /** Satu faedah: ringkas (nama + nilai), tekan untuk butiran. */
+  function cbIt(x, lock) {
+    var g = CB_G[x.g] || CB_G.pay, tags = '';
+    if (x.p) tags += '<span class="cb-pf">' + svg('M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z') + h(x.p) + '</span>';
+    if (x.untuk) tags += '<span>' + h(x.untuk) + '</span>';
+    if (x.legal) tags += '<span class="cb-law">' + svg(CB_SCALE) + 'Legal minimum</span>';
+    return '<details class="cb-it' + (lock ? ' lock' : '') + '" style="--g:' + g.c + '"><summary><span class="cb-ic">' + svg(lock ? CB_LOCK : g.i) + '</span>' +
+      '<span class="cb-tx"><b>' + h(x.t) + '</b><span class="cb-v">' + h(x.v) + '</span>' +
+      (x.next ? '<small class="cb-nx">' + svg('M7 17L17 7M9 7h8v8') + h(x.next.v) + (x.next.d ? ' from ' + h(cbMon(x.next.d)) : '') + '</small>' : '') + '</span>' +
+      '<i class="cb-chev">' + svg('M9 6l6 6-6 6') + '</i></summary>' +
+      '<div class="cb-more"><p>' + h(x.d) + '</p>' + (x.c ? '<p class="cb-cond">' + svg('M5 12.5l4.5 4.5L19 7.5') + '<span>' + h(x.c) + '</span></p>' : '') +
+      (tags ? '<div class="cb-tags">' + tags + '</div>' : '') + '<small class="cb-ref">' + h(x.r) + '</small></div></details>';
+  }
+  function cbGroups(list, lock) {
+    var by = {};
+    list.forEach(function (x) { (by[x.g] = by[x.g] || []).push(x); });
+    return CB_ORDER.filter(function (g) { return by[g]; }).map(function (g) {
+      return '<div class="cb-grp"><span class="cb-gl" style="--g:' + CB_G[g].c + '"><i></i>' + h(CB_G[g].l) + '<em>' + by[g].length + '</em></span>' + by[g].map(function (x) { return cbIt(x, lock); }).join('') + '</div>';
+    }).join('');
+  }
+  /** Paparan staf: hari ini · ikut prestasi · dibuka ikut khidmat · peluang kerjaya. mode: gate | view | preview */
+  function cbStaffHtml(d, mode) {
+    var now = d.kini.filter(function (x) { return x.g !== 'grow'; }), grow = d.kini.filter(function (x) { return x.g === 'grow'; });
+    var later = 0;
+    d.nanti.forEach(function (m) { later += m.items.length; });
+    var sub = (d.jenisLabel || '') + (d.sah ? (d.mula ? ' · with Sofwah since ' + cbMon(d.mula) : '') : d.tarikhSah ? ' · probation until ' + cbDate(d.tarikhSah) : ' · on probation');
+    var path = d.jejak.length > 1 ? '<ol class="cb-path">' + d.jejak.map(function (j, i) {
+      return '<li' + (i ? '' : ' class="on"') + '><i></i><b>' + h(j.t) + '</b><small>' + (i ? (j.d ? h(cbMon(j.d)) + ' · ' : '') + '+' + j.n : d.kini.length + ' now') + '</small></li>';
+    }).join('') + '</ol>' : '';
+    var hero = '<div class="cb-hero"><span class="cb-hero-ic">' + svg(CB_GIFT) + '</span>' +
+      '<span class="cb-eye">' + (mode === 'preview' ? 'Preview · ' + h(d.lbl || '') : 'Your Sofwah benefits') + '</span>' +
+      '<h3>' + (mode === 'gate' ? 'Welcome to Sofwah, ' : mode === 'preview' ? '' : 'Hi ') + h(mode === 'preview' ? 'What this staff sees' : titleCase(d.nama || '')) + '</h3><p>' + h(sub) + '</p>' +
+      '<div class="cb-nums"><div><b>' + d.kini.length + '</b><span>yours today</span></div>' +
+      (d.prestasi.length ? '<div><b>' + d.prestasi.length + '</b><span>earned by performance</span></div>' : '') +
+      '<div><b>' + later + '</b><span>unlock as you grow</span></div></div>' + path + '</div>';
+    var out = hero;
+    if (now.length) out += '<section class="cb-sec"><h4>Yours from today</h4>' + cbGroups(now) + '</section>';
+    if (d.prestasi.length) {
+      var rv = d.semakan ? '<div class="cb-rv">' + svg('M5 12.5l4.5 4.5L19 7.5') + '<span>Last review' + (d.semakan.gred ? ': Grade <b>' + h(d.semakan.gred) + '</b>' : '') + (d.semakan.skor ? ' · ' + h(d.semakan.skor) + '/5' : '') + ' · ' + h(cbDate(d.semakan.tarikh)) + '</span></div>' : '';
+      out += '<section class="cb-sec"><h4>Earn it with performance</h4><p class="cb-lead">Be on time, follow the SOP, serve guests well. These reward you for it.</p>' + rv + cbGroups(d.prestasi) + '</section>';
+    }
+    if (d.nanti.length) {
+      out += '<section class="cb-sec"><h4>Unlocks as you grow</h4>' + d.nanti.map(function (m) {
+        return '<div class="cb-ms"><div class="cb-ms-h"><b>' + h(m.tajuk) + '</b><span>' + (m.bila ? h(cbDate(m.bila)) : 'Date set by HR') + '</span></div>' + m.items.map(function (x) { return cbIt(x, true); }).join('') + '</div>';
+      }).join('') + '</section>';
+    }
+    if (grow.length) out += '<section class="cb-sec"><h4>Grow with Sofwah</h4>' + grow.map(function (x) { return cbIt(x); }).join('') + '</section>';
+    if (d.lagi) out += '<div class="cb-lagi">' + svg('M3 17l6-6 4 4 8-8M15 7h6v6') + '<span><b>Permanent staff enjoy ' + d.lagi.n + ' more benefits.</b> Ask your manager about a permanent role.</span></div>';
+    out += '<p class="cb-src">Based on the ' + h(d.sumber || '') + '. Where the law gives you more, you get the legal minimum. Ask HR if anything is unclear.</p>';
+    if (mode === 'gate') out += '<div class="cb-cta"><button class="btn block" data-act="cbAck">' + svg('M5 12.5l4.5 4.5L19 7.5') + '<span>I’ve read my benefits</span></button></div>';
+    else out += '<div class="cb-cta"><button class="btn ghost block" data-act="closeModal">Close</button></div>';
+    return '<div class="cb' + (mode === 'gate' ? ' gate' : '') + '">' + out + '</div>';
+  }
+  function cbSaveMe() { try { if (PWA) LS.set('nara_me', JSON.stringify(S.me)); } catch (e) { /* abaikan */ } }
+  /** Tanda dibaca (senyap) untuk staf sedia ada yang membuka paparan buat kali pertama. */
+  function cbAckQuiet() {
+    if (!S.me || S.me.cb !== 2) return;
+    S.me.cb = 0; cbSaveMe();
+    var b = document.querySelector('.cb-ban'); if (b) b.remove();
+    call('cbAck').catch(function () { /* cuba lagi pada log masuk seterusnya */ });
+  }
+  function cbOpen(mode, after) {
+    S.cbAfter = after || null;
+    var spec = { a: 'cbMine' }, c = swrGet(spec);
+    var title = mode === 'gate' ? 'Before your first shift' : 'My benefits';
+    var show = function (d) { modal(title, cbStaffHtml(d, mode), 'cb-sheet'); };
+    if (c) show(c); else modal(title, '<div class="card">' + SKEL + '</div>', 'cb-sheet');
+    swrFetch(spec).then(function (d) {
+      var open = !$('modal').hidden && $('modal').classList.contains('cb-sheet');
+      if (open && (!c || JSON.stringify(c) !== JSON.stringify(d))) show(d);
+      var mc = $('cb-card'); if (mc) mc.outerHTML = cbCard();
+    }).catch(function (e) { if (!c) { closeModal(); fail(e); if (mode === 'gate') { S.me.cbSkip = true; } } });
+    if (mode !== 'gate') cbAckQuiet();
+  }
+  /** Kad di Today untuk staf sedia ada (sekali sahaja, hilang selepas dibuka). */
+  function cbBanner() {
+    if (!S.me || S.me.cb !== 2) return '';
+    return '<section class="card cb-ban"><span class="cb-ban-ic">' + svg(CB_GIFT) + '</span><span class="grow"><b>Your Sofwah benefits</b><small>Everything you get, and what unlocks as you grow.</small></span><button class="btn small" data-act="cbOpen">See</button></section>';
+  }
+  /** Kad Me › My benefits. */
+  function cbCard() {
+    var d = swrGet({ a: 'cbMine' }), later = 0;
+    if (d) d.nanti.forEach(function (m) { later += m.items.length; });
+    return '<section class="card cb-card" id="cb-card"><button class="cb-card-b" data-act="cbOpen"><span class="cb-ban-ic">' + svg(CB_GIFT) + '</span>' +
+      '<span class="grow"><b>My benefits</b><small>' + (d ? d.kini.length + ' yours today' + (later ? ' · ' + later + ' unlock as you grow' : '') : 'Leave, rewards, claims and your growth path') + '</small></span>' +
+      '<i class="cb-chev">' + svg('M9 6l6 6-6 6') + '</i></button></section>';
+  }
+
+  /* ---------- HR › Comp & Benefits (Admin: tick / pilih kelayakan / tambah) ---------- */
+  var CB_PRE = [
+    { l: 'Permanent', s: 'New, probation', p: { jenis: 'Tetap', bulan: 0, sah: false } },
+    { l: 'Permanent', s: '1 year', p: { jenis: 'Tetap', bulan: 13, sah: true } },
+    { l: 'Permanent', s: '5 years', p: { jenis: 'Tetap', bulan: 61, sah: true } },
+    { l: 'Contract', s: '3 months', p: { jenis: 'Kontrak', bulan: 3, sah: true } },
+    { l: 'Part-time', s: '3 months', p: { jenis: 'Sambilan', bulan: 3, sah: true } },
+    { l: 'Casual', s: '1 month', p: { jenis: 'Kasual', bulan: 1, sah: true } }
+  ];
+  function uCb() { call('cbAdmin').then(function (d) { S.cbA = d; cbRender(); }).catch(urusErr); }
+  function cbWho(x) {
+    var t = ['<span class="cb-c">' + h(x.j.length ? x.j.map(function (j) { return CB_JL[j] || j; }).join(', ') : 'All staff') + '</span>'];
+    if (x.s === 'Disahkan') t.push('<span class="cb-c">Confirmed</span>');
+    if (x.s === 'Percubaan') t.push('<span class="cb-c">On probation</span>');
+    if (x.m) t.push('<span class="cb-c">' + (x.m % 12 ? x.m + ' mo' : x.m / 12 + ' yr') + '+</span>');
+    if (x.p) t.push('<span class="cb-c pf">' + h(CB_PL[x.p] || x.p) + '</span>');
+    if (x.u !== 'Semua') t.push('<span class="cb-c">' + (x.u === 'Wanita' ? 'Women' : 'Men') + '</span>');
+    return t.join('');
+  }
+  function cbSrc(x) {
+    if (/cadangan/i.test(x.src)) return '<span class="cb-s sug">Suggested · not in policy</span>';
+    if (/tambahan/i.test(x.src)) return '<span class="cb-s hr">Added by HR</span>';
+    return '<span class="cb-s">' + h(String(x.r || '').split('·')[0].trim()) + '</span>';
+  }
+  function cbRender() {
+    var d = S.cbA, f = S.cbF || 'all', st = d.stat;
+    var list = d.senarai.filter(function (x) { return f === 'all' || (f === 'on' && x.on) || (f === 'sug' && /cadangan/i.test(x.src)) || (f === 'law' && x.flag); });
+    var by = {};
+    list.forEach(function (x) { (by[x.g] = by[x.g] || []).push(x); });
+    var pct = st.jumlah ? Math.round(st.aktif / st.jumlah * 100) : 0;
+    var head = '<section class="card ph-sum cb-sum"><div class="ph-sum-l">' + ring(pct, 'ember') + '<div class="ph-n"><b>' + st.aktif + '</b><small>of ' + st.jumlah + '</small></div></div>' +
+      '<div class="ph-sum-r"><b>' + st.aktif + ' benefits live for staff</b><span>Each person sees only what they qualify for: staff type, confirmation, years of service and performance.</span>' +
+      '<div class="ph-chips"><span class="chip blue">' + st.polisi + ' from policy</span><span class="chip orange">' + st.cadangan + ' suggested</span>' + (st.hr ? '<span class="chip green">' + st.hr + ' added by HR</span>' : '') + '</div></div></section>' +
+      (st.akta ? '<button class="cb-lawbar" data-act="cbFilter" data-v="law"><span class="cb-lawbar-ic">' + svg(CB_SCALE) + '</span><span class="grow"><b>' + st.akta + ' policy items are below the Employment Act</b><small>Staff already see the legal minimum. Update the policy book.</small></span><i class="cb-chev">' + svg('M9 6l6 6-6 6') + '</i></button>' : '');
+    var prev = '<section class="card cb-prev"><h3>Preview as staff</h3><p class="muted">Exactly what they see before their first clock-in.</p><div class="cb-pre">' +
+      CB_PRE.map(function (p, i) { return '<button data-act="cbPreview" data-i="' + i + '"><b>' + h(p.l) + '</b><small>' + h(p.s) + '</small></button>'; }).join('') + '</div></section>';
+    var filt = '<div class="cb-bar"><div class="seg mini" role="group" aria-label="Show">' + [['all', 'All ' + st.jumlah], ['on', 'Live ' + st.aktif], ['sug', 'Suggested ' + st.cadangan]].concat(st.akta ? [['law', 'Below Act ' + st.akta]] : []).map(function (x) {
+      return '<button data-act="cbFilter" data-v="' + x[0] + '" aria-pressed="' + (f === x[0]) + '">' + h(x[1]) + '</button>';
+    }).join('') + '</div><button class="cb-add" data-act="cbEdit" data-v="" aria-label="Add a benefit" title="Add a benefit">' + svg('M12 5v14M5 12h14') + '</button></div>';
+    var groups = d.kumpulan.filter(function (g) { return by[g.k]; }).map(function (g) {
+      var G = CB_G[g.k] || CB_G.pay;
+      return '<section class="card cb-g"><div class="cb-gh" style="--g:' + G.c + '"><span class="cb-ic">' + svg(G.i) + '</span><h3>' + h(g.l) + '</h3><span class="muted">' + by[g.k].filter(function (x) { return x.on; }).length + '/' + by[g.k].length + ' live</span></div>' +
+        by[g.k].map(function (x) {
+          return '<div class="cb-r' + (x.on ? ' on' : '') + '"><button class="ph-tg" data-act="cbToggle" data-k="' + h(x.k) + '" role="switch" aria-checked="' + x.on + '" aria-label="' + h(x.t) + ' live for staff"><i></i></button>' +
+            '<button class="cb-rb" data-act="cbEdit" data-v="' + h(x.k) + '"><b>' + h(x.t) + '</b><span class="cb-rval">' + h(x.v) + '</span><span class="cb-tags">' + cbWho(x) + cbSrc(x) + '</span>' +
+            (x.flag ? '<span class="cb-flag">' + svg(CB_SCALE) + h(x.flag) + '</span>' : '') + '</button></div>';
+        }).join('') + '</section>';
+    }).join('') || '<div class="empty">Nothing here.</div>';
+    urusBody('<div class="cb-admin">' + head + prev + filt + groups + '<p class="cb-src">Saved in the “' + h(d.tab) + '” tab of the HR sheet. Sources: ' + h(d.sumber) + '.</p></div>');
+  }
+  function cbFind(k) { return (S.cbA ? S.cbA.senarai : []).filter(function (x) { return x.k === k; })[0]; }
+  function cbForm(x) {
+    var d = S.cbA, nw = !x;
+    x = x || { k: '', on: true, g: 'care', t: '', v: '', d: '', j: [], s: 'Semua', m: 0, p: '', u: 'Semua', c: '', r: '', src: '' };
+    var opt = function (arr, cur) { return arr.map(function (o) { return '<option value="' + h(o[0]) + '"' + (String(o[0]) === String(cur) ? ' selected' : '') + '>' + h(o[1]) + '</option>'; }).join(''); };
+    var months = [[0, 'From day one'], [3, 'After 3 months'], [6, 'After 6 months'], [12, 'After 1 year'], [24, 'After 2 years'], [36, 'After 3 years'], [60, 'After 5 years'], [120, 'After 10 years']];
+    if (!months.some(function (m) { return m[0] === Number(x.m); })) months.push([x.m, 'After ' + x.m + ' months']);
+    var types = '<label class="cb-ck"><input type="checkbox" name="jAll"' + (x.j.length ? '' : ' checked') + '><span>All staff</span></label>' +
+      d.jenis.map(function (t) { return '<label class="cb-ck"><input type="checkbox" name="j_' + h(t) + '"' + (x.j.indexOf(t) >= 0 ? ' checked' : '') + '><span>' + h(CB_JL[t] || t) + '</span></label>'; }).join('');
+    return '<form data-form="cbSave" data-k="' + h(x.k) + '" class="cb-form">' +
+      '<label class="cb-live"><span class="grow"><b>Live for staff</b><small>Shown to everyone who qualifies</small></span><input type="checkbox" name="on"' + (x.on ? ' checked' : '') + '></label>' +
+      '<label>Benefit<input name="t" maxlength="60" required value="' + h(x.t) + '" placeholder="e.g. Staff meal"></label>' +
+      '<label>What staff get<input name="v" maxlength="60" value="' + h(x.v) + '" placeholder="e.g. Free meal every shift"></label>' +
+      '<label>Details<textarea name="d" rows="3" maxlength="300" placeholder="One or two short sentences">' + h(x.d) + '</textarea></label>' +
+      '<label>Group<select name="g">' + opt(d.kumpulan.map(function (g) { return [g.k, g.l]; }), x.g) + '</select></label>' +
+      '<fieldset class="cb-fs"><legend>Who qualifies</legend><div class="cb-cks">' + types + '</div></fieldset>' +
+      '<div class="cb-2"><label>Status<select name="s">' + opt([['Semua', 'Everyone'], ['Disahkan', 'Confirmed only'], ['Percubaan', 'On probation only']], x.s) + '</select></label>' +
+      '<label>Service<select name="m">' + opt(months, x.m) + '</select></label></div>' +
+      '<div class="cb-2"><label>Performance<select name="p">' + opt([['', 'Not needed']].concat(d.prestasi.map(function (p) { return [p, CB_PL[p] || p]; })), x.p) + '</select></label>' +
+      '<label>For<select name="u">' + opt([['Semua', 'Everyone'], ['Wanita', 'Women'], ['Lelaki', 'Men']], x.u) + '</select></label></div>' +
+      '<label>Condition <small class="muted">(optional)</small><input name="c" maxlength="120" value="' + h(x.c) + '" placeholder="e.g. Show your NARA HR profile"></label>' +
+      '<label>Reference<input name="r" maxlength="120" value="' + h(x.r) + '" placeholder="e.g. Memo HR Jan 2027"></label>' +
+      (x.flag ? '<p class="cb-flag">' + svg(CB_SCALE) + h(x.flag) + '</p>' : '') +
+      '<button class="btn block" type="submit">' + (nw ? 'Add benefit' : 'Save') + '</button>' +
+      (!nw && /tambahan/i.test(x.src) ? '<button type="button" class="btn ghost block danger" data-act="cbRemove" data-k="' + h(x.k) + '">Remove</button>' : '') + '</form>';
+  }
+
+  Object.assign(ACT, {
+    cbOpen: function () { cbOpen('view'); },
+    cbAck: function (el) {
+      busy(el, true);
+      var go = function () {
+        S.me.cb = 0; cbSaveMe(); closeModal();
+        toast('Welcome aboard! Hold the button to clock in.');
+        var f = S.cbAfter; S.cbAfter = null; if (f) f();
+      };
+      call('cbAck').then(go).catch(function () { S.me.cbSkip = true; go(); });
+    },
+    cbFilter: function (el) { S.cbF = el.dataset.v; cbRender(); var b = $('urus-body'); if (b && el.classList.contains('cb-lawbar')) b.querySelector('.cb-bar').scrollIntoView({ behavior: 'smooth', block: 'start' }); },
+    cbToggle: function (el) {
+      var k = el.dataset.k, x = cbFind(k);
+      if (!x) return;
+      x.on = !x.on; S.cbA.stat.aktif += x.on ? 1 : -1; cbRender();
+      call('cbSave', { k: k, on: x.on }).then(function (d) { S.cbA = d; cbRender(); toast(x.t + (x.on ? ' is live for staff.' : ' is hidden from staff.')); })
+        .catch(function (e) { x.on = !x.on; S.cbA.stat.aktif += x.on ? 1 : -1; cbRender(); fail(e); });
+    },
+    cbEdit: function (el) { var x = el.dataset.v ? cbFind(el.dataset.v) : null; modal(x ? x.t : 'Add a benefit', cbForm(x)); },
+    cbRemove: function (el) {
+      busy(el, true);
+      call('cbSave', { k: el.dataset.k, hapus: true }).then(function (d) { S.cbA = d; closeModal(); cbRender(); toast('Benefit removed.'); }).catch(function (e) { busy(el, false); fail(e); });
+    },
+    cbPreview: function (el) {
+      var p = CB_PRE[Number(el.dataset.i)];
+      busy(el, true);
+      call('cbPreview', p.p).then(function (d) { busy(el, false); d.lbl = p.l + ' · ' + p.s; modal('Preview', cbStaffHtml(d, 'preview'), 'cb-sheet'); }).catch(function (e) { busy(el, false); fail(e); });
+    }
+  });
+  // Pilihan "All staff" vs jenis tertentu (kotak semak saling eksklusif)
+  document.addEventListener('change', function (e) {
+    var t = e.target, f = t && t.closest && t.closest('.cb-form');
+    if (!f || t.type !== 'checkbox') return;
+    var ones = f.querySelectorAll('input[name^="j_"]');
+    if (t.name === 'jAll') { if (t.checked) Array.prototype.forEach.call(ones, function (c) { c.checked = false; }); else if (!Array.prototype.some.call(ones, function (c) { return c.checked; })) t.checked = true; }
+    else if (t.name.indexOf('j_') === 0) f.querySelector('[name=jAll]').checked = !Array.prototype.some.call(ones, function (c) { return c.checked; });
+  });
+  FORMS.cbSave = function (f, btn) {
+    var d = formData(f), j = [];
+    Object.keys(d).forEach(function (k) { if (k.indexOf('j_') === 0 && d[k]) j.push(k.slice(2)); });
+    var p = { k: f.dataset.k || undefined, on: !!d.on, t: d.t, v: d.v, d: d.d, g: d.g, j: d.jAll ? [] : j, s: d.s, m: Number(d.m || 0), p: d.p, u: d.u, c: d.c, r: d.r };
+    call('cbSave', p).then(function (r) { S.cbA = r; closeModal(); cbRender(); toast(p.k ? 'Saved.' : p.t + ' added' + (p.on ? ' and live for staff.' : '.')); }).catch(function (e) { busy(btn, false); fail(e); });
   };
 
   document.addEventListener('submit', function (e) {
