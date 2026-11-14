@@ -1397,6 +1397,34 @@ html:has(#modal.doc-sheet:not([hidden])),html:has(#modal.doc-sheet:not([hidden])
 .doc-content section[hidden]{display:none}
 .doc-content>.wrap>*:first-child,.doc-content>.wrap>section>*:first-child{margin-top:14px}
 
+/* ---------- Amaran lokasi semasa shift (NARA HR 1.0.30) ---------- */
+.card.loc-card{gap:10px;border:1px solid #F3D9A8;background:linear-gradient(180deg,#FFF9EE,#FFFFFF 70%)}
+.card.loc-card.has-new{border-color:#F2B65A;box-shadow:0 8px 24px rgba(224,138,0,.12)}
+.loc-sub{margin:0;font-size:12.5px;line-height:1.45;color:var(--haze)}
+.loc-list{display:flex;flex-direction:column;gap:8px}
+.loc-row{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.loc-row.new{border-color:#F2C27A}
+.loc-ic{flex:0 0 auto;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;color:#fff;background:linear-gradient(150deg,#F5A524,#E08A00)}
+.loc-row.ok .loc-ic{background:linear-gradient(150deg,#33D6C6,#009888)}
+.loc-row.no .loc-ic{background:linear-gradient(150deg,#F0706F,#C23434)}
+.loc-ic svg{width:18px;height:18px}
+.loc-row b{display:block;font-size:14.5px;color:var(--ink)}
+.loc-row small{display:block;font-size:12.5px;line-height:1.4;color:var(--haze);margin-top:2px}
+.loc-row .loc-km{display:inline;font-size:12.5px;color:#B26B00}
+.loc-row .loc-cat{font-style:italic}
+.loc-row .chip{margin-top:6px;display:inline-flex}
+.loc-acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:9px}
+.loc-acts .link{font-size:13px}
+.loc-note{display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center}
+.loc-note p{margin:0;font-size:15px;line-height:1.5}
+.loc-note p.muted{font-size:13.5px}
+.loc-note-ic{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;color:#fff;background:linear-gradient(150deg,#F5A524,#E08A00);box-shadow:0 10px 24px rgba(224,138,0,.3)}
+.loc-note-ic svg{width:26px;height:26px}
+.loc-note .btn{margin-top:4px}
+.priv-new{display:flex;flex-direction:column;gap:3px;margin:0 0 12px;padding:11px 13px;border-radius:14px;background:var(--ember-soft);border:1px solid #DED3FF}
+.priv-new b{font-size:13.5px;color:var(--ember-ink)}
+.priv-new span{font-size:13px;line-height:1.45;color:var(--ink-2)}
+
 /* ---------- Minda Sofwah (NARA HR 1.0.29) ---------- */
 .card.md-card{padding:0;overflow:hidden;border:0;color:#fff;background:radial-gradient(120% 90% at 100% 0%,rgba(0,200,181,.24),transparent 55%),radial-gradient(90% 80% at 0% 100%,rgba(122,62,255,.5),transparent 62%),linear-gradient(160deg,#262B66,#1B1F4B 60%,#141737)}
 .md-card-b{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:16px 16px 12px;text-align:left;cursor:pointer;color:inherit;border-radius:inherit}
@@ -1896,7 +1924,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function isHR() { return S.me && (S.me.role === 'HR' || S.me.role === 'Admin'); }
 
   var AUTH_ACTIONS = { loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, pushRegister: 1, pushTest: 1, pkLogin: 1, pkRegister: 1 };
-  var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1, cbAck: 1, cbSave: 1, ratingSave: 1, joinSubmit: 1, joinSet: 1, holidayAnnounce: 1, saveHolidays: 1, resetSignin: 1, ackNotice: 1 };
+  var WRITE_ACTIONS = { pkLogin: 1, pkRegister: 1, pkRemove: 1, deleteAccount: 1, loginEmail: 1, emailCode: 1, verifyCode: 1, setPassword: 1, clock: 1, pushRegister: 1, pushTest: 1, applyLeave: 1, submitClaim: 1, saveWeek: 1, saveTasks: 1, saveRecord: 1, decideLeave: 1, decideClaim: 1, payrollRun: 1, payrollFiles: 1, payrollPaid: 1, payrollConfirm: 1, payrollReopen: 1, payrollSetup: 1, addAttendance: 1, resetPin: 1, changePin: 1, addNotice: 1, exportPayroll: 1, staffingRefresh: 1, approveOT: 1, fixAttendance: 1, cancelLeave: 1, setRole: 1, acceptPrivacy: 1, lcPropose: 1, lcDecide: 1, lcApproveSeeds: 1, lcScan: 1, lcMonitor: 1, lcReview: 1, lcAddUpdate: 1, lcAmendStatus: 1, lcSaveCheck: 1, cbAck: 1, cbSave: 1, ratingSave: 1, joinSubmit: 1, joinSet: 1, holidayAnnounce: 1, saveHolidays: 1, resetSignin: 1, ackNotice: 1, locDecide: 1 };
   // Tindakan payroll boleh ambil beberapa minit (slip PDF setiap staf): had masa klien dipanjangkan
   // Log masuk: had 20 s (bukan 45 s), rangkaian tergantung (cth. tukar Wi-Fi → 4G) dicuba semula sekali secara automatik
   var SHORT_ACTIONS = { loginEmail: 20000, logout: 15000, ping: 15000, pkLogin: 20000, pkLoginOptions: 15000 };
@@ -2105,7 +2133,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     '<p class="muted">Sofwah Arabiata (M) Sdn. Bhd. collects the following data through this app for your attendance, schedule, leave, claims and employment records:</p>' +
     '<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">' +
     '<li>Name, Staff ID, branch and position from your employment record.</li>' +
-    '<li>GPS location and selfie, only when you clock in and clock out.</li>' +
+    '<li>GPS location and selfie when you clock in and clock out.</li>' +
+    '<li><b>Location check during your shift:</b> while you are clocked in, the app checks your location each time you open it (never in the background). If you are more than 10 km from where you clocked in, your branch manager and area manager are notified.</li>' +
     '<li>Leave details, MC documents, claims and receipts you submit.</li></ul>' +
     '<p class="muted">This data is seen by your branch manager, HR and Sofwah management. It is stored in the company’s Google account and is not shared with outside parties unless required by law. Attendance records are kept for at least 6 years as required by the Employment Act 1955. You may ask HR to view or correct your data.</p>' +
     '<p class="muted">By tapping the button below, you confirm you have read this Privacy Notice (Personal Data Protection Act 2010).</p>' +
@@ -2113,7 +2142,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 
   function privacyGate() {
     S.gate = true;
-    modal('NARA HR Privacy Notice', PRIVACY_HTML);
+    var upd = S.me && S.me.privasiLama;
+    modal(upd ? 'Privacy notice updated' : 'NARA HR Privacy Notice', (upd ? '<div class="priv-new"><b>What’s new (14 Nov 2026)</b><span>Location check during your shift, so your manager knows if you leave work without telling them.</span></div>' : '') + PRIVACY_HTML);
     var x = document.querySelector('.modal-head .icon-btn');
     if (x) x.setAttribute('aria-label', 'Close and sign out');
   }
@@ -2534,7 +2564,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function sharedPhone() { return LS.get('nara_shared') === '1'; }
   function markSeen() { if (S.token) LS.set('nara_seen', String(Date.now())); }
   function idleTooLong() { var t = Number(LS.get('nara_seen') || 0); return !!t && Date.now() - t > IDLE_MS; }
-  function leftApp() { if (S.token) { LS.set('nara_left', String(Date.now())); markSeen(); } }
+  function leftApp() { S.geoWarm = false; if (S.token) { LS.set('nara_left', String(Date.now())); markSeen(); } } // kembali ke app: lokasi segar diambil semula
   function backToApp() {
     var t = Number(LS.get('nara_left') || 0); LS.del('nara_left');
     var ext = S.extUntil || 0, at = S.extAt || 0; S.extUntil = S.extAt = 0;
@@ -2545,7 +2575,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         swrPut({ a: 'myPayslips', mem: true }, 'LOCKED'); delete FRESH[swrKey('myPayslips')];
         if (S.tab === 'lagi' && $('modal').hidden) loadLagi();
       }
-      markSeen(); return;
+      markSeen(); setTimeout(locPing, 1500); return;
     }
     // Telefon dikongsi: aliran luaran sah hanya jika app keluar dalam 15 s selepas app sendiri membukanya
     var ok = ext && t >= at - 1000 && t - at <= 15000 ? Date.now() <= ext : Date.now() - t <= GRACE_MS;
@@ -2591,7 +2621,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     if (PWA && me) LS.set('nara_me', JSON.stringify(me));
     var tabs = tabsFor(), cur = Math.max(0, tabs.map(function (t) { return t.k; }).indexOf(S.tab));
     var prev = S.navIdx === undefined ? cur : S.navIdx;
-    var navBadge = { urus: (function () { var d = swrGet({ a: 'dashboard', mem: true }); return d ? Number(d.cutiMenunggu || 0) + Number(d.tuntutanMenunggu || 0) : 0; })(), lagi: me && me.cb ? 1 : 0 };
+    var navBadge = { urus: (function () { var d = swrGet({ a: 'dashboard', mem: true }); return d ? Number(d.cutiMenunggu || 0) + Number(d.tuntutanMenunggu || 0) + (d.amaran || []).filter(function (a) { return a.status === 'Baru'; }).length : 0; })(), lagi: me && me.cb ? 1 : 0 };
     var nav = '<i class="nav-ind" id="nav-ind" style="--i:' + prev + '" aria-hidden="true"></i>' + tabs.map(function (t) {
       return '<button data-act="tab" data-v="' + t.k + '"' + (S.tab === t.k ? ' aria-current="page"' : '') + ' aria-label="' + t.l + '" title="' + t.l + '">' + svg(NAV_ICON[t.k] || ICON[t.k]) + '<span>' + t.l + '</span>' + (navBadge[t.k] ? '<i class="nav-dot" aria-hidden="true"></i>' : '') + '</button>';
     }).join('');
@@ -2621,6 +2651,12 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   /** Pautan dari notifikasi telefon (cth. /hr/#cuti-umum) → buka terus skrin berkaitan. */
   function deepLink() {
     var hsh = location.hash || '';
+    if (hsh === '#lokasi' && isMgr()) { // notifikasi amaran lokasi → Team
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* abaikan */ }
+      S.tab = 'urus'; S.urus = null; renderShell();
+      setTimeout(function () { var c = $('loc-card'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 1200);
+      return true;
+    }
     if (hsh !== '#cuti-umum') return false;
     try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* abaikan */ }
     setTimeout(phSheet, 250);
@@ -2839,6 +2875,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     bindDial();
     setBell();
     loadInsights();
+    setTimeout(locPing, 2500);
   }
 
   /** Kad "Minggu ini" + jubin statistik: dari cache dahulu, kemudian dikemas kini senyap. */
@@ -3070,6 +3107,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     return call('clock', item.p).then(function (res) {
       clockQDel(item.p.cid);
       clockApply(res);
+      if (res && res.lokasi) setTimeout(function () { locNotice(res.lokasi, true); }, 1200);
       setTimeout(clockRefresh, 2500); // status lewat, rakan sesyif: segar di latar
       return res;
     });
@@ -3458,7 +3496,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         out.push({ k: 'push', ico: '🔔', t: 'Turn on notifications', d: 'Shift reminders 30 minutes before you start, leave decisions and HR announcements.', btn: 'Allow notifications', act: 'onbPush' });
       }
       if (!seen.loc && geo !== 'granted' && geo !== 'denied') {
-        out.push({ k: 'loc', ico: '📍', t: 'Allow location', d: 'Used only when you clock in or out, to confirm you are at your branch.', btn: 'Allow location', act: 'onbLoc' });
+        out.push({ k: 'loc', ico: '📍', t: 'Allow location', d: 'Used when you clock in or out, and when you open the app during your shift, to confirm you are at work.', btn: 'Allow location', act: 'onbLoc' });
       }
       if (!seen.cal && !LS.get('nara_cal_' + S.me.id)) {
         out.push({ k: 'cal', ico: '📅', t: 'Add your shifts to Calendar', d: 'Your shifts, leave and public holidays appear in your phone calendar and update automatically.', btn: 'Add to Calendar', act: 'onbCal' });
@@ -3820,7 +3858,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       }).join('');
       var brFoot = '<div class="br-foot' + (brReady < d.cawangan.length ? ' warn' : '') + '">Next week\'s roster: <b>' + brReady + ' of ' + d.cawangan.length + '</b> branches ready</div>';
       S.hra = { list: hraPrep(d.tindakan || []), f: '', all: false };
-      var html = '<div class="dash-grid">' + gaugeCard + '<div class="tiles dash-tiles">' + tiles + '</div></div>' +
+      var html = locCard(d.amaran || []) + '<div class="dash-grid">' + gaugeCard + '<div class="tiles dash-tiles">' + tiles + '</div></div>' +
         '<div class="cols"><section class="card br-card"><div class="card-h"><h3>Branches today</h3><span class="br-tot"><b>' + brIn + '</b>/' + brSc + ' in</span></div><div class="br-list">' + rows + '</div>' + brFoot + '</section>' +
         hraCard() + '</div>';
       box.innerHTML = html;
@@ -6297,6 +6335,78 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<span class="grow"><b>My benefits</b><small>' + (d ? d.kini.length + ' yours today' + (later ? ' · ' + later + ' unlock as you grow' : '') : 'Leave, rewards, claims and your growth path') + '</small></span>' +
       '<i class="cb-chev">' + svg('M9 6l6 6-6 6') + '</i></button></section>';
   }
+
+  /* ======================= Amaran lokasi semasa shift (keputusan CEO 14/11/2026) =======================
+     Semasa staf masih clock in: setiap kali app dibuka (dan setiap 10 minit ketika app terbuka), lokasi dihantar
+     jika kebenaran lokasi SUDAH diberi (tiada permintaan baharu). Pelayan bandingkan dengan lokasi clock in;
+     > 10 km → pengurus cawangan + Area Manager dimaklumkan, dan staf diberitahu. Tiada jejak di latar. */
+  var LOC_GAP_MS = 10 * 60000;
+  function locOpen() {
+    var r = S.data.today && S.data.today.rekod;
+    return !!(r && r.masuk && (!r.keluar || (r.masuk2 && !r.keluar2)));
+  }
+  function locQuickPos() {
+    if (NATIVE && PLUG.Geolocation) return PLUG.Geolocation.getCurrentPosition({ enableHighAccuracy: false, timeout: 15000, maximumAge: 60000 }).then(function (p) { return { lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }; });
+    return new Promise(function (ok, no) {
+      if (!navigator.geolocation) { no(new Error('no gps')); return; }
+      navigator.geolocation.getCurrentPosition(function (p) { ok({ lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }); }, no, { enableHighAccuracy: false, timeout: 15000, maximumAge: 60000 });
+    });
+  }
+  function locPing() {
+    if (!S.token || !S.me || !S.me.privasi || document.hidden || !locOpen() || S.locBusy) return;
+    var last = Number(LS.get('nara_lping_' + S.me.id) || 0);
+    if (Date.now() - last < LOC_GAP_MS) return;
+    S.locBusy = true;
+    geoPerm().then(function (st) {
+      if (st !== 'granted') return null;
+      LS.set('nara_lping_' + S.me.id, String(Date.now()));
+      return locQuickPos().then(function (p) { return call('locPing', p); }).then(function (r) { if (r && r.baru) locNotice(r, false); });
+    }).catch(function () { /* senyap: semakan pilihan */ }).then(function () { S.locBusy = false; });
+  }
+  setInterval(function () { if (S.token && !document.hidden) locPing(); }, LOC_GAP_MS + 5000);
+  function locNotice(r, atOut) {
+    var km = h(r.km) + ' km';
+    var html = '<div class="loc-note"><span class="loc-note-ic">' + svg(ICO.pin) + '</span>' +
+      '<p>' + (atOut ? 'Your clock out was <b>' + km + '</b> from where you clocked in.' : 'You are about <b>' + km + '</b> from where you clocked in.') + ' Your branch manager and area manager have been notified.</p>' +
+      '<p class="muted">' + (atOut ? 'If this was an approved outside task, let your manager know.' : 'If you are on an approved outside task, let your manager know. If you have finished work, clock out now.') + '</p>' +
+      '<button class="btn block" data-act="closeModal">OK</button></div>';
+    if ($('modal').hidden) modal('Location check', html, 'glass'); else toast('Location check: ' + r.km + ' km from where you clocked in. Your manager has been notified.', true);
+  }
+  /** Team: kad amaran lokasi (pengurus / HR). */
+  function locCard(list) {
+    if (!list.length) return '';
+    var baru = list.filter(function (a) { return a.status === 'Baru'; }).length;
+    var rows = list.slice().sort(function (a, b) { return (a.status === 'Baru' ? 0 : 1) - (b.status === 'Baru' ? 0 : 1) || b.at - a.at; }).slice(0, S.locAll ? 30 : 4).map(function (a) {
+      var st = a.status === 'Baru' ? 'new' : a.status === 'Dibenarkan' ? 'ok' : 'no';
+      var tag = a.status === 'Baru' ? '' : '<span class="chip ' + (st === 'ok' ? 'green' : 'red') + '">' + (st === 'ok' ? 'Approved' : 'Not approved') + (a.oleh ? ' · ' + h(titleCase(a.oleh.replace(/\s*\(.*\)$/, ''))) : '') + '</span>';
+      return '<div class="loc-row ' + st + '"><span class="loc-ic">' + svg(ICO.pin) + '</span><div class="grow"><b>' + h(titleCase(a.nama)) + '</b>' +
+        '<small>' + h(a.cawangan) + ' · <b class="loc-km">' + h(a.km) + ' km</b> from clock-in · ' + h(a.masa) + (a.sumber === 'Clock out' ? ' · at clock out' : '') + '</small>' +
+        (a.catatan ? '<small class="loc-cat">“' + h(a.catatan) + '”</small>' : '') +
+        (a.status === 'Baru' ? '<div class="loc-acts"><button class="btn small" data-act="locDecide" data-row="' + a.row + '" data-v="Dibenarkan">Approved task</button><button class="btn ghost small" data-act="locDecide" data-row="' + a.row + '" data-v="Tidak dibenarkan">Not approved</button>' +
+          (a.peta ? '<a class="link" href="' + h(a.peta) + '" target="_blank" rel="noopener">Map</a>' : '') + '</div>' : tag) + '</div></div>';
+    }).join('');
+    var more = list.length > 4 ? '<button class="hra-more" data-act="locAll">' + (S.locAll ? 'Show less' : 'See all ' + list.length) + '</button>' : '';
+    return '<section class="card loc-card' + (baru ? ' has-new' : '') + '" id="loc-card"><div class="card-h"><div><span class="eyebrow">Last 14 days</span><h3>Location alerts</h3></div>' +
+      (baru ? '<span class="chip red">' + baru + ' new</span>' : '<span class="chip green">All reviewed</span>') + '</div>' +
+      '<p class="loc-sub">Staff still clocked in but more than 10 km from where they clocked in. Call them, then record your decision.</p>' +
+      '<div class="loc-list">' + rows + '</div>' + more + '</section>';
+  }
+  Object.assign(ACT, {
+    locAll: function () { S.locAll = !S.locAll; uRingkasan(); },
+    locDecide: function (el) {
+      var ok = el.dataset.v === 'Dibenarkan';
+      modal(ok ? 'Approved outside task' : 'Not approved',
+        '<form data-form="locDecide"><input type="hidden" name="row" value="' + h(el.dataset.row) + '"><input type="hidden" name="status" value="' + h(el.dataset.v) + '">' +
+        '<p class="muted">' + (ok ? 'You confirm this staff member was away on a task you know about.' : 'The staff member left without approval. HR will see this in the Amaran Lokasi record.') + '</p>' +
+        '<label>Note (optional)<textarea name="catatan" maxlength="300" placeholder="' + (ok ? 'e.g. Delivery to booth at Aman Central' : 'e.g. Left early for personal matter, warned') + '"></textarea></label>' +
+        '<button class="btn block' + (ok ? '' : ' dark') + '" type="submit">Save decision</button></form>');
+    }
+  });
+  FORMS.locDecide = function (f, btn) {
+    call('locDecide', { row: Number(f.elements.row.value), status: f.elements.status.value, catatan: f.elements.catatan.value }).then(function () {
+      closeModal(); toast('Decision saved.'); uRingkasan();
+    }).catch(function (e) { busy(btn, false); fail(e); });
+  };
 
   /* ======================= Minda Sofwah (Me): soalan lazim + tanya NARA ======================= */
   var MD_ICON = 'M4 5h16v11H10l-5 4v-4H4zM12 7.6l.9 1.9 1.9.9-1.9.9-.9 1.9-.9-1.9-1.9-.9 1.9-.9z';
