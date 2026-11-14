@@ -1826,6 +1826,12 @@ label.cb-ck:has(input:checked){border-color:var(--ember);background:var(--ember-
 .me-acts .btn{gap:8px;padding:0 10px}
 .me-acts .btn svg{width:17px;height:17px;flex:0 0 auto}
 @media (min-width:900px){.dense .main{padding-left:24px;padding-right:24px}}
+.nw-opt{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--paper);text-align:left;cursor:pointer;color:inherit;font:inherit;min-height:44px}
+.nw-opt:hover{border-color:var(--ember)}
+.nw-opt b{display:block;font-size:15px}.nw-opt small{display:block;margin-top:3px;font-size:12.5px;line-height:1.4;color:var(--haze)}
+.nw-ico{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--mist);color:var(--ember)}.nw-ico svg{width:20px;height:20px}
+.nw-go{font-size:13px;font-weight:700;color:var(--ember)}
+.qr-code{font:800 16px/1 Montserrat,Inter,sans-serif;letter-spacing:.08em}
 </style>
 
 </head>
@@ -2279,7 +2285,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<button class="btn block" type="submit">Sign in</button>' +
       '<label class="auth-shared"><input type="checkbox" name="shared" value="1"' + (sharedPhone() ? ' checked' : '') + '><span>Shared phone · sign out when I leave</span></label>' +
       '<div class="auth-or"><span>New to NARA HR?</span></div>' +
-      '<button type="button" class="btn ghost block" data-act="authFlow" data-v="signup">Create account</button></form></div>';
+      '<button type="button" class="btn ghost block" data-act="newStart">Create account</button></form></div>';
     var f = document.querySelector('[name=' + (em ? 'password' : 'email') + ']');
     if (f && !(pkOk() && pkOnHere())) f.focus(); // Face ID aktif: papan kekunci tidak dibuka
     if (pkOk() && pkOnHere()) setTimeout(pkAuto, 30);
@@ -2436,6 +2442,27 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     }).catch(function () { /* pilihan */ });
   }
 
+  /* "New to NARA HR?" → pilih: staf baharu (borang sertai, sama seperti imbas QR) atau HR sudah daftar e-mel (OTP). */
+  function joinCodeFmt(k) { k = String(k || '').toUpperCase(); return k.length > 5 ? k.slice(0, 5) + ' ' + k.slice(5) : k; }
+  function renderNewStart() {
+    clearInterval(S.otpTimer);
+    var opt = function (act, ico, t, sub, cta) {
+      return '<button type="button" class="nw-opt" data-act="' + act + '"><span class="nw-ico">' + svg(ico) + '</span><span class="grow"><b>' + t + '</b><small>' + sub + '</small></span><span class="nw-go">' + cta + '</span></button>';
+    };
+    $('app').innerHTML = '<div class="auth">' + LOGIN_HERO + '<div class="auth-card"><h1>Create account</h1><p class="muted">Choose the option that fits you.</p>' +
+      opt('joinStart', 'M12 4v16M4 12h16', 'I’m new to Sofwah', 'Register as new staff with your branch join code. Same form as scanning the QR poster, about 2 minutes.', 'Join') +
+      opt('authFlow" data-v="signup', 'M4 6h16v12H4zM4 7l8 6 8-6', 'HR already added me', 'Use the email in your staff profile to verify it and create your password.', 'Email') +
+      '<div class="auth-links" style="justify-content:center"><span class="muted">Already have an account?</span><button type="button" class="link" data-act="authBack">Sign in</button></div></div></div>';
+  }
+  function renderJoinCode(msg, val) {
+    $('app').innerHTML = '<div class="auth">' + LOGIN_HERO + '<form class="auth-card" data-form="joinCode"><h1>Join the Sofwah team</h1>' +
+      '<p class="muted">Scan the QR poster at your branch with your phone camera, or type the join code printed under the QR. Your manager or HR can also give you the code.</p>' +
+      '<label>Join code<input name="kod" value="' + h(val || '') + '" autocomplete="off" autocapitalize="characters" spellcheck="false" required placeholder="e.g. AB12C D34EF" maxlength="24" style="letter-spacing:.12em;text-transform:uppercase"></label>' +
+      (msg ? '<div class="err">' + h(msg) + '</div>' : '') +
+      '<button class="btn block" type="submit">Continue</button>' +
+      '<div class="auth-links" style="justify-content:center"><button type="button" class="link" data-act="newStart">Back</button></div></form></div>';
+    var k = document.querySelector('[name=kod]'); if (k) k.focus();
+  }
   /* Aliran akaun 3 langkah: 1 E-mel → 2 Kod OTP → 3 Kata laluan. mode: signup | forgot */
   var FLOW = {
     signup: { t1: 'Create account', s1: 'Enter your work email to get started. We’ll send you a verification code.', t3: 'Create password', b3: 'Create account' },
@@ -2453,8 +2480,9 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     if (step === 1) {
       body = '<form class="auth-card" data-form="emailCode" data-mode="' + mode + '">' + flowSteps(1) + '<h1>' + F.t1 + '</h1><p class="muted">' + F.s1 + '</p>' +
         '<label>Email<input name="email" type="email" value="' + h(email || LS.get('nara_email') || '') + '" autocomplete="username" inputmode="email" required placeholder="name@email.com"></label>' +
-        (msg ? '<div class="err">' + h(msg) + '</div>' : '') +
+        (msg ? '<div class="err">' + h(msg) + (/registered with Sofwah HR/.test(msg) ? ' <button type="button" class="link" data-act="joinStart">New staff? Join the team</button>' : '') + '</div>' : '') +
         '<button class="btn block" type="submit">Send verification code</button>' +
+        (mode === 'signup' ? '<div class="auth-links" style="justify-content:center"><span class="muted">New to Sofwah?</span><button type="button" class="link" data-act="joinStart">Join with a code</button></div>' : '') +
         '<div class="auth-links" style="justify-content:center">' + (mode === 'signup' ? '<span class="muted">Already have an account?</span>' : '') + '<button type="button" class="link" data-act="authBack">' + (mode === 'signup' ? 'Sign in' : 'Back to sign in') + '</button></div></form>';
     } else if (step === 2) {
       var boxes = '';
@@ -4330,16 +4358,19 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var lb = Math.round(qs * 0.22), lx = (W - lb) / 2, ly = qy + (qs - lb) / 2;
       c.fillStyle = '#fff'; rrect(c, lx - 10, ly - 10, lb + 20, lb + 20, 26); c.fill();
       if (mark) { var mw = lb * 0.92, mh = mw * 743 / 1000; c.drawImage(mark, (W - mw) / 2, ly + (lb - mh) / 2, mw, mh); }
+      // Kod sertai (untuk taip dalam app: Create account › I’m new to Sofwah)
+      var jcode = joinCodeFmt((/join=([A-Za-z0-9]+)/.exec(url) || [])[1] || '');
+      if (jcode) { c.textAlign = 'center'; c.fillStyle = 'rgba(255,255,255,.62)'; c.font = '500 22px Inter, sans-serif'; c.fillText('or open NARA HR › Create account › code', W / 2, 1238); c.fillStyle = '#fff'; c.font = '800 32px Montserrat, Inter, sans-serif'; c.fillText(jcode, W / 2, 1272); }
       // Jenis pekerjaan
       var chips = ['Tetap', 'Kontrak', 'Sambilan', 'Kasual'];
       c.font = '600 30px Inter, sans-serif';
-      var ws = chips.map(function (t) { return c.measureText(t).width + 56; }), gap = 16, tot = ws.reduce(function (a, b) { return a + b; }, 0) + gap * (chips.length - 1), x = (W - tot) / 2, cy = 1290;
+      var ws = chips.map(function (t) { return c.measureText(t).width + 56; }), gap = 16, tot = ws.reduce(function (a, b) { return a + b; }, 0) + gap * (chips.length - 1), x = (W - tot) / 2, cy = 1312;
       chips.forEach(function (t, i) {
         c.fillStyle = 'rgba(255,255,255,.1)'; rrect(c, x, cy, ws[i], 64, 32); c.fill();
         c.strokeStyle = 'rgba(255,255,255,.22)'; c.lineWidth = 2; c.stroke();
         c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText(t, x + ws[i] / 2, cy + 43); x += ws[i] + gap;
       });
-      c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '500 24px Inter, sans-serif'; c.fillText('Permanent · Contract · Part-timer · Casual worker', W / 2, 1400);
+      c.fillStyle = 'rgba(255,255,255,.55)'; c.font = '500 24px Inter, sans-serif'; c.fillText('Permanent · Contract · Part-timer · Casual worker', W / 2, 1418);
       // 3 langkah
       var stp = [['1', 'Scan', 'with your phone camera'], ['2', 'Fill in', 'your details · 2 min'], ['3', 'Create account', 'and get your shifts']];
       stp.forEach(function (s, i) {
@@ -4367,6 +4398,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     urusBody('<section class="qr-wrap' + (d.buka ? '' : ' off') + '"><img id="qr-img" class="qr-poster" alt="NARA join QR poster"><div class="qr-ph" id="qr-ph"><span class="spinner"></span> Preparing poster…</div>' + (d.buka ? '' : '<div class="qr-closed">Sign-up closed</div>') + '</section>' +
       '<div class="qr-act"><button class="btn" data-act="qrSave">' + svg('M12 4v11M7 10l5 5 5-5M5 20h14') + '<span>Download</span></button><button class="btn ghost" data-act="qrShare">' + svg('M12 15V3M8 7l4-4 4 4M5 12v8h14v-8') + '<span>Share</span></button><button class="btn ghost" data-act="qrCopy">' + svg('M8 8h11v13H8zM5 16V3h11') + '<span>Link</span></button></div>' +
       '<section class="card qr-set"><div class="qr-row"><span class="grow"><b>Sign-up open</b><small>' + (d.buka ? 'Candidates can register with this QR.' : 'The QR shows “closed” until you open it.') + '</small></span><button class="ph-tg" data-act="qrOpen" role="switch" aria-checked="' + d.buka + '" aria-label="Sign-up open"><i></i></button></div>' +
+      '<div class="qr-row"><span class="grow"><b>Join code</b><small>New staff can type this in NARA HR › Create account › I’m new to Sofwah.</small></span><b class="qr-code">' + h(joinCodeFmt((/join=([A-Za-z0-9]+)/.exec(d.url) || [])[1] || '')) + '</b></div>' +
       '<div class="qr-row"><span class="grow"><b>Replace QR</b><small>Use if a poster leaks. Old QRs stop working.</small></span><button class="btn ghost small" data-act="qrNew">Replace</button></div>' +
       '<div class="qr-row"><span class="grow"><b>Staff ID</b><small>Created automatically per branch (e.g. SAGGN_016). Leave “ID Staf” empty when adding staff in Daftar Staf too.</small></span></div></section>' +
       '<section class="card"><div class="card-h"><h3>New sign-ups</h3><span class="chip">' + d.baharu.length + ' · 30 days</span></div>' +
@@ -5566,6 +5598,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     newRec: function () { recordForm(null); },
     editRec: function (el) { recordForm(el.dataset.row); },
     pushOn: function (el) { pushOn(el); },
+    newStart: function () { renderNewStart(); },
+    joinStart: function () { renderJoinCode(); },
     authFlow: function (el) {
       var email = el.dataset.email || (document.querySelector('[name=email]') || {}).value || '';
       renderFlow(el.dataset.v, 1, email);
@@ -6051,6 +6085,12 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         return call('loginEmail', d).catch(function (e) { if (e.transport && n < 1) return go(n + 1); throw e; });
       };
       go(0).then(signedIn).catch(function (e) { busy(btn, false); LS.set('nara_email', d.email); renderEmailLogin(e.message); });
+    },
+    joinCode: function (f, btn) {
+      var k = String(formData(f).kod || '').replace(/[\s-]/g, '').toLowerCase();
+      if (!/^[a-z0-9]{6,40}$/.test(k)) { busy(btn, false); renderJoinCode('Check the code. It has 10 letters and numbers.', f.kod.value); return; }
+      call('joinInfo', { k: k }).then(function () { busy(btn, false); renderJoin(k); })
+        .catch(function (e) { busy(btn, false); renderJoinCode(/no longer active/.test(e.message) ? 'That code is not active. Ask your manager or HR for the current code.' : e.message, f.kod.value); });
     },
     emailCode: function (f, btn) {
       var d = formData(f), mode = f.dataset.mode;
