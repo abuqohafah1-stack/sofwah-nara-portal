@@ -8138,7 +8138,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     call('mindaAsk', { q: q }).then(function (r) {
       var d = mdData(); if (d) { d.baki = r.baki; swrPut({ a: 'minda' }, d); }
       mdSt().sug = r.rel && r.rel.length ? r.rel : null;
-      mdPush({ who: 'nara', t: r.a, src: r.sumber, opts: r.rel, optsLabel: r.rel && r.rel.length ? 'Soalan berkaitan' : '' });
+      mdPush({ who: 'nara', t: r.a, src: r.sumber, opts: r.rel, optsLabel: r.label || (r.rel && r.rel.length ? 'Soalan berkaitan' : '') });
       mdDock();
     }).catch(function (e) {
       mdPush({ who: 'nara', t: e && e.message ? e.message : 'Maaf, saya tidak dapat menjawab sekarang. Sila cuba lagi.' });
