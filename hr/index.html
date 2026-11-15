@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <style>
 /* =====================================================================
    NARA HR · The People Management Platform (digunakan oleh Sofwah Arabic Grill)
@@ -1924,15 +1924,42 @@ button.kpi:hover{transform:translateY(-2px);border-color:#CDBFFF;box-shadow:0 14
 .dka-amt{font-variant-numeric:tabular-nums;color:var(--slate);white-space:nowrap}
 .dka-more{align-self:flex-start;margin-top:10px}
 
-/* ===== NARA HR 1.0.33 · Coverage: Isometric Restaurant View (>= 700 px) ===== */
-.ri{display:none}
-@media (min-width:700px){
+/* ===== NARA HR 1.0.34 · Coverage: Isometric Restaurant View v2 (A5 scene: world, outside, away, labels) (all widths) =====
+   Replaces the 1.0.33 block. Token styles (.ri-tk, faces, activities) come from A3/A4/A6. */
+/* A8 (QA): the scene now shows at every width (phones too, CEO 12:01). Height follows the scene width (aspect-ratio of the
+   1004 x 554 world), capped at 540 px; the world scales with the width in steps (--sw), never with a second scale on top. */
+@media all{
   .cv-hero .cv-zones{display:none}
-  .ri{display:block;position:relative;margin-top:2px;border-radius:18px;overflow:hidden;background:radial-gradient(60% 80% at 50% 45%,rgba(124,192,255,.18),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.09)}
-  .ri-sc{position:relative;height:470px}
-  .ri-iso{position:absolute;left:50%;top:50%;width:600px;height:520px;margin:-260px 0 0 -300px;transform:translateY(22px) rotateX(60deg) rotateZ(-45deg);transform-style:preserve-3d}
+  .ri{display:block;position:relative;margin-top:2px;border-radius:18px;overflow:hidden;background:radial-gradient(70% 75% at 46% 48%,rgba(124,192,255,.16),transparent 72%),radial-gradient(40% 40% at 86% 22%,rgba(122,62,255,.16),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.09)}
+  .ri-sc{position:relative;width:100%;height:auto;aspect-ratio:1004/554;max-height:540px;overflow:hidden;container-type:inline-size;--sh:.975}
+  .ri-wld{position:absolute;left:50%;top:50%;width:1004px;height:554px;margin:-277px 0 0 -502px;transform:scale(min(var(--sh),var(--sw,1)));transform-origin:50% 50%}
+  .ri-iso{position:absolute;left:115px;top:35px;width:600px;height:520px;transform:rotateX(60deg) rotateZ(-45deg);transform-style:preserve-3d}
 }
-@media (min-width:700px) and (max-width:1099px){.ri-sc{height:370px}.ri-iso{transform:translateY(18px) scale(.76) rotateX(60deg) rotateZ(-45deg)}}
+/* world box 1004 x 554 px: --sw = (step - 50) / 1004. Small scenes keep people and zone signs readable and tappable:
+   --ri-tks (tokens) and --ri-lks (zone signs) scale them back up, about their foot point, to at least ~.72 / ~.62 of full size. */
+@container (max-width:1000px){.ri-wld{--sw:.946}}
+@container (max-width:960px){.ri-wld{--sw:.906}}
+@container (max-width:920px){.ri-wld{--sw:.867}}
+@container (max-width:880px){.ri-wld{--sw:.826}}
+@container (max-width:840px){.ri-wld{--sw:.787}}
+@container (max-width:800px){.ri-wld{--sw:.747}}
+@container (max-width:760px){.ri-wld{--sw:.707;--ri-tks:1.03}}
+@container (max-width:720px){.ri-wld{--sw:.667;--ri-tks:1.08}}
+@container (max-width:680px){.ri-wld{--sw:.627;--ri-tks:1.15}}
+@container (max-width:640px){.ri-wld{--sw:.588;--ri-tks:1.22;--ri-lks:1.05}}
+@container (max-width:600px){.ri-wld{--sw:.548;--ri-tks:1.31;--ri-lks:1.13}}
+@container (max-width:560px){.ri-wld{--sw:.508;--ri-tks:1.42;--ri-lks:1.22}}
+@container (max-width:520px){.ri-wld{--sw:.468;--ri-tks:1.54;--ri-lks:1.32}}
+@container (max-width:480px){.ri-wld{--sw:.428;--ri-tks:1.68;--ri-lks:1.45}}
+@container (max-width:440px){.ri-wld{--sw:.388;--ri-tks:1.7;--ri-lks:1.6}}
+@container (max-width:400px){.ri-wld{--sw:.349;--ri-tks:1.89;--ri-lks:1.78}}
+@container (max-width:380px){.ri-wld{--sw:.329;--ri-tks:2;--ri-lks:1.88}}
+@container (max-width:360px){.ri-wld{--sw:.309;--ri-tks:2.14;--ri-lks:2}}
+@container (max-width:340px){.ri-wld{--sw:.289;--ri-tks:2.28;--ri-lks:2.14}}
+@container (max-width:320px){.ri-wld{--sw:.269;--ri-tks:2.45;--ri-lks:2.3}}
+@container (max-width:300px){.ri-wld{--sw:.249;--ri-tks:2.65;--ri-lks:2.49}}
+
+/* ---------- primitives ---------- */
 .ri-b{position:absolute;width:var(--w);height:var(--d);transform-style:preserve-3d}
 .ri-b>i{position:absolute;display:block}
 .ri-ft{left:0;top:0;width:100%;height:100%;transform:translateZ(var(--h))}
@@ -1940,51 +1967,440 @@ button.kpi:hover{transform:translateY(-2px);border-color:#CDBFFF;box-shadow:0 14
 .ri-fw{left:0;top:calc(0px - var(--h));width:var(--d);height:var(--h);transform-origin:0 100%;transform:rotateZ(90deg) rotateX(-90deg)}
 .ri-ft>i{position:absolute;display:block}
 .ri-lv{position:absolute;inset:0;transform:translateZ(16px);transform-style:preserve-3d}
-.ri-pp{position:absolute;inset:0;transform-style:preserve-3d}
+.ri-pp{position:absolute;inset:0;transform-style:preserve-3d;--zb:20px}
+.ri-iso{pointer-events:none}.ri-pp>*{pointer-events:auto}
 .ri-fl{position:absolute;display:block;transform:translateZ(.5px)}
+.ri-wf{position:absolute;display:block;transform-origin:0 100%}
+.ri-up{position:absolute;display:block;transform-origin:0 0;transform:translateZ(var(--z,2px)) rotateZ(45deg) rotateX(-60deg) translateZ(var(--zb,0px)) translate(-50%,-100%)}
+/* --zb nudges a billboard toward the viewer in screen depth only (no visual shift). Everything in the people layer gets 20px so furniture right behind a token never clips its face. */
+.ri-lbl{pointer-events:none}
+.ri-up.ri-lbl{transform:translateZ(var(--z,2px)) rotateZ(45deg) rotateX(-60deg) translateZ(var(--zb,0px)) scale(var(--ri-lks,1)) translate(-50%,-100%)} /* A8: --ri-lks keeps zone signs readable in small scenes */
+
+/* ---------- slabs ---------- */
+.ri-slab .ri-ft{background:#EFE9FF}.ri-slab .ri-fs{background:linear-gradient(180deg,#5B2ED1,#3A2394)}.ri-slab .ri-fw{background:linear-gradient(180deg,#7A3EFF,#5530C8)}
+.ri-slab-o .ri-ft{background:#E4E6F1}.ri-slab-o .ri-fs{background:linear-gradient(180deg,#4B3FA6,#2C2470)}.ri-slab-o .ri-fw{background:linear-gradient(180deg,#5E4FC4,#3B2F92)}
+.ri-slab-a .ri-ft{background:#EEF2FB}.ri-slab-a .ri-fs{background:linear-gradient(180deg,#4E5BB8,#2C3480)}.ri-slab-a .ri-fw{background:linear-gradient(180deg,#6573D6,#3C46A0)}
+
+/* ---------- floors ---------- */
 .ri-tile{background-color:#EEF1F8;background-image:linear-gradient(45deg,#DDE2EE 25%,transparent 25%,transparent 75%,#DDE2EE 75%),linear-gradient(45deg,#DDE2EE 25%,transparent 25%,transparent 75%,#DDE2EE 75%);background-size:28px 28px;background-position:0 0,14px 14px}
 .ri-wood{background:repeating-linear-gradient(90deg,#EFD3AE 0 26px,#E6C59C 26px 27px),#EFD3AE}
 .ri-wood2{background:repeating-linear-gradient(0deg,#E2BE92 0 22px,#D7B183 22px 23px),#E2BE92}
 .ri-rug{transform:translateZ(1px);border-radius:16px;background:repeating-linear-gradient(45deg,rgba(122,62,255,.07) 0 12px,transparent 12px 24px),rgba(255,255,255,.28);box-shadow:inset 0 0 0 3px rgba(122,62,255,.22),inset 0 0 0 9px rgba(255,255,255,.35)}
+.ri-rug2{border-radius:12px;background:rgba(122,62,255,.08);box-shadow:inset 0 0 0 2px rgba(122,62,255,.18)}
 .ri-mat{transform:translateZ(1px);border-radius:6px;background:repeating-linear-gradient(90deg,rgba(91,46,209,.55) 0 6px,rgba(122,62,255,.4) 6px 12px)}
+.ri-mat2{background:repeating-linear-gradient(90deg,rgba(27,31,75,.32) 0 5px,rgba(27,31,75,.18) 5px 10px)}
 .ri-carpet{background-color:#E6E1FA;background-image:linear-gradient(rgba(122,62,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(122,62,255,.08) 1px,transparent 1px);background-size:40px 40px}
-.ri-slab .ri-ft{background:#EFE9FF}.ri-slab .ri-fs{background:linear-gradient(180deg,#5B2ED1,#3A2394)}.ri-slab .ri-fw{background:linear-gradient(180deg,#7A3EFF,#5530C8)}
-.ri-wall .ri-ft{background:#fff}.ri-wall .ri-fs,.ri-wall .ri-fw{background:var(--corak) 0 0/46px 120px repeat,linear-gradient(180deg,#F7F4FF,#E7E0FF);background-blend-mode:soft-light,normal}
-.ri-wall .ri-fs{box-shadow:inset 0 -6px 0 #CFC4F5}
+
+/* ---------- outside: pavement, kerb, road ---------- */
+.ri-pave{background-color:#E9EBF4;background-image:linear-gradient(rgba(150,156,190,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(150,156,190,.28) 1px,transparent 1px);background-size:22px 22px;background-position:0 1px}
+.ri-curb{background:linear-gradient(180deg,#FFFFFF,#D9DCEA)}
+.ri-road{background:linear-gradient(180deg,#3E4370,#33385F)}
+.ri-lane{left:0;right:0;top:23px;height:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.7) 0 16px,transparent 16px 30px)}
+.ri-zebra{transform:translateZ(1px);background:repeating-linear-gradient(180deg,rgba(255,255,255,.82) 0 6px,transparent 6px 12px);background-position:0 3px}
+.ri-wait{transform:translateZ(1px);border-radius:14px;background:rgba(255,122,122,.07);border:2px dashed rgba(255,122,122,.5)}
+.ri-pool{transform:translateZ(1px);border-radius:50%;background:radial-gradient(closest-side,rgba(255,220,150,.55),rgba(255,214,140,.16) 62%,transparent);animation:riBreath 9s ease-in-out infinite alternate}
+.ri-pole .ri-ft{background:#4A4F86}.ri-pole .ri-fs{background:linear-gradient(180deg,#3A3F75,#2A2E5C)}.ri-pole .ri-fw{background:linear-gradient(180deg,#5A609C,#3A3F75)}
+.ri-lamp{position:relative;display:block;width:22px;height:12px;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,#4A4F86,#2A2E5C)}
+.ri-lamp::after{content:"";position:absolute;left:4px;right:4px;bottom:-3px;height:5px;border-radius:0 0 6px 6px;background:#FFF1C9;box-shadow:0 2px 10px 3px rgba(255,214,140,.75),0 6px 26px 8px rgba(255,214,140,.28)}
+.ri-car .ri-ft{background:linear-gradient(90deg,#F6F7FC,#E4E7F2)}.ri-car .ri-fs{background:linear-gradient(180deg,#C8CCDD,#AEB3C9);border-radius:0 0 4px 4px}.ri-car .ri-fw{background:#D6D9E7}
+.ri-cab-t{left:2px;top:3px;width:4px;height:26px;border-radius:2px;background:#FFD27A;box-shadow:78px 0 0 #FF8A80}
+.ri-carc .ri-ft{background:linear-gradient(90deg,#2C3160,#3A4078);border-radius:6px}.ri-carc .ri-fs{background:linear-gradient(180deg,#7E9BD8,#4E6AAE)}.ri-carc .ri-fw{background:linear-gradient(180deg,#9AB6EE,#6280C6)}
+
+/* ---------- walls ---------- */
+.ri-wall .ri-ft{background:#fff}
+.ri-wl .ri-fs,.ri-wr .ri-fw{background:var(--corak) 0 0/46px 120px repeat,linear-gradient(180deg,#F7F4FF,#E7E0FF);background-blend-mode:soft-light,normal;box-shadow:inset 0 -6px 0 #CFC4F5}
+.ri-wl .ri-fw,.ri-wr .ri-fs{background:linear-gradient(180deg,#4A2BB0,#2E1C7E)}
+.ri-low .ri-ft{background:#5B2ED1}.ri-low .ri-fs{background:linear-gradient(180deg,#EFEAFF,#D9CFFF)}.ri-low .ri-fw{background:linear-gradient(180deg,#E6DEFF,#CDBFFF)}
+.ri-jamb .ri-ft{background:#7A3EFF}.ri-jamb .ri-fs{background:#5B2ED1}.ri-jamb .ri-fw{background:#6A43E0}
+.ri-arch{border-radius:32px 32px 3px 3px;background:linear-gradient(180deg,#A9D6FF,#E3F2FF 70%);box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px rgba(122,62,255,.25)}
+.ri-menu{border-radius:4px;background:repeating-linear-gradient(180deg,transparent 0 6px,rgba(255,255,255,.28) 6px 7px,transparent 7px 10px) 10px 6px/42px 22px no-repeat,repeating-linear-gradient(180deg,transparent 0 6px,rgba(255,255,255,.28) 6px 7px,transparent 7px 10px) 66px 6px/42px 22px no-repeat,linear-gradient(180deg,#232860,#151a45);box-shadow:inset 0 0 0 2px #7A3EFF}
+.ri-board{border-radius:3px;background:linear-gradient(180deg,#FFFFFF,#F1EEFB);box-shadow:inset 0 0 0 3px #C9BEF2}
+
+/* ---------- kitchen ---------- */
 .ri-steel .ri-ft{background:linear-gradient(135deg,#F4F6FB,#D9DEE9 60%,#EEF1F7)}.ri-steel .ri-fs{background:linear-gradient(180deg,#B9C0D0,#9AA3B8)}.ri-steel .ri-fw{background:linear-gradient(180deg,#CDD3E0,#B3BBCC)}
 .ri-burn{width:22px;height:22px;top:9px;border-radius:50%;background:radial-gradient(circle,#3B4058 40%,#565C78 41% 55%,#3B4058 56%)}
 .ri-burn:nth-child(1){left:24px}.ri-burn:nth-child(2){left:62px}
+.ri-pot{left:104px;top:8px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,#C9CFDD 0 50%,#8D95AD 52% 62%,#E7EAF2 64%)}
+.ri-cut{left:18px;top:8px;width:40px;height:24px;border-radius:4px;background:#E8C99B;box-shadow:58px 4px 0 -4px #9BD27A,72px -2px 0 -6px #FF8A6B}
 .ri-grill .ri-ft{background:#2B2F45}.ri-grill .ri-fs{background:#3C4160}.ri-grill .ri-fw{background:#4A5070}
-.ri-fire{inset:10px 6px;border-radius:8px;background:radial-gradient(ellipse at 50% 50%,#FFE08A 0,#FF9F3D 35%,#E2551F 62%,transparent 75%);animation:riFire 1.6s ease-in-out infinite alternate;box-shadow:0 0 22px 6px rgba(255,140,60,.55)}
-@keyframes riFire{0%{opacity:.75;filter:brightness(.95)}100%{opacity:1;filter:brightness(1.25)}}
-.ri-pass .ri-ft{background:#fff}.ri-pass .ri-fs{background:linear-gradient(180deg,#F1ECFF 0 30%,#3A2E7A 30% 62%,#E3DBFF 62%)}.ri-pass .ri-fw{background:#E3DBFF}
+.ri-fire{inset:10px 6px;border-radius:8px;background:radial-gradient(ellipse at 50% 50%,#FFE08A 0,#FF9F3D 35%,#E2551F 62%,transparent 75%);box-shadow:0 0 22px 6px rgba(255,140,60,.5);animation:riEmber 7s ease-in-out infinite alternate}
+.ri-shw{position:relative;display:block;width:22px;height:40px;border-radius:4px 4px 2px 2px;background:linear-gradient(90deg,#FF9F3D,#FFC46B 50%,#FF9F3D);box-shadow:0 0 14px 2px rgba(255,150,60,.45)}
+.ri-shw::before{content:"";position:absolute;left:10px;top:-5px;width:2px;height:48px;background:#9AA3B8}
+.ri-shw>i{position:absolute;left:3px;top:4px;width:16px;height:30px;display:block;overflow:hidden;clip-path:polygon(0 0,100% 0,74% 100%,26% 100%)}
+/* A9: the spit turns with a transform (compositor), not background-position (main-thread paint every frame) */
+.ri-shw>i::before{content:"";position:absolute;top:0;bottom:0;left:-18px;width:calc(100% + 18px);background:repeating-linear-gradient(90deg,#8A4520 0 3px,#B8682E 3px 6px,#D98A48 6px 9px);background-size:18px 100%;animation:riTurn 10s linear infinite}
+.ri-steam{position:relative;display:block;width:30px;height:30px}
+.ri-steam>i{position:absolute;bottom:0;width:8px;height:14px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.55),transparent);opacity:0;animation:riSteam 7.5s ease-in-out infinite}
+.ri-steam>i:nth-child(1){left:2px}.ri-steam>i:nth-child(2){left:11px;animation-delay:2.5s}.ri-steam>i:nth-child(3){left:20px;animation-delay:5s}
+.ri-pass .ri-ft{background:linear-gradient(90deg,#FFF4E2,#FFFFFF 30%,#FFF4E2 60%,#FFFFFF)}.ri-pass .ri-fs{background:linear-gradient(180deg,#D9DEE9,#B9C0D0)}.ri-pass .ri-fw{background:#CDD3E0}
+.ri-pass .ri-plate{top:-2px;width:14px;height:14px}
+.ri-pass .ri-plate:nth-child(1){left:40px}.ri-pass .ri-plate:nth-child(2){left:100px}.ri-pass .ri-plate:nth-child(3){left:160px}
+
+/* ---------- front counter ---------- */
 .ri-counter .ri-ft{background:linear-gradient(135deg,#3B2E7E,#2A2160)}.ri-counter .ri-fs{background:linear-gradient(180deg,#8D58FF,#5B2ED1)}.ri-counter .ri-fw{background:linear-gradient(180deg,#A07AFF,#7A3EFF)}
-.ri-pos{left:24px;top:7px;width:36px;height:24px;border-radius:5px;background:#0B0E27;box-shadow:inset 0 0 0 2px #33D6C6,0 0 14px rgba(51,214,198,.6)}
+.ri-pos{left:24px;top:7px;width:36px;height:24px;border-radius:5px;background:#0B0E27;box-shadow:inset 0 0 0 2px #33D6C6,0 0 12px rgba(51,214,198,.45)}
+.ri-tray{left:120px;top:9px;width:40px;height:20px;border-radius:4px;background:#F3EEFF;box-shadow:inset 0 0 0 2px rgba(122,62,255,.35)}
 .ri-fridge .ri-ft{background:#fff}.ri-fridge .ri-fs{background:repeating-linear-gradient(90deg,rgba(0,200,181,.35) 0 4px,transparent 4px 9px),linear-gradient(180deg,#E9F8FF,#C9E9F7)}.ri-fridge .ri-fw{background:linear-gradient(180deg,#DDF2FB,#B7DCEC)}
+
+/* ---------- dining ---------- */
 .ri-table .ri-ft{background:#FFF9F0;box-shadow:inset 0 0 0 2px #E8D3B4}.ri-table .ri-fs{background:#B98A57}.ri-table .ri-fw{background:#C99A66}
 .ri-plate{width:18px;height:18px;top:19px;border-radius:50%;background:radial-gradient(circle,#fff 45%,#E9E2F7 46% 60%,#fff 61%);box-shadow:0 1px 2px rgba(0,0,0,.15)}
 .ri-plate:nth-child(1){left:16px}.ri-plate:nth-child(2){left:52px}
 .ri-chair .ri-ft{background:#8D58FF}.ri-chair .ri-fs{background:#5B2ED1}.ri-chair .ri-fw{background:#6A43E0}
 .ri-plant .ri-ft{background:#8B6B4A}.ri-plant .ri-fs{background:#8B6B4A}.ri-plant .ri-fw{background:#A07E5A}
 .ri-leaf{inset:-6px -8px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#5BD08F 0 5px,transparent 6px) 0 0/16px 18px,radial-gradient(circle,#2BB673 0 6px,transparent 7px) 8px 9px/16px 18px,#249E63}
+
+/* ---------- head office ---------- */
 .ri-desk .ri-ft{background:#fff}.ri-desk .ri-fs{background:#C9C3E8}.ri-desk .ri-fw{background:#DAD5F2}
-.ri-mon{left:14px;top:8px;width:40px;height:10px;border-radius:3px;background:#1B1F4B;box-shadow:0 0 10px rgba(124,192,255,.6)}
-.ri-up{position:absolute;display:block;transform-origin:0 0;transform:translateZ(var(--z,2px)) rotateZ(45deg) rotateX(-60deg) translate(-50%,-100%)}
-.ri-sh{position:absolute;display:block;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:radial-gradient(closest-side,rgba(18,22,56,.38),transparent);transform:translateZ(1px)}
-.ri-pa{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;padding:0;cursor:pointer;font:inherit;animation:riPop .45s cubic-bezier(.2,.9,.3,1.3) var(--d,0ms) both}
-.ri-pa .av{width:40px;height:40px;font-size:13px;box-shadow:0 0 0 3px #fff,0 0 0 6px #B596FF,0 10px 16px -6px rgba(10,13,39,.6)}
-.ri-pa.st-in .av{box-shadow:0 0 0 3px #fff,0 0 0 6px #33D6C6,0 0 18px 4px rgba(51,214,198,.5)}
-.ri-pa.st-late .av{box-shadow:0 0 0 3px #fff,0 0 0 6px #FF7A7A,0 0 18px 4px rgba(255,122,122,.45)}
-.ri-pa.st-done .av{opacity:.6;box-shadow:0 0 0 3px #fff,0 0 0 6px #9AA0C8}
-.ri-pa span{padding:3px 8px;border-radius:999px;background:rgba(18,22,56,.86);color:#fff;font:600 11px/1.2 Inter,sans-serif;white-space:nowrap}
-.ri-pa:hover .av,.ri-pa:focus-visible .av{transform:scale(1.1)}
-.ri-pa:focus-visible{outline:none}
-@keyframes riPop{from{opacity:0;transform:translateY(14px) scale(.6)}to{opacity:1;transform:none}}
+.ri-mon{left:14px;top:6px;width:40px;height:10px;border-radius:3px;background:#1B1F4B;box-shadow:0 0 10px rgba(124,192,255,.55)}
+.ri-kb{left:22px;top:24px;width:24px;height:8px;border-radius:2px;background:#E3DEF7}
+.ri-meet .ri-ft{background:#F6F1FF;box-shadow:inset 0 0 0 2px #D9CCFF}.ri-meet .ri-fs{background:#8D7BD0}.ri-meet .ri-fw{background:#A495DE}
+.ri-meet .ri-plate:nth-child(1){left:40px}.ri-meet .ri-plate:nth-child(2){left:100px}
+.ri-sofa .ri-ft{background:#7A3EFF;border-radius:4px}.ri-sofa .ri-fs{background:#5B2ED1}.ri-sofa .ri-fw{background:#6A43E0}
+.ri-seat .ri-ft{background:#9A6BFF}
+.ri-ctab .ri-ft{background:#FFF9F0;border-radius:6px;box-shadow:inset 0 0 0 2px #E8D3B4}.ri-ctab .ri-fs,.ri-ctab .ri-fw{background:#C99A66}
+.ri-recep .ri-ft{background:linear-gradient(135deg,#3B2E7E,#2A2160)}.ri-recep .ri-fs{background:linear-gradient(180deg,#8D58FF,#5B2ED1)}.ri-recep .ri-fw{background:linear-gradient(180deg,#A07AFF,#7A3EFF)}
+.ri-cab .ri-ft{background:#F4F1FF}.ri-cab .ri-fs{background:repeating-linear-gradient(90deg,#DCD4FA 0 20px,#C9BEF2 20px 22px)}.ri-cab .ri-fw{background:#E3DCFC}
+
+/* ---------- away strip: map tile, path, landmark pin, route ---------- */
+.ri-pinsh{transform:translateZ(1px);border-radius:50%;background:radial-gradient(closest-side,rgba(27,31,75,.32),transparent)}
+.ri-map{border-radius:3px;box-shadow:inset 0 0 0 2px rgba(124,192,255,.55);background-color:#EEF2FB;background-image:linear-gradient(rgba(91,46,209,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(91,46,209,.07) 1px,transparent 1px);background-size:16px 16px}
+.ri-mapr{left:22px;top:0;bottom:0;width:20px;background:linear-gradient(90deg,#D9DFF0,#FFFFFF 20% 80%,#D9DFF0);box-shadow:inset 0 0 0 1px rgba(91,46,209,.06)}
+.ri-mapr::after{content:"";position:absolute;left:9px;top:0;bottom:0;width:2px;background:repeating-linear-gradient(180deg,rgba(122,62,255,.35) 0 8px,transparent 8px 16px)}
+.ri-pin{display:block;width:34px;height:44px;animation:riFloat 6s ease-in-out infinite alternate}
+.ri-pin svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 6px 6px rgba(10,13,39,.45))}
+.ri-pin path{fill:#7A3EFF;stroke:#fff;stroke-width:2.5}
+.ri-pin circle{fill:#fff}
+.ri-route{position:absolute;display:block;overflow:visible;transform:translateZ(1px)}
+.ri-route path{fill:none;stroke:#B596FF;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:2 9} /* A9: static dots; a stroke-dashoffset loop repainted the scene on the main thread every frame */
+.ri-route circle{fill:#fff;stroke:#7A3EFF;stroke-width:2.5}
+
+/* ---------- zone labels (data-z: kitchen front dining office outside away) ---------- */
 .ri-zl{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:6px 7px 6px 12px;border-radius:999px;background:#fff;color:#1B1F4B;font:700 12.5px/1 Inter,sans-serif;box-shadow:0 10px 22px -8px rgba(10,13,39,.6)}
 .ri-zl b{min-width:22px;padding:4px 7px;border-radius:999px;background:#7A3EFF;color:#fff;text-align:center;font-variant-numeric:tabular-nums}
 .ri-zl.none b{background:#FF7A7A}
+.ri-zl[data-z=outside] b{background:#FF7A7A}
+.ri-zl[data-z=away] b{background:#E08A00}
+.ri-zl[data-z=outside].none,.ri-zl[data-z=away].none{background:rgba(255,255,255,.86)}
+.ri-zl[data-z=outside].none b,.ri-zl[data-z=away].none b{background:#D5D8EA;color:#1B1F4B}
 .ri-cap{position:absolute;left:14px;bottom:10px;font-size:11.5px;color:rgba(255,255,255,.6)}
-@media (prefers-reduced-motion:reduce){.ri-pa,.ri-fire{animation:none}}
+
+/* ---------- calm ambient loops (slow, no blinking) ---------- */
+@keyframes riEmber{0%{opacity:.86;transform:scale(.985)}100%{opacity:1;transform:scale(1.015)}}
+@keyframes riBreath{0%{opacity:.78}100%{opacity:1}}
+@keyframes riTurn{to{transform:translateX(18px)}}
+@keyframes riSteam{0%{opacity:0;transform:translateY(4px) scale(.7)}35%{opacity:.55}100%{opacity:0;transform:translateY(-20px) scale(1.25)}}
+@keyframes riFloat{0%{transform:translateY(0)}100%{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){.ri-fire,.ri-pool,.ri-shw>i::before,.ri-steam>i,.ri-pin{animation:none}.ri-steam>i{opacity:0}}
+
+/* ===== NARA HR 1.0.34 · Coverage iso: identity faces (A3) =====
+   .ri-face   token face (disc + name tag). Vars set inline by riFace(): --id (colour), --id2 (two-tone), --fg (text).
+   .ri-mono   40 px monogram disc, white collar, soft gloss. Status ring = ::before (colour + line style, so it reads without colour too).
+   .ri-tag    first-name pill with a dot in the person's colour (links name and disc when tokens crowd).
+   .ri-km     away only: distance chip above the disc, colour + glyph by alert status (! new, tick approved, cross not approved, pin outside).
+   Geometry (px, unscaled, from the foot of the token): tag 0-18, disc centre 44 (r 20), status ring to r 26.5, away chip 73-89.
+   Status: in = teal solid + glow · late = coral dashed · away = amber dotted · done = grey, disc desaturated · plan = thin lavender.
+   Motion: hover / focus lift is transform only; ring colour eases on status change. Nothing blinks, nothing fades. */
+.ri-face{--id:#5B2ED1;--id2:#5B2ED1;--fg:#fff;--ring:#B596FF;--glow:rgba(181,150,255,0);position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;transform-origin:50% 100%;transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+.ri-mono{position:relative;isolation:isolate;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--id);color:var(--fg);font:800 14px/1 Montserrat,Inter,system-ui,sans-serif;letter-spacing:.03em;text-indent:.03em;user-select:none;box-shadow:0 0 0 2.5px #fff,inset 0 1.5px 0 rgba(255,255,255,.28),inset 0 -2px 0 rgba(10,13,39,.14),0 12px 16px -8px rgba(10,13,39,.7)}
+.ri-mono.duo{background:linear-gradient(135deg,var(--id) 0 50%,var(--id2) 50% 100%)}
+.ri-mono::after{content:'';position:absolute;inset:0;z-index:-1;border-radius:50%;background:radial-gradient(70% 42% at 34% 12%,rgba(255,255,255,.3),rgba(255,255,255,0) 52%)}
+.ri-mono::before{content:'';position:absolute;inset:-6.5px;border-radius:50%;border:3px solid var(--ring);box-shadow:0 0 0 0 var(--glow);transition:border-color .45s ease,box-shadow .45s ease}
+.ri-tag{position:relative;display:inline-flex;align-items:center;gap:5px;max-width:92px;padding:2px 8px 2px 5px;border-radius:999px;background:rgba(18,22,56,.9);color:#fff;font:600 11px/1.25 Inter,system-ui,sans-serif;white-space:nowrap;box-shadow:0 6px 12px -6px rgba(10,13,39,.6)}
+.ri-tag::before{content:'';flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--id);box-shadow:0 0 0 1.5px rgba(255,255,255,.9)}
+.ri-tag b{min-width:0;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+/* away: distance chip on top of the face. Kept in normal flow on purpose: the billboard is anchored at its foot, so the disc and tag
+   do not move, and Chrome does not paint absolutely placed children inside the 3D billboard (tested). */
+.ri-km{position:relative;margin-bottom:3.5px;display:inline-flex;align-items:center;gap:2px;height:16px;padding:0 6px 0 4px;border-radius:999px;color:#1B1F4B;font:800 9.5px/1 Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;box-shadow:0 0 0 1.5px #fff,0 6px 12px -6px rgba(10,13,39,.65)}
+.ri-km svg{width:10px;height:10px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.ri-km.k-new{background:#E08A00}.ri-km.k-ok{background:#00C8B5}.ri-km.k-no{background:#FF7A7A}.ri-km.k-out{background:#7CC0FF}
+/* status rings */
+.ri-face.st-in{--ring:#33D6C6;--glow:rgba(51,214,198,.55)}
+.ri-face.st-in .ri-mono::before{box-shadow:0 0 14px 2px var(--glow)}
+.ri-face.st-late{--ring:#FF7A7A}
+.ri-face.st-late .ri-mono::before{border-style:dashed}
+.ri-face.st-away{--ring:#E08A00;--glow:rgba(224,138,0,.4)}
+.ri-face.st-away .ri-mono::before{border-style:dotted;border-width:3.5px;box-shadow:0 0 10px 1px var(--glow)}
+.ri-face.st-done{--ring:#9AA0C8}
+.ri-face.st-done .ri-mono{filter:saturate(.3)}
+.ri-face.st-done .ri-tag{color:#C9CCE6}
+.ri-face.st-plan{--ring:#B596FF}
+.ri-face.st-plan .ri-mono::before{inset:-5.5px;border-width:2px}
+/* hover / keyboard focus: lift only. In A4's token the face sits in button.ri-tk > ... > .ri-fc, and A4 draws the focus outline;
+   the outline below is only for a face placed directly inside some other focusable wrapper. */
+:hover>.ri-face:not(.ri-chip),:focus-visible>.ri-face:not(.ri-chip),.ri-tk:focus-visible .ri-face{transform:translateY(-6px) scale(1.07)}
+:focus-visible>.ri-face:not(.ri-chip) .ri-mono{outline:2.5px solid #7A3EFF;outline-offset:10px}
+/* small disc for the HUD rail / legend */
+.ri-chip{display:inline-flex;gap:0;vertical-align:middle}
+.ri-chip .ri-mono{width:26px;height:26px;font-size:10.5px;box-shadow:0 0 0 1.5px #fff,0 4px 8px -4px rgba(10,13,39,.6)}
+.ri-chip .ri-mono::before{inset:-4.5px;border-width:2px}
+.ri-chip.st-away .ri-mono::before{border-width:2.5px}
+.ri-chip.st-plan .ri-mono::before{inset:-4px;border-width:1.5px}
+@media (prefers-reduced-motion:reduce){.ri-face,.ri-mono::before{transition:none}}
+
+/* ===== NARA HR 1.0.34 · Coverage motion engine (A4): persistent staff tokens =====
+   Layers (A4 owns these; A3 / A6 style INSIDE .ri-fc only):
+   button.ri-tk  floor position: translate3d(x,y,0), transition on transform only (set inline per walk)
+     i.ri-sh     floor shadow (fades only on enter / exit)
+     span.ri-up  upright billboard (rotation chain from .ri-up, made perpendicular to the floor), never animated
+       .ri-bd    enter / exit: opacity + rise (the ONLY opacity change on a person)
+         .ri-mv  walk bob / away sway (transform only)
+           .ri-fc  riFace() (A3) + riActProp() (A6); A6 work loop animates translate / rotate / scale here
+   Never put opacity, filter, overflow or clip on .ri-tk / .ri-up: it would flatten the 3D billboard onto the floor.
+   Engine sets on .ri-tk: --tc (person colour), --ri-dl / --ri-sp (A6 desync), --ri-rc (away ring tone), --dl (entry stagger). */
+.ri-tk{position:absolute;left:0;top:0;display:block;width:0;height:0;margin:0;padding:0;border:0;background:none;color:inherit;font:inherit;-webkit-appearance:none;appearance:none;cursor:pointer;transform-style:preserve-3d;transition-property:transform;transition-duration:0s;-webkit-tap-highlight-color:transparent}
+.ri-tk:focus-visible{outline:none}
+.ri-tk>.ri-sh{left:0;top:0;transition:opacity .4s ease var(--dl,0ms)}
+/* Same .ri-up chain, but the billboard stands perpendicular to the floor (rotateX -90deg) and is stretched by 1/cos30
+   so it projects to exactly the same picture as the leaning .ri-up. Upright = it never leans back into a table or
+   counter behind the person, so walking past furniture does not clip the face or name tag.
+   Padding (A6 render fix): Chrome clips a 3D billboard to its layout box, so the top / side padding keeps the disc
+   ring and glow whole; no bottom padding, so the feet anchor does not move. --z 5px keeps a swaying name tag corner
+   above the floor plane. */
+.ri-tk>.ri-up{left:0;top:0;padding:14px 14px 0;--z:5px;transform:translateZ(var(--z)) rotateZ(45deg) rotateX(-90deg) scaleY(1.1547) scale(var(--ri-tks,1)) translate(-50%,-100%)} /* A8: --ri-tks (small scenes) scales the person about the feet */
+.ri-tk .ri-bd{display:block;transition:opacity .4s ease var(--dl,0ms),transform .4s cubic-bezier(.2,.8,.3,1) var(--dl,0ms)}
+.ri-tk .ri-mv{display:block;transform-origin:50% 100%}
+.ri-tk .ri-fc{display:flex;flex-direction:column;align-items:center}
+.ri-tk.pre .ri-bd,.ri-tk.leave .ri-bd{opacity:0;transform:translateY(12px) scale(.94)}
+.ri-tk.pre .ri-sh,.ri-tk.leave .ri-sh{opacity:0}
+.ri-tk.leave{pointer-events:none}
+.ri-tk.walk .ri-mv{animation:riStep .55s ease-in-out infinite alternate}
+.ri-tk.st-away:not(.walk) .ri-mv{animation:riSway 3.6s ease-in-out var(--ri-dl,0s) infinite alternate}
+.ri-tk.st-done .ri-sh{background:radial-gradient(closest-side,rgba(18,22,56,.22),transparent)}
+@keyframes riStep{from{transform:translateY(0)}to{transform:translateY(-2px)}}
+@keyframes riSway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+@media (prefers-reduced-motion:reduce){.ri-tk,.ri-tk .ri-bd,.ri-tk .ri-sh{transition:none!important}.ri-tk .ri-mv{animation:none!important}}
+
+/* ===== NARA HR 1.0.34 · Coverage: working activity (A6) =====
+   Paste AFTER A5-scene.css, A3-ident.css and A4-engine.css.
+   Token (A4): button.ri-tk.act-<name> > .ri-up > .ri-bd (enter/exit) > .ri-mv (walk bob, away sway) > .ri-fc > .ri-face (A3) + .ri-props (A6).
+   The activity loop runs on the persistent .ri-fc with the individual transform properties translate / rotate / scale:
+   they compose with A4's transform animations on .ri-mv and A3's hover lift on .ri-face, never restart when the face
+   HTML is repainted, and never touch opacity or filter on a person.
+   Engine sets per token on .ri-tk: --ri-dl (negative delay, e.g. -1.37s) and optional --ri-sp (speed 0.92 to 1.08). */
+
+.ri-tk .ri-fc{position:relative;transform-origin:50% 100%}
+
+/* --- props layer: same box as .ri-face (the .ri-fc box), follows A3's hover lift --- */
+.ri-tk .ri-fc>.ri-props{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;transform-origin:50% 100%;transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+.ri-tk .ri-fc:hover>.ri-props,.ri-tk:focus-visible .ri-props{transform:translateY(-6px) scale(1.07)}
+.ri-props>i,.ri-props>i>i{position:absolute;display:block}
+.ri-props i::before,.ri-props i::after{content:"";position:absolute;display:block}
+
+/* --- activity loop: one period per activity, ease-in-out, desynced by --ri-dl --- */
+.ri-tk.act-cook{--ri-p:2.2s}
+.ri-tk.act-serve{--ri-p:3.2s}
+.ri-tk.act-wait{--ri-p:2.4s}
+.ri-tk.act-desk{--ri-p:1.8s}
+.ri-tk.act-arrive{--ri-p:3.6s}
+.ri-tk.act-cook .ri-fc,.ri-tk.act-cook .ri-pr-spat,.ri-tk.act-serve .ri-fc,.ri-tk.act-wait .ri-fc,.ri-tk.act-wait .ri-pr-tray,
+.ri-tk.act-desk .ri-fc,.ri-tk.act-arrive .ri-fc{animation-duration:calc(var(--ri-p) * var(--ri-sp,1));animation-timing-function:ease-in-out;animation-delay:var(--ri-dl,0s);animation-iteration-count:infinite;animation-fill-mode:both}
+.ri-tk.act-cook .ri-fc{animation-name:riActCook}
+.ri-tk.act-serve .ri-fc{animation-name:riActServe}
+.ri-tk.act-wait .ri-fc{animation-name:riActWait}
+.ri-tk.act-desk .ri-fc{animation-name:riActDesk}
+.ri-tk.act-arrive .ri-fc{animation-name:riActArrive}
+/* act-away: the person's slow sway is A4's riSway on .ri-mv; A6 adds only the floor radar ring */
+/* hold still under the pointer / keyboard focus so the tap target never slides away */
+.ri-tk .ri-fc:hover,.ri-tk .ri-fc:hover .ri-props i,.ri-tk:focus-visible .ri-fc,.ri-tk:focus-visible .ri-props i{animation-play-state:paused}
+
+/* Feet stay planted: "down" motion is a squash from the feet (scale y), never a downward translate, and every lean
+   lifts slightly so a rotated name tag corner never dips under the floor plane. */
+/* cook (kitchen): two short leans into the grill, then a pause */
+@keyframes riActCook{0%,80%,100%{translate:0 0;rotate:0deg;scale:1 1}22%{translate:1.5px -.8px;rotate:2.6deg;scale:1 .975}40%{translate:.5px -.2px;rotate:.8deg;scale:1 1}58%{translate:1.5px -.8px;rotate:2.3deg;scale:1 .975}}
+/* serve (front counter): small nod at the till, turn to the customer, nod, turn back */
+@keyframes riActServe{0%,100%{translate:-1.5px -.6px;rotate:-1.6deg;scale:1 1}12%{translate:-1.5px -.8px;rotate:-2.1deg;scale:1 .975}24%{translate:-1.5px -.6px;rotate:-1.6deg;scale:1 1}50%{translate:1.5px -.6px;rotate:1.6deg;scale:1 1}62%{translate:1.5px -.8px;rotate:2.1deg;scale:1 .975}74%{translate:1.5px -.6px;rotate:1.6deg;scale:1 1}}
+/* wait (dining): carrying bob, two steps per loop, tiny alternate tilt */
+@keyframes riActWait{0%,100%{translate:0 -.5px;rotate:-1deg}25%{translate:0 -2.8px;rotate:0deg}50%{translate:0 -.5px;rotate:1deg}75%{translate:0 -2.8px;rotate:0deg}}
+/* desk (office): three soft typing taps (shoulders squash 2.5 %), then a pause */
+@keyframes riActDesk{0%,58%,100%{scale:1 1}9%{scale:1 .975}18%{scale:1 1}27%{scale:1 .975}36%{scale:1 1}46%{scale:1 .982}}
+/* arrive (outside, not clocked in): idle weight shift from foot to foot, settling slightly as weight passes centre */
+@keyframes riActArrive{0%,100%{translate:-1.2px -.5px;rotate:-1.2deg;scale:1 1}25%{translate:0 0;rotate:0deg;scale:1 .985}50%{translate:1.2px -.5px;rotate:1.2deg;scale:1 1}75%{translate:0 0;rotate:0deg;scale:1 .985}}
+
+/* --- props held by the worker (offsets follow A3's monogram disc: --ri-hd, default 40px, disc at the top of the face) --- */
+/* spatula: lifts and lowers in time with the lean */
+.ri-pr-spat{left:calc(50% + var(--ri-hd,40px) * .34);top:calc(var(--ri-hd,40px) * .5);width:14px;height:3px;border-radius:2px;background:#6B4A2E;transform-origin:0 50%;rotate:-36deg}
+.ri-pr-spat::after{left:12px;top:-3px;width:8px;height:9px;border-radius:2px;background:linear-gradient(180deg,#FFFFFF,#AEB6C9);box-shadow:0 0 0 1px rgba(27,31,75,.4)}
+.ri-tk.act-cook .ri-pr-spat{animation-name:riActSpat}
+@keyframes riActSpat{0%,80%,100%{rotate:-36deg}22%{rotate:-14deg}40%{rotate:-32deg}58%{rotate:-16deg}}
+/* steam wisp above the head: only the wisp fades and rises, slowly, two puffs out of phase */
+.ri-wisp{left:calc(50% - 3px);top:-14px;width:7px;height:10px;border-radius:50% 50% 45% 45%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(196,204,228,.6) 62%,rgba(196,204,228,0));opacity:0;animation:riActWisp 3.8s ease-in-out var(--ri-dl,0s) infinite both}
+.ri-wisp2{left:calc(50% - 9px);top:-11px;width:5px;height:8px;animation-name:riActWisp2;animation-duration:3.4s;animation-delay:calc(var(--ri-dl,0s) - 1.7s)}
+@keyframes riActWisp{0%{opacity:0;translate:0 2px;scale:.6}18%{opacity:.6}60%{opacity:.28;translate:2px -12px;scale:1.15}75%,100%{opacity:0;translate:3px -16px;scale:1.3}}
+@keyframes riActWisp2{0%{opacity:0;translate:0 2px;scale:.6}18%{opacity:.5}60%{opacity:.22;translate:-2px -10px;scale:1.1}75%,100%{opacity:0;translate:-3px -14px;scale:1.25}}
+/* receipt slip (front counter) */
+.ri-pr-rcpt{left:calc(50% + var(--ri-hd,40px) * .36);top:calc(var(--ri-hd,40px) * .4);width:10px;height:13px;border-radius:1.5px;background:linear-gradient(180deg,#00C8B5 0 2.5px,transparent 2.5px) 0 0/100% 100% no-repeat,repeating-linear-gradient(180deg,transparent 0 4px,#C9C3E8 4px 5px) 2px 1px/6px 11px no-repeat,#fff;box-shadow:0 0 0 1px rgba(27,31,75,.3),0 3px 5px -2px rgba(10,13,39,.5);rotate:9deg}
+/* tray with a cup and a plate (dining): counter tilts so the tray stays level while the body bobs */
+.ri-pr-tray{left:calc(50% + var(--ri-hd,40px) * .3);top:calc(var(--ri-hd,40px) * .3);width:26px;height:7px;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#fff 0 45%,#E7E0FF 62%,#B9AEE6);box-shadow:0 2px 0 #7A3EFF,0 5px 6px -3px rgba(10,13,39,.55)}
+.ri-pr-tray::before{left:4px;top:-6px;width:7px;height:7px;border-radius:2px 2px 3px 3px;background:linear-gradient(180deg,#fff 0 1.5px,#E6C59C 1.5px)}
+.ri-pr-tray::after{left:13px;top:-3.5px;width:10px;height:5px;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,#FFB04D,#E2551F)}
+.ri-tk.act-wait .ri-pr-tray{animation-name:riActTray}
+@keyframes riActTray{0%,100%{rotate:1deg}25%,75%{rotate:0deg}50%{rotate:-1deg}}
+/* small tablet (office): steady soft screen light, no pulsing */
+.ri-pr-tab{left:calc(50% + var(--ri-hd,40px) * .18);top:calc(var(--ri-hd,40px) * .56);width:15px;height:11px;box-sizing:border-box;border-radius:3px;border:1.5px solid #1B1F4B;background:linear-gradient(135deg,#7CC0FF,#33D6C6);box-shadow:0 0 8px rgba(124,192,255,.55);rotate:-12deg}
+.ri-pr-tab::after{left:2px;top:1.5px;width:6px;height:4px;background:repeating-linear-gradient(180deg,rgba(27,31,75,.55) 0 1px,transparent 1px 2.5px)}
+/* clock badge (not clocked in yet): white dial, coral rim, minute hand turns slowly */
+.ri-pr-clk{left:calc(50% + var(--ri-hd,40px) * .26);top:-5px;width:15px;height:15px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #FF7A7A,0 3px 6px -2px rgba(10,13,39,.55)}
+.ri-pr-clk::before{left:6.75px;top:4.5px;width:1.5px;height:3.5px;border-radius:1px;background:#1B1F4B}
+.ri-pr-clk>i{left:6.75px;top:2px;width:1.5px;height:5.5px;border-radius:1px;background:#5B2ED1;transform-origin:50% 100%;animation:riActClk 4s linear var(--ri-dl,0s) infinite both}
+@keyframes riActClk{from{rotate:0deg}to{rotate:360deg}}
+
+/* --- away: soft radar ring on the floor under the feet (ring only; the person never fades) ---
+   Tone via --ri-rc (r,g,b) on .ri-tk: default amber; e.g. "0,200,181" approved task, "255,122,122" not approved. */
+.ri-tk.act-away::after{content:"";position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;box-sizing:border-box;border:2px solid rgba(var(--ri-rc,224,138,0),.55);background:radial-gradient(closest-side,rgba(var(--ri-rc,224,138,0),0) 60%,rgba(var(--ri-rc,224,138,0),.14));pointer-events:none;opacity:.45;transform:translateZ(1.5px) scale(.62);animation:riActRadar 3.6s ease-in-out var(--ri-dl,0s) infinite both}
+@keyframes riActRadar{0%{opacity:0;transform:translateZ(1.5px) scale(.3)}20%{opacity:.75}100%{opacity:0;transform:translateZ(1.5px) scale(1)}}
+.ri-tk.act-away.leave::after{animation:none;opacity:0;transition:opacity .4s ease}
+
+/* --- ambient: POS order lines scroll up slowly and seamlessly (A5 owns the calm grill fire and steam) --- */
+.ri-pos{overflow:hidden}
+.ri-pos::after{content:"";position:absolute;left:6px;right:6px;top:0;height:200%;background:repeating-linear-gradient(180deg,rgba(124,192,255,.55) 0 2px,transparent 2px 6px);animation:riActPos 4s linear infinite}
+@keyframes riActPos{from{transform:translateY(0)}to{transform:translateY(-12px)}}
+
+@media (prefers-reduced-motion:reduce){
+  .ri-tk .ri-fc,.ri-props i,.ri-tk.act-away::after,.ri-pos::after{animation:none!important}
+  .ri-tk .ri-fc>.ri-props{transition:none}
+}
+
+/* ===== NARA HR 1.0.34 · Coverage HUD (A7): legend + people rail inside the hero card (>= 700 px) =====
+   Expected markup (A5 riScene): <div class="ri"> <div class="ri-sc">floor</div> <div class="ri-hud" id="ri-hud"></div> <span class="ri-cap"></span> </div>
+   >= 1200 px: HUD is a 280 px column on the right of the floor. 700-1199 px: HUD sits under the floor, one wrapped line per status.
+   Phones (< 700 px): hidden, the list view stays as it is. Paste AFTER the A5 iso block. */
+.ri-hud{display:none}
+.ri-k-in{--k:#33D6C6;--kt:#7FF0E3}
+.ri-k-late{--k:#FF7A7A;--kt:#FFB3B3}
+.ri-k-away{--k:#FFB547;--kt:#FFCC80}
+.ri-k-done{--k:#9AA0C8;--kt:#CDD0EA}
+.ri-k-plan{--k:#B596FF;--kt:#D9CCFF}
+@media all{ /* A8: all widths (phones too); phone overrides in the A8 block below */
+  /* One .ri box holds floor + HUD. The caption stays on the floor: an absolutely positioned grid child uses its grid area. */
+  .cv-hero .ri{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"sc" "hud"}
+  .cv-hero .ri>.ri-sc{grid-area:sc;min-width:0;overflow:hidden}
+  .cv-hero .ri>.ri-cap{grid-area:sc}
+  .cv-hero .ri>.ri-hud{grid-area:hud;display:block;position:relative;z-index:1;min-width:0;border-top:1px solid rgba(255,255,255,.08);background:rgba(9,12,38,.28)}
+  .ri-hw{display:flex;flex-direction:column;gap:10px;padding:12px 14px 14px;color:#fff;font-family:Inter,sans-serif}
+  /* Legend */
+  .ri-lgw{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px}
+  .ri-eb{font:600 10.5px/1 Montserrat,Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#C9C3F5;white-space:nowrap}
+  .ri-lgd{display:flex;flex-wrap:wrap;gap:6px}
+  .ri-lg{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px 0 8px;border-radius:8px;background:rgba(255,255,255,.08);color:#fff;font:600 11.5px/1 Inter,sans-serif;white-space:nowrap}
+  .ri-lg i{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--k)}
+  .ri-lg b{font:700 12.5px/1 Montserrat,Inter,sans-serif;font-variant-numeric:tabular-nums;color:var(--kt)}
+  .ri-lg-z,.ri-lg-off{background:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);color:#A9AED8}
+  .ri-lg-z i,.ri-lg-off i{background:none;box-shadow:inset 0 0 0 2px var(--k)}
+  .ri-lg-z b{color:#A9AED8}
+  /* Not live: the four live colours stay as a quiet key (no numbers) */
+  .ri-lg-off{height:auto;padding:0;box-shadow:none;font-weight:500;font-size:11px}
+  /* Rail: one line per status, people wrap */
+  .ri-rail{display:flex;flex-direction:column;gap:8px}
+  .ri-grp{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:start;gap:10px}
+  .ri-gh{display:flex;align-items:center;gap:7px;min-height:36px;font:600 10.5px/1.1 Montserrat,Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#C9C3F5}
+  .ri-gh i{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--k)}
+  .ri-gh b{font:700 12px/1 Montserrat,Inter,sans-serif;letter-spacing:0;color:#fff;font-variant-numeric:tabular-nums}
+  .ri-gl{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+  .ri-row{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:36px;max-width:100%;padding:3px 11px 3px 4px;border:0;border-radius:10px;background:rgba(255,255,255,.07);color:#fff;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .2s}
+  .ri-row:hover,.ri-row.ri-hot{background:rgba(255,255,255,.13)}
+  .ri-row:focus-visible,.ri-rv:focus-visible{outline:2px solid #CDBBFF;outline-offset:1px}
+  /* Monogram disc: person colour + white ring (same look as the floor token) + small status dot */
+  .ri-hd{position:relative;flex:0 0 auto;width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;background:var(--c);color:var(--f);font:700 10.5px/1 Montserrat,Inter,sans-serif;letter-spacing:.03em;box-shadow:0 0 0 2px #fff}
+  .ri-hd::after{content:"";position:absolute;right:-4px;bottom:-3px;width:9px;height:9px;border-radius:50%;background:var(--k);box-shadow:0 0 0 2px #1E2259}
+  .ri-tx{display:flex;align-items:baseline;gap:7px;min-width:0}
+  .ri-tx b{font:600 12.5px/1.2 Inter,sans-serif;white-space:nowrap}
+  .ri-tx small{font:500 11.5px/1.2 Inter,sans-serif;color:rgba(255,255,255,.74);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+  .ri-tx .ri-t-late{color:#FFB3B3}
+  .ri-tx .ri-t-new,.ri-tx .ri-t-out{color:#FFCC80}
+  .ri-tx .ri-t-ok{color:#7FF0E3}
+  .ri-tx .ri-t-no{color:#FFA3A3}
+  /* Away: managers act on these, so they always carry an amber accent */
+  .ri-row.ri-k-away{border-radius:4px 10px 10px 4px;background:rgba(255,181,71,.10);box-shadow:inset 3px 0 0 #FFB547}
+  .ri-row.ri-k-away:hover,.ri-row.ri-k-away.ri-hot{background:rgba(255,181,71,.17)}
+  .ri-row.ri-k-done .ri-hd{opacity:.6;filter:saturate(.5)}
+  .ri-row.ri-k-done b{color:#CDD0EA}
+  .ri-rv{display:inline-flex;align-items:center;gap:4px;min-height:36px;padding:0 9px 0 11px;border:1px solid rgba(255,181,71,.45);border-radius:10px;background:none;color:#FFCC80;font:600 11.5px/1 Inter,sans-serif;white-space:nowrap;cursor:pointer}
+  .ri-rv:hover{background:rgba(255,181,71,.12)}
+  .ri-rv svg{width:14px;height:14px}
+  .ri-e{margin:0;padding:6px 2px;font-size:12px;color:#A9AED8}
+  /* One calm highlight when a live status changes (fades to the row colour, no blinking) */
+  .ri-row.ri-chg{animation:riHudChg 2.4s cubic-bezier(.2,.7,.3,1)}
+  .ri-row .ri-chip{flex:0 0 auto}
+  /* Floor token linked to the hovered / focused rail row (riHudBind). Only inside .ri-fc: filter / opacity on .ri-tk would flatten the billboard */
+  /* A8: an outline inside the 3D billboard is not painted reliably (seen missing at 1700 px): lift + white halo instead */
+  .ri-tk.ri-hot .ri-face{transform:translateY(-6px) scale(1.07)}
+  .ri-tk.ri-hot .ri-mono{box-shadow:0 0 0 2.5px #fff,0 0 0 9px rgba(255,255,255,.2),0 0 24px 8px rgba(255,255,255,.4),0 12px 16px -8px rgba(10,13,39,.7)}
+  .ri-tk.ri-hot .ri-tag{background:#fff;color:#1B1F4B}
+}
+@keyframes riHudChg{from{background-color:rgba(124,192,255,.18)}}
+@media (min-width:1200px){
+  .cv-hero .ri{grid-template-columns:minmax(0,1fr) 280px;grid-template-areas:"sc hud"}
+  /* contain:size: the floor alone sets the row height; the rail scrolls inside it */
+  .cv-hero .ri>.ri-hud{border-top:0;border-left:1px solid rgba(255,255,255,.08);contain:size;overflow:hidden}
+  .ri-hw{height:100%;padding:14px 8px 8px 12px;gap:12px}
+  .ri-lgw{flex-direction:column;align-items:stretch;gap:9px;padding-right:4px}
+  .ri-lgd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .ri-lg{height:30px;padding:0 10px 0 9px}
+  .ri-lg b{margin-left:auto}
+  .ri-hw-plan .ri-lgd{display:flex;flex-wrap:wrap;gap:6px 9px}
+  .ri-hw-plan .ri-lg-off{gap:4px;font-size:10.5px}
+  .ri-lg.ri-k-plan{grid-column:1 / -1;flex:1 0 100%}
+  .ri-rail{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;gap:12px;margin-top:-8px;padding:8px 4px 22px 0;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 8px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(180deg,transparent 0,#000 8px,#000 calc(100% - 22px),transparent)}
+  .ri-grp{display:block}
+  .ri-gh{min-height:0;margin:0 0 4px 6px}
+  .ri-gl{flex-direction:column;flex-wrap:nowrap;gap:2px}
+  .ri-row{display:flex;width:100%;min-height:42px;padding:5px 8px 5px 8px;gap:10px;background:none}
+  .ri-row.ri-k-away{padding-left:10px}
+  .ri-hd{width:30px;height:30px;font-size:11px}
+  .ri-tx{flex-direction:column;align-items:flex-start;gap:2px}
+  .ri-tx b{font-size:13px}
+  .ri-tx small{max-width:100%}
+  .ri-rv{align-self:flex-start;min-height:30px;margin:4px 0 2px 8px}
+  .ri-e{padding:6px}
+}
+@media (prefers-reduced-motion:reduce){.ri-row.ri-chg{animation:none}.ri-row{transition:none}}
+
+/* ----- A8 (QA): scene fit. The old extra `scale: var(--ri-fit)` on .ri-iso multiplied A5's width scale (--sw), so at 1200 px
+   the floor was drawn at about 0.28 (275 px wide in a 510 px column). The floor now follows its column width only (A5 block);
+   beside the HUD column the floor keeps a minimum height so the rail stays usable, and the column is a bit narrower below 1440 px. ----- */
+@media (min-width:1200px){
+  .cv-hero .ri-sc{min-height:360px}
+  .cv-hero .ri{grid-template-columns:minmax(0,1fr) 252px}
+}
+@media (min-width:1440px){.cv-hero .ri{grid-template-columns:minmax(0,1fr) 280px}}
+
+
+/* ===== NARA HR 1.0.34 · Coverage iso on phones (A8, CEO 12:01: managers and admin see the floor on phones too) =====
+   < 700 px: the scene replaces the zone list, scaled to the card width (A5 block, --sw steps down to 300 px) with people and zone
+   signs scaled back up (--ri-tks / --ri-lks) so names stay readable and every face is a 32 px+ tap target.
+   HUD under the floor: one compact legend line, then a short rail: each status is one line that scrolls sideways
+   (Away and Not in yet first, as riHud orders them). Nothing is wider than the card. */
+@media (max-width:699px){
+  .cv-hero .ri{margin-top:0;border-radius:16px}
+  .cv-hero .ri-sc{aspect-ratio:1004/600}
+  .ri-wld{margin-top:-259px} /* world 18 px lower: people at the back wall stand tall here (--ri-tks), keep their heads inside */
+  .ri-gl{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 22px),transparent)}
+  .ri-cap{display:none}
+  /* people are monogram discs only (names are in the rail below, the disc colour links them): far less overlap on a 300 px floor.
+     The face box keeps a 50 px square (33 px+ on screen) so every disc stays an easy tap target. */
+  .ri-tk .ri-tag{display:none}
+  .ri-tk .ri-face{min-width:50px;min-height:50px;gap:0}
+  .ri-hw{gap:8px;padding:10px 10px 10px}
+  .ri-lgw{gap:6px 8px}
+  .ri-eb{flex:1 0 100%;font-size:10px}
+  .ri-lgd{gap:5px}
+  .ri-lg{height:24px;padding:0 7px 0 6px;gap:5px;font-size:11px}
+  .ri-lg-off{height:auto;padding:0;font-size:10.5px}
+  .ri-rail{gap:8px}
+  .ri-grp{display:block}
+  .ri-gh{min-height:0;margin:0 0 5px 2px;font-size:10px}
+  .ri-gl{flex-wrap:nowrap;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;margin:0 -10px;padding:0 10px 2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .ri-gl::-webkit-scrollbar{display:none}
+  .ri-row{flex:0 0 auto;min-height:40px;padding:4px 10px 4px 5px}
+  .ri-tx{flex-direction:column;align-items:flex-start;gap:1px}
+  .ri-tx b{font-size:12.5px}
+  .ri-tx small{font-size:11px}
+  .ri-rv{flex:0 0 auto;min-height:40px}
+}
+@media (max-width:380px){.ri-hw-live .ri-lgd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:1 0 100%}.ri-hw-live .ri-lg b{margin-left:auto}}
+
 </style>
 
 </head>
@@ -2261,7 +2677,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     };
     (window.requestIdleCallback || function (f) { setTimeout(f, 600); })(go);
   }
-  document.addEventListener('input', function (e) { if (e.target && e.target.closest && e.target.closest('#main')) S.dirty = true; });
+  document.addEventListener('input', function (e) { var a = e.target && e.target.dataset && e.target.dataset.act; if (a === 'branch' || a === 'date' || (e.target.closest && e.target.closest('.cv-hero'))) return; if (e.target && e.target.closest && e.target.closest('#main')) S.dirty = true; });
 
   var toastTimer;
   function toast(msg, bad) {
@@ -2409,6 +2825,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   /* NARA v3: Sign in (e-mel + kata laluan) · Create account (E-mel → OTP → Kata laluan). Mod lama ID + PIN hanya untuk ujian (NARA_PIN_LOGIN). */
   var LOGIN_HERO = '<div class="auth-hero"><div class="auth-lock" role="img" aria-label="NARA HR · The People Management Platform"></div><div class="muted">Sofwah Arabic Grill</div></div>';
   function renderLogin(msg) {
+    cvHalt(); // A9: log keluar / sesi tamat
     if (!window.NARA_PIN_LOGIN) { renderEmailLogin(msg); return; }
     var id = LS.get('nara_id') || '';
     $('app').innerHTML =
@@ -2824,6 +3241,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   }
   function isDesk() { return window.innerWidth >= 1200 && !!document.querySelector('.shell.ws'); }
   function renderShell() {
+    cvHalt(); // A9: kerangka dibina semula (tukar tab): pemasa Coverage dihentikan serta-merta
     var me = S.me;
     if (PWA && me) LS.set('nara_me', JSON.stringify(me));
     var tabs = tabsFor(), cur = Math.max(0, tabs.map(function (t) { return t.k; }).indexOf(S.tab));
@@ -3903,6 +4321,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
 
   /** Muka depan HR / Team: semua modul sebagai jubin berlambang; modul dibuka sebagai tetingkap kaca. */
   function loadUrus() {
+    cvHalt(); // A4 + A9: modul ditutup / ditukar: Play, enjin lantai dan jam langsung dihentikan
     if (!S.branch) S.branch = S.me.scope.indexOf(S.me.cawangan) >= 0 && S.me.cawangan !== 'HQ' ? S.me.cawangan : (S.me.scope.filter(function (b) { return b !== 'HQ'; })[0] || S.me.scope[0]);
     var dash = swrGet({ a: 'dashboard', mem: true });
     var pend = dash ? Number(dash.cutiMenunggu || 0) + Number(dash.tuntutanMenunggu || 0) : 0;
@@ -4175,12 +4594,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   /** Papar data: kali pertama bina penuh; seterusnya hanya kandungan kad ditukar (nav kekal, skrol kekal). */
   function cvShow(c, dir, quiet) {
     var keepT = quiet && S.cv && S.cv.c.tarikh === c.tarikh && S.cv.t !== S.cv.nowM ? S.cv.t : null;
+    var keep = quiet && S.cv && S.cv.c.tarikh === c.tarikh && S.cv.c.cawangan === c.cawangan ? riKeep() : null; // A4
     cvInit(c);
     if (keepT !== null && keepT >= S.cv.t0 && keepT < S.cv.t1) S.cv.t = keepT;
     if (!$('cv-wrap')) { cvRender(); return; }
     cvWait(c.tarikh, 0);
     var w = $('cv-wrap');
     w.innerHTML = cvBody();
+    riPut(keep); // A4: token sedia ada diletak semula, tiada bina semula
     w.classList.remove('cv-wait', 'cv-in-l', 'cv-in-r');
     if (dir) { void w.offsetWidth; w.classList.add(dir > 0 ? 'cv-in-r' : 'cv-in-l'); }
     if (S.cv.people.length) cvUpdate();
@@ -4249,55 +4670,879 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     dining: [[150, 150], [150, 300], [270, 90], [270, 250], [270, 420], [60, 470], [160, 470], [40, 290], [40, 130]],
     office: [[110, 150], [230, 150], [350, 150], [470, 150], [110, 330], [230, 330], [350, 330], [470, 330], [290, 460]]
   };
-  function riB(x, y, w, d, hh, cls, top) {
-    return '<div class="ri-b ' + cls + '" style="left:' + x + 'px;top:' + y + 'px;--w:' + w + 'px;--d:' + d + 'px;--h:' + hh + 'px"><i class="ri-ft">' + (top || '') + '</i><i class="ri-fs"></i><i class="ri-fw"></i></div>';
+
+  /* ---------- Coverage · Isometric Restaurant View v2 (NARA HR 1.0.34 · A5 scene) ----------
+     World plan (px, x right-down, y left-down): restaurant 600 x 520 (kitchen x330-600 y0-250, front x330-600 y250-520,
+     dining x0-330), entrance gap on the front wall y=520 at x110-220. OUTSIDE strip in front (pavement y520-606, road y612-660).
+     AWAY strip floats to the right of the restaurant (x708-768, y128-608), joined by a dashed route.
+     RI_AREAS[z].spots = walkable floor points (home spots for tokens); RI_AREAS[z].label = [x, y, z] of the zone sign. */
+  var RI_AREAS = {
+    kitchen: { spots: [[410, 78], [460, 184], [348, 184], [530, 78], [470, 78], [404, 184], [350, 78], [516, 184]], label: [465, -5, 78] },
+    front: { spots: [[420, 288], [435, 404], [476, 288], [375, 404], [364, 288], [495, 404], [532, 288], [556, 432]], label: [560, 270, 70] },
+    dining: { spots: [[165, 170], [165, 320], [30, 170], [298, 40], [165, 466], [30, 320], [100, 466], [232, 466], [165, 30], [30, 30]], label: [165, -5, 78] },
+    office: { spots: [[115, 136], [235, 136], [355, 136], [475, 136], [115, 316], [235, 316], [355, 316], [475, 316], [196, 455], [412, 440], [552, 200]], label: [300, -5, 78] },
+    outside: { spots: [[160, 574], [228, 574], [92, 574], [296, 574], [24, 574], [364, 574], [432, 574], [500, 574]], label: [0, 640, 0] }, // A8: sign at the left end of the road, clear of the people waiting at the door and of the Away sign
+    away: { spots: [[738, 352], [738, 412], [738, 292], [738, 472], [738, 232], [738, 532], [738, 172], [738, 592]], label: [662, 628, 0] }
+  };
+  /** Optional helper for walking (A4): index pairs of RI_AREAS[z].spots that can be walked in a straight line without crossing furniture.
+      Front splits into two groups (behind the counter / customer side); office into desk row 1 and desk row 2 + meeting table.
+      outside and away are open ground: any pair is fine (no entry). */
+  var RI_LINKS = {
+    kitchen: [[0, 3], [0, 4], [0, 6], [1, 2], [1, 5], [1, 7], [2, 5], [2, 6], [2, 7], [3, 4], [3, 6], [3, 7], [4, 6], [5, 7]],
+    front: [[0, 2], [0, 4], [0, 6], [1, 3], [1, 5], [1, 7], [2, 4], [2, 6], [3, 5], [3, 7], [4, 6], [5, 7]],
+    dining: [[0, 1], [0, 2], [0, 4], [0, 8], [1, 4], [1, 5], [1, 8], [2, 5], [2, 9], [3, 8], [3, 9], [4, 6], [4, 7], [4, 8], [5, 9], [6, 7], [8, 9]],
+    office: [[0, 1], [0, 2], [0, 3], [0, 10], [1, 2], [1, 3], [1, 10], [2, 3], [2, 10], [3, 10], [4, 5], [4, 6], [4, 7], [4, 8], [5, 6], [5, 7], [5, 8], [6, 7], [6, 9], [7, 9]]
+  };
+  /** Isometric block: plan x/y, width w (x), depth d (y), height hh; optional lift z (px). Faces: top, front (y=d), left (x=0). */
+  function riB(x, y, w, d, hh, cls, top, z) {
+    return '<div class="ri-b ' + cls + '" style="left:' + x + 'px;top:' + y + 'px;--w:' + w + 'px;--d:' + d + 'px;--h:' + hh + 'px' + (z ? ';transform:translateZ(' + z + 'px)' : '') + '"><i class="ri-ft">' + (top || '') + '</i><i class="ri-fs"></i><i class="ri-fw"></i></div>';
   }
+  /** Upright billboard standing at plan point (x, y), lifted z px. */
   function riUp(x, y, z, html, cls) { return '<div class="ri-up ' + (cls || '') + '" style="left:' + x + 'px;top:' + y + 'px;--z:' + z + 'px">' + html + '</div>'; }
+  /** Flat floor decal (plan rectangle). */
+  function riF(x, y, w, d, cls, html) { return '<i class="ri-fl ' + cls + '" style="left:' + x + 'px;top:' + y + 'px;width:' + w + 'px;height:' + d + 'px">' + (html || '') + '</i>'; }
+  /** Vertical decal on a wall face: ax 'x' runs along x at plan y (faces +y), ax 'y' runs along y at plan x (faces -x). */
+  function riWF(ax, x, y, len, hh, z, cls) {
+    return '<i class="ri-wf ' + cls + '" style="left:' + x + 'px;top:' + (y - hh) + 'px;width:' + len + 'px;height:' + hh + 'px;transform:translateZ(' + z + 'px)' + (ax === 'y' ? ' rotateZ(90deg)' : '') + ' rotateX(-90deg)"></i>';
+  }
+  function riLabel(z, txt) {
+    var l = RI_AREAS[z].label;
+    return riUp(l[0], l[1], l[2], '<span class="ri-zl" data-z="' + z + '">' + txt + ' <b>0</b></span>', 'ri-lbl');
+  }
   function riScene(office) {
     var f = '', i, j;
+    // ---------- Outside: pavement with the "Not in yet" waiting band, kerb, road, zebra crossing to the door ----------
+    f += riF(0, 520, 610, 86, 'ri-pave') + riF(0, 606, 610, 6, 'ri-curb') + riF(0, 612, 610, 48, 'ri-road', '<i class="ri-lane"></i>') +
+      riF(118, 614, 94, 44, 'ri-zebra') + riF(122, 523, 86, 14, 'ri-mat ri-mat2') + riF(4, 556, 528, 38, 'ri-wait');
+    // ---------- Away strip: map surface with a path down the middle ----------
+    f += riF(708, 128, 60, 480, 'ri-map', '<i class="ri-mapr"></i>');
     if (office) {
-      f += '<i class="ri-fl ri-carpet" style="left:0;top:0;width:600px;height:520px"></i>';
-      for (i = 0; i < 4; i++) for (j = 0; j < 2; j++) f += riB(80 + i * 120, 70 + j * 180, 70, 44, 24, 'ri-desk', '<i class="ri-mon"></i>');
-      f += riB(220, 430, 160, 50, 22, 'ri-table');
+      f += riF(0, 0, 600, 520, 'ri-carpet') + riF(36, 404, 528, 96, 'ri-rug ri-rug2') + riF(118, 494, 94, 18, 'ri-mat');
+      for (i = 0; i < 4; i++) for (j = 0; j < 2; j++) f += riB(80 + i * 120, 70 + j * 180, 70, 44, 24, 'ri-desk', '<i class="ri-mon"></i><i class="ri-kb"></i>');
+      f += riB(220, 430, 160, 50, 22, 'ri-table ri-meet', '<i class="ri-plate"></i><i class="ri-plate"></i>');
+      [[236, 414], [276, 414], [316, 414], [356, 414]].forEach(function (c) { f += riB(c[0] - 12, c[1] - 6, 24, 12, 14, 'ri-chair'); });
+      f += riB(560, 30, 26, 26, 16, 'ri-plant', '<i class="ri-leaf"></i>') + riB(14, 30, 26, 26, 16, 'ri-plant', '<i class="ri-leaf"></i>') +
+        riB(520, 268, 66, 40, 34, 'ri-cab') + riWF('x', 200, 0.6, 200, 40, 20, 'ri-board') +
+        riB(470, 368, 104, 10, 26, 'ri-sofa') + riB(470, 378, 104, 26, 12, 'ri-sofa ri-seat') + riB(498, 428, 50, 24, 10, 'ri-ctab') +
+        riB(22, 436, 64, 26, 24, 'ri-desk ri-recep', '<i class="ri-mon"></i>') + riB(566, 470, 24, 24, 16, 'ri-plant', '<i class="ri-leaf"></i>');
     } else {
-      f += '<i class="ri-fl ri-tile" style="left:330px;top:0;width:270px;height:250px"></i><i class="ri-fl ri-wood2" style="left:330px;top:250px;width:270px;height:270px"></i><i class="ri-fl ri-wood" style="left:0;top:0;width:330px;height:520px"></i>' +
-        '<i class="ri-fl ri-rug" style="left:24px;top:30px;width:282px;height:440px"></i><i class="ri-fl ri-mat" style="left:110px;top:492px;width:110px;height:22px"></i>';
-      // Kitchen: kaunter keluli di dinding belakang, grill bernyala, meja persediaan, tingkap hidangan
-      f += riB(345, 12, 236, 40, 34, 'ri-steel', '<i class="ri-burn"></i><i class="ri-burn"></i>') + riB(552, 64, 36, 150, 36, 'ri-grill', '<i class="ri-fire"></i>') +
-        riB(380, 120, 120, 46, 30, 'ri-steel') + riB(330, 240, 270, 10, 46, 'ri-pass');
-      // Front: kaunter + POS, peti minuman
-      f += riB(352, 336, 196, 38, 32, 'ri-counter', '<i class="ri-pos"></i>') + riB(562, 268, 30, 76, 62, 'ri-fridge');
-      // Dining: 6 meja + kerusi, pasu tanaman pemisah
+      f += riF(330, 0, 270, 250, 'ri-tile') + riF(330, 250, 270, 270, 'ri-wood2') + riF(0, 0, 330, 520, 'ri-wood') +
+        riF(24, 30, 282, 440, 'ri-rug') + riF(118, 494, 94, 18, 'ri-mat');
+      // Kitchen: steel back counter with burners + shawarma, grill along the right wall, prep table, low pass shelf
+      f += riB(345, 12, 236, 40, 34, 'ri-steel', '<i class="ri-burn"></i><i class="ri-burn"></i><i class="ri-pot"></i>') +
+        riUp(566, 30, 34, '<i class="ri-shw"><i></i></i>') +
+        riB(552, 64, 36, 150, 36, 'ri-grill', '<i class="ri-fire"></i>') +
+        riUp(570, 140, 40, '<i class="ri-steam"><i></i><i></i><i></i></i>') +
+        riB(380, 112, 120, 38, 26, 'ri-steel', '<i class="ri-cut"></i>') +
+        riB(372, 236, 228, 12, 26, 'ri-pass', '<i class="ri-plate"></i><i class="ri-plate"></i><i class="ri-plate"></i>');
+      // Front: counter + POS, drinks fridge, menu board on the right wall
+      f += riB(352, 336, 196, 38, 32, 'ri-counter', '<i class="ri-pos"></i><i class="ri-tray"></i>') + riB(562, 268, 30, 76, 62, 'ri-fridge') +
+        riWF('y', 599.4, 372, 118, 30, 34, 'ri-menu');
+      // Dining: six tables with chairs, plant divider, arched windows on the back wall
       [[54, 66], [190, 66], [54, 216], [190, 216], [54, 366], [190, 366]].forEach(function (t) {
         f += riB(t[0] + 8, t[1] - 16, 26, 12, 14, 'ri-chair') + riB(t[0] + 52, t[1] - 16, 26, 12, 14, 'ri-chair') +
           riB(t[0], t[1], 86, 56, 24, 'ri-table', '<i class="ri-plate"></i><i class="ri-plate"></i>') +
           riB(t[0] + 8, t[1] + 60, 26, 12, 14, 'ri-chair') + riB(t[0] + 52, t[1] + 60, 26, 12, 14, 'ri-chair');
       });
-      f += riB(314, 300, 12, 210, 16, 'ri-plant', '<i class="ri-leaf"></i>');
+      f += riB(314, 300, 12, 204, 16, 'ri-plant', '<i class="ri-leaf"></i>') +
+        riWF('x', 62, 0.6, 64, 44, 18, 'ri-arch') + riWF('x', 198, 0.6, 64, 44, 18, 'ri-arch');
     }
-    var walls = riB(0, -10, 600, 10, 74, 'ri-wall', '') + riB(600, 0, 10, 520, 74, 'ri-wall ri-wall2', '');
-    var lab = office ? riUp(300, 520, 6, '<span class="ri-zl" data-z="office">Office <b>0</b></span>') :
-      riUp(465, 250, 52, '<span class="ri-zl" data-z="kitchen">Kitchen <b>0</b></span>') + riUp(465, 520, 6, '<span class="ri-zl" data-z="front">Front <b>0</b></span>') + riUp(165, 520, 6, '<span class="ri-zl" data-z="dining">Dining <b>0</b></span>');
-    return '<div class="ri" aria-label="Restaurant floor view"><div class="ri-sc"><div class="ri-iso">' + riB(0, 0, 600, 520, 16, 'ri-slab') +
-      '<div class="ri-lv">' + f + walls + '<div class="ri-pp" id="ri-ppl"></div>' + lab + '</div></div></div>' +
-      '<span class="ri-cap">' + (office ? 'Head office floor' : 'Sofwah restaurant floor') + ' · tap a person for details</span></div>';
+    // ---------- Walls: tall back walls (Sofwah corak), low cut-away front walls with the entrance gap ----------
+    var walls = riB(0, -10, 610, 10, 74, 'ri-wall ri-wl') + riB(600, 0, 10, 520, 74, 'ri-wall ri-wr') +
+      riB(0, 0, 8, 512, 14, 'ri-low') + riB(0, 512, 110, 8, 14, 'ri-low') + riB(220, 512, 380, 8, 14, 'ri-low') +
+      riB(104, 510, 8, 12, 22, 'ri-jamb') + riB(218, 510, 8, 12, 22, 'ri-jamb');
+    // ---------- Outside props: street lamps on the far kerb, parked car ----------
+    var props = riB(264, 652, 5, 5, 56, 'ri-pole') + riUp(266, 654, 56, '<i class="ri-lamp"></i>') + riF(211, 604, 110, 56, 'ri-pool') +
+      riB(520, 652, 5, 5, 56, 'ri-pole') + riUp(522, 654, 56, '<i class="ri-lamp"></i>') + riF(467, 604, 110, 56, 'ri-pool') +
+      riB(384, 618, 84, 30, 13, 'ri-car', '<i class="ri-cab-t"></i>') + riB(402, 620, 44, 26, 11, 'ri-carc', '', 13);
+    // ---------- Away strip: landmark pin + route from the pavement ----------
+    var away = riF(726, 136, 26, 16, 'ri-pinsh') + riUp(739, 144, 0, '<i class="ri-pin"><svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20 51C20 51 4 31.5 4 19A16 16 0 0 1 36 19C36 31.5 20 51 20 51Z"/><circle cx="20" cy="19" r="6.5"/></svg></i>') +
+      '<svg class="ri-route" viewBox="580 500 140 100" style="left:580px;top:500px;width:140px;height:100px" aria-hidden="true"><path d="M598 576C642 578 680 556 708 526"/><circle cx="598" cy="576" r="4"/><circle cx="710" cy="524" r="4.5"/></svg>';
+    var lab = (office ? riLabel('office', 'Office') : riLabel('kitchen', 'Kitchen') + riLabel('front', 'Front') + riLabel('dining', 'Dining')) +
+      riLabel('outside', 'Not in yet') + riLabel('away', 'Away');
+    return '<div class="ri' + (office ? ' ri-hq' : '') + '" role="group" aria-label="' + (office ? 'Head office floor view' : 'Restaurant floor view') + '"><div class="ri-sc" role="img" aria-label="' + (office ? 'Head office' : 'Restaurant') + ' floor plan"><div class="ri-wld"><div class="ri-iso">' +
+      riB(0, 0, 600, 520, 16, 'ri-slab') + riB(0, 520, 610, 140, 16, 'ri-slab ri-slab-o') + riB(708, 128, 60, 480, 16, 'ri-slab ri-slab-a') +
+      '<div class="ri-lv">' + f + walls + props + away + '<div class="ri-pp" id="ri-ppl"></div>' + lab + '</div></div></div>' +
+      '<span class="ri-cap">' + (office ? 'Head office floor' : 'Sofwah restaurant floor') + ' · tap a person for details</span></div>' +
+      '<div class="ri-hud" id="ri-hud"></div></div>';
   }
-  function riPeople() {
-    var V = S.cv, t = cvT(), live = cvIsLive(), out = '', cnt = {};
-    (V.office ? ['office'] : ['kitchen', 'front', 'dining']).forEach(function (z) {
-      var L = V.people.filter(function (m) { return m.z === z && cvOn(m, t); }), sl = RI_SLOT[z];
-      cnt[z] = L.length;
-      L.forEach(function (m, i) {
-        var p = sl[i % sl.length], o = Math.floor(i / sl.length) * 18, st = live ? cvLiveSt(m, V.nowM) : 'plan';
-        out += '<i class="ri-sh" style="left:' + (p[0] + o) + 'px;top:' + (p[1] + o) + 'px"></i>' +
-          riUp(p[0] + o, p[1] + o, 2, '<button class="ri-pa st-' + (st || 'plan') + '" data-act="cvOpen" data-v="' + h(m.id) + '" aria-label="' + h(titleCase(m.nama)) + '" style="--d:' + (i * 40) + 'ms">' + avatar(m.nama) + '<span>' + h(titleCase(String(m.nama).split(' ')[0])) + '</span></button>');
-      });
-    });
-    setTimeout(function () {
-      [].forEach.call(document.querySelectorAll('.ri-zl'), function (el) { var n = cnt[el.dataset.z] || 0; el.querySelector('b').textContent = n; el.classList.toggle('none', !n); });
-    }, 0);
+
+  /* ---------- Coverage iso · Identity (A3): two-letter monogram + own colour for every person of the branch-day ----------
+     riIdent(list)      list = ALL members on the roster that day (S.cv.people), not only those on the floor.
+                        Returns { <id>: { mono:'AM', bg:'#5B2ED1', fg:'#FFFFFF', fill:'<css background>', tag:'Ammar', bg2?:'#hex' } }.
+                        Same list in, same answer out (order of the list does not matter), so call it once per day and cache it.
+     riFace(m, idn, st) HTML of the token face: monogram disc + status ring + first-name tag (+ distance chip when st is 'away').
+                        No button, no aria-label: the caller (A4) wraps it in its own <button aria-label="...">.
+                        st: in | late | away | done | plan (anything else is drawn as plan).
+     riFaceSt(el, st)   switch the status ring of an existing face in place (class swap only, nothing re-rendered).
+     riChip(idn, st)    small disc only (26 px) for the HUD rail, same colours and rings.
+     riLabel(m, st)     plain words for the caller's aria-label, e.g. "Ammar, clocked in". */
+  // 14 curated identity colours: 7 dark (white text) + 7 light (navy #1B1F4B text), interleaved so palette neighbours never look alike.
+  // Ink violet, Sun, Teal, Rose, Cobalt, Mint, Berry, Ice, Forest, Apricot, Petrol, Sky, Rust, Orchid.
+  // Text contrast 5.0:1 or better on every disc. Lightness steps keep every pair apart for red/green colour blindness too (see A3-NOTES.md).
+  var RI_PAL = [
+    ['#5B2ED1', 1], ['#FACB39', 0], ['#087C77', 1], ['#E88AA8', 0], ['#2D69DE', 1], ['#87E2A8', 0], ['#8F144C', 1],
+    ['#99E6F9', 0], ['#01541E', 1], ['#F08E54', 0], ['#0A5470', 1], ['#7CC0FF', 0], ['#B64E10', 1], ['#C077D1', 0]
+  ];
+  // Leading "Muhammad" family words are dropped for the monogram and the tag when another word follows (MOHD ALI -> AL, "Ali").
+  var RI_PFX = /^(MUHAMMAD|MUHAMAD|MUHAMMED|MUHAMED|MOHAMMAD|MOHAMAD|MOHAMMED|MOHAMED|MOHD|MUHD|MHD|MD)$/;
+  var RI_ST = { 'in': 'clocked in', late: 'not in yet', away: 'away from the branch', done: 'left', plan: 'scheduled' };
+  function riTc(s) { s = titleCase(s); return s.charAt(0).toUpperCase() + s.slice(1); }
+  function riHash(s) { s = String(s || ''); var x = 7; for (var i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) % 1000000007; return x; }
+  /** Name words: cut the "bin / binti ..." tail, keep letters only for the monogram (k) and the clean word for the tag (t). */
+  function riWords(nama) {
+    var raw = String(nama || '').replace(/\s+(BINTI|BINTE|BIN|BTE|BT|A\/L|A\/P|S\/O|D\/O)(\s.*)?$/i, '').trim().split(/\s+/), out = [];
+    for (var i = 0; i < raw.length; i++) {
+      var s = raw[i];
+      if (s.normalize) s = s.normalize('NFD');
+      var k = s.toUpperCase().replace(/[^A-Z]/g, '');
+      if (k) out.push({ k: k, t: raw[i].replace(/^[^A-Za-z\u00C0-\u024F]+|[^A-Za-z\u00C0-\u024F]+$/g, '') || k });
+    }
+    while (out.length > 1 && RI_PFX.test(out[0].k)) out.shift();
     return out;
   }
+  /** Monogram choices, best first. Every choice starts with the first letter of the first name and is 2 characters. */
+  function riCands(w) {
+    var c = [], seen = {}, i, F, a, more = '';
+    function add(x) { if (x.length === 2 && !seen[x]) { seen[x] = 1; c.push(x); } }
+    function each(str, re) { for (var j = 0; j < str.length; j++) if (re.test(str.charAt(j))) add(a + str.charAt(j)); }
+    F = w[0].k; a = F.charAt(0);
+    for (i = 1; i < w.length; i++) more += (i === 1 ? w[i].k.substr(1) : w[i].k);
+    add(F.substr(0, 2));                    // 1. first two letters of the first name: AMMAR -> AM, ALIF -> AL
+    if (w.length > 1) {
+      add(a + w[1].k.charAt(0));            // 2. two-word name: initials, as the app avatar shows them (NUR AINA -> NA)
+      each(more, /[^AEIOU]/);               // 3. ... then a consonant of the second word (NUR ALIA -> NL)
+    }
+    each(F.substr(1), /[^AEIOU]/);          // 4. first letter + next distinct consonant (AMIRUL -> AR, AL)
+    each(F.substr(1) + more, /[AEIOU]/);    // 5. first letter + a vowel of the name (AMIRA -> AI)
+    c.nName = c.length;                     //    (choices taken from the name itself)
+    each('23456789', /./);                  // 6. first letter + a digit (A2)
+    each('ABCDEFGHIJKLMNOPQRSTUVWXYZ', /./);// 7. any other letter
+    return c;
+  }
+  function riIdent(list) {
+    var P = [], by = {}, out = {}, taken = {}, used = {}, firstN = {}, r, n = RI_PAL.length;
+    (list || []).forEach(function (m) {
+      if (!m || m.id === undefined || m.id === null || m.id === '' || by['_' + m.id]) return;
+      var w = riWords(m.nama), tag = '';
+      if (!w.length) { tag = String(m.id); w = riWords(String(m.id).replace(/[^A-Za-z]+/g, ' ')); }
+      if (!w.length) w = [{ k: 'X', t: 'X' }];
+      var p = { id: String(m.id), w: w, c: riCands(w), mono: '', tag: tag,
+        key: w.map(function (o) { return o.k; }).join(' ') + '|' + String(m.id) };
+      by['_' + m.id] = 1; P.push(p); firstN['_' + w[0].k] = (firstN['_' + w[0].k] || 0) + 1;
+    });
+    // Monograms, in rounds: everybody first tries choice 1, then choice 2, ... so nobody's natural monogram goes to someone's 2nd choice,
+    // and digits / spare letters are used only after every letter of every name was tried.
+    // Within a round, short names (fewest letters to borrow) go first; then name, then id, so the result never depends on list order.
+    P.sort(function (x, y) { return x.c.nName - y.c.nName || (x.key < y.key ? -1 : x.key > y.key ? 1 : 0); });
+    var maxR = 0; P.forEach(function (x) { maxR = Math.max(maxR, x.c.length); });
+    function pick(r, fromName) {
+      P.forEach(function (x) {
+        var k = fromName ? (r < x.c.nName ? r : -1) : x.c.nName + r, c = k >= 0 ? x.c[k] : '';
+        if (!x.mono && c && !taken[c]) { x.mono = c; taken[c] = 1; }
+      });
+    }
+    for (r = 0; r < maxR; r++) pick(r, true);
+    for (r = 0; r < maxR; r++) pick(r, false);
+    P.forEach(function (x) { // more than 36 people sharing one first letter: any free pair
+      var A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', B = A + '0123456789';
+      for (var u = 0; !x.mono && u < A.length; u++) for (var v = 0; !x.mono && v < B.length; v++) if (!taken[A.charAt(u) + B.charAt(v)]) { x.mono = A.charAt(u) + B.charAt(v); taken[x.mono] = 1; }
+    });
+    // Colours: hash of id picks a start slot, collisions probe forward. Slots 0-13 plain colours; past 14 people, 14 two-tone
+    // discs (two colours of the same text tone) so up to 28 people still look different. People go in id order: stable all day.
+    P.sort(function (x, y) { return x.id < y.id ? -1 : x.id > y.id ? 1 : 0; });
+    P.forEach(function (x) {
+      var s = riHash(x.id) % n, slot = -1, k;
+      for (k = 0; k < n && slot < 0; k++) if (!used[(s + k) % n]) slot = (s + k) % n;
+      for (k = 0; k < n && slot < 0; k++) if (!used[n + (s + k) % n]) slot = n + (s + k) % n;
+      if (slot < 0) slot = s; // more than 28 people: colours repeat, monograms stay unique
+      used[slot] = 1;
+      var a = slot % n, b = -1;
+      if (slot >= n) { // pair a colour with the one 3 steps away in the same tone (dark with dark, light with light)
+        var tone = [], q;
+        for (q = 0; q < n; q++) if (RI_PAL[q][1] === RI_PAL[a][1]) tone.push(q);
+        b = tone[(tone.indexOf(a) + 3) % tone.length];
+      }
+      var bg = RI_PAL[a][0], bg2 = b >= 0 ? RI_PAL[b][0] : '', w = x.w;
+      out[x.id] = {
+        mono: x.mono, bg: bg, fg: RI_PAL[a][1] ? '#FFFFFF' : '#1B1F4B',
+        fill: bg2 ? 'linear-gradient(135deg,' + bg + ' 0 50%,' + bg2 + ' 50% 100%)' : bg,
+        // first name; two words when the first word is shared that day (Nur Aina / Nur Alia) or is only a particle (Az Zahra)
+        tag: x.tag || riTc(w.length > 1 && (firstN['_' + w[0].k] > 1 || w[0].k.length < 3) ? w[0].t + ' ' + w[1].t : w[0].t)
+      };
+      if (bg2) out[x.id].bg2 = bg2;
+    });
+    return out;
+  }
+  function riStOk(st) { return Object.prototype.hasOwnProperty.call(RI_ST, st) ? st : 'plan'; }
+  // Away chip above the disc: status colour + a glyph (so it reads without colour) + distance. Words live in the HUD and the aria-label.
+  var RI_LOK = {
+    'Baru': ['k-new', 'M6 2.4v4.4M6 9.3v.1'],                      // New alert: "!"
+    'Dibenarkan': ['k-ok', 'M2.5 6.3l2.3 2.3 4.7-4.9'],           // Approved task: tick
+    'Tidak dibenarkan': ['k-no', 'M3.3 3.3l5.4 5.4M8.7 3.3l-5.4 5.4'] // Not approved: cross
+  };
+  function riKm(m) {
+    var L = m && m.lok, x, t, n;
+    if (L) {
+      x = Object.prototype.hasOwnProperty.call(RI_LOK, L.status) ? RI_LOK[L.status] : RI_LOK['Baru'];
+      n = L.km === '' || L.km === null || L.km === undefined ? NaN : Number(L.km);
+      t = isFinite(n) ? (n >= 100 ? Math.round(n) : Math.round(n * 10) / 10) + ' km' : 'Alert';
+    } else if (m && m.luar) {
+      x = ['k-out', 'M6 10.3s3-2.8 3-5.1a3 3 0 0 0-6 0c0 2.3 3 5.1 3 5.1z']; t = 'Outside'; // clocked in outside the geofence: pin
+    } else return '';
+    return '<span class="ri-km ' + x[0] + '"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="' + x[1] + '"/></svg>' + h(t) + '</span>';
+  }
+  function riVars(idn) { return '--id:' + h(idn.bg) + ';--fg:' + h(idn.fg) + (idn.bg2 ? ';--id2:' + h(idn.bg2) : ''); }
+  /** Token face. The caller wraps it in its button (aria-label from riLabel or its own words); the face itself is hidden from screen readers. */
+  function riFace(m, idn, st) {
+    var s = riStOk(st);
+    if (!idn || !idn.mono) idn = riIdent([m])[String(m.id)] || riIdent([{ id: 'x', nama: m && m.nama }]).x;
+    return '<span class="ri-face st-' + s + '" data-st="' + s + '" style="' + riVars(idn) + '" aria-hidden="true">' + (s === 'away' ? riKm(m) : '') +
+      '<span class="ri-mono' + (idn.bg2 ? ' duo' : '') + '">' + h(idn.mono) + '</span>' +
+      '<span class="ri-tag"><b>' + h(idn.tag || titleCase(String(m.nama || '').split(' ')[0])) + '</b></span></span>';
+  }
+  /** Change only the status ring of a face already in the DOM (el = the face or any ancestor such as the token button). */
+  function riFaceSt(el, st) {
+    var f = el && (el.classList && el.classList.contains('ri-face') ? el : el.querySelector && el.querySelector('.ri-face')), s = riStOk(st);
+    if (!f || f.getAttribute('data-st') === s) return;
+    f.classList.remove('st-' + f.getAttribute('data-st'));
+    f.classList.add('st-' + s);
+    f.setAttribute('data-st', s);
+  }
+  /** Small disc (26 px) for legends and the HUD rail. */
+  function riChip(idn, st) {
+    var s = riStOk(st);
+    return '<span class="ri-face ri-chip st-' + s + '" data-st="' + s + '" style="' + riVars(idn) + '" aria-hidden="true"><span class="ri-mono' + (idn.bg2 ? ' duo' : '') + '">' + h(idn.mono) + '</span></span>';
+  }
+  function riAria(m, st) { return titleCase(m && m.nama) + ', ' + RI_ST[riStOk(st)]; }
+
+  /* ---------- Coverage · aktiviti kerja (A6) ----------
+     Setiap kawasan ada satu aktiviti. Enjin (A4, riPaint) letak kelas 'act-' + RI_ACT[kawasan] pada .ri-tk (kecuali status 'done')
+     dan set --ri-dl (delay negatif ikut staf) supaya setiap orang tidak bergerak serentak.
+     Gerakan = CSS sahaja (translate / rotate / scale pada .ri-fc), tiada opacity atau filter pada orang. */
+  var RI_ACT = { kitchen: 'cook', front: 'serve', dining: 'wait', office: 'desk', outside: 'arrive', away: 'away' };
+  /** Prop kecil yang dipegang staf: sudip + wap (cook), resit (serve), dulang (wait), tablet (desk), jam (arrive).
+      'away' tiada prop (cincin radar di lantai datang dari CSS, km dari riFace A3).
+      z = kawasan (kitchen, front, ...) atau nama aktiviti (cook, serve, ...); st = status riStatus.
+      Sambung terus selepas HTML muka di dalam .ri-fc supaya prop ikut gerakan badan. Pulang '' bila tiada prop. */
+  function riActProp(z, st) {
+    var a = RI_ACT[z] || z, P = {
+      cook: '<i class="ri-pr-spat"></i><i class="ri-wisp"></i><i class="ri-wisp ri-wisp2"></i>',
+      serve: '<i class="ri-pr-rcpt"></i>',
+      wait: '<i class="ri-pr-tray"></i>',
+      desk: '<i class="ri-pr-tab"></i>',
+      arrive: '<i class="ri-pr-clk"><i></i></i>'
+    };
+    return st === 'done' || !P.hasOwnProperty(a) ? '' : '<span class="ri-props" aria-hidden="true">' + P[a] + '</span>';
+  }
+
+  /* ---------- Coverage · Isometric motion engine (NARA HR 1.0.34, A4) ----------
+     Token staf kekal (persistent) dalam #ri-ppl, dikunci ikut id. Tiada lagi innerHTML semula setiap langkah masa:
+     hanya yang benar-benar masuk / keluar pudar (400 ms), yang bertukar status berjalan ke kawasan baharu (1.6 - 2.4 s;
+     laluan panjang ke kawasan Away melalui pintu dan kaki lima sehingga 4.2 s supaya tetap berjalan, bukan meluncur),
+     yang sedang bekerja berjalan perlahan antara titik kerja dalam zon sendiri setiap 3 - 7 s.
+     Satu penjadual (setInterval 500 ms) untuk semua token; berhenti bila tab tersembunyi / modul ditutup.
+     Kedalaman: token diletak dalam satah 3D (preserve-3d), pelayar menyusun depan / belakang sendiri. */
+  var RI_TICK = 500;
+  var RI_DOOR = { o: [165, 548], i: [165, 492] }; // pintu masuk: luar (kaki lima) dan dalam (tikar), lalai jika RI_AREAS tiada 'door'
+  var RI_AWAY_WAY = [[598, 590], [724, 552]]; // laluan bertitik A5: hujung kaki lima → kaki jalur Away (RI_AREAS.away.way jika ada)
+  var RI_RC = { 'Baru': '224,138,0', 'Dibenarkan': '0,200,181', 'Tidak dibenarkan': '255,122,122' }; // --ri-rc (A6): warna cincin radar Away
+  var RI_STL = { 'in': 'In', late: 'Not in yet', away: 'Away', done: 'Left', plan: 'On shift' };
+  var RI_ZNL = { kitchen: 'Kitchen', front: 'Front', dining: 'Dining', office: 'Office', outside: 'Outside', away: 'Away' };
+  var RI = { box: null, tk: {}, occ: {}, nav: null, timer: 0, last: 0, hudEl: null, hud: '', cnt: '', sc: null, idList: null, idn: {}, rm: false, vis: true, play: false };
+
+  /** Status seorang staf pada masa dipilih. Live (hari ini, masa = sekarang): in | late | away | done. Bukan live: plan. '' = tidak dipapar. */
+  function riStatus(m, V) {
+    V = V || S.cv;
+    if (!m || !V) return '';
+    var t = V.t, blk = m.blok || [], on = blk.length ? cvOn(m, t) : false;
+    var live = V.liveH !== null && V.liveH !== undefined && t === V.nowM;
+    if (!live) return on ? 'plan' : '';
+    if ((m.masuk && !m.keluar) || (m.masuk2 && !m.keluar2)) return m.luar || m.lok ? 'away' : 'in';
+    if (!on) return ''; // syif belum mula / sudah tamat dan sudah balik: tidak dipapar
+    var k = 0, i;
+    for (i = 0; i < blk.length; i++) if (t >= blk[i][0] && t < blk[i][1]) { k = i; break; }
+    return (k === 0 ? m.masuk : m.masuk2) ? 'done' : 'late'; // syif split: sesi 2 perlu clock-in sendiri
+  }
+  function riArea(m, st) { return st === 'late' || st === 'done' ? 'outside' : st === 'away' ? 'away' : (m.z || 'dining'); }
+  function riExt(a) { return a === 'outside' || a === 'away'; }
+  function riRM() { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { return false; } }
+  function riSeed(id) { // id serupa (SAGGN_211 / SAGGN_214) mesti beri benih yang jauh berbeza
+    var s = String(id), x = 7, i;
+    for (i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) % 2147483647;
+    for (i = 0; i < 3; i++) x = (x || 1) * 16807 % 2147483647;
+    return x || 1;
+  }
+  function riRand(tk) { tk.r = tk.r * 16807 % 2147483647; return (tk.r - 1) / 2147483646; } // Park-Miller, tentu ikut id
+  function riDist(a, b) { var dx = a[0] - b[0], dy = a[1] - b[1]; return Math.sqrt(dx * dx + dy * dy); }
+  function riTf(x, y) { return 'translate3d(' + Math.round(x * 10) / 10 + 'px,' + Math.round(y * 10) / 10 + 'px,0)'; }
+  function riDoor() {
+    var d = typeof RI_AREAS !== 'undefined' && RI_AREAS && (RI_AREAS.door || (RI_AREAS.outside && RI_AREAS.outside.door));
+    if (d && d.out && d['in']) return { o: d.out, i: d['in'] };
+    if (d && d.length === 2 && typeof d[0] === 'number') return { o: [d[0], d[1] + 28], i: [d[0], d[1] - 28] };
+    return RI_DOOR;
+  }
+  function riAwayWay() { var A = typeof RI_AREAS !== 'undefined' && RI_AREAS && RI_AREAS.away; return A && A.way && A.way.length ? A.way : RI_AWAY_WAY; }
+  /** Laluan penuh (berakhir di p) antara dua kawasan: dalam ↔ luar melalui pintu, ke / dari Away menyusur kaki lima dan
+      laluan bertitik A5; bahagian di dalam restoran mengelak perabot (riPath). */
+  function riRoute(from, to, cur, p) {
+    var dr = riDoor(), aw = riAwayWay(), w = [];
+    if (!riExt(from) && !riExt(to)) return riPath(cur, p);
+    if (!riExt(from)) w = riPath(cur, dr.i).concat([dr.o]);
+    if (from === 'away' && to !== 'away') w = w.concat(aw.slice().reverse());
+    if (to === 'away' && from !== 'away') w = w.concat(aw);
+    if (!riExt(to)) return w.concat([dr.o, dr.i], riPath(dr.i, p));
+    w.push(p);
+    return w;
+  }
+  /* ---- Laluan di lantai restoran: elak meja, kaunter, dapur. Halangan dibaca terus dari blok .ri-b A5 dalam .ri-lv
+     (kedudukan pelan dalam gaya inline), grid 16 px, Dijkstra + tarik tali (string pulling). Garis lurus jika tiada halangan. */
+  var RI_ROOM = [8, 4, 596, 510], RI_NS = 16, RI_NP = 6; // lantai dalam dinding, langkah grid, jarak selamat dari perabot
+  var RI_NB = [[1, 0], [0, 1], [1, 1], [1, -1], [2, 1], [1, 2], [2, -1], [1, -2]];
+  function riIn(o, p) { return p[0] > o[0] && p[0] < o[2] && p[1] > o[1] && p[1] < o[3]; }
+  function riHit(o, p, q) { // segmen p-q menyentuh segi empat o (Liang-Barsky)
+    var t0 = 0, t1 = 1, dx = q[0] - p[0], dy = q[1] - p[1], P = [-dx, dx, -dy, dy], Q = [p[0] - o[0], o[2] - p[0], p[1] - o[1], o[3] - p[1]], k, r;
+    for (k = 0; k < 4; k++) {
+      if (P[k] === 0) { if (Q[k] < 0) return false; continue; }
+      r = Q[k] / P[k];
+      if (P[k] < 0) { if (r > t1) return false; if (r > t0) t0 = r; } else { if (r < t0) return false; if (r < t1) t1 = r; }
+    }
+    return true;
+  }
+  function riClear(obs, p, q) { // halangan yang mengandungi hujung segmen diabaikan (boleh melangkah keluar dari tepi meja)
+    for (var i = 0; i < obs.length; i++) if (!riIn(obs[i], p) && !riIn(obs[i], q) && riHit(obs[i], p, q)) return false;
+    return true;
+  }
+  function riNav() {
+    if (RI.nav) return RI.nav;
+    var lv = RI.box && RI.box.parentNode, R = RI_ROOM, obs = [], nodes = [], at = {}, adj = [], x, y, i, k;
+    if (lv && lv.querySelectorAll) Array.prototype.forEach.call(lv.querySelectorAll('.ri-b'), function (el) {
+      if (/(^|\s)ri-(slab|wall|low|jamb)(\s|$)/.test(el.className)) return; // dinding = sempadan bilik, bukan halangan
+      var bx = parseFloat(el.style.left), by = parseFloat(el.style.top), w = parseFloat(el.style.getPropertyValue('--w')), d = parseFloat(el.style.getPropertyValue('--d'));
+      if (isNaN(bx) || isNaN(by) || !(w > 0) || !(d > 0) || bx > R[2] || by > R[3] || bx + w < R[0] || by + d < R[1]) return;
+      obs.push([bx - RI_NP, by - RI_NP, bx + w + RI_NP, by + d + RI_NP]);
+    });
+    for (x = R[0]; x <= R[2]; x += RI_NS) for (y = R[1]; y <= R[3]; y += RI_NS) {
+      var ok = true;
+      for (i = 0; i < obs.length && ok; i++) if (riIn(obs[i], [x, y])) ok = false;
+      if (ok) { at[x + ',' + y] = nodes.length; nodes.push([x, y]); adj.push([]); }
+    }
+    nodes.forEach(function (n, a) {
+      RI_NB.forEach(function (o) {
+        var b = at[(n[0] + o[0] * RI_NS) + ',' + (n[1] + o[1] * RI_NS)];
+        if (b !== undefined && riClear(obs, n, nodes[b])) { var L = riDist(n, nodes[b]); adj[a].push([b, L]); adj[b].push([a, L]); }
+      });
+    });
+    return (RI.nav = { obs: obs, nodes: nodes, at: at, adj: adj });
+  }
+  function riHpush(H, e) { H.push(e); var i = H.length - 1, p, t; while (i > 0) { p = (i - 1) >> 1; if (H[p][0] <= H[i][0]) break; t = H[p]; H[p] = H[i]; H[i] = t; i = p; } }
+  function riHpop(H) {
+    var top = H[0], last = H.pop(), i = 0, l, r, m, t;
+    if (H.length) {
+      H[0] = last;
+      for (;;) { l = 2 * i + 1; r = l + 1; m = i; if (l < H.length && H[l][0] < H[m][0]) m = l; if (r < H.length && H[r][0] < H[m][0]) m = r; if (m === i) break; t = H[m]; H[m] = H[i]; H[i] = t; i = m; }
+    }
+    return top;
+  }
+  /** Titik laluan dari a ke b (tidak termasuk a, berakhir di b) yang mengelak perabot. Gagal → garis lurus. */
+  function riPath(a, b) {
+    var N = riNav(), R = RI_ROOM;
+    if (!N.obs.length || riClear(N.obs, a, b)) return [b];
+    var link = function (p) { // nod grid berdekatan yang boleh dicapai terus
+      var out = [], gx = Math.round((p[0] - R[0]) / RI_NS), gy = Math.round((p[1] - R[1]) / RI_NS), i, j, k;
+      for (i = -2; i <= 2; i++) for (j = -2; j <= 2; j++) {
+        k = N.at[(R[0] + (gx + i) * RI_NS) + ',' + (R[1] + (gy + j) * RI_NS)];
+        if (k !== undefined && riClear(N.obs, p, N.nodes[k])) out.push([k, riDist(p, N.nodes[k])]);
+      }
+      return out;
+    };
+    var la = link(a), lb = link(b), toB = {}, n = N.nodes.length, dist = [], prev = [], H = [], i, u, best = Infinity, bestU = -1, e;
+    lb.forEach(function (x) { toB[x[0]] = x[1]; });
+    for (i = 0; i < n; i++) dist[i] = Infinity;
+    la.forEach(function (x) { if (x[1] < dist[x[0]]) { dist[x[0]] = x[1]; prev[x[0]] = -1; riHpush(H, [x[1], x[0]]); } });
+    while (H.length) {
+      e = riHpop(H); u = e[1];
+      if (e[0] > dist[u] || e[0] >= best) continue;
+      if (toB[u] !== undefined && dist[u] + toB[u] < best) { best = dist[u] + toB[u]; bestU = u; }
+      N.adj[u].forEach(function (x) { var d = dist[u] + x[1]; if (d < dist[x[0]]) { dist[x[0]] = d; prev[x[0]] = u; riHpush(H, [d, x[0]]); } });
+    }
+    if (bestU < 0) return [b];
+    var chain = [b];
+    for (u = bestU; u !== -1 && u !== undefined; u = prev[u]) chain.unshift(N.nodes[u]);
+    chain.unshift(a);
+    var out = [], at = 0, j; // tarik tali: lompat ke titik terjauh yang masih nampak terus
+    while (at < chain.length - 1) {
+      for (j = chain.length - 1; j > at + 1 && !riClear(N.obs, chain[at], chain[j]); j--) { /* cari */ }
+      out.push(chain[j]); at = j;
+    }
+    return out;
+  }
+  function riLen(a, pts) { var L = 0, c = a; pts.forEach(function (q) { L += riDist(c, q); c = q; }); return L; }
+  /** Titik lantai bagi kawasan: RI_AREAS (A5) dahulu, kemudian RI_SLOT lama, akhir sekali lalai. */
+  function riBase(a) {
+    var A = typeof RI_AREAS !== 'undefined' && RI_AREAS ? RI_AREAS[a] : null;
+    if (A && A.spots && A.spots.length) return A.spots;
+    if (typeof RI_SLOT !== 'undefined' && RI_SLOT[a]) return RI_SLOT[a];
+    return a === 'away' ? [[470, 566], [520, 566], [570, 566], [495, 604], [545, 604]] : [[90, 560], [140, 560], [190, 560], [240, 560], [115, 598], [165, 598], [215, 598]];
+  }
+  function riOcc(a) {
+    var A = RI.occ[a];
+    if (!A) {
+      var b = riBase(a), pts = [], i;
+      for (i = 0; i < b.length; i++) pts.push([b[i][0], b[i][1]]);
+      A = RI.occ[a] = { pts: pts, n: pts.length, who: {}, held: {}, grown: 0 };
+    }
+    return A;
+  }
+  function riFree(A, i) { return !A.who[i] && !A.held[i]; }
+  /** Lebih ramai daripada titik: tambah titik tengah antara pasangan titik terdekat (kekal dalam kawasan), kemudian anjakan kecil. */
+  function riGrow(A) {
+    var b = A.pts.slice(0, A.n), pairs = [], i, j, add = 0;
+    if (A.grown === 0) {
+      for (i = 0; i < b.length; i++) for (j = i + 1; j < b.length; j++) pairs.push([riDist(b[i], b[j]), i, j]);
+      pairs.sort(function (p, q) { return p[0] - q[0]; });
+      pairs.forEach(function (p) {
+        var c = [(b[p[1]][0] + b[p[2]][0]) / 2, (b[p[1]][1] + b[p[2]][1]) / 2], ok = true;
+        A.pts.forEach(function (q) { if (riDist(q, c) < 22) ok = false; });
+        if (ok) { A.pts.push(c); add++; }
+      });
+      A.grown = 1;
+    }
+    if (!add) { A.grown++; for (i = 0; i < b.length; i++) A.pts.push([b[i][0] + 9 * A.grown, b[i][1] - 9 * A.grown]); }
+  }
+  function riClaim(tk, a, st) {
+    var A = riOcc(a), free = [], i, k, pick = -1;
+    for (i = 0; i < A.pts.length; i++) if (riFree(A, i)) free.push(i);
+    if (!free.length) { riGrow(A); for (i = 0; i < A.pts.length; i++) if (riFree(A, i)) free.push(i); }
+    if (a === 'outside') { // belum masuk: paling dekat pintu; sudah balik: paling jauh
+      var d = riDoor().o;
+      var wide = free.filter(function (i) { return riRoom(A, i, tk.id) >= RI_GAP; }); // A8: one spot apart, so discs do not overlap on phones
+      if (wide.length) free = wide;
+      free.sort(function (p, q) { return riDist(A.pts[p], d) - riDist(A.pts[q], d); });
+      pick = st === 'done' ? free[free.length - 1] : free[0];
+    } else {
+      var n = A.pts.length, pref = tk.seed % Math.max(1, A.n), best = -1, room; // titik "rumah" tetap bagi setiap orang
+      // A8: rumah yang terlalu dekat orang lain (bertindih di skrin kecil) dilangkau; tiada yang lapang: titik paling jauh
+      for (k = 0; k < n && pick < 0; k++) if (riFree(A, (pref + k) % n)) {
+        room = riRoom(A, (pref + k) % n, tk.id);
+        if (room >= (a === 'away' ? RI_GAP * 1.7 : RI_GAP)) pick = (pref + k) % n; else if (best < 0 || room > riRoom(A, best, tk.id)) best = (pref + k) % n;
+      }
+      if (pick < 0) pick = best;
+    }
+    A.who[pick] = tk.id;
+    tk.spot = pick; tk.area = a;
+    return A.pts[pick];
+  }
+  /** A8: jarak ke titik terdekat yang dipegang orang lain dalam kawasan ini (unit pelan). */
+  var RI_GAP = 110;
+  function riRoom(A, i, id) {
+    var m = 1e9, j;
+    for (j = 0; j < A.pts.length; j++) if (j !== i && ((A.who[j] && A.who[j] !== id) || (A.held[j] && A.held[j] !== id))) m = Math.min(m, riDist(A.pts[i], A.pts[j]));
+    return m;
+  }
+  function riUnhold(tk) {
+    if (tk.holdA && RI.occ[tk.holdA] && RI.occ[tk.holdA].held[tk.hold] === tk.id) delete RI.occ[tk.holdA].held[tk.hold];
+    tk.holdA = ''; tk.hold = -1;
+  }
+  /** Lepaskan titik semasa (dipegang sehingga sampai ke titik baharu supaya tiada dua token di titik sama). */
+  function riVacate(tk, keep) {
+    var A = RI.occ[tk.area];
+    riUnhold(tk);
+    if (A && A.who[tk.spot] === tk.id) {
+      delete A.who[tk.spot];
+      if (keep) { A.held[tk.spot] = tk.id; tk.holdA = tk.area; tk.hold = tk.spot; }
+    }
+  }
+  /** Kedudukan sebenar token sekarang (termasuk animasi yang sedang berjalan), dalam unit pelan. */
+  function riNow(tk) {
+    var m = String(window.getComputedStyle(tk.el).transform || '').match(/-?[\d.]+(e-?\d+)?/g);
+    if (!m) return [tk.x, tk.y];
+    return m.length >= 16 ? [+m[12], +m[13]] : m.length >= 6 ? [+m[4], +m[5]] : [tk.x, tk.y];
+  }
+  /** Jalan melalui titik-titik sebagai SATU animasi (Web Animations, transform sahaja, dijalankan oleh compositor):
+      bingkai kunci di setiap simpang dengan offset ikut jarak, satu lengkung ease-in-out untuk seluruh perjalanan,
+      jadi tiada henti di simpang dan laju berterusan. Tanpa el.animate: peralihan CSS satu bahagian demi satu. */
+  function riGo(tk, pts, total) {
+    var el = tk.el, cur = tk.anim || tk.path ? riNow(tk) : [tk.x, tk.y], seq = [cur], cum = [0], sum = 0, i, L;
+    if (tk.anim) { tk.anim.onfinish = null; tk.anim.cancel(); tk.anim = null; }
+    for (i = 0; i < pts.length; i++) { L = riDist(seq[seq.length - 1], pts[i]); if (L > 0.5) { seq.push(pts[i]); sum += L; cum.push(sum); } }
+    var end = seq[seq.length - 1];
+    tk.x = end[0]; tk.y = end[1];
+    if (sum < 0.5 || RI.rm || !RI.vis) { el.style.transition = ''; el.style.transform = riTf(end[0], end[1]); riArrive(tk); return; }
+    var ease = seq.length > 2 ? 'cubic-bezier(.4,0,.6,1)' : 'cubic-bezier(.37,0,.63,1)';
+    tk.segEnd = Date.now() + total;
+    if (el.animate) {
+      el.style.transition = '';
+      el.style.transform = riTf(end[0], end[1]); // gaya akhir dahulu: bila animasi tamat, token sudah di sini (tiada lompat)
+      var fr = seq.map(function (q, k) { return { transform: riTf(q[0], q[1]), offset: cum[k] / sum }; });
+      var an = el.animate(fr, { duration: total, easing: ease });
+      tk.anim = an; tk.path = { n: seq.length - 1 };
+      an.onfinish = function () { if (tk.anim === an) riArrive(tk); };
+      riCls(tk);
+      return;
+    }
+    tk.path = seq.slice(1).map(function (q, k) { return { x: q[0], y: q[1], d: Math.max(120, Math.round(total * (cum[k + 1] - cum[k]) / sum)), e: seq.length > 2 ? 'linear' : ease }; });
+    riNext(tk);
+  }
+  function riArrive(tk) {
+    if (tk.anim) { tk.anim.onfinish = null; tk.anim = null; }
+    tk.path = null; riCls(tk); riUnhold(tk);
+  }
+  /** Sandaran tanpa Web Animations: bahagian seterusnya bila transitionend / penjadual. */
+  function riNext(tk) {
+    var el = tk.el, s = tk.path && tk.path.shift && tk.path.shift();
+    if (!s) { riArrive(tk); return; }
+    el.style.transition = 'transform ' + s.d + 'ms ' + s.e;
+    el.style.transform = riTf(s.x, s.y);
+    tk.segEnd = Date.now() + s.d;
+    riCls(tk);
+  }
+  /** Bergerak (berjalan dalam zon) hanya bila live dan sudah masuk, atau Play sedang berjalan. */
+  function riMoves(tk) { return !RI.rm && !tk.gone && (tk.st === 'in' || (tk.st === 'plan' && RI.play)); }
+  function riWander(tk, now) {
+    var A = riOcc(tk.area), here = A.pts[tk.spot], c = [], i;
+    for (i = 0; i < A.pts.length; i++) if (i !== tk.spot && riFree(A, i)) c.push([riDist(here, A.pts[i]), i]);
+    if (!c.length) { tk.next = now + 2500 + riRand(tk) * 3000; return; }
+    c.sort(function (p, q) { return p[0] - q[0]; });
+    var roomy = c.filter(function (x) { return riRoom(A, x[1], tk.id) >= RI_GAP * 0.8; }); // A8: jangan berhenti rapat di sebelah orang lain
+    if (roomy.length) c = roomy;
+    var near = [];
+    c.slice(0, 6).forEach(function (x) { // laluan sebenar (elak perabot); langkah pendek sahaja: kekal berjalan, tidak berlari
+      var w = riExt(tk.area) ? [A.pts[x[1]]] : riPath(here, A.pts[x[1]]), L = riLen(here, w);
+      if (L <= 240) near.push([L, x[1], w]);
+    });
+    if (!near.length) { tk.next = now + 2500 + riRand(tk) * 3000; return; }
+    near.sort(function (p, q) { return p[0] - q[0]; });
+    var pick = riRand(tk) < 0.7 ? near[Math.floor(riRand(tk) * Math.min(3, near.length))] : near[Math.floor(riRand(tk) * near.length)];
+    riVacate(tk, true);
+    A.who[pick[1]] = tk.id; tk.spot = pick[1];
+    var d = Math.max(900, Math.min(3400, Math.round(pick[0] / 0.075))); // ~75 px/s, langkah santai
+    riGo(tk, pick[2], d);
+    tk.next = now + Math.max(3000 + riRand(tk) * 4000, d + 1200); // setiap 3 - 7 s, sentiasa berhenti seketika di titik kerja
+  }
+  /** Tukar kawasan (cth. Not in yet → Kitchen): jalan melalui pintu jika keluar / masuk restoran. */
+  function riRelocate(tk, area, st, now) {
+    var from = tk.area, p, way, total, L, at = tk.anim || tk.path ? riNow(tk) : [tk.x, tk.y]; // sedang berjalan: rancang dari kedudukan sebenar
+    riVacate(tk, true);
+    p = riClaim(tk, area, st);
+    way = riRoute(from, area, at, p);
+    L = riLen(at, way);
+    total = Math.max(1600, Math.min(from === 'away' || area === 'away' ? 4200 : 2400, Math.round(L / 0.24))); // laluan panjang ke / dari Away tidak meluncur
+    riGo(tk, way, total);
+    tk.next = now + total + 1500 + riRand(tk) * 2500;
+  }
+  function riFaceHtml(m, st, a) {
+    var idn = RI.idn[m.id] || {};
+    var f = typeof riFace === 'function' ? riFace(m, idn, st) : avatar(m.nama, '', idn.bg) + '<span class="ri-nm">' + h(titleCase(String(m.nama).split(' ')[0])) + '</span>';
+    return f + (typeof riActProp === 'function' ? riActProp(a, st) : ''); // prop kerja A6 menumpang gerakan muka
+  }
+  /** Satu tulisan className (asas + bendera sementara pre / leave / walk), hanya jika berubah. */
+  function riCls(tk) {
+    var c = 'ri-tk ' + tk.cls + (tk.pre ? ' pre' : '') + (tk.gone ? ' leave' : '') + (tk.path ? ' walk' : '');
+    if (c === tk.cn) return;
+    var keep = tk.el.className.split(' ').filter(function (x) { return x && !/^(ri-tk|pre|leave|walk|z-.+|st-.+|act-.+)$/.test(x); }); // kelas lain (cth. A7 .ri-hot) kekal
+    tk.el.className = c + (keep.length ? ' ' + keep.join(' ') : '');
+    tk.cn = c;
+  }
+  /** Kemas kini kelas / muka / label hanya jika berubah (tiada tulis DOM jika sama). */
+  function riPaint(tk) {
+    var m = tk.m, st = tk.st, a = tk.area, act = typeof RI_ACT !== 'undefined' && RI_ACT ? RI_ACT[a] : '';
+    var cls = ['z-' + a, 'st-' + st];
+    if (act && st !== 'done') cls.push('act-' + act);
+    tk.cls = cls.join(' ');
+    riCls(tk);
+    var f = riFaceHtml(m, st, a);
+    if (f !== tk.face) { tk.fc.innerHTML = f; tk.face = f; }
+    var rc = st === 'away' ? (m.lok ? RI_RC[m.lok.status] || RI_RC.Baru : '124,192,255') : '';
+    if (rc !== tk.rc) { if (rc) tk.el.style.setProperty('--ri-rc', rc); else tk.el.style.removeProperty('--ri-rc'); tk.rc = rc; }
+    if (tk.da !== a) { tk.el.setAttribute('data-area', a); tk.da = a; } // untuk ujian / CSS: kawasan sasaran dan status semasa
+    if (tk.ds !== st) { tk.el.setAttribute('data-st', st); tk.ds = st; }
+    var lab = titleCase(m.nama) + ', ' + (st === 'in' || st === 'plan' ? RI_ZNL[a] + ', ' : '') + RI_STL[st] + (st === 'away' && m.lok && m.lok.km !== undefined ? ', ' + m.lok.km + ' km' : '');
+    if (lab !== tk.lab) { tk.el.setAttribute('aria-label', lab); tk.lab = lab; }
+    var c = (RI.idn[m.id] || {}).bg || '';
+    if (c !== tk.col) { tk.el.style.setProperty('--tc', c || 'transparent'); tk.col = c; }
+  }
+  function riMake(m, st, now) {
+    var tk = { id: m.id, m: m, st: st, area: '', seed: riSeed(m.id), r: 0, spot: -1, hold: -1, holdA: '', x: 0, y: 0, path: null, segEnd: 0, next: 0, gone: 0, pre: !(RI.rm || !RI.vis), born: now, dly: false, cls: '', cn: '', face: '', lab: '', col: null, rc: '', da: '', ds: '', anim: null };
+    tk.r = tk.seed; riRand(tk); riRand(tk);
+    var p = riClaim(tk, riArea(m, st), st);
+    tk.x = p[0]; tk.y = p[1];
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.setAttribute('data-act', 'cvOpen');
+    el.setAttribute('data-v', m.id);
+    el.tabIndex = -1; // A9: papan kekunci & pembaca skrin guna senarai HUD (orang yang sama); lantai = role img dengan ringkasan
+    el.style.transform = riTf(tk.x, tk.y);
+    el.style.setProperty('--ri-dl', -(riRand(tk) * 3.6).toFixed(2) + 's'); // A6: setiap orang mula kitaran kerja pada fasa sendiri
+    el.style.setProperty('--ri-sp', (0.92 + riRand(tk) * 0.16).toFixed(2)); // A6: laju 0.92 hingga 1.08
+    el.innerHTML = '<i class="ri-sh" aria-hidden="true"></i><span class="ri-up"><span class="ri-bd"><span class="ri-mv"><span class="ri-fc"></span></span></span></span>';
+    tk.el = el; tk.bd = el.querySelector('.ri-bd'); tk.fc = el.querySelector('.ri-fc');
+    el.addEventListener('transitionend', function (e) { if (e.target === el && e.propertyName === 'transform' && tk.path && !tk.anim) riNext(tk); });
+    riPaint(tk);
+    tk.next = now + 900 + riRand(tk) * 3600; // mula bekerja berperingkat, bukan serentak
+    RI.tk[m.id] = tk;
+    return tk;
+  }
+  function riKill(tk) {
+    if (tk.anim) { tk.anim.onfinish = null; tk.anim.cancel(); tk.anim = null; }
+    riVacate(tk, false); riUnhold(tk);
+    if (tk.el.parentNode) tk.el.parentNode.removeChild(tk.el);
+    delete RI.tk[tk.id];
+  }
+  function riLeave(tk, now) {
+    if (RI.rm || !RI.vis) { riKill(tk); return; }
+    tk.gone = now + 450; tk.path = null;
+    if (tk.dly) { tk.el.style.removeProperty('--dl'); tk.dly = false; }
+    riCls(tk);
+    tk.el.setAttribute('aria-hidden', 'true'); tk.el.tabIndex = -1;
+  }
+  function riRevive(tk) {
+    tk.gone = 0;
+    riCls(tk);
+    tk.el.removeAttribute('aria-hidden');
+  }
+  function riReset(box) {
+    var id;
+    for (id in RI.tk) {
+      if (RI.tk[id].anim) { RI.tk[id].anim.onfinish = null; RI.tk[id].anim.cancel(); } // A9: tiada animasi tergantung pada nod tercabut
+      if (RI.tk[id].el.parentNode) RI.tk[id].el.parentNode.removeChild(RI.tk[id].el);
+    }
+    RI.box = box; RI.tk = {}; RI.occ = {}; RI.nav = null; RI.hudEl = null; RI.hud = ''; RI.cnt = ''; RI.sc = null; RI.idList = null; RI.idn = {};
+    if (box) box.innerHTML = '';
+  }
+  /** Ganti `rp.innerHTML = riPeople()` dalam cvUpdate. Selamat dipanggil setiap langkah masa: hanya beza yang disentuh. */
+  function riSync() {
+    var V = S.cv, box = $('ri-ppl');
+    if (!V || !box) return;
+    if (RI.box !== box) riReset(box);
+    RI.rm = riRM();
+    RI.vis = box.getClientRects().length > 0;
+    RI.play = !!V.timer;
+    if (RI.idList !== V.people) { RI.idList = V.people; RI.idn = (typeof riIdent === 'function' ? riIdent(V.people) : null) || {}; }
+    var now = Date.now(), seen = {}, list = [], fresh = [], id, i;
+    for (id in RI.tk) if (RI.tk[id].gone && now >= RI.tk[id].gone) riKill(RI.tk[id]); // sudah pudar habis
+    for (i = 0; i < V.people.length; i++) {
+      var m = V.people[i], st = riStatus(m, V);
+      if (st && !seen[m.id]) { seen[m.id] = 1; list.push([m, st]); }
+    }
+    for (id in RI.tk) if (!seen[id] && !RI.tk[id].gone) riLeave(RI.tk[id], now);
+    list.forEach(function (x) {
+      var m = x[0], st = x[1], tk = RI.tk[m.id];
+      if (!tk) { fresh.push(riMake(m, st, now)); return; }
+      if (tk.gone) riRevive(tk);
+      tk.m = m;
+      var a = riArea(m, st);
+      if (a !== tk.area) riRelocate(tk, a, st, now);
+      tk.st = st;
+      riPaint(tk);
+    });
+    if (fresh.length) {
+      var fr = document.createDocumentFragment();
+      fresh.forEach(function (tk, k) {
+        fr.appendChild(tk.el);
+        if (fresh.length > 2 && !RI.rm) { tk.el.style.setProperty('--dl', Math.min(k * 35, 420) + 'ms'); tk.dly = true; } // masuk berperingkat
+      });
+      box.appendChild(fr);
+      if (!RI.rm && RI.vis) {
+        void window.getComputedStyle(fresh[0].bd).opacity; // satu flush gaya, kemudian pudar masuk sekali sahaja
+      }
+      fresh.forEach(function (tk) { tk.pre = false; riCls(tk); });
+    }
+    riCounts(); riHudSync(list, V.liveH !== null && V.liveH !== undefined && V.t === V.nowM);
+    if (!RI.rm && !RI.timer && !document.hidden) { RI.last = now; RI.timer = setInterval(riTick, RI_TICK); } // A9: tiada penjadual bila tersembunyi
+  }
+  /** Bilangan pada label zon (.ri-zl[data-z]) dikemas kini hanya bila berubah. */
+  function riCounts() {
+    var n = {}, id, sc = RI.box && RI.box.closest ? RI.box.closest('.ri') : null;
+    for (id in RI.tk) if (!RI.tk[id].gone) n[RI.tk[id].area] = (n[RI.tk[id].area] || 0) + 1;
+    var key = JSON.stringify(n);
+    if (!sc || (key === RI.cnt && sc === RI.sc)) return;
+    RI.cnt = key; RI.sc = sc;
+    var scn = sc.querySelector('.ri-sc'); // A9: ringkasan untuk pembaca skrin (lantai = role img)
+    if (scn) scn.setAttribute('aria-label', (sc.classList.contains('ri-hq') ? 'Head office' : 'Restaurant') + ' floor plan: ' +
+      (Object.keys(n).length ? Object.keys(n).map(function (a) { return (RI_ZNL[a] || a) + ' ' + n[a]; }).join(', ') + '. Everyone is listed in the people panel.' : 'no one at this time.'));
+    Array.prototype.forEach.call(sc.querySelectorAll('.ri-zl[data-z]'), function (el) {
+      var c = n[el.getAttribute('data-z')] || 0, b = el.querySelector('b');
+      if (b && b.textContent !== String(c)) b.textContent = c;
+      el.classList.toggle('none', !c);
+    });
+  }
+  /** HUD (A7): kumpulan ikut status; tulis ke #ri-hud hanya bila HTML berubah. */
+  function riHudSync(list, live) {
+    var el = $('ri-hud');
+    if (!el || typeof riHud !== 'function') return;
+    var g = { 'in': [], late: [], away: [], done: [], plan: [], live: live };
+    list.forEach(function (x) {
+      var m = x[0], st = x[1];
+      g[st].push({ m: m, idn: RI.idn[m.id] || {}, st: st, km: m.lok && m.lok.km !== undefined ? m.lok.km : null, lokSt: m.lok ? m.lok.status || '' : '' });
+    });
+    if (typeof riHudSet === 'function') { riHudSet(g); return; } // A7: tulis hanya jika berubah, kekal fokus / skrol / pautan hover
+    var html = riHud(g);
+    if (el === RI.hudEl && html === RI.hud) return;
+    el.innerHTML = html;
+    RI.hudEl = el; RI.hud = html;
+  }
+  /** Penjadual tunggal: buang token yang sudah pudar, sambung laluan, gerakkan pekerja. */
+  function riTick() {
+    var box = RI.box, now = Date.now(), id, tk;
+    if (!box || !document.body.contains(box) || !S.cv) { riStop(true); return; } // modul ditutup tanpa riStop: henti sendiri
+    var gap = now - RI.last; RI.last = now;
+    for (id in RI.tk) {
+      tk = RI.tk[id];
+      if (tk.gone && now >= tk.gone) { riKill(tk); continue; }
+      if (tk.dly && now > tk.born + 1200) { tk.el.style.removeProperty('--dl'); tk.dly = false; }
+    }
+    if (document.hidden || S.urus !== 'liputan' || !box.getClientRects().length) { if (!riBusy(false)) riStop(); return; } // dijeda (A9: penjadual berhenti)
+    RI.vis = true;
+    for (id in RI.tk) {
+      tk = RI.tk[id];
+      if (tk.gone) continue;
+      if (gap > RI_TICK * 3) tk.next = now + 400 + riRand(tk) * 3200; // baru disambung: jangan semua bergerak serentak
+      if (tk.path && now > tk.segEnd + 250) { if (tk.anim) riArrive(tk); else riNext(tk); } // sandaran jika onfinish / transitionend tidak tiba
+      if (!tk.path && riMoves(tk) && now >= tk.next) riWander(tk, now);
+    }
+    if (!riBusy(true)) riStop(); // A9: tiada yang bergerak / pudar: berhenti; riSync seterusnya menyambung
+  }
+  /** A9: masih ada kerja untuk penjadual? cleanup = pudar keluar / masuk berperingkat; all = juga berjalan / akan berjalan. */
+  function riBusy(all) {
+    for (var id in RI.tk) { var tk = RI.tk[id]; if (tk.gone || tk.dly || (all && (tk.path || riMoves(tk)))) return true; }
+    return false;
+  }
+  /** Henti penjadual. riStop() dari cvStop: token kekal (yang sedang pudar dibiar habis pudar; riSync seterusnya
+      membuangnya dan menyambung semula penjadual). riStop(true) dari loadUrus (modul ditutup / ditukar): buang semua. */
+  function riStop(drop) {
+    if (RI.timer) { clearInterval(RI.timer); RI.timer = 0; }
+    if (drop) riReset(null);
+  }
+  /** cvShow (muat semula senyap, tarikh sama): simpan lapisan staf + HUD sebelum innerHTML, letak semula selepasnya. */
+  function riKeep() { return { pp: $('ri-ppl'), hud: $('ri-hud') }; }
+  function riPut(k) {
+    if (!k) return;
+    var np = $('ri-ppl'), nh = $('ri-hud');
+    if (k.pp && np && np !== k.pp) np.parentNode.replaceChild(k.pp, np);
+    if (k.hud && nh && nh !== k.hud) nh.parentNode.replaceChild(k.hud, nh);
+  }
+
+  /* ---------- Coverage · HUD (A7, 1.0.34): legend + people rail inside the hero card (>= 700 px) ----------
+     riHud(groups) -> HTML for #ri-hud. groups = { in:[], late:[], away:[], done:[], plan:[], live?:bool },
+     each item { m, idn:{mono,bg,fg}, st, km, lokSt }.
+     >= 1200 px: right-hand column beside the floor. 700-1199 px: below the floor, one wrapped line per status.
+     Rail order: Away first (managers act on it), Not in yet, In, Left. Not live: a single "Planned" group.
+     riHudSet(groups) writes #ri-hud only when the HTML changed and keeps keyboard focus + rail scroll.
+     riHudBind() links a rail row and its floor token on hover / focus (both are [data-act=cvOpen][data-v=id]). */
+  var RI_HUD_REVIEW = ['urus', 'Review on Dashboard']; // sideMod target + label, shown only when someone is away
+  var RI_HUD_L = { 'in': 'In', late: 'Not in yet', away: 'Away', done: 'Left', plan: 'Planned' };
+  var RI_HUD_LOK = { 'Baru': ['New alert', 'ri-t-new', 0], 'Tidak dibenarkan': ['Not approved', 'ri-t-no', 1], 'Dibenarkan': ['Approved task', 'ri-t-ok', 3] };
+  var RI_HUD_GLOW = 2400; // ms: one gentle fade on a row whose live status just changed (never blinks)
+  var RI_HUD_MEM = { k: '', p: {} };
+  function riHudKm(v) { var n = Number(v); return v !== '' && v !== null && v !== undefined && isFinite(n) ? (n >= 100 ? Math.round(n) : Math.round(n * 10) / 10) + ' km' : ''; }
+  function riHudAgo(n) { return n < 60 ? n + ' min' : Math.floor(n / 60) + 'h' + (n % 60 ? ' ' + (n % 60) + 'm' : ''); }
+  /** Mula syif yang sedang berjalan (syif split: sesi 2 jika sesi 1 sudah clock in & keluar). */
+  function riHudStart(m, nowM) {
+    var B = m.blok || [], cur = null, i;
+    for (i = 0; i < B.length; i++) if (nowM !== null && B[i][0] <= nowM && nowM < B[i][1]) cur = B[i];
+    if (!cur) cur = m.masuk && B[1] ? B[1] : B[0];
+    if (cur) return cur[0];
+    var x = /(\d{1,2})[:.](\d{2})/.exec(m.teks || '');
+    return x ? Number(x[1]) * 60 + Number(x[2]) : null;
+  }
+  /** { t: short detail, c: tone class, r: sort rank, km: number, tip: full sentence for the tooltip } */
+  function riHudInfo(it, nowM) {
+    var m = it.m || {}, st = it.st, t, o;
+    if (st === 'in') { t = m.masuk2 && !m.keluar2 ? m.masuk2 : m.masuk; o = { t: t ? 'In ' + t : 'Clocked in', c: '', r: 0 }; }
+    else if (st === 'late') {
+      var s = riHudStart(m, nowM), d = s !== null && nowM !== null ? nowM - s : 0;
+      o = { t: (s !== null ? 'Shift ' + cvHM(s) : 'Shift started') + ' · ' + (d > 0 ? riHudAgo(d) + ' late' : 'late'), c: 'ri-t-late', r: s === null ? 9999 : s };
+    } else if (st === 'away') {
+      var L = m.lok || null, kv = it.km !== undefined && it.km !== null && it.km !== '' ? it.km : L && L.km, km = riHudKm(kv), x = RI_HUD_LOK[it.lokSt || (L && L.status) || ''];
+      if (x || km) {
+        o = { t: (km ? km + ' · ' : '') + (x ? x[0] : 'Location alert'), c: x ? x[1] : 'ri-t-new', r: x ? x[2] : 0, km: Number(kv) || 0,
+          tip: (x ? x[0] : 'Location alert') + (km ? ', ' + km + ' from the clock-in point' + (L && L.masa ? ' at ' + L.masa : '') : '') + (m.luar ? '. Clocked in outside area' : '') };
+      } else o = { t: 'Clocked in outside area', c: 'ri-t-out', r: 2 };
+    } else if (st === 'done') { t = m.keluar2 || m.keluar; o = { t: t ? 'Left ' + t : 'Clocked out', c: '', r: 0 }; }
+    else {
+      var B = (m.blok || []).map(function (b) { return cvHM(b[0]) + ' - ' + cvHM(b[1]); });
+      o = { t: B.length ? B.join(' / ') : String(m.teks || '').replace(/\s*[\u2013\u2014]\s*/g, ' - '), c: '', r: 0 };
+    }
+    o.km = o.km || 0; o.tip = o.tip || o.t;
+    return o;
+  }
+  function riHudRow(it, inf, t) {
+    var m = it.m || {}, id = String(m.id), idn = it.idn || {};
+    var nm = idn.tag || titleCase(String(m.nama || '').split(' ')[0]) || 'Staff';
+    var mono = idn.mono || String(m.nama || '?').replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase();
+    // Same disc as the floor token: A3 riChip when present, else our own disc in the person's colour
+    var disc = typeof riChip === 'function' && idn.mono ? riChip(idn, it.st) :
+      '<span class="ri-hd" style="--c:' + h(idn.fill || idn.bg || '#7A3EFF') + ';--f:' + h(idn.fg || '#FFFFFF') + '" aria-hidden="true">' + h(mono) + '</span>';
+    var p = RI_HUD_MEM.p[id], ago = p && p.c ? t - p.c : -1, glow = ago >= 0 && ago < RI_HUD_GLOW;
+    var lab = titleCase(m.nama) + ', ' + RI_HUD_L[it.st] + ((it.st === 'in' || it.st === 'plan') && RI_ZNL[m.z] ? ', ' + RI_ZNL[m.z] : '') + ': ' + inf.tip; // A9: nama + status + kawasan / jarak
+    return '<button class="ri-row ri-k-' + it.st + (glow ? ' ri-chg' : '') + '" data-act="cvOpen" data-v="' + h(id) + '"' + (glow ? ' style="animation-delay:-' + ago + 'ms"' : '') +
+      ' title="' + h(lab) + '" aria-label="' + h(lab) + '">' +
+      disc + '<span class="ri-tx"><b>' + h(nm) + '</b><small class="' + inf.c + '">' + h(inf.t) + '</small></span></button>';
+  }
+  function riHud(groups) {
+    var G = groups || {}, V = S.cv || null;
+    var live = G.live !== undefined ? !!G.live : (V && typeof cvIsLive === 'function' ? cvIsLive() : !(G.plan || []).length);
+    var d = new Date(), nowM = live ? d.getHours() * 60 + d.getMinutes() : null, t = d.getTime();
+    // Status terakhir setiap staf (ikut cawangan + tarikh): sorotan sekali apabila status langsung berubah
+    var key = V && V.c ? (V.c.cawangan || '') + '|' + V.c.tarikh : '';
+    if (RI_HUD_MEM.k !== key) RI_HUD_MEM = { k: key, p: {} };
+    var P = RI_HUD_MEM.p, all = 0;
+    ['in', 'late', 'away', 'done', 'plan'].forEach(function (k) {
+      (G[k] || []).forEach(function (it) {
+        var id = String((it.m || {}).id), o = P[id];
+        if (!o) P[id] = { s: it.st, c: 0 };
+        else if (o.s !== it.st) { o.c = live && o.s !== 'plan' && it.st !== 'plan' ? t : 0; o.s = it.st; }
+        all++;
+      });
+    });
+    var nmOf = function (x) { return String((x.it.m || {}).nama || ''); };
+    var lg = (live ? [] : ['plan']).concat(['in', 'late', 'away', 'done']).map(function (k) {
+      var n = (G[k] || []).length, off = !live && k !== 'plan';
+      return '<span class="ri-lg ri-k-' + k + (off ? ' ri-lg-off' : n ? '' : ' ri-lg-z') + '"' + (off ? ' title="Live status shows only at the current time"' : '') + '><i></i>' + RI_HUD_L[k] + (off ? '' : ' <b>' + n + '</b>') + '</span>';
+    }).join('');
+    var rail = (live ? ['away', 'late', 'in', 'done'] : ['plan']).map(function (k) {
+      var L = (G[k] || []).map(function (it) { return { it: it, i: riHudInfo(it, nowM) }; });
+      if (!L.length) return '';
+      L.sort(function (a, b) {
+        var r = k === 'away' ? a.i.r - b.i.r || b.i.km - a.i.km : k === 'late' ? a.i.r - b.i.r : 0;
+        return r || (nmOf(a) < nmOf(b) ? -1 : nmOf(a) > nmOf(b) ? 1 : 0);
+      });
+      return '<div class="ri-grp ri-k-' + k + '"><div class="ri-gh"><i></i><span>' + RI_HUD_L[k] + '</span><b>' + L.length + '</b></div><div class="ri-gl">' +
+        L.map(function (x) { return riHudRow(x.it, x.i, t); }).join('') +
+        (k === 'away' ? '<button class="ri-rv" data-act="sideTab" data-v="' + h(RI_HUD_REVIEW[0]) + '" title="' + h(RI_HUD_REVIEW[1]) + '"><span>' + h(RI_HUD_REVIEW[1]) + '</span>' + svg('M9 6l6 6-6 6') + '</button>' : '') +
+        '</div></div>';
+    }).join('');
+    var eb = live ? 'Right now' : 'Planned' + (V && V.t !== undefined ? ' at ' + cvHM(V.t) : '');
+    return '<div class="ri-hw ' + (live ? 'ri-hw-live' : 'ri-hw-plan') + '"><div class="ri-lgw"><span class="ri-eb">' + eb + '</span><div class="ri-lgd">' + lg + '</div></div>' +
+      '<div class="ri-rail">' + (all ? rail : '<p class="ri-e">' + (live ? 'No one on shift right now.' : 'No one on shift at this time.') + '</p>') + '</div></div>';
+  }
+  /** Tulis #ri-hud hanya bila berubah; kekalkan fokus papan kekunci & kedudukan skrol senarai. */
+  function riHudSet(groups) {
+    var el = $('ri-hud'); if (!el) return;
+    var html = riHud(groups); if (el._riH === html) return;
+    var a = document.activeElement, fv = a && a !== el && el.contains(a) ? [a.getAttribute('data-act'), a.getAttribute('data-v')] : null;
+    var rl = el.querySelector('.ri-rail'), sy = rl ? rl.scrollTop : 0, sx = rl ? rl.scrollLeft : 0;
+    el.innerHTML = html; el._riH = html;
+    rl = el.querySelector('.ri-rail'); if (rl) { rl.scrollTop = sy; rl.scrollLeft = sx; }
+    if (fv) { var b = el.querySelector('[data-act="' + fv[0] + '"][data-v="' + fv[1] + '"]'); if (b) b.focus({ preventScroll: true }); }
+    riHudBind();
+  }
+  /** Hover / fokus pada baris HUD menyerlahkan token yang sama di lantai (dan sebaliknya). Sekali bagi setiap .ri. */
+  function riHudBind() {
+    var root = document.querySelector('.cv-hero .ri'); if (!root || root._riB) return;
+    root._riB = 1;
+    var hot = function (e, on) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-act="cvOpen"]') : null; if (!b || !root.contains(b)) return;
+      var id = b.getAttribute('data-v');
+      [].forEach.call(root.querySelectorAll('[data-act="cvOpen"]'), function (x) { if (x.getAttribute('data-v') === id) x.classList.toggle('ri-hot', on); });
+    };
+    root.addEventListener('mouseover', function (e) { hot(e, true); });
+    root.addEventListener('mouseout', function (e) { hot(e, false); });
+    root.addEventListener('focusin', function (e) { hot(e, true); });
+    root.addEventListener('focusout', function (e) { hot(e, false); });
+  }
+
   function cvUpdate() {
     var V = S.cv; if (!V || !$('cv-time')) return;
     var t = V.t, hh = Math.floor(t / 60), x = V.hours.filter(function (y) { return y.h === hh; })[0] || { n: 0 };
@@ -4316,7 +5561,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var ph = $('cv-ph'); if (ph) ph.style.left = ((t - V.t0) / Math.max(15, V.t1 - V.t0) * 100).toFixed(2) + '%';
     var tr = $('cv-track'); if (tr) { tr.setAttribute('aria-valuenow', t); tr.setAttribute('aria-valuetext', cvHM(t) + ', ' + on + ' on floor'); }
     var key = (V.c.tarikh + t + (live ? 'L' : '')), zs = $('cv-zones');
-    if (zs && zs.dataset.k !== key) { zs.innerHTML = cvZones(); zs.dataset.k = key; var rp = $('ri-ppl'); if (rp) rp.innerHTML = riPeople(); }
+    if (zs && zs.dataset.k !== key) { zs.innerHTML = cvZones(); zs.dataset.k = key; } // senarai zon (telefon) sahaja
+    riSync(); // lantai isometrik: beza sahaja, token kekal (A4)
     var nb = $('cv-nowb'); if (nb) nb.hidden = V.liveH === null || live || !!V.timer;
     var lg = $('cv-lg'); if (lg) lg.hidden = !live;
     var pb = $('cv-play'); if (pb) { pb.innerHTML = V.timer ? svg('M8 5v14M16 5v14') + '<span>Pause</span>' : svg('M7 4.5v15l12-7.5z') + '<span>Play</span>'; pb.classList.toggle('on', !!V.timer); }
@@ -4341,7 +5587,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       e.preventDefault(); cvStop(); S.cv.t = Math.max(S.cv.t0, Math.min(S.cv.t1 - 15, S.cv.t + d)); cvUpdate();
     });
   }
-  function cvStop() { if (S.cv && S.cv.timer) { clearInterval(S.cv.timer); S.cv.timer = null; } }
+  function cvStop() { if (S.cv && S.cv.timer) { clearInterval(S.cv.timer); S.cv.timer = null; } riStop(); }
   /** Play: masa bergerak 15 minit setiap langkah sehingga tutup kedai (sentuh bar untuk berhenti). */
   function cvPlay() {
     var V = S.cv; if (!V) return;
@@ -4368,7 +5614,29 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     urusBody(nav + '<div id="cv-wrap" class="cv-wrap">' + cvBody() + '</div>');
     if (S.cv.people.length) cvUpdate();
     cvSwipe();
+    cvClockOn();
   }
+  /* A9: kitaran hayat pemasa Coverage. Jam langsung (30 s), Play dan penjadual lantai (riTick) dihentikan bila modul
+     ditutup / ditukar (loadUrus), kerangka dibina semula (tab), log keluar (renderLogin) atau tetingkap tersembunyi;
+     disambung semula bila kelihatan. Satu pendengar visibilitychange sahaja, didaftar sekali. */
+  function cvClockOff() { clearInterval(S.cvClock); S.cvClock = 0; }
+  function cvClockOn() { cvClockOff(); if (!document.hidden) S.cvClock = setInterval(cvClockTick, 30000); }
+  function cvClockTick() {
+    var V = S.cv;
+    if (!V || !$('cv-time') || S.urus !== 'liputan') { cvClockOff(); return; }
+    if (V.timer || document.hidden || V.c.tarikh !== ymd(today())) return;
+    var n = new Date(), nm = n.getHours() * 60 + n.getMinutes(), was = cvIsLive();
+    if (nm === V.nowM) return;
+    V.nowM = nm;
+    if (nm >= V.t0 && nm < V.t1) { V.liveH = Math.floor(nm / 60); if (was) V.t = nm; }
+    cvUpdate();
+  }
+  function cvHalt() { if (S.cv && S.cv.timer) { clearInterval(S.cv.timer); S.cv.timer = null; } cvClockOff(); riStop(true); }
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { if (S.cv && S.cv.timer && $('cv-time')) { cvStop(); cvUpdate(); } cvClockOff(); riStop(); return; } // Play dijeda
+    if (!S.cv || !$('cv-time') || S.urus !== 'liputan') return;
+    cvClockOn(); cvClockTick(); riSync();
+  });
   function cvBody() {
     var V = S.cv, c = V.c, dt = parseYmdL(c.tarikh), g = c.groups;
     var sim = V.people.length
