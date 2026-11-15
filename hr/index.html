@@ -1923,6 +1923,68 @@ button.kpi:hover{transform:translateY(-2px);border-color:#CDBFFF;box-shadow:0 14
 .dka-row .btn{flex:0 0 auto}
 .dka-amt{font-variant-numeric:tabular-nums;color:var(--slate);white-space:nowrap}
 .dka-more{align-self:flex-start;margin-top:10px}
+
+/* ===== NARA HR 1.0.33 · Coverage: Isometric Restaurant View (>= 700 px) ===== */
+.ri{display:none}
+@media (min-width:700px){
+  .cv-hero .cv-zones{display:none}
+  .ri{display:block;position:relative;margin-top:2px;border-radius:18px;overflow:hidden;background:radial-gradient(60% 80% at 50% 45%,rgba(124,192,255,.18),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.09)}
+  .ri-sc{position:relative;height:470px}
+  .ri-iso{position:absolute;left:50%;top:50%;width:600px;height:520px;margin:-260px 0 0 -300px;transform:translateY(22px) rotateX(60deg) rotateZ(-45deg);transform-style:preserve-3d}
+}
+@media (min-width:700px) and (max-width:1099px){.ri-sc{height:370px}.ri-iso{transform:translateY(18px) scale(.76) rotateX(60deg) rotateZ(-45deg)}}
+.ri-b{position:absolute;width:var(--w);height:var(--d);transform-style:preserve-3d}
+.ri-b>i{position:absolute;display:block}
+.ri-ft{left:0;top:0;width:100%;height:100%;transform:translateZ(var(--h))}
+.ri-fs{left:0;top:calc(var(--d) - var(--h));width:var(--w);height:var(--h);transform-origin:0 100%;transform:rotateX(-90deg)}
+.ri-fw{left:0;top:calc(0px - var(--h));width:var(--d);height:var(--h);transform-origin:0 100%;transform:rotateZ(90deg) rotateX(-90deg)}
+.ri-ft>i{position:absolute;display:block}
+.ri-lv{position:absolute;inset:0;transform:translateZ(16px);transform-style:preserve-3d}
+.ri-pp{position:absolute;inset:0;transform-style:preserve-3d}
+.ri-fl{position:absolute;display:block;transform:translateZ(.5px)}
+.ri-tile{background-color:#EEF1F8;background-image:linear-gradient(45deg,#DDE2EE 25%,transparent 25%,transparent 75%,#DDE2EE 75%),linear-gradient(45deg,#DDE2EE 25%,transparent 25%,transparent 75%,#DDE2EE 75%);background-size:28px 28px;background-position:0 0,14px 14px}
+.ri-wood{background:repeating-linear-gradient(90deg,#EFD3AE 0 26px,#E6C59C 26px 27px),#EFD3AE}
+.ri-wood2{background:repeating-linear-gradient(0deg,#E2BE92 0 22px,#D7B183 22px 23px),#E2BE92}
+.ri-rug{transform:translateZ(1px);border-radius:16px;background:repeating-linear-gradient(45deg,rgba(122,62,255,.07) 0 12px,transparent 12px 24px),rgba(255,255,255,.28);box-shadow:inset 0 0 0 3px rgba(122,62,255,.22),inset 0 0 0 9px rgba(255,255,255,.35)}
+.ri-mat{transform:translateZ(1px);border-radius:6px;background:repeating-linear-gradient(90deg,rgba(91,46,209,.55) 0 6px,rgba(122,62,255,.4) 6px 12px)}
+.ri-carpet{background-color:#E6E1FA;background-image:linear-gradient(rgba(122,62,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(122,62,255,.08) 1px,transparent 1px);background-size:40px 40px}
+.ri-slab .ri-ft{background:#EFE9FF}.ri-slab .ri-fs{background:linear-gradient(180deg,#5B2ED1,#3A2394)}.ri-slab .ri-fw{background:linear-gradient(180deg,#7A3EFF,#5530C8)}
+.ri-wall .ri-ft{background:#fff}.ri-wall .ri-fs,.ri-wall .ri-fw{background:var(--corak) 0 0/46px 120px repeat,linear-gradient(180deg,#F7F4FF,#E7E0FF);background-blend-mode:soft-light,normal}
+.ri-wall .ri-fs{box-shadow:inset 0 -6px 0 #CFC4F5}
+.ri-steel .ri-ft{background:linear-gradient(135deg,#F4F6FB,#D9DEE9 60%,#EEF1F7)}.ri-steel .ri-fs{background:linear-gradient(180deg,#B9C0D0,#9AA3B8)}.ri-steel .ri-fw{background:linear-gradient(180deg,#CDD3E0,#B3BBCC)}
+.ri-burn{width:22px;height:22px;top:9px;border-radius:50%;background:radial-gradient(circle,#3B4058 40%,#565C78 41% 55%,#3B4058 56%)}
+.ri-burn:nth-child(1){left:24px}.ri-burn:nth-child(2){left:62px}
+.ri-grill .ri-ft{background:#2B2F45}.ri-grill .ri-fs{background:#3C4160}.ri-grill .ri-fw{background:#4A5070}
+.ri-fire{inset:10px 6px;border-radius:8px;background:radial-gradient(ellipse at 50% 50%,#FFE08A 0,#FF9F3D 35%,#E2551F 62%,transparent 75%);animation:riFire 1.6s ease-in-out infinite alternate;box-shadow:0 0 22px 6px rgba(255,140,60,.55)}
+@keyframes riFire{0%{opacity:.75;filter:brightness(.95)}100%{opacity:1;filter:brightness(1.25)}}
+.ri-pass .ri-ft{background:#fff}.ri-pass .ri-fs{background:linear-gradient(180deg,#F1ECFF 0 30%,#3A2E7A 30% 62%,#E3DBFF 62%)}.ri-pass .ri-fw{background:#E3DBFF}
+.ri-counter .ri-ft{background:linear-gradient(135deg,#3B2E7E,#2A2160)}.ri-counter .ri-fs{background:linear-gradient(180deg,#8D58FF,#5B2ED1)}.ri-counter .ri-fw{background:linear-gradient(180deg,#A07AFF,#7A3EFF)}
+.ri-pos{left:24px;top:7px;width:36px;height:24px;border-radius:5px;background:#0B0E27;box-shadow:inset 0 0 0 2px #33D6C6,0 0 14px rgba(51,214,198,.6)}
+.ri-fridge .ri-ft{background:#fff}.ri-fridge .ri-fs{background:repeating-linear-gradient(90deg,rgba(0,200,181,.35) 0 4px,transparent 4px 9px),linear-gradient(180deg,#E9F8FF,#C9E9F7)}.ri-fridge .ri-fw{background:linear-gradient(180deg,#DDF2FB,#B7DCEC)}
+.ri-table .ri-ft{background:#FFF9F0;box-shadow:inset 0 0 0 2px #E8D3B4}.ri-table .ri-fs{background:#B98A57}.ri-table .ri-fw{background:#C99A66}
+.ri-plate{width:18px;height:18px;top:19px;border-radius:50%;background:radial-gradient(circle,#fff 45%,#E9E2F7 46% 60%,#fff 61%);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.ri-plate:nth-child(1){left:16px}.ri-plate:nth-child(2){left:52px}
+.ri-chair .ri-ft{background:#8D58FF}.ri-chair .ri-fs{background:#5B2ED1}.ri-chair .ri-fw{background:#6A43E0}
+.ri-plant .ri-ft{background:#8B6B4A}.ri-plant .ri-fs{background:#8B6B4A}.ri-plant .ri-fw{background:#A07E5A}
+.ri-leaf{inset:-6px -8px;border-radius:10px;background:radial-gradient(circle at 30% 30%,#5BD08F 0 5px,transparent 6px) 0 0/16px 18px,radial-gradient(circle,#2BB673 0 6px,transparent 7px) 8px 9px/16px 18px,#249E63}
+.ri-desk .ri-ft{background:#fff}.ri-desk .ri-fs{background:#C9C3E8}.ri-desk .ri-fw{background:#DAD5F2}
+.ri-mon{left:14px;top:8px;width:40px;height:10px;border-radius:3px;background:#1B1F4B;box-shadow:0 0 10px rgba(124,192,255,.6)}
+.ri-up{position:absolute;display:block;transform-origin:0 0;transform:translateZ(var(--z,2px)) rotateZ(45deg) rotateX(-60deg) translate(-50%,-100%)}
+.ri-sh{position:absolute;display:block;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:radial-gradient(closest-side,rgba(18,22,56,.38),transparent);transform:translateZ(1px)}
+.ri-pa{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;padding:0;cursor:pointer;font:inherit;animation:riPop .45s cubic-bezier(.2,.9,.3,1.3) var(--d,0ms) both}
+.ri-pa .av{width:40px;height:40px;font-size:13px;box-shadow:0 0 0 3px #fff,0 0 0 6px #B596FF,0 10px 16px -6px rgba(10,13,39,.6)}
+.ri-pa.st-in .av{box-shadow:0 0 0 3px #fff,0 0 0 6px #33D6C6,0 0 18px 4px rgba(51,214,198,.5)}
+.ri-pa.st-late .av{box-shadow:0 0 0 3px #fff,0 0 0 6px #FF7A7A,0 0 18px 4px rgba(255,122,122,.45)}
+.ri-pa.st-done .av{opacity:.6;box-shadow:0 0 0 3px #fff,0 0 0 6px #9AA0C8}
+.ri-pa span{padding:3px 8px;border-radius:999px;background:rgba(18,22,56,.86);color:#fff;font:600 11px/1.2 Inter,sans-serif;white-space:nowrap}
+.ri-pa:hover .av,.ri-pa:focus-visible .av{transform:scale(1.1)}
+.ri-pa:focus-visible{outline:none}
+@keyframes riPop{from{opacity:0;transform:translateY(14px) scale(.6)}to{opacity:1;transform:none}}
+.ri-zl{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;padding:6px 7px 6px 12px;border-radius:999px;background:#fff;color:#1B1F4B;font:700 12.5px/1 Inter,sans-serif;box-shadow:0 10px 22px -8px rgba(10,13,39,.6)}
+.ri-zl b{min-width:22px;padding:4px 7px;border-radius:999px;background:#7A3EFF;color:#fff;text-align:center;font-variant-numeric:tabular-nums}
+.ri-zl.none b{background:#FF7A7A}
+.ri-cap{position:absolute;left:14px;bottom:10px;font-size:11.5px;color:rgba(255,255,255,.6)}
+@media (prefers-reduced-motion:reduce){.ri-pa,.ri-fire{animation:none}}
 </style>
 
 </head>
@@ -2649,8 +2711,10 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     tick(); S.otpTimer = setInterval(tick, 1000);
   }
 
+  /** Skrin pertama: telefon = Today (clock in); PC (>= 1200 px) pengurus / HR / Admin = Dashboard. */
+  function homeTab() { return S.me && isMgr() && window.innerWidth >= 1200 ? 'urus' : 'hari'; }
   function signedIn(r) {
-    S.token = r.token; S.me = r.me; S.tab = 'hari';
+    S.token = r.token; S.me = r.me; S.tab = homeTab(); S.urus = null;
     S.pkAutoTried = false; S.noAutoPk = false; S.pkWait = false;
     if (pkOk() && pkOnHere()) setTimeout(pkRefresh, 4000); // cabaran seterusnya sedia: log masuk semula terus dengan Face ID
     LS.set('nara_token', r.token); LS.set('nara_me', JSON.stringify(r.me));
@@ -4176,6 +4240,64 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       }).join('') : '<span class="cv-z0">No one</span>') + '</div><b class="cv-zc">' + L.length + '</b></div>';
     }).join('');
   }
+  /* ---------- Coverage · Isometric Restaurant View (skrin >= 700 px) ----------
+     Model 3D CSS sebuah restoran Sofwah: Kitchen (dapur, grill, kaunter keluli) · Front (kaunter, POS, peti minuman) · Dining (meja).
+     Staf yang bertugas pada masa dipilih berdiri dalam zon masing-masing; cincin = status clock-in (hari ini sahaja). */
+  var RI_SLOT = {
+    kitchen: [[372, 88], [432, 92], [492, 88], [404, 200], [470, 200], [536, 130], [360, 150], [540, 200], [440, 150]],
+    front: [[386, 300], [446, 300], [506, 300], [416, 412], [476, 412], [536, 412], [356, 412]],
+    dining: [[150, 150], [150, 300], [270, 90], [270, 250], [270, 420], [60, 470], [160, 470], [40, 290], [40, 130]],
+    office: [[110, 150], [230, 150], [350, 150], [470, 150], [110, 330], [230, 330], [350, 330], [470, 330], [290, 460]]
+  };
+  function riB(x, y, w, d, hh, cls, top) {
+    return '<div class="ri-b ' + cls + '" style="left:' + x + 'px;top:' + y + 'px;--w:' + w + 'px;--d:' + d + 'px;--h:' + hh + 'px"><i class="ri-ft">' + (top || '') + '</i><i class="ri-fs"></i><i class="ri-fw"></i></div>';
+  }
+  function riUp(x, y, z, html, cls) { return '<div class="ri-up ' + (cls || '') + '" style="left:' + x + 'px;top:' + y + 'px;--z:' + z + 'px">' + html + '</div>'; }
+  function riScene(office) {
+    var f = '', i, j;
+    if (office) {
+      f += '<i class="ri-fl ri-carpet" style="left:0;top:0;width:600px;height:520px"></i>';
+      for (i = 0; i < 4; i++) for (j = 0; j < 2; j++) f += riB(80 + i * 120, 70 + j * 180, 70, 44, 24, 'ri-desk', '<i class="ri-mon"></i>');
+      f += riB(220, 430, 160, 50, 22, 'ri-table');
+    } else {
+      f += '<i class="ri-fl ri-tile" style="left:330px;top:0;width:270px;height:250px"></i><i class="ri-fl ri-wood2" style="left:330px;top:250px;width:270px;height:270px"></i><i class="ri-fl ri-wood" style="left:0;top:0;width:330px;height:520px"></i>' +
+        '<i class="ri-fl ri-rug" style="left:24px;top:30px;width:282px;height:440px"></i><i class="ri-fl ri-mat" style="left:110px;top:492px;width:110px;height:22px"></i>';
+      // Kitchen: kaunter keluli di dinding belakang, grill bernyala, meja persediaan, tingkap hidangan
+      f += riB(345, 12, 236, 40, 34, 'ri-steel', '<i class="ri-burn"></i><i class="ri-burn"></i>') + riB(552, 64, 36, 150, 36, 'ri-grill', '<i class="ri-fire"></i>') +
+        riB(380, 120, 120, 46, 30, 'ri-steel') + riB(330, 240, 270, 10, 46, 'ri-pass');
+      // Front: kaunter + POS, peti minuman
+      f += riB(352, 336, 196, 38, 32, 'ri-counter', '<i class="ri-pos"></i>') + riB(562, 268, 30, 76, 62, 'ri-fridge');
+      // Dining: 6 meja + kerusi, pasu tanaman pemisah
+      [[54, 66], [190, 66], [54, 216], [190, 216], [54, 366], [190, 366]].forEach(function (t) {
+        f += riB(t[0] + 8, t[1] - 16, 26, 12, 14, 'ri-chair') + riB(t[0] + 52, t[1] - 16, 26, 12, 14, 'ri-chair') +
+          riB(t[0], t[1], 86, 56, 24, 'ri-table', '<i class="ri-plate"></i><i class="ri-plate"></i>') +
+          riB(t[0] + 8, t[1] + 60, 26, 12, 14, 'ri-chair') + riB(t[0] + 52, t[1] + 60, 26, 12, 14, 'ri-chair');
+      });
+      f += riB(314, 300, 12, 210, 16, 'ri-plant', '<i class="ri-leaf"></i>');
+    }
+    var walls = riB(0, -10, 600, 10, 74, 'ri-wall', '') + riB(600, 0, 10, 520, 74, 'ri-wall ri-wall2', '');
+    var lab = office ? riUp(300, 520, 6, '<span class="ri-zl" data-z="office">Office <b>0</b></span>') :
+      riUp(465, 250, 52, '<span class="ri-zl" data-z="kitchen">Kitchen <b>0</b></span>') + riUp(465, 520, 6, '<span class="ri-zl" data-z="front">Front <b>0</b></span>') + riUp(165, 520, 6, '<span class="ri-zl" data-z="dining">Dining <b>0</b></span>');
+    return '<div class="ri" aria-label="Restaurant floor view"><div class="ri-sc"><div class="ri-iso">' + riB(0, 0, 600, 520, 16, 'ri-slab') +
+      '<div class="ri-lv">' + f + walls + '<div class="ri-pp" id="ri-ppl"></div>' + lab + '</div></div></div>' +
+      '<span class="ri-cap">' + (office ? 'Head office floor' : 'Sofwah restaurant floor') + ' · tap a person for details</span></div>';
+  }
+  function riPeople() {
+    var V = S.cv, t = cvT(), live = cvIsLive(), out = '', cnt = {};
+    (V.office ? ['office'] : ['kitchen', 'front', 'dining']).forEach(function (z) {
+      var L = V.people.filter(function (m) { return m.z === z && cvOn(m, t); }), sl = RI_SLOT[z];
+      cnt[z] = L.length;
+      L.forEach(function (m, i) {
+        var p = sl[i % sl.length], o = Math.floor(i / sl.length) * 18, st = live ? cvLiveSt(m, V.nowM) : 'plan';
+        out += '<i class="ri-sh" style="left:' + (p[0] + o) + 'px;top:' + (p[1] + o) + 'px"></i>' +
+          riUp(p[0] + o, p[1] + o, 2, '<button class="ri-pa st-' + (st || 'plan') + '" data-act="cvOpen" data-v="' + h(m.id) + '" aria-label="' + h(titleCase(m.nama)) + '" style="--d:' + (i * 40) + 'ms">' + avatar(m.nama) + '<span>' + h(titleCase(String(m.nama).split(' ')[0])) + '</span></button>');
+      });
+    });
+    setTimeout(function () {
+      [].forEach.call(document.querySelectorAll('.ri-zl'), function (el) { var n = cnt[el.dataset.z] || 0; el.querySelector('b').textContent = n; el.classList.toggle('none', !n); });
+    }, 0);
+    return out;
+  }
   function cvUpdate() {
     var V = S.cv; if (!V || !$('cv-time')) return;
     var t = V.t, hh = Math.floor(t / 60), x = V.hours.filter(function (y) { return y.h === hh; })[0] || { n: 0 };
@@ -4194,7 +4316,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var ph = $('cv-ph'); if (ph) ph.style.left = ((t - V.t0) / Math.max(15, V.t1 - V.t0) * 100).toFixed(2) + '%';
     var tr = $('cv-track'); if (tr) { tr.setAttribute('aria-valuenow', t); tr.setAttribute('aria-valuetext', cvHM(t) + ', ' + on + ' on floor'); }
     var key = (V.c.tarikh + t + (live ? 'L' : '')), zs = $('cv-zones');
-    if (zs && zs.dataset.k !== key) { zs.innerHTML = cvZones(); zs.dataset.k = key; }
+    if (zs && zs.dataset.k !== key) { zs.innerHTML = cvZones(); zs.dataset.k = key; var rp = $('ri-ppl'); if (rp) rp.innerHTML = riPeople(); }
     var nb = $('cv-nowb'); if (nb) nb.hidden = V.liveH === null || live || !!V.timer;
     var lg = $('cv-lg'); if (lg) lg.hidden = !live;
     var pb = $('cv-play'); if (pb) { pb.innerHTML = V.timer ? svg('M8 5v14M16 5v14') + '<span>Pause</span>' : svg('M7 4.5v15l12-7.5z') + '<span>Play</span>'; pb.classList.toggle('on', !!V.timer); }
@@ -4252,7 +4374,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var sim = V.people.length
       ? '<section class="cv-hero cv2"><div class="cv-top"><div class="cv-tl2"><span class="cv-eb">On the floor</span><div class="cv-tm"><b id="cv-time">--:--</b><span class="cv-lv" id="cv-lv" hidden><i></i>Live</span><span class="cv-rg" id="cv-rg" hidden></span></div></div>' +
         '<div class="cv-r"><i id="cv-pill" class="cv-pill"></i><span id="cv-sub" class="cv-sub"></span></div></div>' +
-        '<div id="cv-barsw" class="cv-barsw"></div><div id="cv-zones" class="cv-zones"></div>' +
+        '<div id="cv-barsw" class="cv-barsw"></div><div id="cv-zones" class="cv-zones"></div>' + riScene(V.office) +
         '<div class="cv-ft"><button class="cv-play" id="cv-play" data-act="cvPlay"></button><button class="cv-pk" data-act="cvPeak">Peak ' + cvHM(V.peak.h * 60) + ' · ' + V.peak.n + '</button>' +
         '<span id="cv-lg" class="cv-lg" hidden><span><i class="d-in"></i>In</span><span><i class="d-late"></i>Not in yet</span></span>' +
         '<button class="cv-nowb" id="cv-nowb" data-act="cvNow" hidden>Back to now</button></div></section>'
@@ -6310,7 +6432,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var d = formData(f);
       d.id = d.id.trim();
       call('login', d).then(function (r) {
-        S.token = r.token; S.me = r.me; S.tab = 'hari';
+        S.token = r.token; S.me = r.me; S.tab = homeTab(); S.urus = null;
         LS.set('nara_token', r.token); ssSet('nara_alive', '1'); LS.set('nara_id', d.id); LS.set('nara_me', JSON.stringify(r.me));
         renderShell();
       }).catch(function (e) { busy(btn, false); renderLogin(e.message); });
@@ -7085,10 +7207,11 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     // Buka serta-merta daripada profil tersimpan; sahkan dengan pelayan di latar.
     var cachedMe = null;
     try { cachedMe = JSON.parse(LS.get('nara_me') || 'null'); } catch (e) { cachedMe = null; }
-    if (cachedMe && cachedMe.privasi && !cachedMe.tukarPin) { S.me = cachedMe; renderShell(); }
+    if (cachedMe && cachedMe.privasi && !cachedMe.tukarPin) { S.me = cachedMe; S.tab = homeTab(); renderShell(); }
     call('me').then(function (me) {
       var changed = !S.me || S.me.role !== me.role || S.me.cawangan !== me.cawangan || S.me.privasi !== me.privasi || S.me.tukarPin !== me.tukarPin || String(S.me.scope) !== String(me.scope);
-      S.me = me; LS.set('nara_me', JSON.stringify(me));
+      var first = !S.me; S.me = me; LS.set('nara_me', JSON.stringify(me));
+      if (first) S.tab = homeTab();
       if (changed) renderShell();
     }).catch(function (e) {
       if (e && (e.transport || e.busy) && S.me) { setOffline(true); return; } // tiada internet: kekal dengan data tersimpan
