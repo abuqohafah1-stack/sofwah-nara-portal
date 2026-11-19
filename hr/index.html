@@ -2401,6 +2401,39 @@ button.kpi:hover{transform:translateY(-2px);border-color:#CDBFFF;box-shadow:0 14
 }
 @media (max-width:380px){.ri-hw-live .ri-lgd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:1 0 100%}.ri-hw-live .ri-lg b{margin-left:auto}}
 
+
+/* ===== NARA HR 1.1.0 · World Pack 1: Shift Pulse, swaps, availability, log book ===== */
+.wp-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin:12px 0}
+.wp-b{display:flex;align-items:center;gap:10px;padding:12px;border-radius:16px;border:1px solid var(--line,#E4E6F3);background:#fff;text-align:left;color:#1B1F4B;min-height:56px}
+.wp-b svg{width:22px;height:22px;flex:none;stroke:#7A3EFF;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wp-b b{display:block;font-size:13.5px}.wp-b small{display:block;font-size:11.5px;color:#6B6F9A}
+.pl-sc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:4px 0 12px}
+.pl-n{padding:10px 2px;border-radius:14px;border:1.5px solid #E4E6F3;background:#fff;color:#1B1F4B;text-align:center;min-height:62px}
+.pl-n b{display:block;font:800 20px Montserrat,sans-serif}.pl-n small{font-size:11px;color:#6B6F9A}
+.pl-n.on{border-color:#7A3EFF;background:#7A3EFF;color:#fff}.pl-n.on small{color:#E8E0FF}
+.pl-tags{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.pl-t{padding:8px 12px;border-radius:999px;border:1px solid #E4E6F3;background:#fff;font-size:13px;color:#1B1F4B;min-height:36px}
+.pl-t.on{background:#EDE9FF;border-color:#7A3EFF;color:#5B2ED1;font-weight:600}
+.av-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:6px 0 14px}
+.av-d{padding:8px 0;border-radius:12px;border:1px solid #E4E6F3;background:#fff;color:#1B1F4B;text-align:center;min-height:64px}
+.av-d small{display:block;font-size:10.5px;color:#6B6F9A}.av-d b{display:block;font:800 15px Montserrat,sans-serif}.av-d em{display:block;font-style:normal;font-size:10.5px;color:#00806F}
+.av-d.on{background:#FFE9E9;border-color:#FF7A7A}.av-d.on em{color:#C0392B;font-weight:700}
+.av-d.lock{background:#F4F5FA;opacity:.75}.av-d.lock em{color:#6B6F9A}
+.rg-c.na{box-shadow:inset 0 0 0 2px #FF7A7A}.rg-c.na:after{content:"";position:absolute;right:3px;top:3px;width:6px;height:6px;border-radius:50%;background:#FF7A7A}
+.rg-c{position:relative}.rg-leg .na i{background:#fff;box-shadow:inset 0 0 0 2px #FF7A7A}
+.sw-warn{margin-top:4px;font-size:12px;font-weight:600;color:#B35A00}.sw-okk{margin-top:4px;font-size:12px;color:#00806F}
+.sw-ap{align-items:flex-start;gap:10px;flex-wrap:wrap}
+.lg-r{align-items:flex-start;gap:10px}.lg-r.todo{box-shadow:inset 3px 0 0 #E08A00;padding-left:10px}.lg-t{margin-top:4px;white-space:pre-wrap;overflow-wrap:anywhere}
+.pb-top{display:flex;align-items:center;gap:16px}.pb-top .grow{display:flex;flex-direction:column;gap:3px}
+.pb-big{flex:none;width:92px;height:92px;border-radius:24px;display:grid;place-content:center;text-align:center;background:#F4F5FA;color:#1B1F4B}
+.pb-big b{font:900 34px/1 Montserrat,sans-serif}.pb-big small{font-size:11px;opacity:.75}
+.pb-big.green{background:#DDFBF7;color:#00806F}.pb-big.blue{background:#E6F0FF;color:#1E5BB8}.pb-big.orange{background:#FFF0D9;color:#9A5B00}
+.pb-g{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;height:120px;align-items:end}
+.pb-b{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}
+.pb-b i{display:block;width:100%;border-radius:6px 6px 2px 2px;min-height:2px;background:#C9CDF5}.pb-b i.g{background:#00C8B5}.pb-b i.b{background:#7CC0FF}.pb-b i.o{background:#E08A00}
+.pb-b small{font-size:10px;color:#6B6F9A}
+.pb-s{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:800 12px Montserrat,sans-serif;background:#EDE9FF;color:#5B2ED1}
+.pb-s.s1,.pb-s.s2{background:#FFF0D9;color:#9A5B00}.pb-s.s4,.pb-s.s5{background:#DDFBF7;color:#00806F}
 </style>
 
 </head>
@@ -3733,6 +3766,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       clockQDel(item.p.cid);
       clockApply(res);
       if (res && res.lokasi) setTimeout(function () { locNotice(res.lokasi, true); }, 1200);
+      else if (res && res.langkah === 'selesai') setTimeout(plAsk, 1600); // Shift Pulse selepas clock out terakhir
       setTimeout(clockRefresh, 2500); // status lewat, rakan sesyif: segar di latar
       return res;
     });
@@ -3815,7 +3849,10 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         '<button class="icon-round" data-act="week" data-v="1" aria-label="Next week">' + svg('M9 6l6 6-6 6') + '</button></div>' +
         '<div class="sch-sum"><div><b>' + work + '<small>/7</small></b><span>shifts</span></div>' + (w.jam ? '<div><b>' + h(w.jam) + '</b><span>hours</span></div>' : '<div><b>' + w.days.filter(function (d) { return d.kategori === 'Rehat' && !d.cuti; }).length + '</b><span>rest days</span></div>') +
         '<div><b>' + (off ? WDAY[off.getDay()] + ' ' + off.getDate() : '-') + '</b><span>' + (off ? (offWhy && offWhy !== 'Rest day' ? h(offWhy) : 'next day off') : 'no day off') + '</span></div></div>' +
-        '<section class="card tl-card">' + rows + '</section>' + '<div id="ph-card-slot">' + phCard() + '</div>' +
+        '<section class="card tl-card">' + rows + '</section>' +
+        '<div class="wp-row"><button class="wp-b" data-act="swOpen">' + svg('M7 7h11l-3-3M17 17H6l3 3M18 7v3M6 17v-3') + '<span><b>Shift swaps</b><small>Offer or take a shift</small></span></button>' +
+        '<button class="wp-b" data-act="avOpen">' + svg('M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M9 14l6 0') + '<span><b>My availability</b><small>Days I can’t work</small></span></button></div>' +
+        '<div id="ph-card-slot">' + phCard() + '</div>' +
         '<button class="btn ghost block" data-act="myAtt">My attendance, last 30 days</button></div>');
       if (!swrGet({ a: 'myHolidays' })) swrFetch({ a: 'myHolidays' }).then(function () { var sl = $('ph-card-slot'); if (sl) sl.innerHTML = phCard(); }).catch(function () { /* pilihan */ });
     }, function (e) { setMain(errBox(e)); });
@@ -4294,6 +4331,9 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     { k: 'jadual', l: 'Roster', d: 'Plan the week by shift', c: 'violet', i: 'M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M8 13h2M14 13h2M8 17h2' },
     { k: 'tugasan', l: 'Duties', d: 'Daily PIC tasks', c: 'mint', i: 'M10 6h10M10 12h10M10 18h10M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2' },
     { k: 'kehadiran', l: 'Attendance', d: 'Clock-ins and corrections', c: 'slate', i: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18M12 7v5l3 2' },
+    { k: 'swap', l: 'Shift swaps', d: 'Approve shift covers between staff', c: 'violet', i: 'M7 7h11l-3-3M17 17H6l3 3M18 7v3M6 17v-3' },
+    { k: 'logbook', l: 'Log book', d: 'Daily notes and shift handover', c: 'mint', i: 'M6 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6zM6 3v18M10 8h5M10 12h5' },
+    { k: 'pulse', l: 'Team pulse', d: 'How shifts felt, anonymous', c: 'ember', i: 'M3 12h4l2-6 4 12 2-6h6' },
     { k: 'staffing', l: 'Staffing', d: 'Staff needed per time slot', c: 'sky', i: 'M4 20V10M10 20V4M16 20v-7M22 20H2' },
     { k: 'rekod', l: 'Staff records', d: 'Reviews, discipline, training', c: 'ember', i: 'M6 3h9l4 4v14H6zM14 3v5h5M9 13h6M9 17h4' },
     { k: 'akses', l: 'Access', d: 'Sign-in, roles and PIN', c: 'violet', hr: true, i: 'M14.5 9.5a4 4 0 1 1-3.6 5.5H8v2.5H5.5V15H3v-2.5h7.9a4 4 0 0 1 3.6-3z' },
@@ -4308,8 +4348,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
   function urusMods() { return URUS.filter(function (u) { return !u.hr || isHR(); }); }
   var URUS_QUICK = ['kelulusan', 'jadual', 'liputan', 'kehadiran'];
   var URUS_GRP = [
-    { l: 'Daily operations', k: ['liputan', 'kelulusan', 'jadual', 'tugasan', 'kehadiran', 'staffing'] },
-    { l: 'People', k: ['rekod', 'rating', 'akses', 'qr', 'cb'] },
+    { l: 'Daily operations', k: ['liputan', 'kelulusan', 'jadual', 'swap', 'tugasan', 'kehadiran', 'logbook', 'staffing'] },
+    { l: 'People', k: ['pulse', 'rekod', 'rating', 'akses', 'qr', 'cb'] },
     { l: 'Company', k: ['notis', 'cutiumum', 'payroll', 'pematuhan'] }
   ];
   var GRID_ICO = 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z';
@@ -4336,7 +4376,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var mod = URUS.filter(function (u) { return u.k === S.urus; })[0];
     var win = '';
     if (mod) {
-      var needBranch = ['liputan', 'jadual', 'tugasan', 'kehadiran', 'staffing', 'rating'].indexOf(S.urus) >= 0;
+      var needBranch = ['liputan', 'jadual', 'tugasan', 'kehadiran', 'staffing', 'rating', 'logbook', 'pulse'].indexOf(S.urus) >= 0;
       var brs = S.urus === 'rating' && S.rtBr ? S.rtBr : S.me.scope; // rating: cawangan restoran sahaja
       var sel = needBranch && brs.length > 1 ? '<label class="mod-branch">Branch<select data-act="branch">' + brs.map(function (b) {
         return '<option' + (b === S.branch ? ' selected' : '') + '>' + h(b) + '</option>';
@@ -4354,7 +4394,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     sideSync();
     if (!mod) { uRingkasan(); return; }
     var fn = { ringkasan: uRingkasan, liputan: uLiputan, kelulusan: uKelulusan, jadual: uJadual, tugasan: uTugasan,
-      kehadiran: uKehadiran, staffing: uStaffing, rekod: uRekod, akses: uAkses, notis: uNotis, payroll: uPayroll, pematuhan: uPematuhan, cutiumum: uCutiUmum, qr: uQr, cb: uCb, rating: uRating }[S.urus];
+      kehadiran: uKehadiran, staffing: uStaffing, rekod: uRekod, akses: uAkses, notis: uNotis, payroll: uPayroll, pematuhan: uPematuhan, cutiumum: uCutiUmum, qr: uQr, cb: uCb, rating: uRating, swap: uSwap, logbook: uLog, pulse: uPulse }[S.urus];
     fn();
   }
   function urusBody(html) { var b = $('urus-body'); if (b) b.innerHTML = html; }
@@ -6371,9 +6411,10 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         if (aw) return '<button class="rg-c away" data-act="rgAway" data-id="' + h(r.id) + '" data-i="' + i + '" aria-label="' + h(titleCase(r.nama) + ', ' + fmtDay(addDays(mon, i)) + ': at ' + aw) + '"><b>@' + h(brK(aw)) + '</b>' + (k ? '<small>' + h(k) + '</small>' : '') + '</button>';
         if (r.tamu && !k && r.asalKod && r.asalKod[i]) return '<button class="rg-c home" data-act="rgCell" data-id="' + h(r.id) + '" data-i="' + i + '" aria-label="' + h(titleCase(r.nama) + ', ' + fmtDay(addDays(mon, i)) + ': at ' + r.asal + ' (' + r.asalKod[i] + ')') + '"><b>' + h(brK(r.asal)) + '</b><small>' + h(r.asalKod[i]) + '</small></button>';
         var t = cat[k], lv = r.cuti[i], parts = codeParts(k), kat = t ? t.kategori : (k ? 'Lain' : '');
-        var cls = 'rg-c' + (kat ? ' k-' + kat : ' empty') + (lv ? ' lv' : '') + ((o[i] || '') !== (k || '') ? ' chg' : '') + (parts[0].length > 1 ? ' wide' : '');
+        var na = r.tk && r.tk[i] ? r.tk[i] : '';
+        var cls = 'rg-c' + (kat ? ' k-' + kat : ' empty') + (na ? ' na' : '') + (lv ? ' lv' : '') + ((o[i] || '') !== (k || '') ? ' chg' : '') + (parts[0].length > 1 ? ' wide' : '');
         var inner = lv ? '<b>' + h(lvAb(lv)) + '</b>' + (k ? '<small>' + h(k) + '</small>' : '') : k ? '<b>' + h(parts[0]) + '</b>' + (parts[1] ? '<small>' + h(parts[1]) + '</small>' : '') : '<em>+</em>';
-        return '<button class="' + cls + '" data-act="rgCell" data-id="' + h(r.id) + '" data-i="' + i + '" aria-label="' + h(titleCase(r.nama) + ', ' + fmtDay(addDays(mon, i)) + ': ' + (k ? (t ? t.teks : k) : 'not set') + (lv ? ', on leave ' + lv : '')) + '">' + inner + '</button>';
+        return '<button class="' + cls + '" data-act="rgCell" data-id="' + h(r.id) + '" data-i="' + i + '" aria-label="' + h(titleCase(r.nama) + ', ' + fmtDay(addDays(mon, i)) + ': ' + (k ? (t ? t.teks : k) : 'not set') + (lv ? ', on leave ' + lv : '') + (na ? ', staff marked unavailable: ' + na : '')) + '"' + (na ? ' title="Unavailable: ' + h(na) + '"' : '') + '>' + inner + '</button>';
       }).join('');
       return '<div class="rg-r' + (r.tamu ? ' guest' : '') + '"><button class="rg-n' + (f ? ' flag' : '') + '" data-act="rgWho" data-id="' + h(r.id) + '"><b>' + h(titleCase(String(r.nama || '').split(/\s+/)[0])) + '</b>' +
         (r.tamu ? '<small class="from">From ' + h(brK(r.asal)) + '</small>' :
@@ -6383,7 +6424,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var corner = '<button class="rg-corner ' + (chk ? 'warn' : 'ok') + '" data-act="rgChecks" aria-label="' + (chk ? chk + ' staff to review' : 'Week checks: all clear') + '"><b>' + w.rows.filter(function (x) { return !x.tamu; }).length + ' staff</b><small>' + (chk ? chk + ' review' : 'All clear') + '</small></button>';
     urusBody((head || rpHead(w, pl, 'grid')) +
       '<div class="rg" role="grid" aria-label="Week roster by staff"><div class="rg-r rg-h">' + corner + heads + '</div>' + rows + '</div>' +
-      '<div class="rg-leg"><span class="k-Pagi"><i></i>M Morning</span><span class="k-Tengah"><i></i>Mid</span><span class="k-Petang"><i></i>E Evening</span><span class="k-Split"><i></i>S Split</span><span class="k-Rehat"><i></i>R Rest</span><span class="lv"><i></i>Leave</span></div>' +
+      '<div class="rg-leg"><span class="k-Pagi"><i></i>M Morning</span><span class="k-Tengah"><i></i>Mid</span><span class="k-Petang"><i></i>E Evening</span><span class="k-Split"><i></i>S Split</span><span class="k-Rehat"><i></i>R Rest</span><span class="lv"><i></i>Leave</span><span class="na"><i></i>Can’t work</span></div>' +
       guestBtn() + '<div class="rp-actions"><button class="btn ghost small" data-act="copyPrev">Copy last week</button>' + (pl ? '<button class="btn ghost small" data-act="rpAuto">Auto-fill</button>' : '') +
       '<button class="btn small" data-act="saveWeek">' + (R.draft ? 'Save draft' : R.dirty ? 'Save changes' : 'Save') + '</button></div>');
   }
@@ -8447,6 +8488,139 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     var btn = f.querySelector('[type=submit]');
     busy(btn, true);
     fn(f, btn);
+  });
+
+  /* ======================= NARA World Pack 1: Shift Pulse, tukar shift, ketersediaan, log pengurus ======================= */
+  var PL_LBL = ['', 'Tough', 'Hard', 'Okay', 'Good', 'Great'];
+  var PL_TAGS = ['Great team', 'Smooth shift', 'Very busy', 'Short-staffed', 'Equipment issue', 'Difficult guest', 'Need training'];
+  function plKey() { return 'nara_pulse_' + (S.me ? S.me.id : ''); }
+  function plMark() { try { localStorage.setItem(plKey(), ymd(today())); } catch (e) { /* pilihan */ } }
+  function plAsk() {
+    try { if (localStorage.getItem(plKey()) === ymd(today())) return; } catch (e) { /* pilihan */ }
+    if (!S.token || !$('modal').hidden || S.cam) return;
+    S.pl = { skor: 0, tag: {} };
+    modal('How was your shift?', plHtml());
+  }
+  function plHtml() {
+    var P = S.pl;
+    return '<form data-form="plSend" class="pl"><p class="muted" style="margin:0 0 10px">One tap helps your branch get better. It is anonymous: your manager only sees the branch average.</p>' +
+      '<div class="pl-sc" role="radiogroup" aria-label="Shift score">' + [1, 2, 3, 4, 5].map(function (n) {
+        return '<button type="button" class="pl-n s' + n + (P.skor === n ? ' on' : '') + '" data-act="plScore" data-v="' + n + '" role="radio" aria-checked="' + (P.skor === n) + '"><b>' + n + '</b><small>' + PL_LBL[n] + '</small></button>';
+      }).join('') + '</div>' +
+      (P.skor ? '<span class="eyebrow">What stood out? (optional)</span><div class="pl-tags">' + PL_TAGS.map(function (t) {
+        return '<button type="button" class="pl-t' + (P.tag[t] ? ' on' : '') + '" data-act="plTag" data-v="' + h(t) + '" aria-pressed="' + !!P.tag[t] + '">' + h(t) + '</button>';
+      }).join('') + '</div><label>Anything to add? (optional)<textarea name="komen" maxlength="280" placeholder="No names needed">' + h(P.komen || '') + '</textarea></label>' : '') +
+      '<div class="row" style="margin-top:12px"><button type="button" class="btn ghost" data-act="plSkip">Skip</button><button class="btn grow" type="submit"' + (P.skor ? '' : ' disabled') + '>Send</button></div></form>';
+  }
+  function plKeep() { var t = document.querySelector('.pl textarea'); if (t) S.pl.komen = t.value; }
+  FORMS.plSend = function (f, btn) {
+    var P = S.pl || {}; if (!P.skor) { busy(btn, false); return; }
+    call('pulse', { skor: P.skor, tag: Object.keys(P.tag), komen: f.elements.komen ? f.elements.komen.value : '' }).then(function () {
+      plMark(); closeModal(); toast('Thanks. Your feedback is anonymous.');
+    }).catch(function (e) { busy(btn, false); toast(e.message, true); });
+  };
+
+  function wpDay(y) { var d = parseYmdL(y); return WDAY[d.getDay()] + ' ' + d.getDate() + ' ' + MON[d.getMonth()]; }
+  var SW_ST = { Ditawarkan: ['Open', 'orange'], Diambil: ['Waiting for manager', 'blue'], Diluluskan: ['Approved', 'green'], Ditolak: ['Declined', ''], Dibatalkan: ['Cancelled', ''] };
+  function swOpen() { modal('Shift swaps', '<div id="sw-body">' + SKEL + '</div>'); call('swapBoard').then(swRender).catch(swErr); }
+  function swErr(e) { var b = $('sw-body'); if (b) b.innerHTML = errBox(e); else toast(e.message, true); }
+  function swLine(x, right) {
+    return '<div class="li"><div><div style="font-weight:600">' + h(wpDay(x.tarikh)) + ' · ' + h(x.kod) + '</div><div class="muted">' + h(splitInline(x.teks || '')) + (x.sub ? ' · ' + h(x.sub) : '') + '</div></div><div class="row">' + right + '</div></div>';
+  }
+  function swRender(d) {
+    var b = $('sw-body'); if (!b) return;
+    var open = d.open.map(function (x) { x.sub = 'from ' + titleCase(x.dari) + (x.catatan ? ' · ' + x.catatan : ''); return swLine(x, '<button class="btn small" data-act="swTake" data-v="' + h(x.id) + '">Take</button>'); }).join('');
+    var mine = d.mine.map(function (x) {
+      var st = SW_ST[x.status] || [x.status, ''], live = x.status === 'Ditawarkan' || x.status === 'Diambil';
+      x.sub = x.saya === 'dari' ? (x.kepada ? 'covered by ' + titleCase(x.kepada) : 'your shift') : 'covering for ' + titleCase(x.dari);
+      return swLine(x, '<span class="chip ' + st[1] + '">' + st[0] + '</span>' + (live ? '<button class="btn ghost small" data-act="swCancel" data-v="' + h(x.id) + '">' + (x.saya === 'dari' ? 'Cancel' : 'Withdraw') + '</button>' : ''));
+    }).join('');
+    var mineS = d.shifts.map(function (x) { return swLine(x, '<button class="btn ghost small" data-act="swOffer" data-v="' + h(x.tarikh) + '">Offer</button>'); }).join('');
+    b.innerHTML = '<p class="muted" style="margin:0 0 8px">Can’t make a shift? Offer it to your branch team. Your manager approves, then the roster updates by itself.</p>' +
+      '<span class="eyebrow">Open shifts you can take</span><div class="list">' + (open || '<div class="empty">No open shifts right now.</div>') + '</div>' +
+      (mine ? '<span class="eyebrow">Your swaps</span><div class="list">' + mine + '</div>' : '') +
+      '<span class="eyebrow">Your next shifts</span><div class="list">' + (mineS || '<div class="empty">No upcoming shifts in the roster yet.</div>') + '</div>';
+  }
+  function swDo(act, p, el) { busy(el, true); call(act, p).then(function (d) { if ($('sw-body')) swRender(d); else if (S.urus === 'swap') uSwapRender(d); }).catch(function (e) { busy(el, false); toast(e.message, true); }); }
+  function uSwap() { call('swapBoard').then(uSwapRender).catch(urusErr); }
+  function uSwapRender(d) {
+    var rows = d.approve.map(function (x) {
+      return '<div class="li sw-ap"><div class="grow"><div style="font-weight:600">' + h(wpDay(x.tarikh)) + ' · ' + h(x.kod) + ' · ' + h(x.cawangan) + '</div>' +
+        '<div class="muted">' + h(titleCase(x.dari)) + ' gives the shift to ' + h(titleCase(x.kepada)) + (x.catatan ? ' · ' + h(x.catatan) : '') + '</div>' +
+        (x.amaran && x.amaran.length ? '<div class="sw-warn">' + x.amaran.map(function (a) { return h(a); }).join(' · ') + '</div>' : '<div class="sw-okk">Hours and rest day checked: all clear</div>') + '</div>' +
+        '<div class="row"><button class="btn ghost small" data-act="swDecide" data-v="' + h(x.id) + '" data-ok="0">Decline</button><button class="btn small" data-act="swDecide" data-v="' + h(x.id) + '" data-ok="1">Approve</button></div></div>';
+    }).join('');
+    urusBody('<section class="card"><div class="card-h"><h3>Waiting for your approval</h3><span class="chip ' + (d.approve.length ? 'orange' : 'green') + '">' + d.approve.length + '</span></div>' +
+      '<div class="list">' + (rows || '<div class="empty">No shift swaps to approve.</div>') + '</div>' +
+      '<p class="hint">Staff offer a shift in Schedule, a team mate from the same branch takes it, and you approve. NARA checks the 45 hour week and the weekly rest day before you decide. On approval the roster updates by itself.</p></section>');
+  }
+
+  function avOpen() { modal('My availability', '<div id="av-body">' + SKEL + '</div>'); call('availMine').then(avRender).catch(function (e) { var b = $('av-body'); if (b) b.innerHTML = errBox(e); }); }
+  function avRender(d) {
+    var b = $('av-body'); if (!b) return;
+    b.innerHTML = '<p class="muted" style="margin:0 0 8px">Tap the days you can’t work (up to ' + d.maks + ' a week). Your manager sees this when building the roster. For a full day off with pay, apply for leave.</p>' +
+      d.minggu.map(function (w) {
+        var m0 = parseYmdL(w.mon), m6 = addDays(m0, 6);
+        return '<span class="eyebrow">' + m0.getDate() + ' ' + MON[m0.getMonth()] + ' to ' + m6.getDate() + ' ' + MON[m6.getMonth()] + (w.dijadual ? ' · roster published' : '') + '</span><div class="av-g">' + w.days.map(function (x) {
+          var dt = parseYmdL(x.ymd), lock = !!x.kod && !x.on;
+          return '<button class="av-d' + (x.on ? ' on' : '') + (lock ? ' lock' : '') + '" data-act="avTog" data-v="' + x.ymd + '" data-on="' + (x.on ? 1 : 0) + '"' + (lock ? ' disabled' : '') + ' aria-pressed="' + x.on + '" aria-label="' + h(wpDay(x.ymd) + (x.on ? ': can’t work' : lock ? ': rostered ' + x.kod : ': available')) + '"><small>' + WDAY[dt.getDay()] + '</small><b>' + dt.getDate() + '</b><em>' + (x.on ? 'Can’t' : h(x.kod || 'Free')) + '</em></button>';
+        }).join('') + '</div>';
+      }).join('');
+  }
+
+  function uLog() {
+    call('logbook', { cawangan: S.branch }).then(uLogRender).catch(urusErr);
+  }
+  function uLogRender(d) {
+    var last = '', rows = d.senarai.map(function (x) {
+      var hd = x.tarikh !== last ? '<div class="ph-m">' + h(wpDay(x.tarikh)) + '</div>' : ''; last = x.tarikh;
+      return hd + '<div class="li lg-r' + (x.tindakan && !x.selesai ? ' todo' : '') + '"><div class="grow"><div><span class="chip">' + h(x.kategori) + '</span> <span class="muted">' + h(x.masa) + ' · ' + h(titleCase(x.oleh)) + '</span></div><div class="lg-t">' + h(x.catatan) + '</div></div>' +
+        (x.tindakan ? (x.selesai ? '<span class="chip green">Done</span>' : '<button class="btn ghost small" data-act="lgDone" data-v="' + x.row + '">Mark done</button>') : '') + '</div>';
+    }).join('');
+    urusBody('<section class="card"><div class="card-h"><h3>New entry · ' + h(d.cawangan) + '</h3>' + (d.terbuka ? '<span class="chip orange">' + d.terbuka + ' to follow up</span>' : '<span class="chip green">Nothing open</span>') + '</div>' +
+      '<form data-form="lgAdd"><div class="two"><label>Category<select name="kategori">' + d.kat.map(function (k) { return '<option>' + h(k) + '</option>'; }).join('') + '</select></label>' +
+      '<label style="flex-direction:row;align-items:center;gap:8px;margin-top:22px"><input type="checkbox" name="tindakan" style="width:auto;min-height:auto"> Needs follow-up</label></div>' +
+      '<label>Note for the next shift<textarea name="catatan" required maxlength="600" placeholder="Sales, staff, guests, equipment, stock…"></textarea></label>' +
+      '<button class="btn block" type="submit">Add to log book</button></form></section>' +
+      '<section class="card"><div class="card-h"><h3>Last 14 days</h3></div><div class="list">' + (rows || '<div class="empty">No entries yet. The first note starts the handover habit.</div>') + '</div></section>');
+  }
+  FORMS.lgAdd = function (f, btn) {
+    call('logAdd', { cawangan: S.branch, kategori: f.elements.kategori.value, catatan: f.elements.catatan.value, tindakan: f.elements.tindakan.checked }).then(function (d) { S.dirty = false; toast('Added to the log book'); uLogRender(d); }).catch(function (e) { busy(btn, false); toast(e.message, true); });
+  };
+
+  function uPulse() { call('pulseBoard', { cawangan: S.branch }).then(uPulseRender).catch(urusErr); }
+  function uPulseRender(d) {
+    var diff = d.avgPrev && d.avg7 ? Math.round((d.avg7 - d.avgPrev) * 10) / 10 : 0;
+    var tone = !d.avg7 ? '' : d.avg7 >= 4 ? 'green' : d.avg7 >= 3 ? 'blue' : 'orange';
+    var bars = d.hari.map(function (x) {
+      var dt = parseYmdL(x.ymd);
+      return '<div class="pb-b" title="' + h(wpDay(x.ymd) + (x.n ? ': ' + x.avg + ' from ' + x.n : ': no answers')) + '"><i style="height:' + (x.n ? Math.round(x.avg / 5 * 100) : 0) + '%" class="' + (x.avg >= 4 ? 'g' : x.avg >= 3 ? 'b' : 'o') + '"></i><small>' + dt.getDate() + '</small></div>';
+    }).join('');
+    var tags = d.tag.map(function (t) { return '<div class="li"><span>' + h(t[0]) + '</span><span class="chip">' + t[1] + '</span></div>'; }).join('');
+    var kom = d.komen.map(function (k) { return '<div class="li"><span class="pb-s s' + k.s + '">' + k.s + '</span><span class="grow">' + h(k.k) + '</span></div>'; }).join('');
+    var cmp = d.banding.length > 1 ? '<section class="card"><div class="card-h"><h3>Branches, last 14 days</h3></div><div class="list">' + d.banding.map(function (b) {
+      return '<div class="li"><span>' + h(b.nama) + '</span><span class="row"><span class="muted">' + b.n + ' answers</span><span class="chip ' + (b.avg >= 4 ? 'green' : b.avg >= 3 ? 'blue' : 'orange') + '">' + b.avg + '</span></span></div>';
+    }).join('') + '</div></section>' : '';
+    urusBody('<section class="card pb-top"><div class="pb-big ' + tone + '"><b>' + (d.avg7 || '-') + '</b><small>of 5</small></div><div class="grow"><b>' + h(d.cawangan) + ' · last 7 days</b>' +
+      '<span class="muted">' + d.n7 + ' answer' + (d.n7 === 1 ? '' : 's') + ' after clock out' + (diff ? ' · ' + (diff > 0 ? 'up ' : 'down ') + Math.abs(diff) + ' vs the week before' : '') + '</span>' +
+      '<span class="muted">Anonymous: no names, no times. Details show after ' + d.min + ' answers.</span></div></section>' +
+      (d.cukup ? '<section class="card"><div class="card-h"><h3>Daily score, 14 days</h3></div><div class="pb-g">' + bars + '</div></section>' +
+        '<section class="card"><div class="card-h"><h3>What staff mention</h3></div><div class="list">' + (tags || '<div class="empty">No tags yet.</div>') + '</div></section>' +
+        (kom ? '<section class="card"><div class="card-h"><h3>Comments</h3></div><div class="list">' + kom + '</div></section>' : '')
+        : '<section class="card"><div class="empty">Not enough answers yet (' + d.n14 + ' of ' + d.min + '). Staff are asked once after their last clock out of the day.</div></section>') + cmp);
+  }
+  document.addEventListener('nara-test-pulse', plAsk); // ujian E2E sahaja: buka Shift Pulse tanpa clock out penuh
+  Object.assign(ACT, {
+    plScore: function (el) { plKeep(); S.pl.skor = Number(el.dataset.v); $('modal-body').innerHTML = plHtml(); },
+    plTag: function (el) { plKeep(); var t = el.dataset.v; if (S.pl.tag[t]) delete S.pl.tag[t]; else if (Object.keys(S.pl.tag).length < 3) S.pl.tag[t] = 1; $('modal-body').innerHTML = plHtml(); },
+    plSkip: function () { plMark(); closeModal(); },
+    swOpen: swOpen, avOpen: avOpen,
+    swOffer: function (el) { swDo('swapOffer', { tarikh: el.dataset.v }, el); },
+    swTake: function (el) { swDo('swapTake', { id: el.dataset.v }, el); },
+    swCancel: function (el) { swDo('swapCancel', { id: el.dataset.v }, el); },
+    swDecide: function (el) { swDo('swapDecide', { id: el.dataset.v, lulus: el.dataset.ok === '1' }, el); },
+    avTog: function (el) { busy(el, true); call('availSet', { tarikh: el.dataset.v, on: el.dataset.on !== '1' }).then(avRender).catch(function (e) { busy(el, false); toast(e.message, true); }); },
+    lgDone: function (el) { busy(el, true); call('logDone', { row: Number(el.dataset.v) }).then(uLogRender).catch(function (e) { busy(el, false); toast(e.message, true); }); }
   });
 
   /* ======================= Mula ======================= */
