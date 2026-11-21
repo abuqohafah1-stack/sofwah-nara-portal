@@ -2491,6 +2491,12 @@ button.kpi:hover{transform:translateY(-2px);border-color:#CDBFFF;box-shadow:0 14
 .kd-m{margin:3px 0 4px;font-size:14px;line-height:1.45;color:#1F2937;overflow-wrap:anywhere}
 .kd-rank{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#EDE9FF;color:#5B2ED1;font:800 12px Montserrat,sans-serif}
 .kd-seg{margin-bottom:10px}
+.au-cv{font-style:normal;font:800 10px Montserrat,sans-serif;min-width:20px;padding:1px 5px;border-radius:999px;text-align:center}
+.au-cv.ok{background:#DDFBF7;color:#00806F}.au-cv.short{background:#FFE4D6;color:#B4400A}
+.au-leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:2px 4px 10px;font-size:11.5px;color:#6B6F9A}
+.au-leg span{display:inline-flex;align-items:center;gap:5px}
+.au-leg i.b,.au-leg i.g{width:10px;height:10px;border-radius:3px;background:#7A3EFF}.au-leg i.g{background:#00C8B5}
+.au-leg i.t{width:14px;height:0;border-top:2px dashed #1B1F4B;opacity:.55}
 @media (max-width:420px){.kd-pick{grid-template-columns:minmax(0,1fr)}.au-big{font-size:26px}}
 .kd-ch i{font-style:normal;overflow:hidden;text-overflow:ellipsis}
 </style>
@@ -6144,7 +6150,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (kerja && !pagi) f.push('no morning shift this week');
       if (split > 2) f.push(split + ' split shifts (max 2)');
       if (split && m.tiadaSplit) f.push('split shift, but marked no split');
-      if (jam > 45) f.push(jam + ' hours (max 45)');
+      var hadJ = (S.rp.plan && S.rp.plan.hadJam) || 45;
+      if (jam > hadJ) f.push(jam + ' hours (max ' + hadJ + ')');
       if (offWork) f.push('working on a fixed rest day');
       if (unav) f.push('rostered on a day they marked unavailable');
       if (f.length) out.push({ id: x.id, nama: x.nama, f: f });
@@ -8705,7 +8712,8 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       var dt = parseYmdL(x.ymd), hb = x.tutup ? 0 : Math.round((x.rm || 0) / max * 100), ht = x.sasaran && !x.tutup ? Math.round(x.sasaran / max * 100) : null;
       return '<div class="au-b' + (x.tutup ? ' shut' : '') + (dt.getDay() === 5 || dt.getDay() === 6 ? ' wk' : '') + '" title="' + h(wpDay(x.ymd) + (x.tutup ? ': closed' : ': forecast ' + rm0(x.rm) + (x.sasaran ? ', target ' + rm0(x.sasaran) : ''))) + '">' +
         '<span class="au-col"><i style="height:' + hb + '%"></i>' + (ht !== null ? '<u style="bottom:' + ht + '%"></u>' : '') + (x.tutup ? '<em>Closed</em>' : '') + '</span>' +
-        '<small>' + WDAY[dt.getDay()].slice(0, 2) + '</small><b>' + (x.tutup ? '-' : x.rm >= 1000 ? (x.rm / 1000).toFixed(1) + 'k' : Math.round(x.rm || 0)) + '</b></div>';
+        '<small>' + WDAY[dt.getDay()].slice(0, 2) + '</small><b>' + (x.tutup ? '-' : x.rm >= 1000 ? (x.rm / 1000).toFixed(1) + 'k' : Math.round(x.rm || 0)) + '</b>' +
+        (x.perlu && x.isi && !x.tutup ? (function () { var sh = 0; for (var k = 0; k < 3; k++) sh += Math.max(0, x.perlu[k] - x.isi[k]); return '<i class="au-cv ' + (sh ? 'short' : 'ok') + '" title="' + (sh ? 'Short ' + sh + ' staff across lunch, afternoon and dinner' : 'Every slot covered') + '">' + (sh ? '-' + sh : '✓') + '</i>'; })() : '') + '</div>';
     }).join('') + '</div>';
   }
   function auCard(c) {
@@ -8718,7 +8726,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
         '<div class="sc ' + (r.skor >= 85 ? 'g' : r.skor >= 60 ? 'b' : 'o') + '"><b>' + r.skor + '</b><span>check score</span></div>' : '') + '</div>';
     var isu = r && r.isu.length ? '<details class="au-isu"><summary>' + r.n + ' thing' + (r.n === 1 ? '' : 's') + ' to review</summary><div class="list">' + r.isu.map(function (x) {
       return '<div class="li"><span class="au-k ' + (x.t === 'hari' ? 'd' : 's') + '">' + h(x.t === 'hari' ? x.nama : titleCase(x.nama)) + '</span><span class="grow">' + x.f.map(h).join(' · ') + '</span></div>';
-    }).join('') + '</div></details>' : r ? '<div class="sw-okk">All checks clear: hours, rest days, leave, availability, cover and team readiness.</div>' : '';
+    }).join('') + '</div></details>' : r ? '<div class="sw-okk">All checks clear: hours, rest days, leave, availability and cover' + (r.rated ? ', plus team readiness.' : '. Team readiness is checked once HR has rated at least half the team.') + '</div>' : '';
     var meta = c.status === 'Draf' ? 'Drafted by ' + titleCase(c.oleh) + (c.masa ? ', ' + c.masa : '') : c.status === 'Diterbitkan' ? (c.putus ? 'Published by ' + titleCase(c.putus) : c.disimpan + ' staff already on the roster') : 'Not drafted yet';
     return '<section class="card au-c"><div class="card-h"><h3>' + h(c.cawangan) + '</h3><span class="chip ' + st[1] + '">' + st[0] + '</span></div>' +
       (days.length ? auBars(days) : '') + stats + isu + '<p class="hint" style="margin:6px 0 0">' + h(meta) + '</p>' +
@@ -8737,8 +8745,9 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       '<p class="muted" style="margin:8px 0 12px">NARA drafts each branch from the sales forecast (FeedMe sales, the same feed as NEXUS, × the daily sales target), staff availability, leave, fixed rest days, the 45 hour week and staff rating. Staff see nothing until you approve.</p>' +
       '<div class="au-acts"><button class="btn small" data-act="auGen">' + (d.bolehSemua ? 'Generate drafts for all ' + d.cawangan.length + ' branches' : 'Generate draft') + '</button>' +
       (drafts.length > 1 ? '<button class="btn ghost small" data-act="auOk">Approve all ' + drafts.length + ' drafts</button>' : '') + '</div></section>';
-    urusBody(top + d.cawangan.map(auCard).join('') +
-      '<p class="hint">Forecast = daily sales target × how much of target the branch really sold on the same weekday over the last 4 weeks, split by lunch, afternoon and dinner the way that weekday really sells. Staff needed per slot = sales per hour ÷ SPLH target. Regenerating keeps every shift already saved and only fills the gaps.</p>');
+    var legend = '<div class="au-leg"><span><i class="b"></i>Forecast, weekday</span><span><i class="g"></i>Forecast, Fri and Sat</span><span><i class="t"></i>Daily sales target</span><span><i class="au-cv ok">✓</i>Slots covered</span><span><i class="au-cv short">-2</i>Staff short</span></div>';
+    urusBody(top + legend + d.cawangan.map(auCard).join('') +
+      '<p class="hint">Forecast = daily sales target × how much of target the branch really sold on the same weekday over the last 4 weeks, split by lunch, afternoon and dinner the way that weekday really sells. Staff needed per slot = sales per hour ÷ SPLH target. Rest days go to the days with the most spare staff, so no day is left short. Regenerating keeps every shift already saved and only fills the gaps. Approve publishes exactly the draft you reviewed.</p>');
   }
   function auWeekLbl() { var m = addDays(monday(today()), S.auOff * 7); return m.getDate() + ' ' + MON[m.getMonth()]; }
 
