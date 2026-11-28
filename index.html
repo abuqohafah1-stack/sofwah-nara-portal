@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NARA HR · The People Management Platform</title>
-<meta name="description" content="NARA HR: HR untuk restoran F&amp;B, dibina dan digunakan di Sofwah Arabic Grill. Clock in yang tidak boleh ditipu, roster ikut jualan, payroll berkanun dan pematuhan Akta Kerja 1955 dalam satu app.">
+<meta name="description" content="NARA HR: HR untuk restoran F&amp;B, dibina di Sofwah Arabic Grill. Clock in yang tidak boleh ditipu, Jadual Auto dari ramalan jualan, payroll berkanun dan pematuhan Akta Kerja 1955 dalam satu app.">
 <link rel="icon" href="/assets/nara-mark.svg" type="image/svg+xml">
 <script>(function(){var h=location.hash||'';if(/^#(join=|lokasi|[a-z]+=)/.test(h)&&!/^#(masalah|hari|cawangan|peranan|ciri|minda|jimat|sofwah|privasi|top)$/.test(h)){location.replace('/hr/'+location.search+h);}})();</script>
 <link rel="canonical" href="https://nara.sofwah.my/">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="NARA HR">
 <meta property="og:title" content="NARA HR · The People Management Platform">
-<meta property="og:description" content="HR untuk restoran F&amp;B, dibina dan digunakan di Sofwah Arabic Grill. Clock in yang tak boleh dipalsukan, roster ikut jualan, payroll berkanun dan pematuhan Akta Kerja 1955 dalam satu app.">
+<meta property="og:description" content="HR untuk restoran F&amp;B, dibina di Sofwah Arabic Grill. Clock in yang tak boleh dipalsukan, Jadual Auto dari ramalan jualan, payroll berkanun dan pematuhan Akta Kerja 1955 dalam satu app.">
 <meta property="og:url" content="https://nara.sofwah.my/">
 <meta property="og:image" content="https://nara.sofwah.my/assets/og-nara-hr.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -1238,6 +1238,57 @@ p{margin:0}
   .c-portal{transform:scale(.6);margin:-104px 0}
 }
 
+
+/* ===== Terkini: NARA HR 1.2 (Nov 2026) ===== */
+.n-new{padding:20px 0 130px}
+.n-pill{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 13px;border-radius:999px;background:var(--navy);color:#fff;font:700 11.5px/1 Inter,sans-serif;letter-spacing:.08em}
+.n-pill i{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(0,200,181,.22)}
+.n-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:22px}
+.n-c{grid-column:span 2;display:flex;flex-direction:column;gap:14px;padding:26px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-paper);border:1px solid rgba(27,31,75,.06);min-width:0}
+.n-c.n-big{grid-column:span 4;background:linear-gradient(150deg,#1B1F4B 0%,#2C2484 62%,#5B2ED1 100%);color:#fff;border:0;box-shadow:var(--shadow-float)}
+.n-tag{align-self:flex-start;font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.n-big .n-tag{color:#9FF1E8}
+.n-c h3{margin:0;font:800 22px/1.15 Montserrat,sans-serif;letter-spacing:-.01em;color:var(--navy)}
+.n-big h3{font-size:30px;color:#fff}
+.n-c p{margin:0;font-size:15px;line-height:1.6;color:var(--slate)}
+.n-big p{color:#D3D7F5;max-width:560px}
+.n-mock{margin-top:auto;border-radius:18px;background:var(--mist);padding:16px;min-width:0}
+.n-big .n-mock{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.n-cap{display:block;margin-bottom:10px;font:600 10.5px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8FB5}
+.n-big .n-cap{color:#B9BEE6}
+.n-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:end}
+.n-b{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.n-col{position:relative;width:100%;height:92px;border-radius:10px;background:rgba(255,255,255,.07);overflow:hidden}
+.n-col i{position:absolute;left:20%;right:20%;bottom:0;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#B79BFF,#7A3EFF)}
+.n-b.wk .n-col i{background:linear-gradient(180deg,#6FF0E2,#00C8B5)}
+.n-col u{position:absolute;left:8%;right:8%;border-top:2px dashed rgba(255,255,255,.75)}
+.n-b small{font-size:11px;color:#B9BEE6}
+.n-b em{font-style:normal;font:800 10px/1 Montserrat,sans-serif;padding:3px 6px;border-radius:999px;background:rgba(0,200,181,.22);color:#9FF1E8}
+.n-steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding:0;list-style:none}
+.n-steps li{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 13px;border-radius:999px;background:rgba(255,255,255,.1);font:600 13px/1 Inter,sans-serif;color:#fff}
+.n-steps b{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#00C8B5;color:#0B2B33;font:800 10.5px/1 Montserrat,sans-serif}
+.n-leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:11.5px;color:#B9BEE6}
+.n-leg span{display:inline-flex;align-items:center;gap:6px}
+.n-leg i{width:10px;height:10px;border-radius:3px;background:#9B6BFF}.n-leg i.g{background:#00C8B5}.n-leg i.t{width:14px;height:0;border-radius:0;background:none;border-top:2px dashed rgba(255,255,255,.75)}
+.n-vals{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.n-vals b{display:grid;place-items:center;aspect-ratio:1;border-radius:12px;color:#fff;font:900 16px/1 Montserrat,sans-serif}
+.n-so{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:12px;border-radius:14px;background:#fff;box-shadow:0 8px 20px -14px rgba(27,31,75,.4)}
+.n-so b{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#E07A00;color:#fff;font:900 14px/1 Montserrat,sans-serif}
+.n-so span{font-size:13.5px;line-height:1.45;color:var(--ink)}.n-so small{display:block;margin-top:3px;font-size:11.5px;color:#8A8FB5}
+.n-wk{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.n-wk span{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0;border-radius:10px;background:#fff;font:800 12px/1 Montserrat,sans-serif;color:var(--navy);min-width:0}
+.n-wk small{font:600 9.5px/1 Inter,sans-serif;color:#8A8FB5}
+.n-wk .x{background:#FFE9E9;color:#C0392B}.n-wk .o{background:#EDE9FF;color:#5B2ED1;box-shadow:inset 0 0 0 1.5px #7A3EFF}
+.n-sc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.n-sc b{display:grid;place-items:center;height:46px;border-radius:12px;background:#fff;font:800 17px/1 Montserrat,sans-serif;color:var(--navy);box-shadow:inset 0 0 0 1.5px #E4E6F3}
+.n-sc b.on{background:#7A3EFF;color:#fff;box-shadow:none}
+.n-f{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:700 13px/1.3 Montserrat,sans-serif;color:var(--navy)}
+.n-f i{font-style:normal;color:#8A8FB5;font-weight:600}
+.n-f span{padding:6px 10px;border-radius:10px;background:#fff}
+.n-f span.r{background:#7A3EFF;color:#fff}
+.n-note{margin:22px 0 0;text-align:center;font-size:13px;color:#8A8FB5}
+@media (max-width:1100px){.n-c,.n-c.n-big{grid-column:span 3}.n-c.n-big{grid-column:span 6}}
+@media (max-width:640px){.n-new{padding:0 0 84px}.n-grid{grid-template-columns:minmax(0,1fr);gap:16px}.n-c,.n-c.n-big{grid-column:span 1;padding:22px}.n-big h3{font-size:25px}.n-col{height:72px}.n-bars{gap:5px}}
 </style>
 </head>
 <body>
@@ -1253,7 +1304,7 @@ p{margin:0}
 <div class="nav-in">
 <a href="#top" aria-label="NARA HR, kembali ke atas"><img src="/assets/lockup-tagline-reverse.svg" alt="NARA HR · The People Management Platform"></a>
 <nav class="nav-links" aria-label="Navigasi utama">
-<a href="#masalah">Masalah</a><a href="#hari">Sehari</a><a href="#cawangan">Cawangan</a><a href="#ciri">Ciri</a><a href="#minda">Minda</a><a href="#jimat">Jimat</a><a href="#sofwah">Sofwah</a>
+<a href="#masalah">Masalah</a><a href="#hari">Sehari</a><a href="#cawangan">Cawangan</a><a href="#terkini">Terkini</a><a href="#ciri">Ciri</a><a href="#minda">Minda</a><a href="#jimat">Jimat</a><a href="#sofwah">Sofwah</a>
 </nav>
 <a class="btn btn-pri" href="https://nara.sofwah.my/hr/">Buka NARA HR</a>
 </div>
@@ -1287,7 +1338,7 @@ p{margin:0}
 </div>
 <div class="a-made">
 <span class="a-mk"><img src="/assets/nara-mark.svg" alt=""></span>
-<span class="micro">Dibina &amp; digunakan di Sofwah Arabic Grill</span>
+<span class="micro">Dibina di Sofwah Arabic Grill · Rasmi 1 Jan 2027</span>
 <span class="a-dsep" aria-hidden="true"></span><span class="micro">iPhone</span>
 <span class="a-dsep" aria-hidden="true"></span><span class="micro">Android</span>
 <span class="a-dsep" aria-hidden="true"></span><span class="micro">Web</span>
@@ -1319,7 +1370,7 @@ p{margin:0}
 <div class="a-ly a-l-card a-k1"><div class="holo-border a-crim"><div class="a-cface">
 <div class="a-ctop"><span>NARA · 01</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z"/></svg></div>
 <div class="a-cart a-t"><svg class="a-cst" viewBox="-50 -50 100 100" aria-hidden="true"><use href="#nara-star8" x="-50" y="-50" width="100" height="100"></use></svg><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg></div>
-<p class="a-cname">Roster pintar</p><p class="a-csub">Dari jualan sejam</p>
+<p class="a-cname">Jadual Auto</p><p class="a-csub">Dari ramalan jualan</p>
 </div></div></div>
 
 <div class="a-ly a-l-card a-k2"><div class="holo-border a-crim"><div class="a-cface">
@@ -1331,7 +1382,7 @@ p{margin:0}
 <div class="a-ly a-l-card a-k3"><div class="holo-border a-crim"><div class="a-cface">
 <div class="a-ctop"><span>NARA · 03</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z"/></svg></div>
 <div class="a-cart"><svg class="a-cst" viewBox="-50 -50 100 100" aria-hidden="true"><use href="#nara-star8" x="-50" y="-50" width="100" height="100"></use></svg><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></div>
-<p class="a-cname">Minda Sofwah</p><p class="a-csub">44 soalan · 9 topik</p>
+<p class="a-cname">Minda Sofwah</p><p class="a-csub">51 soalan · 9 topik</p>
 </div></div></div>
 
 <div class="a-ly a-l-card a-k4"><div class="holo-border a-crim"><div class="a-cface">
@@ -1436,7 +1487,7 @@ p{margin:0}
 <h2 class="h2" id="a-mas-title">Enam sakit kepala. <span class="a-hl">Satu app.</span></h2>
 </div>
 <div>
-<p class="lede">Masalah sebenar di restoran sebenar. Setiap penyelesaian di bawah dibina dan digunakan di Sofwah Arabic Grill.</p>
+<p class="lede">Masalah sebenar di restoran sebenar. Setiap penyelesaian di bawah dibina di Sofwah Arabic Grill, untuk restoran Sofwah sendiri.</p>
 <div class="a-legend"><span><i class="a-lg1"></i>Masalah</span><span><i class="a-lg2"></i>Penyelesaian NARA HR</span></div>
 </div>
 </div>
@@ -1480,8 +1531,8 @@ p{margin:0}
 <div class="paper a-fix">
 <div class="a-frow"><span class="a-fchip"><i class="dot"></i>Penyelesaian NARA HR</span><span class="a-fic a-n"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg></span></div>
 <p class="a-ft">Roster pintar dari jualan.</p>
-<p class="a-fp">Cadangan shift dari jualan setiap jam, hari puncak dan rating staf tahap 1 hingga 5. Salin minggu lepas dengan satu ketikan.</p>
-<div class="a-tags"><span>Shift di telefon</span><span class="a-t">Google / Apple Calendar</span></div>
+<p class="a-fp">Jadual Auto: satu tekan, draf roster setiap cawangan dari ramalan jualan, rating staf tahap 1 hingga 5 dan hari staf tidak boleh bekerja. Pengurus semak, kemudian lulus.</p>
+<div class="a-tags"><span>Shift di telefon</span><span>Tukar shift dalam app</span><span class="a-t">Google / Apple Calendar</span></div>
 </div>
 </article>
 
@@ -1636,7 +1687,7 @@ p{margin:0}
 <article class="b-a"><div>
 <div class="b-ch"><span class="b-who" aria-hidden="true">A</span><span class="b-n">04</span><span class="b-tm">13:30</span><span class="b-tg">Minda Sofwah</span></div>
 <h3>Tanya Minda Sofwah.</h3>
-<p>Dalam Bahasa Melayu. Jawapan diperibadikan ikut tempoh khidmat, jawatan dan cawangan Aina. 44 soalan, 9 topik.</p>
+<p>Dalam Bahasa Melayu. Jawapan diperibadikan ikut tempoh khidmat, jawatan dan cawangan Aina. 51 soalan, 9 topik.</p>
 </div><div class="b-v" aria-hidden="true"><span class="b-q">Nilai teras Sofwah?</span><span class="b-an">S.O.F.W.A.H</span></div></article>
 <article class="b-h">
 <div class="b-ch"><span class="b-who b-hm" aria-hidden="true">H</span><span class="b-tm">Hafiz nampak</span><span class="b-tg">Auto</span></div>
@@ -1823,9 +1874,10 @@ p{margin:0}
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Clock in: tahan ring, selfie + GPS</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Cuti, MC dan claim dengan foto</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Payslip dalam app, dilindungi PIN</span></li>
-<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Minda Sofwah: 44 soalan dalam Bahasa Melayu</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Minda Sofwah: 51 soalan dalam Bahasa Melayu</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Faedah ikut tempoh khidmat, dan apa yang dibuka seterusnya</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Ganjaran RM100 sebulan bila sifar hari lewat (staf tetap)</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Tukar shift, tanda hari tidak boleh bekerja, dan shout-out S.O.F.W.A.H</span></li>
 </ul>
 </div></div>
 <div class="a-grab" aria-hidden="true"><i></i><b></b></div>
@@ -1843,6 +1895,30 @@ p{margin:0}
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Kehadiran cawangan secara langsung</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Approve cuti, MC dan claim di telefon</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Roster pintar, liputan ikut jam dan zon</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Clock in: tahan ring, selfie + GPS</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Cuti, MC dan claim dengan foto</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Payslip dalam app, dilindungi PIN</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Minda Sofwah: 51 soalan dalam Bahasa Melayu</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Faedah ikut tempoh khidmat, dan apa yang dibuka seterusnya</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Ganjaran RM100 sebulan bila sifar hari lewat (staf tetap)</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Tukar shift, tanda hari tidak boleh bekerja, dan shout-out S.O.F.W.A.H</span></li>
+</ul>
+</div></div>
+<div class="a-grab" aria-hidden="true"><i></i><b></b></div>
+</article>
+
+<article class="a-win a-wc">
+<div class="holo-border a-wrim"><div class="glass holo a-wp">
+<div class="a-wh"><span class="a-wic a-t"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7" width="17" height="12" rx="2.5"/><path d="M9 7V5h6v2M3.5 12h17"/></svg></span><div><p class="micro">Peranan 02</p><h3>Pengurus cawangan</h3></div></div>
+<span class="chip a-pchip"><i class="a-av">H</i>Hafiz · Pengurus Gurun</span>
+<div class="a-vg a-vg-w">
+<div class="a-ph"><span class="a-pic a-g"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><b>Location alert</b><small>Syafiq · more than 10 km</small></span></div>
+<div class="a-va-b"><span class="a-ok">Approved task</span><span class="a-no">Not approved</span></div>
+</div>
+<ul class="a-wlist">
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Kehadiran cawangan secara langsung</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Approve cuti, MC dan claim di telefon</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Jadual Auto: draf, semak, lulus. Luluskan tukar shift, log book dan Team pulse</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Approve OT dan betulkan kehadiran, dengan rekod siapa ubah apa</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Angka gaji kekal sulit, tidak dipaparkan kepada pengurus</span></li>
 </ul>
@@ -1862,6 +1938,73 @@ p{margin:0}
 </div>
 <ul class="a-wlist">
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Dashboard semua cawangan, HQ dan Central Kitchen</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Clock in: tahan ring, selfie + GPS</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Cuti, MC dan claim dengan foto</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Payslip dalam app, dilindungi PIN</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Minda Sofwah: 51 soalan dalam Bahasa Melayu</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Faedah ikut tempoh khidmat, dan apa yang dibuka seterusnya</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Ganjaran RM100 sebulan bila sifar hari lewat (staf tetap)</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Tukar shift, tanda hari tidak boleh bekerja, dan shout-out S.O.F.W.A.H</span></li>
+</ul>
+</div></div>
+<div class="a-grab" aria-hidden="true"><i></i><b></b></div>
+</article>
+
+<article class="a-win a-wc">
+<div class="holo-border a-wrim"><div class="glass holo a-wp">
+<div class="a-wh"><span class="a-wic a-t"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7" width="17" height="12" rx="2.5"/><path d="M9 7V5h6v2M3.5 12h17"/></svg></span><div><p class="micro">Peranan 02</p><h3>Pengurus cawangan</h3></div></div>
+<span class="chip a-pchip"><i class="a-av">H</i>Hafiz · Pengurus Gurun</span>
+<div class="a-vg a-vg-w">
+<div class="a-ph"><span class="a-pic a-g"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><b>Location alert</b><small>Syafiq · more than 10 km</small></span></div>
+<div class="a-va-b"><span class="a-ok">Approved task</span><span class="a-no">Not approved</span></div>
+</div>
+<ul class="a-wlist">
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Kehadiran cawangan secara langsung</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Approve cuti, MC dan claim di telefon</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Roster pintar, liputan ikut jam dan zon</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Clock in: tahan ring, selfie + GPS</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Cuti, MC dan claim dengan foto</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Payslip dalam app, dilindungi PIN</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Minda Sofwah: 51 soalan dalam Bahasa Melayu</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Faedah ikut tempoh khidmat, dan apa yang dibuka seterusnya</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Ganjaran RM100 sebulan bila sifar hari lewat (staf tetap)</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Tukar shift, tanda hari tidak boleh bekerja, dan shout-out S.O.F.W.A.H</span></li>
+</ul>
+</div></div>
+<div class="a-grab" aria-hidden="true"><i></i><b></b></div>
+</article>
+
+<article class="a-win a-wc">
+<div class="holo-border a-wrim"><div class="glass holo a-wp">
+<div class="a-wh"><span class="a-wic a-t"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7" width="17" height="12" rx="2.5"/><path d="M9 7V5h6v2M3.5 12h17"/></svg></span><div><p class="micro">Peranan 02</p><h3>Pengurus cawangan</h3></div></div>
+<span class="chip a-pchip"><i class="a-av">H</i>Hafiz · Pengurus Gurun</span>
+<div class="a-vg a-vg-w">
+<div class="a-ph"><span class="a-pic a-g"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><b>Location alert</b><small>Syafiq · more than 10 km</small></span></div>
+<div class="a-va-b"><span class="a-ok">Approved task</span><span class="a-no">Not approved</span></div>
+</div>
+<ul class="a-wlist">
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Kehadiran cawangan secara langsung</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Approve cuti, MC dan claim di telefon</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Jadual Auto: draf, semak, lulus. Luluskan tukar shift, log book dan Team pulse</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Approve OT dan betulkan kehadiran, dengan rekod siapa ubah apa</span></li>
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Angka gaji kekal sulit, tidak dipaparkan kepada pengurus</span></li>
+</ul>
+</div></div>
+<div class="a-grab" aria-hidden="true"><i></i><b></b></div>
+</article>
+
+<article class="a-win a-wr">
+<div class="holo-border a-wrim"><div class="glass holo a-wp">
+<div class="a-wh"><span class="a-wic a-n"><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 16v-4M11.5 16V8M16 16v-6"/></svg></span><div><p class="micro">Peranan 03</p><h3>HQ, HR &amp; CEO</h3></div></div>
+<span class="chip a-pchip"><i class="a-av">HQ</i>HQ · HR &amp; CEO</span>
+<div class="a-vg a-vg-w">
+<div class="a-vp-h"><b>Staffing Planner</b><span class="micro">Contoh paparan</span></div>
+<div class="a-slot"><span><b>Tengah hari</b><small>10:00 hingga 15:00</small></span><em class="a-am">Tambah</em></div>
+<div class="a-slot"><span><b>Petang</b><small>15:00 hingga 18:00</small></span><em class="a-t">Seimbang</em></div>
+<div class="a-slot"><span><b>Malam</b><small>18:00 hingga 23:00</small></span><em class="a-sk">Kurangkan</em></div>
+</div>
+<ul class="a-wlist">
+<li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Jadual Auto semua cawangan dari ramalan jualan, satu tekan</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Payroll Draft, Confirmed, Paid, dengan semakan sebelum run</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Daftar peraturan dengan tarikh kuat kuasa, maker bukan checker</span></li>
 <li><svg class="a-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#a-i-chk"></use></svg><span>Notis wajib baca dan cuti umum syarikat dengan push notification</span></li>
@@ -1875,6 +2018,61 @@ p{margin:0}
 
 </div>
 </section>
+<section id="terkini" class="sec light n-new" aria-labelledby="n-new-h">
+<div class="wrap">
+<div class="sec-head center">
+<span class="n-pill"><i></i>TERKINI · NARA HR 1.2 · NOVEMBER 2026</span>
+<h2 class="h2" id="n-new-h">Roster kini <span class="grad-text">membina dirinya sendiri.</span></h2>
+<p class="lede" style="margin-left:auto;margin-right:auto">Kami mengkaji 10 app HR F&amp;B terkemuka dunia, kemudian membina apa yang paling penting untuk restoran: jadual yang lahir dari ramalan jualan, dan pasukan yang saling menghargai.</p>
+</div>
+<div class="n-grid">
+<article class="n-c n-big">
+<span class="n-tag">Baharu · Jadual Auto</span>
+<h3>Satu tekan. Draf roster setiap cawangan.</h3>
+<p>NARA menjana draf minggu depan daripada ramalan jualan, hari staf tidak boleh bekerja, cuti, hari rehat tetap, had 45 jam seminggu dan rating staf. Pengurus semak, kemudian lulus. Staf hanya nampak roster selepas ia diterbitkan.</p>
+<div class="n-mock"><span class="n-cap">Contoh paparan · ramalan jualan 7 hari</span>
+<div class="n-bars"><div class="n-b"><span class="n-col"><i style="height:62%"></i><u style="bottom:80%"></u></span><small>Is</small><em>✓</em></div><div class="n-b"><span class="n-col"><i style="height:60%"></i><u style="bottom:92%"></u></span><small>Se</small><em>✓</em></div><div class="n-b"><span class="n-col"><i style="height:45%"></i><u style="bottom:78%"></u></span><small>Ra</small><em>✓</em></div><div class="n-b"><span class="n-col"><i style="height:52%"></i><u style="bottom:82%"></u></span><small>Kh</small><em>✓</em></div><div class="n-b wk"><span class="n-col"><i style="height:47%"></i><u style="bottom:72%"></u></span><small>Ju</small><em>✓</em></div><div class="n-b wk"><span class="n-col"><i style="height:66%"></i><u style="bottom:72%"></u></span><small>Sa</small><em>✓</em></div><div class="n-b"><span class="n-col"><i style="height:53%"></i><u style="bottom:93%"></u></span><small>Ah</small><em>✓</em></div></div>
+<div class="n-leg"><span><i></i>Ramalan, hari biasa</span><span><i class="g"></i>Ramalan, Jumaat dan Sabtu</span><span><i class="t"></i>Sasaran jualan harian</span><span>✓ Semua slot cukup staf</span></div>
+<ul class="n-steps"><li><b>1</b>Jana draf</li><li><b>2</b>Semak</li><li><b>3</b>Lulus dan terbit</li></ul>
+</div>
+</article>
+<article class="n-c">
+<span class="n-tag">Baharu · Penghargaan</span>
+<h3>Shout-out S.O.F.W.A.H</h3>
+<p>Staf menghargai rakan sekerja ikut enam nilai teras Sofwah. Lima seminggu sahaja, supaya setiap satu bermakna.</p>
+<div class="n-mock"><span class="n-cap">Contoh paparan</span>
+<div class="n-vals"><b style="background:#7A3EFF">S</b><b style="background:#2D9CFF">O</b><b style="background:#00A898">F</b><b style="background:#E07A00">W</b><b style="background:#1B1F4B">A</b><b style="background:#C2185B">H</b></div>
+<div class="n-so"><b>W</b><span>Hafiz kepada Aina: kawal dinner rush tanpa satu aduan.<small>Winning Mentality · Gurun</small></span></div>
+</div>
+</article>
+<article class="n-c">
+<span class="n-tag">Baharu · Ramalan jualan</span>
+<h3>Staf ikut jualan, bukan agakan.</h3>
+<p>Sasaran harian didarab dengan capaian sebenar hari yang sama, kemudian dipecah kepada tengah hari, petang dan malam.</p>
+<div class="n-mock"><span class="n-cap">Cara kiraan</span>
+<div class="n-f"><span>Sasaran harian</span><i>×</i><span>Capaian 4 minggu</span><i>÷</i><span>SPLH</span><i>=</i><span class="r">Staf setiap slot</span></div>
+</div>
+</article>
+<article class="n-c">
+<span class="n-tag">Baharu · Tukar shift</span>
+<h3>Tukar shift tanpa WhatsApp.</h3>
+<p>Staf tawar shift, rakan cawangan ambil, pengurus lulus. Staf juga tanda hari tidak boleh bekerja untuk minggu depan.</p>
+<div class="n-mock"><span class="n-cap">Contoh paparan · ketersediaan</span>
+<div class="n-wk"><span><small>Is</small>M10</span><span><small>Se</small>E13</span><span class="x"><small>Ra</small>Tak</span><span><small>Kh</small>M10</span><span class="o"><small>Ju</small>Tawar</span><span><small>Sa</small>E13</span><span><small>Ah</small>R</span></div>
+</div>
+</article>
+<article class="n-c">
+<span class="n-tag">Baharu · Shift Pulse</span>
+<h3>Suara pasukan, tanpa nama.</h3>
+<p>Satu soalan selepas clock out: bagaimana shift tadi? Tiada nama, tiada masa. Pengurus pula ada log book untuk serah tugas.</p>
+<div class="n-mock"><span class="n-cap">Contoh paparan</span>
+<div class="n-sc"><b>1</b><b>2</b><b>3</b><b class="on">4</b><b>5</b></div>
+</div>
+</article>
+</div>
+<p class="n-note">Semua paparan di atas ialah contoh ilustrasi, bukan data sebenar.</p>
+</div>
+</section>
 <section id="ciri" class="sec dark b-ciri" aria-labelledby="b-ciri-h">
 <div class="b-spot" aria-hidden="true"></div>
 <div class="b-cbg corak slow" aria-hidden="true"></div>
@@ -1882,14 +2080,14 @@ p{margin:0}
 <div class="wrap">
 <div class="sec-head center">
 <p class="eyebrow">Kelebihan NARA HR</p>
-<h2 id="b-ciri-h" class="h2">12 kad. <span class="grad-text">Satu sistem HR yang maju, dibina untuk F&amp;B.</span></h2>
+<h2 id="b-ciri-h" class="h2">16 kad. <span class="grad-text">Satu sistem HR yang maju, dibina untuk F&amp;B.</span></h2>
 <p class="lede">Setiap kad ialah ciri yang sudah berjalan dalam NARA HR hari ini, dari pematuhan undang-undang hingga Face ID. Kad legenda dahulu.</p>
 </div>
 <p class="b-cats"><span class="b-kt">Teras</span><span class="b-kp">Pintar</span><span class="b-kb">Berkanun</span><span class="b-ks">Selamat</span></p>
 
 <div class="b-deck">
 <div class="b-cw b-l1" style="--d:0s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">01 / 12</span><span class="b-bd b-lg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z"/></svg>Legendary</span><span class="b-bd">Berkanun</span></div>
+<div class="b-top"><span class="b-no">01 / 16</span><span class="b-bd b-lg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l5 6-10 12L2 9z"/></svg>Legendary</span><span class="b-bd">Berkanun</span></div>
 <h3>Pematuhan undang-undang yang hidup.</h3>
 <p>Daftar peraturan dibina atas Akta Kerja 1955. Peraturan tidak pernah ditulis ganti: setiap nilai ialah satu versi dengan tarikh kuat kuasa.</p>
 <div class="b-ver">
@@ -1908,86 +2106,114 @@ p{margin:0}
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-law"/></svg></span></article></div>
 
 <div class="b-cw b-kp" style="--d:-1.3s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">02 / 12</span><span class="b-bd">Pintar</span></div>
+<div class="b-top"><span class="b-no">02 / 16</span><span class="b-bd">Pintar</span></div>
 <h3>Staffing Planner</h3>
 <p>Staf di lantai berbanding jualan POS setiap jam, ikut sasaran SPLH: Tambah, Kurangkan atau Seimbang.</p>
 <ul class="b-chips"><li>3 slot sehari</li><li>SPLH boleh dilaras</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-chart"/></svg></span></article></div>
 
 <div class="b-cw b-kp" style="--d:-2.6s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">03 / 12</span><span class="b-bd">Pintar</span></div>
+<div class="b-top"><span class="b-no">03 / 16</span><span class="b-bd">Pintar</span></div>
 <h3>Roster pintar</h3>
-<p>Cadang shift ikut jualan setiap jam, hari puncak dan rating staf. Salin minggu lepas, satu tekan.</p>
+<p>Cadang shift ikut ramalan jualan, hari puncak dan rating staf. Salin minggu lepas, satu tekan.</p>
 <ul class="b-chips"><li>Rating 1 hingga 5</li><li>Pinjam staf</li><li>Sync kalendar</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-cal"/></svg></span></article></div>
 
+<div class="b-cw b-kp" style="--d:-0.7s"><article class="b-cd"><div class="b-fa">
+<div class="b-top"><span class="b-no">04 / 16</span><span class="b-bd">Pintar</span></div>
+<h3>Jadual Auto</h3>
+<p>Satu tekan, draf roster semua cawangan dari ramalan jualan. Semak, lulus, baru staf nampak.</p>
+<ul class="b-chips"><li>Draf, semak, lulus</li><li>Hari rehat pintar</li></ul>
+</div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-cal"/></svg></span></article></div>
+
 <div class="b-cw b-kb" style="--d:-3.9s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">04 / 12</span><span class="b-bd">Berkanun</span></div>
+<div class="b-top"><span class="b-no">05 / 16</span><span class="b-bd">Berkanun</span></div>
 <h3>Payroll berkanun</h3>
 <p>KWSP, PERKESO, SIP, PCB. Draft, Confirmed, Paid dengan semakan. Pengurus cawangan tidak nampak gaji.</p>
 <ul class="b-chips"><li>OT 1.5x · 2x · 3x</li><li>Payslip ber-PIN</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-wallet"/></svg></span></article></div>
 
 <div class="b-cw b-kt" style="--d:-5.2s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">05 / 12</span><span class="b-bd">Teras</span></div>
+<div class="b-top"><span class="b-no">06 / 16</span><span class="b-bd">Teras</span></div>
 <h3>66 item faedah</h3>
 <p>Faedah ikut tempoh khidmat dan jawatan setiap staf, termasuk apa yang terbuka seterusnya.</p>
 <ul class="b-chips"><li>66 item</li><li>Sebelum clock in pertama</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-gift"/></svg></span></article></div>
 
 <div class="b-cw b-kt" style="--d:-6.5s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">06 / 12</span><span class="b-bd">Teras</span></div>
+<div class="b-top"><span class="b-no">07 / 16</span><span class="b-bd">Teras</span></div>
 <h3>Clock in yang tak boleh dipalsukan</h3>
 <p>Tahan hingga ring penuh, selfie + GPS dalam 150 m. Offline? Disimpan, dihantar bila online.</p>
 <ul class="b-chips"><li>150 m</li><li>Offline</li><li>Rekod pembetulan</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-tap"/></svg></span></article></div>
 
 <div class="b-cw b-ks" style="--d:-7.8s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">07 / 12</span><span class="b-bd">Selamat</span></div>
+<div class="b-top"><span class="b-no">08 / 16</span><span class="b-bd">Selamat</span></div>
 <h3>Amaran lokasi 10 km</h3>
 <p>Lebih 10 km dari titik clock in semasa shift? Pengurus dan Area Manager terima push + email.</p>
 <ul class="b-chips"><li>10 km</li><li>1 kali / shift</li><li>Tanpa jejak latar</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-radar"/></svg></span></article></div>
 
 <div class="b-cw b-kt" style="--d:-9.1s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">08 / 12</span><span class="b-bd">Teras</span></div>
+<div class="b-top"><span class="b-no">09 / 16</span><span class="b-bd">Teras</span></div>
 <h3>QR Join, kira-kira 2 minit</h3>
 <p>Staf baharu imbas satu QR dan daftar sendiri. Staff ID dicipta automatik ikut cawangan.</p>
 <ul class="b-chips"><li>~2 minit</li><li>ID automatik</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-qr"/></svg></span></article></div>
 
 <div class="b-cw b-kp" style="--d:-10.4s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">09 / 12</span><span class="b-bd">Pintar</span></div>
+<div class="b-top"><span class="b-no">10 / 16</span><span class="b-bd">Pintar</span></div>
 <h3>Minda Sofwah</h3>
 <p>Dalam Bahasa Melayu, ikut tempoh khidmat, jawatan dan cawangan setiap staf. Jawapan AI pilihan.</p>
-<ul class="b-chips"><li>44 soalan</li><li>9 topik</li><li>S.O.F.W.A.H</li></ul>
+<ul class="b-chips"><li>51 soalan</li><li>9 topik</li><li>S.O.F.W.A.H</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-chat"/></svg></span></article></div>
 
 <div class="b-cw b-kt" style="--d:-11.7s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">10 / 12</span><span class="b-bd">Teras</span></div>
+<div class="b-top"><span class="b-no">11 / 16</span><span class="b-bd">Teras</span></div>
 <h3>Notis wajib baca</h3>
 <p>Tanda baca bagi setiap staf. Cuti umum syarikat ditetapkan HR, diumumkan dengan push notification.</p>
 <ul class="b-chips"><li>Tanda baca</li><li>Cuti umum syarikat</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-bell"/></svg></span></article></div>
 
 <div class="b-cw b-kt" style="--d:-1.9s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">11 / 12</span><span class="b-bd">Teras</span></div>
+<div class="b-top"><span class="b-no">12 / 16</span><span class="b-bd">Teras</span></div>
 <h3>Permohonan dari telefon</h3>
 <p>Cuti tahunan, sakit (MC), kecemasan dan claim resit. Lulus di telefon, surat rasmi terus ke HR.</p>
 <ul class="b-chips"><li>Gambar MC + resit</li><li>Surat automatik</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-phone"/></svg></span></article></div>
 
 <div class="b-cw b-ks" style="--d:-4.4s"><article class="b-cd"><div class="b-fa">
-<div class="b-top"><span class="b-no">12 / 12</span><span class="b-bd">Selamat</span></div>
+<div class="b-top"><span class="b-no">13 / 16</span><span class="b-bd">Selamat</span></div>
 <h3>Face ID dan privasi</h3>
 <p>Passkey Face ID, payslip ber-PIN, notis privasi dalam app. Data dalam akaun Google syarikat sendiri.</p>
 <ul class="b-chips"><li>Face ID</li><li>PIN</li><li>PDPA</li></ul>
 </div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-face"/></svg></span></article></div>
 
+<div class="b-cw b-kt" style="--d:-3.2s"><article class="b-cd"><div class="b-fa">
+<div class="b-top"><span class="b-no">14 / 16</span><span class="b-bd">Teras</span></div>
+<h3>Penghargaan S.O.F.W.A.H</h3>
+<p>Staf beri shout-out kepada rakan ikut enam nilai teras. Juara setiap nilai, setiap bulan.</p>
+<ul class="b-chips"><li>6 nilai teras</li><li>5 seminggu</li></ul>
+</div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-gift"/></svg></span></article></div>
+
+<div class="b-cw b-kt" style="--d:-5.8s"><article class="b-cd"><div class="b-fa">
+<div class="b-top"><span class="b-no">15 / 16</span><span class="b-bd">Teras</span></div>
+<h3>Tukar shift dan ketersediaan</h3>
+<p>Staf tawar shift, rakan ambil, pengurus lulus. Had 45 jam dan hari rehat disemak dahulu.</p>
+<ul class="b-chips"><li>Open shift</li><li>Hari tak boleh kerja</li></ul>
+</div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-users"/></svg></span></article></div>
+
+<div class="b-cw b-kp" style="--d:-7.4s"><article class="b-cd"><div class="b-fa">
+<div class="b-top"><span class="b-no">16 / 16</span><span class="b-bd">Pintar</span></div>
+<h3>Shift Pulse dan log book</h3>
+<p>Skor 1 hingga 5 selepas clock out, tanpa nama. Log book pengurus untuk serah tugas.</p>
+<ul class="b-chips"><li>Tanpa nama</li><li>Tindakan susulan</li></ul>
+</div><span class="b-pop" aria-hidden="true"><svg class="b-ic"><use href="#b-i-chat"/></svg></span></article></div>
+
 <div class="b-cw b-kp b-cta" style="--d:-8.6s"><article class="b-cd"><div class="b-fa">
 <img class="b-mk" src="/assets/nara-mark.svg" alt="">
 <h3>Satu dek. Satu app.</h3>
-<p>Semua 12 kad dalam satu app untuk staf, pengurus dan HQ. iPhone, Android dan web.</p>
+<p>Semua 16 kad dalam satu app untuk staf, pengurus dan HQ. iPhone, Android dan web.</p>
 <a class="btn btn-pri b-go" href="https://nara.sofwah.my/hr/">Buka NARA HR</a>
 </div></article></div>
 </div>
@@ -2008,7 +2234,7 @@ p{margin:0}
 <div class="glass c-plate" aria-hidden="true"></div>
 <span class="c-fstar" aria-hidden="true"><svg class="star8 spin-slow" viewBox="-50 -50 100 100"><use href="#nara-star8" x="-50" y="-50" width="100" height="100"></use></svg></span>
 <div class="c-chat" role="group" aria-label="Contoh perbualan dengan Minda Sofwah">
-<div class="c-ch-h"><span class="c-av"><img src="/assets/nara-mark.svg" alt=""></span><div><b>Minda Sofwah</b><small>Bahasa Melayu · 44 soalan · 9 topik</small></div><span class="c-live"><i class="dot"></i>Sedia</span></div>
+<div class="c-ch-h"><span class="c-av"><img src="/assets/nara-mark.svg" alt=""></span><div><b>Minda Sofwah</b><small>Bahasa Melayu · 51 soalan · 9 topik</small></div><span class="c-live"><i class="dot"></i>Sedia</span></div>
 <ul class="c-topics" aria-label="9 topik Minda Sofwah">
 <li>Mula di Sofwah</li><li class="c-on">Nilai teras S.O.F.W.A.H</li><li>Shift &amp; kehadiran</li><li>Cuti</li><li>Gaji &amp; faedah</li><li>Kerjaya &amp; peningkatan</li><li>Misi &amp; hala tuju Sofwah</li><li>Peraturan &amp; disiplin</li><li>App NARA HR</li>
 </ul>
@@ -2133,8 +2359,8 @@ p{margin:0}
 <div class="c-sof-top">
 <div>
 <span class="eyebrow">Lahir di Sofwah</span>
-<h2 class="h2" id="c-sofwah-h">Dibina di dapur sebenar. <span class="c-gold-t">Diuji oleh 80 staf.</span></h2>
-<p class="lede">NARA HR lahir dan digunakan di Sofwah Arabic Grill, rangkaian restoran Arab halal milik Sofwah Arabiata (M) Sdn. Bhd. Lapan titik, satu bintang.</p>
+<h2 class="h2" id="c-sofwah-h">Dibina di dapur sebenar. <span class="c-gold-t">Untuk 80 staf.</span></h2>
+<p class="lede">NARA HR lahir di Sofwah Arabic Grill, rangkaian restoran Arab halal milik Sofwah Arabiata (M) Sdn. Bhd., dan mula digunakan secara rasmi pada 1 Januari 2027. Lapan titik, satu bintang.</p>
 <ul class="c-facts num">
 <li><b>6</b><span>cawangan di Kedah</span></li>
 <li><b>1</b><span>HQ</span></li>
